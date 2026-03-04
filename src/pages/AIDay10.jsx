@@ -16,6 +16,7 @@ export default function AIDay10() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [user, setUser] = useState(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
@@ -23,8 +24,10 @@ export default function AIDay10() {
       try {
         const currentUser = await getCurrentUserSafe();
         setUser(currentUser);
+        setIsLoadingUser(false);
       } catch (error) {
         console.error("Error loading user:", error);
+        setIsLoadingUser(false);
       }
     };
     loadUser();
@@ -229,7 +232,7 @@ export default function AIDay10() {
   const currentStepData = steps[currentStep];
   const progressPercent = ((currentStep + 1) / steps.length) * 100;
 
-  if (!user) {
+  if (isLoadingUser) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="w-16 h-16 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
