@@ -4,7 +4,7 @@ import path from "path"
 
 export default defineConfig(({ mode }) => ({
   // Use "/" for development, "/sprout-dev/" for production
-  base: mode === 'production' ? '/sprout-dev/' : '/',
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
