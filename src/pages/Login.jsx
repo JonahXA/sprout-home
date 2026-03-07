@@ -5,12 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Sprout, Mail, Lock } from "lucide-react";
+import { Sprout, Mail, Lock, User } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 
-const setLocalUser = (u) => localStorage.setItem("sprout_user", JSON.stringify(u));
+// Capitalizes each word: "jonah alsfasser" -> "Jonah Alsfasser"
+const capitalizeName = (name) =>
+  String(name || "")
+    .trim()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
 
 export default function Login() {
   const navigate = useNavigate();
+  const { loginUser } = useAuth();
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,15 +28,15 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    if (!email || !password) {
-      setError("Please enter your email and password.");
+    if (!fullName || !email || !password) {
+      setError("Please fill in all fields.");
       return;
     }
 
     const user = {
       id: crypto?.randomUUID?.() || `u_${Date.now()}`,
-      full_name: email.split("@")[0],
-      email: email,
+      full_name: capitalizeName(fullName),
+      email: email.trim().toLowerCase(),
       onboarding_completed: true,
       xp_points: 0,
       level: 1,
@@ -37,7 +46,7 @@ export default function Login() {
       show_on_leaderboard: true,
     };
 
-    setLocalUser(user);
+    loginUser(user);
     navigate(createPageUrl("Dashboard"));
   };
 
@@ -58,7 +67,7 @@ export default function Login() {
 
         <Card className="border-none shadow-2xl bg-white/80 backdrop-blur-xl">
           <CardHeader className="space-y-1 text-center pb-6">
-            <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+            <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
             <CardDescription className="text-base">
               Enter your details to continue learning
             </CardDescription>
@@ -66,6 +75,20 @@ export default function Login() {
 
           <CardContent>
             <form onSubmit={onSubmit} className="space-y-4">
+
+              <div className="space-y-2">
+                <Label className="text-gray-700">Full Name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Jonah Alsfasser"
+                    className="pl-10 h-12 border-gray-200"
+                  />
+                </div>
+              </div>
 
               <div className="space-y-2">
                 <Label className="text-gray-700">Email</Label>
@@ -122,7 +145,6 @@ export default function Login() {
                   </Link>
                 </div>
               </div>
-
             </form>
           </CardContent>
         </Card>

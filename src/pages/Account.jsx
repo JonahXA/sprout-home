@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { dataClient } from "@/api/dataClient";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Button } from "@/components/ui/button";
@@ -8,81 +6,61 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import {
-  Mail, Phone, School, GraduationCap, LogOut,
-  Edit, Check, Shield, ExternalLink
-} from "lucide-react";
+import { Mail, Phone, School, GraduationCap, LogOut, Edit, Check, Shield, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/lib/AuthContext";
+
+// Capitalizes each word: "jonah alsfasser" -> "Jonah Alsfasser"
+const capitalizeName = (name) =>
+  String(name || "")
+    .trim()
+    .split(" ")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
 
 export default function Account() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const [user, setUser] = useState(null);
+  const { user, loginUser, logout } = useAuth();
+
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({
-    phone: "",
-    school_id: "",
-    grade: "",
-    username: "",
-    show_on_leaderboard: true,
+    full_name: user?.full_name || "",
+    phone: user?.phone || "",
+    school_id: user?.school_id || "",
+    grade: user?.grade || "",
+    username: user?.username || "",
+    show_on_leaderboard: user?.show_on_leaderboard !== false,
   });
 
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const currentUser = await dataClient.auth.me();
-        setUser(currentUser);
-        setFormData({
-          phone: currentUser.phone || "",
-          school_id: currentUser.school_id || "",
-          grade: currentUser.grade || "",
-          username: currentUser.username || "",
-          show_on_leaderboard: currentUser.show_on_leaderboard !== false,
-        });
-      } catch (error) {
-        navigate(createPageUrl("Login"));
-      }
-    };
-    loadUser();
-  }, [navigate]);
-
-  const { data: schools = [] } = useQuery({
-    queryKey: ["schools"],
-    queryFn: () => dataClient.entities.School.list(),
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: async (data) => {
-      await dataClient.auth.updateMe(data);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["user"]);
-      setEditing(false);
-      toast.success("Profile updated successfully!");
-      window.location.reload();
-    },
-    onError: () => {
-      toast.error("Failed to update profile");
-    },
-  });
+  // Redirect to login if not authenticated
+  if (!user) {
+    navigate(createPageUrl("Login"));
+    return null;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateMutation.mutate(formData);
+    const updated = {
+      ...user,
+      ...formData,
+      full_name: capitalizeName(formData.full_name),
+    };
+    loginUser(updated); // persist to state + localStorage
+    setEditing(false);
+    toast.success("Profile updated successfully!");
   };
 
-  const handleLogout = async () => {
-    await dataClient.auth.logout();
-    navigate(createPageUrl("Login"));
+  const handleLogout = () => {
+    logout(false);
+    navigate(createPageUrl("Dashboard"));
   };
 
-  if (!user) return null;
-
-  const selectedSchool = schools.find((s) => s.id === user.school_id);
+  const displayName = capitalizeName(user.full_name);
 
   return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
+
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -100,15 +78,15 @@ export default function Account() {
           )}
         </div>
 
-        {/* Profile Card */}
+        {/* Profile Banner */}
         <Card className="border-none shadow-xl bg-gradient-to-br from-lime-400 to-green-500 text-white">
           <CardContent className="p-8">
             <div className="flex items-center gap-6">
-              <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white">
-                <span className="text-4xl font-bold">{user.full_name?.[0]?.toUpperCase() || "U"}</span>
+              <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                <span className="text-4xl font-bold">{displayName?.[0] || "U"}</span>
               </div>
               <div>
-                <h2 className="text-3xl font-bold mb-2">{user.full_name}</h2>
+                <h2 className="text-3xl font-bold mb-2">{displayName}</h2>
                 <p className="text-lg opacity-90">{user.email}</p>
                 <div className="flex items-center gap-4 mt-3">
                   <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -155,7 +133,7 @@ export default function Account() {
                   <School className="w-5 h-5 text-gray-600" />
                   <div>
                     <p className="text-sm text-gray-600">School</p>
-                    <p className="font-semibold">{selectedSchool?.name || "Not selected"}</p>
+                    <p className="font-semibold">{user.school_id || "Not selected"}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50">
@@ -169,6 +147,14 @@ export default function Account() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
+                  <Label>Full Name</Label>
+                  <Input
+                    value={formData.full_name}
+                    onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                    placeholder="Jonah Alsfasser"
+                  />
+                </div>
+                <div className="space-y-2">
                   <Label>Phone Number</Label>
                   <Input
                     type="tel"
@@ -177,124 +163,51 @@ export default function Account() {
                     placeholder="(123) 456-7890"
                   />
                 </div>
-
                 <div className="space-y-2">
-                  <Label>School</Label>
-                  <Select
-                    value={formData.school_id}
-                    onValueChange={(value) => setFormData({ ...formData, school_id: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your school" />
-                    </SelectTrigger>
+                  <Label>Grade</Label>
+                  <Select value={formData.grade} onValueChange={(v) => setFormData({ ...formData, grade: v })}>
+                    <SelectTrigger><SelectValue placeholder="Select your grade" /></SelectTrigger>
                     <SelectContent>
-                      {schools.map((school) => (
-                        <SelectItem key={school.id} value={school.id}>
-                          {school.name}
-                        </SelectItem>
+                      {["6th Grade","7th Grade","8th Grade","9th Grade (Freshman)","10th Grade (Sophomore)","11th Grade (Junior)","12th Grade (Senior)","College Freshman","College Sophomore","College Junior","College Senior","Graduate Student","Other"].map((g) => (
+                        <SelectItem key={g} value={g}>{g}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-
                 <div className="space-y-2">
-                  <Label>Grade</Label>
-                  <Select
-                    value={formData.grade}
-                    onValueChange={(value) => setFormData({ ...formData, grade: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your grade" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="6th Grade">6th Grade</SelectItem>
-                      <SelectItem value="7th Grade">7th Grade</SelectItem>
-                      <SelectItem value="8th Grade">8th Grade</SelectItem>
-                      <SelectItem value="9th Grade (Freshman)">9th Grade (Freshman)</SelectItem>
-                      <SelectItem value="10th Grade (Sophomore)">10th Grade (Sophomore)</SelectItem>
-                      <SelectItem value="11th Grade (Junior)">11th Grade (Junior)</SelectItem>
-                      <SelectItem value="12th Grade (Senior)">12th Grade (Senior)</SelectItem>
-                      <SelectItem value="Freshman">College Freshman</SelectItem>
-                      <SelectItem value="Sophomore">College Sophomore</SelectItem>
-                      <SelectItem value="Junior">College Junior</SelectItem>
-                      <SelectItem value="Senior">College Senior</SelectItem>
-                      <SelectItem value="Graduate Student">Graduate Student</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Username */}
-                <div className="space-y-2">
-                  <Label htmlFor="username">Username (Display Name)</Label>
+                  <Label>Username (leaderboard display name)</Label>
                   <Input
-                    id="username"
-                    type="text"
-                    placeholder="How you appear on leaderboards"
                     value={formData.username}
                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                    placeholder="How you appear on leaderboards"
                   />
-                  <p className="text-sm text-gray-500">
-                    This name will be visible to other users on the leaderboard
-                  </p>
                 </div>
-
-                {/* Privacy Setting */}
-                <div className="space-y-3 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 border-2 border-blue-200">
-                  <Label className="text-base font-semibold flex items-center gap-2">
-                    <span>🔒 Privacy Settings</span>
-                  </Label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      id="show_on_leaderboard"
-                      checked={formData.show_on_leaderboard}
-                      onChange={(e) => setFormData({ ...formData, show_on_leaderboard: e.target.checked })}
-                      className="w-5 h-5 rounded border-gray-300 text-lime-600 focus:ring-lime-500"
-                    />
-                    <label htmlFor="show_on_leaderboard" className="text-sm text-gray-700 cursor-pointer">
-                      Show my profile on the leaderboard
-                    </label>
-                  </div>
-                  <p className="text-xs text-gray-600">
-                    {formData.show_on_leaderboard
-                      ? "Your username and stats will be visible to others"
-                      : "You will be hidden from leaderboards but can still track your own progress"}
-                  </p>
+                <div className="flex items-center gap-3 p-4 rounded-xl bg-blue-50 border border-blue-200">
+                  <input
+                    type="checkbox"
+                    id="show_on_leaderboard"
+                    checked={formData.show_on_leaderboard}
+                    onChange={(e) => setFormData({ ...formData, show_on_leaderboard: e.target.checked })}
+                    className="w-5 h-5"
+                  />
+                  <label htmlFor="show_on_leaderboard" className="text-sm text-gray-700 cursor-pointer">
+                    Show my profile on the leaderboard
+                  </label>
                 </div>
-
                 <div className="flex gap-3">
                   <Button type="submit" className="bg-lime-500 hover:bg-lime-600 flex-1">
-                    <Check className="w-5 h-5 mr-2" />
-                    Save Changes
+                    <Check className="w-5 h-5 mr-2" />Save Changes
                   </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => {
-                      setEditing(false);
-                      setFormData({
-                        phone: user.phone || "",
-                        school_id: user.school_id || "",
-                        grade: user.grade || "",
-                        username: user.username || "",
-                        show_on_leaderboard: user.show_on_leaderboard !== false,
-                      });
-                    }}
-                  >
-                    Cancel
-                  </Button>
+                  <Button type="button" variant="outline" onClick={() => setEditing(false)}>Cancel</Button>
                 </div>
               </form>
             )}
           </CardContent>
         </Card>
 
-        {/* Stats Card */}
+        {/* Stats */}
         <Card className="border-none shadow-lg bg-white/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle>My Stats</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle>My Stats</CardTitle></CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200">
@@ -316,16 +229,12 @@ export default function Account() {
         {/* Logout */}
         <Card className="border-none shadow-lg bg-white/80 backdrop-blur-sm">
           <CardContent className="p-6">
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="w-full h-12 border-red-200 text-red-600 hover:bg-red-50"
-            >
-              <LogOut className="w-5 h-5 mr-2" />
-              Log Out
+            <Button onClick={handleLogout} variant="outline" className="w-full h-12 border-red-200 text-red-600 hover:bg-red-50">
+              <LogOut className="w-5 h-5 mr-2" />Log Out
             </Button>
           </CardContent>
         </Card>
+
       </div>
     </div>
   );
