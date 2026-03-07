@@ -5,23 +5,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Sprout, Mail, User } from "lucide-react";
+import { Sprout, Mail, Lock } from "lucide-react";
 
 const setLocalUser = (u) => localStorage.setItem("sprout_user", JSON.stringify(u));
 
 export default function Login() {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Please enter your email and password.");
+      return;
+    }
 
     const user = {
       id: crypto?.randomUUID?.() || `u_${Date.now()}`,
-      full_name: fullName || "Student",
-      email: email || "student@example.com",
-      onboarding_completed: true, // LOGIN goes straight to dashboard
+      full_name: email.split("@")[0],
+      email: email,
+      onboarding_completed: true,
       xp_points: 0,
       level: 1,
       current_streak: 0,
@@ -31,7 +38,7 @@ export default function Login() {
     };
 
     setLocalUser(user);
-    navigate(createPageUrl("Dashboard")); // LOGIN -> DASHBOARD
+    navigate(createPageUrl("Dashboard"));
   };
 
   return (
@@ -59,18 +66,6 @@ export default function Login() {
 
           <CardContent>
             <form onSubmit={onSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label className="text-gray-700">Full Name</Label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <Input
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="John Smith"
-                    className="pl-10 h-12 border-gray-200"
-                  />
-                </div>
-              </div>
 
               <div className="space-y-2">
                 <Label className="text-gray-700">Email</Label>
@@ -85,6 +80,24 @@ export default function Login() {
                   />
                 </div>
               </div>
+
+              <div className="space-y-2">
+                <Label className="text-gray-700">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="pl-10 h-12 border-gray-200"
+                  />
+                </div>
+              </div>
+
+              {error && (
+                <p className="text-sm text-red-500 text-center">{error}</p>
+              )}
 
               <Button
                 type="submit"
@@ -101,14 +114,15 @@ export default function Login() {
                 </div>
                 <div className="text-sm text-gray-600">
                   Don't have an account yet?{" "}
-                  <Link 
-                    to={createPageUrl("Signup")} 
+                  <Link
+                    to={createPageUrl("Signup")}
                     className="text-lime-600 font-semibold hover:underline"
                   >
                     Sign up
                   </Link>
                 </div>
               </div>
+
             </form>
           </CardContent>
         </Card>

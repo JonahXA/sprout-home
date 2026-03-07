@@ -10,8 +10,6 @@ import {
   TrendingUp, Award, ChevronRight, Sparkles, Calculator
 } from "lucide-react";
 
-// NOTE: Base44 removed in migration pass.
-// TODO (later phase): wire these to your real backend/API.
 const getLocalUser = () => {
   try {
     const raw = localStorage.getItem("sprout_user");
@@ -22,18 +20,10 @@ const getLocalUser = () => {
 };
 
 const data = {
-  async listCourses() {
-    return [];
-  },
-  async listUserProgress(/* userEmail */) {
-    return [];
-  },
-  async listRecentActivity(/* userEmail */) {
-    return [];
-  },
-  async listUserBadges(/* userEmail */) {
-    return [];
-  }
+  async listCourses() { return []; },
+  async listUserProgress() { return []; },
+  async listRecentActivity() { return []; },
+  async listUserBadges() { return []; }
 };
 
 export default function Dashboard() {
@@ -41,18 +31,8 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const currentUser = getLocalUser();
-    if (!currentUser) {
-      navigate(createPageUrl("Login"));
-      return;
-    }
-
-    setUser(currentUser);
-
-    // Redirect to onboarding if not completed
-    if (!currentUser.onboarding_completed) {
-      navigate(createPageUrl("SchoolSelection"));
-    }
+    // Don't auto-login from localStorage
+    // Users must explicitly log in each visit
   }, [navigate]);
 
   const { data: courses = [] } = useQuery({
@@ -66,52 +46,62 @@ export default function Dashboard() {
     enabled: !!user,
   });
 
-  const { data: recentActivity = [] } = useQuery({
-    queryKey: ["recentActivity", user?.email],
-    queryFn: () => data.listRecentActivity(user?.email),
-    enabled: !!user,
-  });
-
   const { data: userBadges = [] } = useQuery({
     queryKey: ["userBadges", user?.email],
     queryFn: () => data.listUserBadges(user?.email),
     enabled: !!user,
   });
 
-  if (!user) return null;
-
   const completedLessons = userProgress.filter((p) => p.completed).length;
-  const totalXP = user.xp_points || 0;
-  const currentStreak = user.current_streak || 0;
-  const level = user.level || 1;
+  const totalXP = user?.xp_points || 0;
+  const currentStreak = user?.current_streak || 0;
+  const level = user?.level || 1;
   const xpForNextLevel = level * 100;
   const xpProgress = totalXP % 100;
-
   const featuredCourses = courses.filter((c) => c.is_featured).slice(0, 3);
 
   return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
+
         {/* Welcome Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Welcome back, {user.full_name?.split(" ")[0]}! 👋
+              {user ? `Welcome back, ${user.full_name?.split(" ")[0]}! 👋` : "Hello! 👋"}
             </h1>
             <p className="text-gray-600 mt-1">Ready to continue growing today?</p>
           </div>
-          <Button
-            onClick={() => navigate(createPageUrl("Learn"))}
-            className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white shadow-lg shadow-lime-200"
-          >
-            <BookOpen className="w-5 h-5 mr-2" />
-            Browse Courses
-          </Button>
+          <div className="flex gap-3">
+            {!user && (
+              <>
+                <Button
+                  onClick={() => navigate(createPageUrl("Login"))}
+                  variant="outline"
+                  className="border-lime-500 text-lime-600 hover:bg-lime-50"
+                >
+                  Login
+                </Button>
+                <Button
+                  onClick={() => navigate(createPageUrl("Signup"))}
+                  className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white shadow-lg shadow-lime-200"
+                >
+                  Sign Up
+                </Button>
+              </>
+            )}
+            <Button
+              onClick={() => navigate(createPageUrl("Learn"))}
+              className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white shadow-lg shadow-lime-200"
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Browse Courses
+            </Button>
+          </div>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Streak Card */}
           <Card className="border-none shadow-lg bg-gradient-to-br from-orange-400 to-red-500 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
             <CardHeader className="pb-2">
@@ -124,7 +114,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* XP Card */}
           <Card className="border-none shadow-lg bg-gradient-to-br from-purple-400 to-pink-500 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
             <CardHeader className="pb-2">
@@ -137,7 +126,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Lessons Card */}
           <Card className="border-none shadow-lg bg-gradient-to-br from-blue-400 to-cyan-500 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
             <CardHeader className="pb-2">
@@ -150,7 +138,6 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Badges Card */}
           <Card className="border-none shadow-lg bg-gradient-to-br from-yellow-400 to-orange-500 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
             <CardHeader className="pb-2">
@@ -199,21 +186,18 @@ export default function Dashboard() {
               <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {featuredCourses.map((course) => {
               const courseProgress = userProgress.filter(
                 (p) => p.course_id === course.id && p.completed
               ).length;
               const progressPercent = (courseProgress / (course.lessons_count || 1)) * 100;
-
               const categoryGradients = {
                 Investing: "from-green-400 to-emerald-500",
                 Saving: "from-blue-400 to-cyan-500",
                 "Credit & Debt": "from-purple-400 to-pink-500",
                 Insurance: "from-orange-400 to-red-500",
               };
-
               return (
                 <Card
                   key={course.id}
@@ -256,7 +240,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Quick Navigation Grid */}
+        {/* Quick Access */}
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Quick Access</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -327,7 +311,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Quick Actions Grid */}
+        {/* Quick Actions */}
         <div className="grid md:grid-cols-2 gap-4">
           <Card className="border-none shadow-lg bg-gradient-to-r from-lime-400 to-green-500 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 opacity-10">
@@ -365,6 +349,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
+
       </div>
     </div>
   );
