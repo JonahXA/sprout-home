@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
 const noLayoutPages = new Set([
@@ -9,15 +8,15 @@ const noLayoutPages = new Set([
 export default function Layout({ children, currentPageName }) {
   if (noLayoutPages.has(String(currentPageName || "").toLowerCase())) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-lime-50 via-white to-green-50">
+      <div style={{ minHeight: "100vh", background: "#F6F8FA" }}>
         {children}
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f8f9fb" }}>
-      <main style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 28px 80px" }}>
+    <div style={{ minHeight: "100vh", background: "#FFFFFF" }}>
+      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 32px 80px" }}>
         {children}
       </main>
     </div>
