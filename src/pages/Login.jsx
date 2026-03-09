@@ -5,21 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Sprout, Mail, Lock, User } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
+import logoImg from "../assets/logo.png";
 
-// Capitalizes each word: "jonah alsfasser" -> "Jonah Alsfasser"
-const capitalizeName = (name) =>
-  String(name || "")
-    .trim()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
+const safeParse = (raw, fallback) => {
+  try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+};
 
 export default function Login() {
   const navigate = useNavigate();
   const { loginUser } = useAuth();
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,22 +23,20 @@ export default function Login() {
   const onSubmit = (e) => {
     e.preventDefault();
     setError("");
+    if (!email || !password) { setError("Please fill in all fields."); return; }
 
-    if (!fullName || !email || !password) {
-      setError("Please fill in all fields.");
-      return;
-    }
+    // Try to restore an existing user by email
+    const users = safeParse(localStorage.getItem("sprout_users"), []);
+    const normalizedEmail = email.trim().toLowerCase();
+    const existing = users.find((u) => (u.email || "").toLowerCase() === normalizedEmail);
 
-    const user = {
+    const user = existing || {
       id: crypto?.randomUUID?.() || `u_${Date.now()}`,
-      full_name: capitalizeName(fullName),
-      email: email.trim().toLowerCase(),
+      full_name: "",
+      email: normalizedEmail,
       onboarding_completed: true,
-      xp_points: 0,
-      level: 1,
-      current_streak: 0,
-      total_lessons_completed: 0,
-      total_courses_completed: 0,
+      xp_points: 0, level: 1, current_streak: 0,
+      total_lessons_completed: 0, total_courses_completed: 0,
       show_on_leaderboard: true,
     };
 
@@ -51,24 +45,21 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-lime-50 via-white to-green-50">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-[#F8FAFC]">
       <div className="w-full max-w-md">
+
+        {/* Brand — matches Dashboard exactly */}
         <div className="flex justify-center mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-14 h-14 bg-gradient-to-br from-lime-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <Sprout className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Sprout</h1>
-              <p className="text-sm text-gray-500">Grow Your Knowledge</p>
-            </div>
-          </div>
+          <Link to={createPageUrl("Dashboard")} style={{ display:"flex", alignItems:"center", gap:2, textDecoration:"none" }}>
+            <span style={{ fontSize:34, fontWeight:900, color:"#1F3A64", letterSpacing:"-1.2px" }}>Sprout</span>
+            <img src={logoImg} alt="Sprout" style={{ width:64, height:64, objectFit:"contain" }} />
+          </Link>
         </div>
 
-        <Card className="border-none shadow-2xl bg-white/80 backdrop-blur-xl">
+        <Card className="border border-gray-200 shadow-lg bg-white rounded-2xl">
           <CardHeader className="space-y-1 text-center pb-6">
-            <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
-            <CardDescription className="text-base">
+            <CardTitle className="text-2xl font-bold tracking-tight">Welcome back</CardTitle>
+            <CardDescription className="text-base text-gray-500">
               Enter your details to continue learning
             </CardDescription>
           </CardHeader>
@@ -77,70 +68,56 @@ export default function Login() {
             <form onSubmit={onSubmit} className="space-y-4">
 
               <div className="space-y-2">
-                <Label className="text-gray-700">Full Name</Label>
+                <Label className="text-gray-700 font-medium">Email</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <Input
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="Jonah Alsfasser"
-                    className="pl-10 h-12 border-gray-200"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-gray-700">Email</Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@school.edu"
-                    className="pl-10 h-12 border-gray-200"
+                    className="pl-10 h-11 border-gray-200"
+                    autoComplete="email"
+                    required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-700">Password</Label>
+                <Label className="text-gray-700 font-medium">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="pl-10 h-12 border-gray-200"
+                    className="pl-10 h-11 border-gray-200"
+                    autoComplete="current-password"
+                    required
                   />
                 </div>
               </div>
 
-              {error && (
-                <p className="text-sm text-red-500 text-center">{error}</p>
-              )}
+              {error && <p className="text-sm text-red-500 text-center">{error}</p>}
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white font-semibold shadow-lg shadow-lime-200"
+                className="w-full h-11 font-semibold text-white rounded-lg mt-2"
+                style={{ background:"#1F3A64" }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "#172E52"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "#1F3A64"}
               >
                 Continue
               </Button>
 
-              <div className="text-center space-y-2">
-                <div className="text-sm text-gray-500">
-                  <Link className="underline" to={createPageUrl("ForgotPassword")}>
+              <div className="text-center space-y-2 pt-2">
+                <div className="text-sm">
+                  <Link className="text-[#3B82F6] font-medium hover:underline" to={createPageUrl("ForgotPassword")}>
                     Forgot password?
                   </Link>
                 </div>
                 <div className="text-sm text-gray-600">
-                  Don't have an account yet?{" "}
-                  <Link
-                    to={createPageUrl("Signup")}
-                    className="text-lime-600 font-semibold hover:underline"
-                  >
+                  Don't have an account?{" "}
+                  <Link to={createPageUrl("Signup")} className="text-[#3B82F6] font-semibold hover:underline">
                     Sign up
                   </Link>
                 </div>

@@ -17,3 +17,6 @@ npm
 # OS
 .DS_Store
 Thumbs.db
+
+backend/.env
+backend/sprout.db

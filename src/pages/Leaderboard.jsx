@@ -4,25 +4,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Medal, TrendingUp, Flame, Zap, Crown } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-// ----- Local user + local leaderboard store (migration placeholder) -----
 const getLocalUser = () => {
   try {
     const raw = localStorage.getItem("sprout_user");
     return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 };
 
-// Optional: you can seed this key with an array of users
-// localStorage.setItem("sprout_leaderboard_users", JSON.stringify([...]))
 const getAllUsersLocal = () => {
   try {
     const raw = localStorage.getItem("sprout_leaderboard_users");
     return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+  } catch { return []; }
 };
 
 const normalizeUsers = (users = []) => {
@@ -56,13 +49,7 @@ export default function Leaderboard() {
     queryFn: async () => {
       const currentUser = getLocalUser();
       const stored = normalizeUsers(getAllUsersLocal());
-
-      // If nothing stored yet, at least show the current user (if available)
-      const combined = currentUser
-        ? normalizeUsers([currentUser, ...stored])
-        : stored;
-
-      // De-dupe by email/id
+      const combined = currentUser ? normalizeUsers([currentUser, ...stored]) : stored;
       const seen = new Set();
       const deduped = combined.filter((u) => {
         const key = u.email || u.id;
@@ -71,7 +58,6 @@ export default function Leaderboard() {
         seen.add(key);
         return true;
       });
-
       return deduped.sort((a, b) => (b.xp_points || 0) - (a.xp_points || 0));
     },
   });
@@ -80,8 +66,7 @@ export default function Leaderboard() {
     queryKey: ["leaderboard_local_school", user?.school_id],
     queryFn: async () => {
       if (!user?.school_id) return [];
-      return allUsers
-        .filter((u) => u.school_id === user.school_id)
+      return allUsers.filter((u) => u.school_id === user.school_id)
         .sort((a, b) => (b.xp_points || 0) - (a.xp_points || 0));
     },
     enabled: !!user?.school_id && allUsers.length > 0,
@@ -100,29 +85,11 @@ export default function Leaderboard() {
 
   const getDisplayUsers = () => {
     switch (activeTab) {
-      case "school":
-        return user?.school_id ? schoolUsers : allUsers;
-      case "grade":
-        return (user?.grade && user?.school_id) ? gradeUsers : allUsers;
-      case "global":
-        return allUsers;
-      default:
-        return allUsers;
+      case "school": return user?.school_id ? schoolUsers : allUsers;
+      case "grade":  return (user?.grade && user?.school_id) ? gradeUsers : allUsers;
+      case "global": return allUsers;
+      default:       return allUsers;
     }
-  };
-
-  const getRankIcon = (rank) => {
-    if (rank === 1) return <Crown className="w-6 h-6 text-yellow-500" />;
-    if (rank === 2) return <Medal className="w-6 h-6 text-gray-400" />;
-    if (rank === 3) return <Medal className="w-6 h-6 text-orange-600" />;
-    return null;
-  };
-
-  const getRankBadge = (rank) => {
-    if (rank === 1) return "bg-gradient-to-r from-yellow-400 to-orange-500";
-    if (rank === 2) return "bg-gradient-to-r from-gray-300 to-gray-400";
-    if (rank === 3) return "bg-gradient-to-r from-orange-400 to-orange-600";
-    return "bg-gray-100";
   };
 
   const displayUsers = getDisplayUsers();
@@ -130,35 +97,38 @@ export default function Leaderboard() {
     ? displayUsers.findIndex((u) => u.email === user.email) + 1
     : -1;
 
+  const podiumMeta = {
+    1: { borderColor: "#F59E0B", bg: "#FFF3E0", icon: <Crown className="w-4 h-4" style={{ color: "#F59E0B" }} />, label: "#1", labelColor: "#F59E0B" },
+    2: { borderColor: "#D1D5DB", bg: "#F8FAFC",  icon: <Medal className="w-4 h-4 text-gray-400" />,               label: "#2", labelColor: "#64748B" },
+    3: { borderColor: "#D1D5DB", bg: "#F8FAFC",  icon: <Medal className="w-4 h-4" style={{ color: "#B45309" }} />, label: "#3", labelColor: "#B45309" },
+  };
+
   return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-5xl mx-auto space-y-6">
+
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-              <Trophy className="w-9 h-9 text-white" />
-            </div>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Leaderboard 🏆
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">
+            Leaderboard
           </h1>
-          <p className="text-gray-600">Compete with fellow learners</p>
+          <p className="text-gray-500">Compete with fellow learners</p>
         </div>
 
         {/* My Rank Card */}
         {user && myRank > 0 && (
-          <Card className="border-none shadow-lg bg-gradient-to-r from-lime-400 to-green-500 text-white">
+          <Card className="border-none shadow-md overflow-hidden" style={{ background: "#1F3A64" }}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl font-bold">
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold"
+                    style={{ background: "rgba(255,255,255,0.12)", color: "#fff" }}>
                     #{myRank}
                   </div>
                   <div>
-                    <p className="text-sm opacity-90">Your Rank</p>
-                    <p className="text-2xl font-bold">{user.full_name}</p>
-                    <div className="flex items-center gap-3 mt-1">
+                    <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>Your Rank</p>
+                    <p className="text-2xl font-bold text-white">{user.full_name}</p>
+                    <div className="flex items-center gap-3 mt-1" style={{ color: "rgba(255,255,255,0.75)" }}>
                       <div className="flex items-center gap-1">
                         <Zap className="w-4 h-4" />
                         <span className="text-sm">{user.xp_points || 0} XP</span>
@@ -170,7 +140,7 @@ export default function Leaderboard() {
                     </div>
                   </div>
                 </div>
-                <TrendingUp className="w-12 h-12 opacity-20" />
+                <TrendingUp className="w-10 h-10 text-white opacity-15" />
               </div>
             </CardContent>
           </Card>
@@ -178,117 +148,110 @@ export default function Leaderboard() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3 bg-white/80 backdrop-blur-sm">
+          <TabsList className="grid w-full grid-cols-3 bg-gray-100">
             <TabsTrigger value="school">My School</TabsTrigger>
             <TabsTrigger value="grade">My Grade</TabsTrigger>
             <TabsTrigger value="global">Global</TabsTrigger>
           </TabsList>
 
           <TabsContent value={activeTab} className="mt-6">
+
             {/* Top 3 Podium */}
             {displayUsers.length >= 3 && displayUsers[0] && displayUsers[1] && displayUsers[2] && (
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                {/* 2nd Place */}
-                <div className="flex flex-col items-center pt-12">
-                  <div className={`w-20 h-20 ${getRankBadge(2)} rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg mb-3`}>
-                    {((displayUsers[1]?.username || displayUsers[1]?.full_name || "?")[0]).toUpperCase()}
-                  </div>
-                  <Medal className="w-8 h-8 text-gray-400 mb-2" />
-                  <p className="font-semibold text-center text-sm">{displayUsers[1]?.username || displayUsers[1]?.full_name || "Anonymous"}</p>
-                  <p className="text-xs text-gray-600 flex items-center gap-1 mt-1">
-                    <Zap className="w-3 h-3 text-lime-500" />
-                    {displayUsers[1]?.xp_points || 0} XP
-                  </p>
-                </div>
-
-                {/* 1st Place */}
-                <div className="flex flex-col items-center">
-                  <div className={`w-24 h-24 ${getRankBadge(1)} rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-xl mb-3`}>
-                    {((displayUsers[0]?.username || displayUsers[0]?.full_name || "?")[0]).toUpperCase()}
-                  </div>
-                  <Crown className="w-10 h-10 text-yellow-500 mb-2" />
-                  <p className="font-bold text-center">{displayUsers[0]?.username || displayUsers[0]?.full_name || "Anonymous"}</p>
-                  <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                    <Zap className="w-4 h-4 text-lime-500" />
-                    {displayUsers[0]?.xp_points || 0} XP
-                  </p>
-                </div>
-
-                {/* 3rd Place */}
-                <div className="flex flex-col items-center pt-16">
-                  <div className={`w-20 h-20 ${getRankBadge(3)} rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg mb-3`}>
-                    {((displayUsers[2]?.username || displayUsers[2]?.full_name || "?")[0]).toUpperCase()}
-                  </div>
-                  <Medal className="w-8 h-8 text-orange-600 mb-2" />
-                  <p className="font-semibold text-center text-sm">{displayUsers[2]?.username || displayUsers[2]?.full_name || "Anonymous"}</p>
-                  <p className="text-xs text-gray-600 flex items-center gap-1 mt-1">
-                    <Zap className="w-3 h-3 text-lime-500" />
-                    {displayUsers[2]?.xp_points || 0} XP
-                  </p>
-                </div>
+              <div className="grid grid-cols-3 gap-4 mb-8 items-end">
+                {[
+                  { data: displayUsers[1], rank: 2 },
+                  { data: displayUsers[0], rank: 1 },
+                  { data: displayUsers[2], rank: 3 },
+                ].map(({ data: u, rank }) => {
+                  const meta = podiumMeta[rank];
+                  const isFirst = rank === 1;
+                  return (
+                    <div key={rank} className={isFirst ? "-mt-4" : ""}>
+                      <Card className={`border ${isFirst ? "border-2" : ""} shadow-sm`}
+                        style={{ borderColor: meta.borderColor, background: meta.bg }}>
+                        <CardContent className={`${isFirst ? "p-5" : "p-4"} text-center`}>
+                          <div className="flex items-center justify-center gap-1 mb-3 font-bold text-sm"
+                            style={{ color: meta.labelColor }}>
+                            {meta.icon} {meta.label}
+                          </div>
+                          <div
+                            className={`${isFirst ? "w-14 h-14 text-xl" : "w-12 h-12 text-lg"} rounded-full flex items-center justify-center text-white font-bold mx-auto mb-2`}
+                            style={{ background: "#1F3A64" }}
+                          >
+                            {((u?.username || u?.full_name || "?")[0]).toUpperCase()}
+                          </div>
+                          <p className={`${isFirst ? "font-bold" : "font-semibold text-sm"} text-gray-900 text-center`}>
+                            {u?.username || u?.full_name || "Anonymous"}
+                          </p>
+                          <p className="text-xs text-gray-500 flex items-center justify-center gap-1 mt-1">
+                            <Zap className="w-3 h-3 text-[#22C55E]" />
+                            {u?.xp_points || 0} XP
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  );
+                })}
               </div>
             )}
 
-            {/* Rest of Rankings */}
-            <Card className="border-none shadow-lg bg-white/80 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle>Rankings</CardTitle>
+            {/* Rankings 4+ */}
+            <Card className="border border-gray-100 shadow-sm bg-white">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base font-bold text-gray-900">Rankings</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-2">
                 {displayUsers.slice(3).map((u, idx) => {
                   const rank = idx + 4;
                   const isCurrentUser = u.email && user?.email && u.email === user.email;
-
                   return (
-                    <div
-                      key={u.id}
+                    <div key={u.id}
                       className={`flex items-center justify-between p-4 rounded-xl transition-all ${
-                        isCurrentUser
-                          ? "bg-gradient-to-r from-lime-50 to-green-50 border-2 border-lime-400"
-                          : "bg-gray-50 hover:bg-gray-100"
+                        isCurrentUser ? "border-2 border-[#1F3A64]/20 bg-[#E8F0FE]" : "bg-gray-50 hover:bg-gray-100"
                       }`}
                     >
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`w-10 h-10 flex items-center justify-center rounded-full font-bold ${
-                            isCurrentUser ? "bg-lime-500 text-white" : "bg-gray-200 text-gray-700"
-                          }`}
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 flex items-center justify-center rounded-lg font-bold text-sm border border-gray-200 bg-white text-gray-500"
+                          style={isCurrentUser ? { background: "#1F3A64", color: "#fff", border: "none" } : {}}
                         >
                           {rank}
                         </div>
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                          style={{ background: "#1F3A64" }}>
                           {((u.username || u.full_name || "?")[0]).toUpperCase()}
                         </div>
                         <div>
-                          <p className={`font-semibold ${isCurrentUser ? "text-lime-700" : "text-gray-900"}`}>
+                          <p className={`font-semibold text-sm ${isCurrentUser ? "text-[#1F3A64]" : "text-gray-900"}`}>
                             {u.username || u.full_name || "Anonymous"}
-                            {isCurrentUser && <span className="ml-2 text-xs">(You)</span>}
+                            {isCurrentUser && <span className="ml-2 text-xs font-normal text-gray-400">(You)</span>}
                           </p>
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
                             <span className="flex items-center gap-1">
-                              <Flame className="w-3 h-3 text-orange-500" />
+                              <Flame className="w-3 h-3 text-[#F59E0B]" />
                               {u.current_streak || 0}
                             </span>
-                            <span>•</span>
+                            <span>&middot;</span>
                             <span>Level {u.level || 1}</span>
                           </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-lg text-lime-600">{u.xp_points || 0}</p>
-                        <p className="text-xs text-gray-500">XP</p>
+                        <p className="font-bold text-base text-[#22C55E]">{u.xp_points || 0}</p>
+                        <p className="text-xs text-gray-400">XP</p>
                       </div>
                     </div>
                   );
                 })}
 
                 {displayUsers.length === 0 && (
-                  <div className="text-center py-8 text-gray-500">
-                    No data available yet. Start learning to appear on the leaderboard!
+                  <div className="text-center py-10 text-gray-400 text-sm">
+                    No data yet. Start learning to appear on the leaderboard!
                   </div>
                 )}
               </CardContent>
             </Card>
+
           </TabsContent>
         </Tabs>
       </div>
