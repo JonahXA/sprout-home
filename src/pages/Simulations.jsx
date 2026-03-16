@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Calculator, TrendingUp, Briefcase, Users, Home, GraduationCap, Wallet } from "lucide-react";
 import InterestCalculator from "@/components/InterestCalculator";
 import PaperTradingSimulator from "@/components/PaperTradingSimulator";
-import BudgetWalkthrough from "@/components/BudgetWalkthrough";
+import BuildYourBudget from "@/components/BuildYourBudget";
 import ScenarioBudgetSimulation from "@/components/ScenarioBudgetSimulation";
 import NewGraduateBudgetSimulation from "@/components/NewGraduateBudgetSimulation";
+import CollegeStudentBudget from "@/components/CollegeStudentBudget";
 
 const safeParse = (raw, fallback) => { try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } };
 const getLocalUser = () => safeParse(localStorage.getItem("sprout_user"), null);
@@ -24,8 +25,8 @@ export default function Simulations() {
   const [activeSimulation, setActiveSimulation] = useState(null);
 
   const simulations = [
-    { id:"budget-basics",         title:"Build Your First Budget",        description:"Learn the fundamentals of budgeting with an interactive walkthrough of a real budget sheet.",         icon:Wallet,       thumb:{ bg:"#FFF3E0", color:"#F59E0B" }, component:BudgetWalkthrough },
-    { id:"college-budget",        title:"College Student Budget",         description:"Navigate variable income and irregular expenses. Spread textbook costs without going negative.",         icon:GraduationCap,thumb:{ bg:"#E8F0FE", color:"#3B82F6" }, component:() => <ScenarioBudgetSimulation scenarioId={0} /> },
+    { id:"budget-basics",         title:"Build Your Budget",        description:"Learn the fundamentals of budgeting with an interactive walkthrough of a real budget sheet.",         icon:Wallet,       thumb:{ bg:"#FFF3E0", color:"#F59E0B" }, component:BuildYourBudget },
+    { id:"college-budget",        title:"College Student Budget",         description:"Navigate variable income and irregular expenses. Spread textbook costs without going negative.",         icon:GraduationCap,thumb:{ bg:"#E8F0FE", color:"#3B82F6" }, component: CollegeStudentBudget },
     { id:"first-job-budget",      title:"New Graduate Budget",            description:"First full-time job, first real budget. Build an emergency fund while managing debt.",                   icon:Briefcase,    thumb:{ bg:"#F2ECFF", color:"#8B5CF6" }, component:NewGraduateBudgetSimulation },
     { id:"dual-income-budget",    title:"Early Career Dual Income",       description:"Two incomes, one budget. Save for a down payment while balancing lifestyle and future.",                 icon:Users,        thumb:{ bg:"#E8F0FE", color:"#3B82F6" }, component:() => <ScenarioBudgetSimulation scenarioId={2} /> },
     { id:"family-budget",         title:"Mid-Career Family Budget",       description:"Two kids, two incomes. Add expenses without sacrificing retirement savings.",                             icon:Home,         thumb:{ bg:"#FFF3E0", color:"#F59E0B" }, component:() => <ScenarioBudgetSimulation scenarioId={3} /> },
