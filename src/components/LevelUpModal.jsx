@@ -127,7 +127,7 @@ export default function LevelUpModal({ level, onClose }) {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-lime-600 font-semibold mb-6">
+                <div className="flex items-center justify-center gap-2 text-[#2D9B6F] font-semibold mb-6">
                   <Zap className="w-5 h-5" />
                   <span>Keep learning to unlock more rewards!</span>
                 </div>

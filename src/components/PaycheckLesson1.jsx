@@ -120,7 +120,7 @@ export default function PaycheckLesson1({ userName = "Your Name", onComplete }) 
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
         >
-          <Card className="border-2 border-green-200">
+          <Card className="border-2 border-[#2D9B6F]/30">
             <CardContent className="p-6">
               <Badge className="mb-3">Step {step + 1} of {steps.length}</Badge>
               <h3 className="text-2xl font-bold mb-2">{currentStep.title}</h3>
@@ -217,10 +217,10 @@ export default function PaycheckLesson1({ userName = "Your Name", onComplete }) 
               </div>
             </div>
 
-            <div style={getHighlightStyle('net')} className="p-4 rounded-lg bg-green-50 border-2 border-green-500">
+            <div style={getHighlightStyle('net')} className="p-4 rounded-lg bg-[#E6F5EF] border-2 border-[#2D9B6F]">
               <div className="flex justify-between items-center">
                 <span className="text-xl font-bold">NET PAY:</span>
-                <span className="text-2xl font-bold text-green-600">${paycheckData.netPay.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-[#2D9B6F]">${paycheckData.netPay.toFixed(2)}</span>
               </div>
             </div>
           </div>

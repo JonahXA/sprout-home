@@ -159,7 +159,7 @@ export default function CreditCardStatement() {
                       <div className="text-xs text-gray-600 mb-1">Account Number</div>
                       <div className="font-bold">**** **** **** 1234</div>
                       <div className="text-xs text-gray-600 mt-2 mb-1">Credit Limit</div>
-                      <div className="font-bold text-green-600">$5,000</div>
+                      <div className="font-bold text-[#2D9B6F]">$5,000</div>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 mt-4">
@@ -285,7 +285,7 @@ export default function CreditCardStatement() {
                     <div className="flex justify-between border-t pt-2 font-bold">
                       <span>PAYMENT - Thank You</span>
                       <span />
-                      <span className="text-green-600">-$500.00</span>
+                      <span className="text-[#2D9B6F]">-$500.00</span>
                     </div>
                   </div>
                 </div>

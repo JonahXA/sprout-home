@@ -4,9 +4,9 @@ import { useState, useMemo, useCallback } from "react";
    DESIGN TOKENS  — aligned to Sprout's Investment Simulator
 ───────────────────────────────────────────────────────────── */
 const C = {
-  navy:       "#1F3A64",
-  navyMid:    "#172E52",
-  navyLight:  "#264D82",
+  navy:       "#1B2B5E",
+  navyMid:    "#141E43",
+  navyLight:  "#243570",
   accent:     "#2563EB",
   accentSoft: "#EFF6FF",
   accentMid:  "#BFDBFE",
@@ -378,7 +378,7 @@ function StepCard({ stepObj, children, onPrev, onNext, nextLabel, nextDisabled, 
         <h2 style={{ fontSize: 24, fontWeight: 800, color: C.text, margin: "5px 0 5px", letterSpacing: "-0.3px" }}>{stepObj.title}</h2>
         <p style={{ fontSize: 14, color: C.textSec, margin: 0, lineHeight: 1.6, maxWidth: 520 }}>{stepObj.obj}</p>
       </div>
-      <div className="byb-fade-in" style={{ background: C.card, borderRadius: 18, border: `1px solid ${C.border}`, boxShadow: "0 2px 16px rgba(31,58,100,0.07), 0 1px 4px rgba(0,0,0,0.04)", overflow: "hidden" }}>
+      <div className="byb-fade-in" style={{ background: C.card, borderRadius: 18, border: `1px solid ${C.border}`, boxShadow: "0 2px 16px rgba(27,43,94,0.07), 0 1px 4px rgba(0,0,0,0.04)", overflow: "hidden" }}>
         <div style={{ padding: "26px 28px 6px" }}>{children}</div>
         <NavRow onPrev={onPrev} onNext={onNext} nextLabel={nextLabel} nextDisabled={nextDisabled} blockMsg={blockMsg} />
       </div>

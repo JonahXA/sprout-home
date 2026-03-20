@@ -118,14 +118,14 @@ export default function HallucinationDetector({ onComplete }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <Card
             className={`border-2 ${
-              userAnswer === scenario.isHallucination ? "border-green-400 bg-green-50" : "border-red-400 bg-red-50"
+              userAnswer === scenario.isHallucination ? "border-[#2D9B6F] bg-[#E6F5EF]" : "border-red-400 bg-red-50"
             }`}
           >
             <CardContent className="pt-6 space-y-4">
               <div className="text-center">
                 {userAnswer === scenario.isHallucination ? (
                   <>
-                    <CheckCircle className="w-12 h-12 mx-auto text-green-600 mb-2" />
+                    <CheckCircle className="w-12 h-12 mx-auto text-[#2D9B6F] mb-2" />
                     <h4 className="text-xl font-bold text-green-900">Correct!</h4>
                   </>
                 ) : (

@@ -233,7 +233,7 @@ export default function PaperTrading() {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-[#2D9B6F] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -247,7 +247,7 @@ export default function PaperTrading() {
   const totalPortfolioValue = (user.paper_trading_balance || 0) + positionsValue;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex justify-between items-center">
@@ -257,7 +257,7 @@ export default function PaperTrading() {
           </div>
           <div className="text-right">
             <p className="text-sm text-gray-600">Portfolio Value</p>
-            <p className="text-3xl font-bold text-green-600">
+            <p className="text-3xl font-bold text-[#2D9B6F]">
               ${totalPortfolioValue.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
@@ -292,7 +292,7 @@ export default function PaperTrading() {
               <CardTitle className="text-sm text-gray-600">Total Gain/Loss</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className={`text-2xl font-bold ${totalPortfolioValue >= 100000 ? "text-green-600" : "text-red-600"}`}>
+              <p className={`text-2xl font-bold ${totalPortfolioValue >= 100000 ? "text-[#2D9B6F]" : "text-red-600"}`}>
                 {totalPortfolioValue >= 100000 ? "+" : ""}${(totalPortfolioValue - 100000).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
             </CardContent>
@@ -346,7 +346,7 @@ export default function PaperTrading() {
                       <CardTitle className="text-2xl">{stockData.symbol}</CardTitle>
                       <div className="flex items-center gap-3 mt-2">
                         <span className="text-3xl font-bold">${stockData.price.toFixed(2)}</span>
-                        <Badge className={`${stockData.change >= 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                        <Badge className={`${stockData.change >= 0 ? "bg-green-100 text-[#2D9B6F]" : "bg-red-100 text-red-700"}`}>
                           {stockData.change >= 0 ? (
                             <ArrowUpRight className="w-4 h-4 inline mr-1" />
                           ) : (
@@ -479,7 +479,7 @@ export default function PaperTrading() {
                         >
                           <div className="flex justify-between items-start mb-2">
                             <span className="font-bold text-lg">{position.symbol}</span>
-                            <Badge className={gainLoss >= 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}>
+                            <Badge className={gainLoss >= 0 ? "bg-green-100 text-[#2D9B6F]" : "bg-red-100 text-red-700"}>
                               {gainLoss >= 0 ? "+" : ""}{gainLossPercent.toFixed(2)}%
                             </Badge>
                           </div>
@@ -499,7 +499,7 @@ export default function PaperTrading() {
                             </div>
                             <div className="flex justify-between">
                               <span className="text-gray-600">Gain/Loss:</span>
-                              <span className={`font-semibold ${gainLoss >= 0 ? "text-green-600" : "text-red-600"}`}>
+                              <span className={`font-semibold ${gainLoss >= 0 ? "text-[#2D9B6F]" : "text-red-600"}`}>
                                 {gainLoss >= 0 ? "+" : ""}${gainLoss.toFixed(2)}
                               </span>
                             </div>

@@ -89,7 +89,7 @@ export default function Signup() {
         {/* Brand — matches Dashboard exactly */}
         <div className="flex justify-center">
           <Link to={createPageUrl("Dashboard")} style={{ display:"flex", alignItems:"center", gap:2, textDecoration:"none" }}>
-            <span style={{ fontSize:34, fontWeight:900, color:"#1F3A64", letterSpacing:"-1.2px" }}>Sprout</span>
+            <span style={{ fontSize:34, fontWeight:900, color:"#1B2B5E", letterSpacing:"-1.2px" }}>Sprout</span>
             <img src={logoImg} alt="Sprout" style={{ width:64, height:64, objectFit:"contain" }} />
           </Link>
         </div>
@@ -143,9 +143,9 @@ export default function Signup() {
 
               <Button type="submit" disabled={isSubmitting}
                 className="w-full h-12 text-base font-semibold text-white rounded-lg mt-2"
-                style={{ background:"#1F3A64" }}
-                onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.background = "#172E52"; }}
-                onMouseLeave={(e) => { if (!isSubmitting) e.currentTarget.style.background = "#1F3A64"; }}
+                style={{ background:"#1B2B5E" }}
+                onMouseEnter={(e) => { if (!isSubmitting) e.currentTarget.style.background = "#141E43"; }}
+                onMouseLeave={(e) => { if (!isSubmitting) e.currentTarget.style.background = "#1B2B5E"; }}
               >
                 {isSubmitting ? (
                   <div className="flex items-center gap-2">

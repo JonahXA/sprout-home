@@ -117,7 +117,7 @@ export default function Leaderboard() {
 
         {/* My Rank Card */}
         {user && myRank > 0 && (
-          <Card className="border-none shadow-md overflow-hidden" style={{ background: "#1F3A64" }}>
+          <Card className="border-none shadow-md overflow-hidden" style={{ background: "#1B2B5E" }}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -177,7 +177,7 @@ export default function Leaderboard() {
                           </div>
                           <div
                             className={`${isFirst ? "w-14 h-14 text-xl" : "w-12 h-12 text-lg"} rounded-full flex items-center justify-center text-white font-bold mx-auto mb-2`}
-                            style={{ background: "#1F3A64" }}
+                            style={{ background: "#1B2B5E" }}
                           >
                             {((u?.username || u?.full_name || "?")[0]).toUpperCase()}
                           </div>
@@ -185,7 +185,7 @@ export default function Leaderboard() {
                             {u?.username || u?.full_name || "Anonymous"}
                           </p>
                           <p className="text-xs text-gray-500 flex items-center justify-center gap-1 mt-1">
-                            <Zap className="w-3 h-3 text-[#22C55E]" />
+                            <Zap className="w-3 h-3 text-[#2D9B6F]" />
                             {u?.xp_points || 0} XP
                           </p>
                         </CardContent>
@@ -208,21 +208,21 @@ export default function Leaderboard() {
                   return (
                     <div key={u.id}
                       className={`flex items-center justify-between p-4 rounded-xl transition-all ${
-                        isCurrentUser ? "border-2 border-[#1F3A64]/20 bg-[#E8F0FE]" : "bg-gray-50 hover:bg-gray-100"
+                        isCurrentUser ? "border-2 border-[#1B2B5E]/20 bg-[#E8F0FE]" : "bg-gray-50 hover:bg-gray-100"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 flex items-center justify-center rounded-lg font-bold text-sm border border-gray-200 bg-white text-gray-500"
-                          style={isCurrentUser ? { background: "#1F3A64", color: "#fff", border: "none" } : {}}
+                          style={isCurrentUser ? { background: "#1B2B5E", color: "#fff", border: "none" } : {}}
                         >
                           {rank}
                         </div>
                         <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
-                          style={{ background: "#1F3A64" }}>
+                          style={{ background: "#1B2B5E" }}>
                           {((u.username || u.full_name || "?")[0]).toUpperCase()}
                         </div>
                         <div>
-                          <p className={`font-semibold text-sm ${isCurrentUser ? "text-[#1F3A64]" : "text-gray-900"}`}>
+                          <p className={`font-semibold text-sm ${isCurrentUser ? "text-[#1B2B5E]" : "text-gray-900"}`}>
                             {u.username || u.full_name || "Anonymous"}
                             {isCurrentUser && <span className="ml-2 text-xs font-normal text-gray-400">(You)</span>}
                           </p>
@@ -237,7 +237,7 @@ export default function Leaderboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-base text-[#22C55E]">{u.xp_points || 0}</p>
+                        <p className="font-bold text-base text-[#2D9B6F]">{u.xp_points || 0}</p>
                         <p className="text-xs text-gray-400">XP</p>
                       </div>
                     </div>

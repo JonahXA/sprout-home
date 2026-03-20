@@ -51,7 +51,7 @@ export default function Login() {
         {/* Brand — matches Dashboard exactly */}
         <div className="flex justify-center mb-8">
           <Link to={createPageUrl("Dashboard")} style={{ display:"flex", alignItems:"center", gap:2, textDecoration:"none" }}>
-            <span style={{ fontSize:34, fontWeight:900, color:"#1F3A64", letterSpacing:"-1.2px" }}>Sprout</span>
+            <span style={{ fontSize:34, fontWeight:900, color:"#1B2B5E", letterSpacing:"-1.2px" }}>Sprout</span>
             <img src={logoImg} alt="Sprout" style={{ width:64, height:64, objectFit:"contain" }} />
           </Link>
         </div>
@@ -102,9 +102,9 @@ export default function Login() {
               <Button
                 type="submit"
                 className="w-full h-11 font-semibold text-white rounded-lg mt-2"
-                style={{ background:"#1F3A64" }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "#172E52"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "#1F3A64"}
+                style={{ background:"#1B2B5E" }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "#141E43"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "#1B2B5E"}
               >
                 Continue
               </Button>

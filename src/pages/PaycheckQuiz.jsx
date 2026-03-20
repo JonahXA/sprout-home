@@ -5,7 +5,7 @@ import { ArrowLeft, DollarSign } from "lucide-react";
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   bg:"#FFFFFF", border:"#E5E7EB", bgSoft:"#F8FAFC",
   text:"#0F172A", textSub:"#475569",
 };

@@ -27,7 +27,7 @@ export default function CourseCertificate({ course, user, completionDate, onCont
             {/* Certificate Header */}
             <div className="text-center mb-8 border-b-2 border-purple-200 pb-6">
               <div className="flex justify-center items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-lime-400 to-green-500 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#1B2B5E] rounded-xl flex items-center justify-center">
                   <Sprout className="w-7 h-7 text-white" />
                 </div>
                 <div className="text-left">

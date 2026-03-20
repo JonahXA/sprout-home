@@ -10,9 +10,9 @@ import {
 } from "lucide-react";
 
 const C = {
-  navy:"#1F3A64", navyMid:"#172E52", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE", accentMid:"#BFDBFE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   amber:"#F59E0B", amberSoft:"#FFF3E0",
   purple:"#8B5CF6", purpleSoft:"#F2ECFF",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
@@ -139,7 +139,7 @@ export default function Dashboard() {
                 <span style={{ fontSize:12, color:"rgba(255,255,255,0.7)", fontWeight:600 }}>{xpProgress}/{xpForNextLevel} XP</span>
               </div>
               <div style={{ height:7, background:"rgba(255,255,255,0.12)", borderRadius:999, overflow:"hidden" }}>
-                <div style={{ height:"100%", width:`${(xpProgress/xpForNextLevel)*100}%`, background:"linear-gradient(90deg,#22C55E,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
+                <div style={{ height:"100%", width:`${(xpProgress/xpForNextLevel)*100}%`, background:"linear-gradient(90deg,#2D9B6F,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
               </div>
             </div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
@@ -241,7 +241,7 @@ export default function Dashboard() {
                   <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:7, letterSpacing:"-0.3px", lineHeight:1.35 }}>{course.name}</div>
                   <div style={{ fontSize:12.5, color:C.textSub, marginBottom:16, lineHeight:1.65, flex:1, fontWeight:400 }}>{course.description}</div>
                   <div style={{ height:4, background:C.bgMid, borderRadius:999, overflow:"hidden", marginBottom:8 }}>
-                    <div style={{ height:"100%", width:`${pct}%`, background:`linear-gradient(90deg,${C.accent},#22C55E)`, borderRadius:999, transition:"width 0.5s" }} />
+                    <div style={{ height:"100%", width:`${pct}%`, background:`linear-gradient(90deg,${C.accent},#2D9B6F)`, borderRadius:999, transition:"width 0.5s" }} />
                   </div>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", fontSize:11, fontWeight:500 }}>
                     <span style={{ color:C.textSub }}>{pct>0?`${pct}% complete`:"Not started"}</span>

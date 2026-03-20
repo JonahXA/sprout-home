@@ -79,7 +79,7 @@ export default function Account() {
         </div>
 
         {/* Profile Banner */}
-        <Card className="border-none shadow-xl bg-gradient-to-br from-lime-400 to-green-500 text-white">
+        <Card className="border-none shadow-xl bg-[#1B2B5E] text-white">
           <CardContent className="p-8">
             <div className="flex items-center gap-6">
               <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
@@ -195,7 +195,7 @@ export default function Account() {
                   </label>
                 </div>
                 <div className="flex gap-3">
-                  <Button type="submit" className="bg-lime-500 hover:bg-lime-600 flex-1">
+                  <Button type="submit" className="bg-blue-500 hover:bg-[#2D9B6F] flex-1">
                     <Check className="w-5 h-5 mr-2" />Save Changes
                   </Button>
                   <Button type="button" variant="outline" onClick={() => setEditing(false)}>Cancel</Button>

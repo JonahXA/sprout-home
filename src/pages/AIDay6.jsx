@@ -8,9 +8,9 @@ import InteractiveQuiz from "@/components/InteractiveQuiz";
 import EthicsScenarios from "@/components/EthicsScenarios";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -90,9 +90,9 @@ export default function AIDay6() {
               </div>
             </div>
 
-            <div className="border-2 border-green-200 rounded-lg overflow-hidden">
-              <div className="bg-green-50 px-4 py-3">
-                <h4 className="font-bold text-green-700 flex items-center gap-2">
+            <div className="border-2 border-[#2D9B6F]/30 rounded-lg overflow-hidden">
+              <div className="bg-[#E6F5EF] px-4 py-3">
+                <h4 className="font-bold text-[#2D9B6F] flex items-center gap-2">
                   <Shield className="w-5 h-5" />
                   Privacy
                 </h4>

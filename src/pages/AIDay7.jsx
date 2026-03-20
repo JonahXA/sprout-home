@@ -7,9 +7,9 @@ import { ArrowLeft, ChevronRight, Briefcase, TrendingUp, Brain, Lightbulb } from
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -77,7 +77,7 @@ export default function AIDay7() {
       type: "concept",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl border-l-4 border-green-500">
+          <div className="bg-gradient-to-r bg-[#E6F5EF] p-6 rounded-xl border-l-4 border-[#2D9B6F]">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">The AI Skills Revolution</h3>
             <p className="text-lg text-gray-700 mb-4">
               AI won't replace humans, but humans using AI will replace those who don't. Every career will be impacted.
@@ -163,7 +163,7 @@ export default function AIDay7() {
                 }}
                 className={`cursor-pointer border-2 transition-all rounded-lg overflow-hidden ${
                   selectedSkills.includes(idx)
-                    ? 'border-green-500 bg-green-50 shadow-lg'
+                    ? 'border-[#2D9B6F] bg-[#E6F5EF] shadow-lg'
                     : 'border-gray-200 hover:border-teal-300'
                 }`}
               >
@@ -178,7 +178,7 @@ export default function AIDay7() {
                 <div className="px-4 pb-4">
                   <p className="text-sm text-gray-600">{skill.description}</p>
                   {selectedSkills.includes(idx) && (
-                    <div className="mt-3 p-3 bg-white rounded border-l-4 border-green-500">
+                    <div className="mt-3 p-3 bg-white rounded border-l-4 border-[#2D9B6F]">
                       <p className="text-xs text-gray-700">
                         <strong>Why it matters:</strong> {
                           idx === 0 ? "Effective prompting makes you 10x more productive with AI tools" :

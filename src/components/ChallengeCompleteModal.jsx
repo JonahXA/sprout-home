@@ -15,7 +15,7 @@ export default function ChallengeCompleteModal({ challenge, onClose }) {
     y: -20,
     rotation: Math.random() * 360,
     scale: Math.random() * 0.5 + 0.5,
-    color: ["#84cc16", "#22c55e", "#eab308", "#f97316", "#ec4899"][Math.floor(Math.random() * 5)],
+    color: ["#2D9B6F", "#22c55e", "#eab308", "#f97316", "#ec4899"][Math.floor(Math.random() * 5)],
   }));
 
   return (
@@ -61,7 +61,7 @@ export default function ChallengeCompleteModal({ challenge, onClose }) {
           </button>
 
           {/* Header */}
-          <div className="bg-gradient-to-br from-lime-400 to-green-500 p-8 text-center relative overflow-hidden">
+          <div className="bg-[#1B2B5E] p-8 text-center relative overflow-hidden">
             <motion.div
               animate={{ scale: [1, 1.2, 1], rotate: [0, 360, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -107,7 +107,7 @@ export default function ChallengeCompleteModal({ challenge, onClose }) {
 
             <Button
               onClick={onClose}
-              className="w-full h-14 text-lg bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white shadow-lg"
+              className="w-full h-14 text-lg bg-[#1B2B5E] hover:bg-[#141E43] text-white shadow-lg"
             >
               Continue Learning
             </Button>

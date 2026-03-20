@@ -195,8 +195,8 @@ export default function PaycheckStatement() {
 
                 {/* Earnings Section */}
                 <div className="mb-4">
-                  <div className="bg-green-50 border-l-4 border-green-500 p-3 mb-2">
-                    <div className="font-bold text-sm mb-2 text-green-800">EARNINGS</div>
+                  <div className="bg-[#E6F5EF] border-l-4 border-[#2D9B6F] p-3 mb-2">
+                    <div className="font-bold text-sm mb-2 text-[#2D9B6F]">EARNINGS</div>
                   </div>
                   <div className="grid grid-cols-4 gap-2 text-xs font-bold border-b pb-2 mb-2">
                     <div>Description</div>
@@ -212,7 +212,7 @@ export default function PaycheckStatement() {
                   </div>
                   <div className={`mt-2 pt-2 border-t flex justify-between font-bold transition-all duration-300 ${currentStepData.highlight === 'gross' ? 'bg-yellow-200 p-2 rounded text-base' : ''}`}>
                     <div>GROSS PAY</div>
-                    <div className="text-green-600 text-base">$1,600.00</div>
+                    <div className="text-[#2D9B6F] text-base">$1,600.00</div>
                   </div>
                 </div>
 
@@ -299,7 +299,7 @@ export default function PaycheckStatement() {
               </div>
 
               {/* Tip */}
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 p-4 rounded-lg">
+              <div className="bg-gradient-to-r bg-[#E6F5EF] border-l-4 border-[#2D9B6F] p-4 rounded-lg">
                 <p className="text-sm text-green-900 font-medium">{currentStepData.tip}</p>
               </div>
             </CardContent>

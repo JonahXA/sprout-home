@@ -9,9 +9,9 @@ import InteractiveQuiz from "@/components/InteractiveQuiz";
 import { getCurrentUserSafe, getAIDayProgress, upsertAIDayProgress } from "@/lib/appClient";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -78,8 +78,8 @@ export default function AIDay1() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="border-2 border-green-200 bg-green-50 rounded-lg p-4">
-              <h4 className="font-bold text-green-700 mb-3">Narrow AI (Today)</h4>
+            <div className="border-2 border-[#2D9B6F]/30 bg-[#E6F5EF] rounded-lg p-4">
+              <h4 className="font-bold text-[#2D9B6F] mb-3">Narrow AI (Today)</h4>
               <div className="space-y-2">
                 <p className="text-gray-700">✓ Excellent at <strong>specific tasks</strong></p>
                 <p className="text-gray-700">✓ Not conscious</p>
@@ -323,8 +323,8 @@ function AIOrHumanGame({ onComplete }) {
 
   if (showResults) {
     return (
-      <div className="border-2 border-green-200 bg-green-50 rounded-lg p-6 text-center">
-        <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
+      <div className="border-2 border-[#2D9B6F]/30 bg-[#E6F5EF] rounded-lg p-6 text-center">
+        <CheckCircle className="w-16 h-16 text-[#2D9B6F] mx-auto mb-4" />
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
           You scored {score}/{questions.length}!
         </h3>
@@ -363,7 +363,7 @@ function AIOrHumanGame({ onComplete }) {
             </button>
           </div>
         ) : (
-          <div className={`p-4 rounded-lg ${isCorrect ? "bg-green-50 border-2 border-green-500" : "bg-orange-50 border-2 border-orange-500"}`}>
+          <div className={`p-4 rounded-lg ${isCorrect ? "bg-[#E6F5EF] border-2 border-[#2D9B6F]" : "bg-orange-50 border-2 border-orange-500"}`}>
             <p className="font-semibold mb-2">{isCorrect ? "✓ Correct!" : "✗ Not quite!"}</p>
             <p className="text-sm text-gray-700">
               <strong>Answer:</strong> {question.answer}

@@ -34,7 +34,7 @@ export default function ForgotPassword() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 bg-gradient-to-br from-lime-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-14 h-14 bg-[#1B2B5E] rounded-2xl flex items-center justify-center shadow-lg">
               <Sprout className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -55,8 +55,8 @@ export default function ForgotPassword() {
               </>
             ) : (
               <>
-                <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-lime-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+                <div className="w-16 h-16 bg-gradient-to-br bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-[#2D9B6F]" />
                 </div>
                 <CardTitle className="text-2xl font-bold">Check Your Email</CardTitle>
                 <CardDescription className="text-base">
@@ -85,7 +85,7 @@ export default function ForgotPassword() {
                       placeholder="you@school.edu"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 h-12 border-gray-200 focus:ring-lime-500"
+                      className="pl-10 h-12 border-gray-200 focus:ring-[#1B2B5E]"
                       required
                     />
                   </div>
@@ -93,7 +93,7 @@ export default function ForgotPassword() {
 
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white font-semibold shadow-lg shadow-lime-200"
+                  className="w-full h-12 bg-[#1B2B5E] hover:bg-[#141E43] text-white font-semibold shadow-lg "
                 >
                   Send Reset Link
                 </Button>
@@ -111,7 +111,7 @@ export default function ForgotPassword() {
               </form>
             ) : (
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-gradient-to-r from-green-50 to-lime-50 border border-green-200">
+                <div className="p-4 rounded-xl bg-gradient-to-r bg-[#E6F5EF] border border-[#2D9B6F]">
                   <p className="text-sm text-gray-700">
                     📧 Didn't receive the email? Check your spam folder or try again in a few minutes.
                   </p>
@@ -119,7 +119,7 @@ export default function ForgotPassword() {
 
                 <Link to={createPageUrl("Login")}>
                   <Button
-                    className="w-full h-12 bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white"
+                    className="w-full h-12 bg-[#1B2B5E] hover:bg-[#141E43] text-white"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Login

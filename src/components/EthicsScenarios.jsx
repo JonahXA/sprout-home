@@ -200,7 +200,7 @@ export default function EthicsScenarios({ onComplete }) {
           <Card
             className={`border-2 ${
               scenario.options[userChoice].isEthical
-                ? "border-green-400 bg-green-50"
+                ? "border-[#2D9B6F] bg-[#E6F5EF]"
                 : "border-orange-400 bg-orange-50"
             }`}
           >
@@ -208,7 +208,7 @@ export default function EthicsScenarios({ onComplete }) {
               <div className="text-center">
                 {scenario.options[userChoice].isEthical ? (
                   <>
-                    <CheckCircle className="w-12 h-12 mx-auto text-green-600 mb-2" />
+                    <CheckCircle className="w-12 h-12 mx-auto text-[#2D9B6F] mb-2" />
                     <h4 className="text-xl font-bold text-green-900">Ethical Choice ✓</h4>
                   </>
                 ) : (

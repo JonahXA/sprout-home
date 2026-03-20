@@ -11,9 +11,9 @@ import {
 } from "lucide-react";
 
 // ─── Color tokens ─────────────────────────────────────────────
-const navy    = "#1F3A64";
-const navyMid = "#172E52";
-const navyShadow = "rgba(31,58,100,0.22)";
+const navy    = "#1B2B5E";
+const navyMid = "#141E43";
+const navyShadow = "rgba(27,43,94,0.22)";
 const accentSoft = "#E8F0FE";
 const accentBorder = "#BFDBFE";
 
@@ -162,7 +162,7 @@ function Nav({ scrolled, navigate }) {
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
           background: scrolled ? "rgba(255,255,255,0.98)" : "#ffffff",
           borderBottom: "1px solid #e8e3de",
-          boxShadow: scrolled ? "0 2px 16px rgba(31,58,100,0.07)" : "none",
+          boxShadow: scrolled ? "0 2px 16px rgba(27,43,94,0.07)" : "none",
           backdropFilter: "blur(12px)",
           transition: "box-shadow 0.25s",
         }}

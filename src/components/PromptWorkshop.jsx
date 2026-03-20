@@ -90,14 +90,14 @@ export default function PromptWorkshop({ onComplete }) {
           </CardContent>
         </Card>
 
-        <Card className="border-2 border-green-200 bg-green-50">
+        <Card className="border-2 border-[#2D9B6F]/30 bg-[#E6F5EF]">
           <CardContent className="pt-4">
             <div className="flex items-center gap-2 mb-3">
-              <CheckCircle className="w-5 h-5 text-green-600" />
+              <CheckCircle className="w-5 h-5 text-[#2D9B6F]" />
               <span className="font-bold text-green-900">Strong Prompt:</span>
             </div>
             <p className="text-sm text-gray-700 italic">"{task.strongExample}"</p>
-            <p className="text-xs text-green-700 mt-2">Specific, clear audience, format defined</p>
+            <p className="text-xs text-[#2D9B6F] mt-2">Specific, clear audience, format defined</p>
           </CardContent>
         </Card>
       </div>
@@ -134,7 +134,7 @@ export default function PromptWorkshop({ onComplete }) {
             </Button>
           ) : (
             <div className="space-y-4">
-              <Card className={`border-2 ${score >= task.criteria.length * 0.7 ? 'border-green-400 bg-green-50' : 'border-orange-400 bg-orange-50'}`}>
+              <Card className={`border-2 ${score >= task.criteria.length * 0.7 ? 'border-[#2D9B6F] bg-[#E6F5EF]' : 'border-orange-400 bg-orange-50'}`}>
                 <CardContent className="pt-6">
                   <div className="text-center mb-4">
                     <div className="text-4xl font-bold mb-2">
@@ -151,7 +151,7 @@ export default function PromptWorkshop({ onComplete }) {
                       <div key={i} className="flex items-center gap-2 text-sm">
                         <div className="w-5 h-5">
                           {userPrompt.toLowerCase().includes(criterion.split(" ")[0].toLowerCase()) ? (
-                            <CheckCircle className="w-5 h-5 text-green-600" />
+                            <CheckCircle className="w-5 h-5 text-[#2D9B6F]" />
                           ) : (
                             <XCircle className="w-5 h-5 text-gray-400" />
                           )}

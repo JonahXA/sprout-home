@@ -7,9 +7,9 @@ import { ArrowLeft, ChevronRight, Eye, Image as ImageIcon, Brain } from "lucide-
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -109,9 +109,9 @@ export default function AIDay3() {
               </div>
             </div>
 
-            <div className="border-2 border-green-200 rounded-lg overflow-hidden">
-              <div className="bg-green-50 px-4 py-3">
-                <h4 className="font-bold text-green-700">How It Works: Convolutional Neural Networks (CNNs)</h4>
+            <div className="border-2 border-[#2D9B6F]/30 rounded-lg overflow-hidden">
+              <div className="bg-[#E6F5EF] px-4 py-3">
+                <h4 className="font-bold text-[#2D9B6F]">How It Works: Convolutional Neural Networks (CNNs)</h4>
               </div>
               <div className="p-4 space-y-3 text-sm">
                 <div className="space-y-2">
@@ -166,7 +166,7 @@ export default function AIDay3() {
                 }}
                 className={`cursor-pointer rounded-lg overflow-hidden border-4 transition-all ${
                   selectedImages.includes(idx)
-                    ? "border-green-500 shadow-lg"
+                    ? "border-[#2D9B6F] shadow-lg"
                     : "border-gray-200 hover:border-purple-300"
                 }`}
               >
@@ -174,7 +174,7 @@ export default function AIDay3() {
                 <div className="p-3 bg-white">
                   <p className="text-sm font-semibold text-gray-900">{img.label}</p>
                   {selectedImages.includes(idx) && (
-                    <span style={{ display:"inline-block", marginTop:8, fontSize:12, fontWeight:700, color:"#fff", background:"#22C55E", padding:"3px 10px", borderRadius:999 }}>Analyzed ✓</span>
+                    <span style={{ display:"inline-block", marginTop:8, fontSize:12, fontWeight:700, color:"#fff", background:"#2D9B6F", padding:"3px 10px", borderRadius:999 }}>Analyzed ✓</span>
                   )}
                 </div>
               </div>

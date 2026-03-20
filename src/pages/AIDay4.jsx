@@ -8,9 +8,9 @@ import InteractiveQuiz from "@/components/InteractiveQuiz";
 import HallucinationDetector from "@/components/HallucinationDetector";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -78,7 +78,7 @@ export default function AIDay4() {
             <div className="bg-white p-4 rounded-lg border-2 border-yellow-300 mb-4">
               <p className="text-gray-800 mb-2"><strong>Input:</strong> "The capital of France is"</p>
               <div className="ml-4 space-y-1 text-sm">
-                <p className="text-green-600">✓ "Paris" (99.9% probability)</p>
+                <p className="text-[#2D9B6F]">✓ "Paris" (99.9% probability)</p>
                 <p className="text-gray-500">✗ "London" (0.05%)</p>
                 <p className="text-gray-400">✗ "pizza" (0.00001%)</p>
               </div>
@@ -92,9 +92,9 @@ export default function AIDay4() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="border-2 border-green-200 rounded-lg overflow-hidden">
-              <div className="bg-green-50 px-4 py-3">
-                <h4 className="font-bold text-green-700">What LLMs CAN Do</h4>
+            <div className="border-2 border-[#2D9B6F]/30 rounded-lg overflow-hidden">
+              <div className="bg-[#E6F5EF] px-4 py-3">
+                <h4 className="font-bold text-[#2D9B6F]">What LLMs CAN Do</h4>
               </div>
               <div className="p-4 space-y-2 text-sm">
                 <p>✓ Write essays, stories, code</p>

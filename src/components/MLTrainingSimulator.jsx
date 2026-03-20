@@ -237,14 +237,14 @@ export default function MLTrainingSimulator({ onComplete }) {
   return (
     <Card
       className={`border-2 ${
-        testResults.accuracy >= 80 ? "border-green-200 bg-green-50" : "border-orange-200 bg-orange-50"
+        testResults.accuracy >= 80 ? "border-[#2D9B6F]/30 bg-[#E6F5EF]" : "border-orange-200 bg-orange-50"
       }`}
     >
       <CardContent className="pt-6 space-y-6">
         <div className="text-center">
           {testResults.accuracy >= 80 ? (
             <>
-              <CheckCircle className="w-16 h-16 mx-auto text-green-600 mb-4" />
+              <CheckCircle className="w-16 h-16 mx-auto text-[#2D9B6F] mb-4" />
               <h3 className="text-2xl font-bold text-green-900 mb-2">Great Model! 🎉</h3>
             </>
           ) : (
@@ -264,7 +264,7 @@ export default function MLTrainingSimulator({ onComplete }) {
             }`}
           >
             {testResults.balanced ? (
-              <CheckCircle className="inline w-5 h-5 text-green-600 mr-2" />
+              <CheckCircle className="inline w-5 h-5 text-[#2D9B6F] mr-2" />
             ) : (
               <AlertCircle className="inline w-5 h-5 text-red-600 mr-2" />
             )}
@@ -280,7 +280,7 @@ export default function MLTrainingSimulator({ onComplete }) {
             }`}
           >
             {testResults.sufficient ? (
-              <CheckCircle className="inline w-5 h-5 text-green-600 mr-2" />
+              <CheckCircle className="inline w-5 h-5 text-[#2D9B6F] mr-2" />
             ) : (
               <AlertCircle className="inline w-5 h-5 text-yellow-600 mr-2" />
             )}

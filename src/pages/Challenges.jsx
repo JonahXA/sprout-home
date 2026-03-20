@@ -92,7 +92,7 @@ function LeaderboardSection({ user }) {
       </h2>
 
       {user && myRank > 0 && (
-        <Card className="border-none shadow-md overflow-hidden" style={{ background:"#1F3A64" }}>
+        <Card className="border-none shadow-md overflow-hidden" style={{ background:"#1B2B5E" }}>
           <CardContent className="p-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -129,11 +129,11 @@ function LeaderboardSection({ user }) {
                     <Card className={`border ${isFirst?"border-2":""} shadow-sm`} style={{ borderColor:meta.borderColor, background:meta.bg }}>
                       <CardContent className={`${isFirst?"p-5":"p-4"} text-center`}>
                         <div className="flex items-center justify-center gap-1 mb-3 font-bold text-sm" style={{ color:meta.labelColor }}>{meta.icon}{meta.label}</div>
-                        <div className={`${isFirst?"w-12 h-12 text-lg":"w-10 h-10 text-base"} rounded-full flex items-center justify-center text-white font-bold mx-auto mb-2`} style={{ background:"#1F3A64" }}>
+                        <div className={`${isFirst?"w-12 h-12 text-lg":"w-10 h-10 text-base"} rounded-full flex items-center justify-center text-white font-bold mx-auto mb-2`} style={{ background:"#1B2B5E" }}>
                           {((u?.username||u?.full_name||"?")[0]).toUpperCase()}
                         </div>
                         <p className={`${isFirst?"font-bold":"font-semibold text-sm"} text-gray-900 text-center`}>{u?.username||u?.full_name||"Anonymous"}</p>
-                        <p className="text-xs text-gray-500 flex items-center justify-center gap-1 mt-1"><Zap className="w-3 h-3 text-[#22C55E]"/>{u?.xp_points||0} XP</p>
+                        <p className="text-xs text-gray-500 flex items-center justify-center gap-1 mt-1"><Zap className="w-3 h-3 text-[#2D9B6F]"/>{u?.xp_points||0} XP</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -149,17 +149,17 @@ function LeaderboardSection({ user }) {
                 const rank = idx+4;
                 const isMe = u.email && user?.email && u.email===user.email;
                 return (
-                  <div key={u.id} className={`flex items-center justify-between p-3 rounded-xl transition-all ${isMe?"border-2 border-[#1F3A64]/20 bg-[#E8F0FE]":"bg-gray-50 hover:bg-gray-100"}`}>
+                  <div key={u.id} className={`flex items-center justify-between p-3 rounded-xl transition-all ${isMe?"border-2 border-[#1B2B5E]/20 bg-[#E8F0FE]":"bg-gray-50 hover:bg-gray-100"}`}>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg font-bold text-sm border border-gray-200 bg-white text-gray-500"
-                        style={isMe ? { background:"#1F3A64", color:"#fff", border:"none" } : {}}>
+                        style={isMe ? { background:"#1B2B5E", color:"#fff", border:"none" } : {}}>
                         {rank}
                       </div>
-                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ background:"#1F3A64" }}>
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm" style={{ background:"#1B2B5E" }}>
                         {((u.username||u.full_name||"?")[0]).toUpperCase()}
                       </div>
                       <div>
-                        <p className={`font-semibold text-sm ${isMe?"text-[#1F3A64]":"text-gray-900"}`}>
+                        <p className={`font-semibold text-sm ${isMe?"text-[#1B2B5E]":"text-gray-900"}`}>
                           {u.username||u.full_name||"Anonymous"}{isMe&&<span className="ml-2 text-xs font-normal text-gray-400">(You)</span>}
                         </p>
                         <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -169,7 +169,7 @@ function LeaderboardSection({ user }) {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-sm text-[#22C55E]">{u.xp_points||0}</p>
+                      <p className="font-bold text-sm text-[#2D9B6F]">{u.xp_points||0}</p>
                       <p className="text-xs text-gray-400">XP</p>
                     </div>
                   </div>
@@ -245,11 +245,11 @@ export default function Challenges() {
     const percentage = Math.min((progress/challenge.requirement_value)*100, 100);
     const isCompleted = userChallenge?.completed;
     return (
-      <Card className={`border shadow-sm transition-all ${isCompleted?"bg-[#E8F8F0] border-[#22C55E]/30":"bg-white border-gray-100 hover:shadow-md"}`}>
+      <Card className={`border shadow-sm transition-all ${isCompleted?"bg-[#E8F8F0] border-[#2D9B6F]/30":"bg-white border-gray-100 hover:shadow-md"}`}>
         <CardHeader>
           <div className="flex justify-between items-start">
             <div className="flex items-start gap-3">
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background:isCompleted?"#E8F8F0":"#E8F0FE", color:isCompleted?"#22C55E":"#3B82F6" }}>
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background:isCompleted?"#E8F8F0":"#E8F0FE", color:isCompleted?"#2D9B6F":"#3B82F6" }}>
                 {isCompleted ? <CheckCircle className="w-5 h-5"/> : <Icon className="w-5 h-5"/>}
               </div>
               <div>
@@ -257,7 +257,7 @@ export default function Challenges() {
                 <p className="text-sm text-gray-500 mt-1">{challenge.description}</p>
               </div>
             </div>
-            <Badge className={isCompleted ? "bg-[#E8F8F0] text-[#22C55E] border border-[#22C55E]/30 font-semibold" : "bg-[#E8F0FE] text-[#3B82F6] border border-[#3B82F6]/20 font-semibold"}>+{challenge.xp_reward} XP</Badge>
+            <Badge className={isCompleted ? "bg-[#E8F8F0] text-[#2D9B6F] border border-[#2D9B6F]/30 font-semibold" : "bg-[#E8F0FE] text-[#3B82F6] border border-[#3B82F6]/20 font-semibold"}>+{challenge.xp_reward} XP</Badge>
           </div>
         </CardHeader>
         <CardContent>
@@ -267,7 +267,7 @@ export default function Challenges() {
               <span className="font-semibold text-[#3B82F6]">{Math.round(percentage)}%</span>
             </div>
             <Progress value={percentage} className="h-2"/>
-            {isCompleted && <p className="text-sm text-[#22C55E] font-semibold flex items-center gap-2 mt-3"><CheckCircle className="w-4 h-4"/>Challenge Completed!</p>}
+            {isCompleted && <p className="text-sm text-[#2D9B6F] font-semibold flex items-center gap-2 mt-3"><CheckCircle className="w-4 h-4"/>Challenge Completed!</p>}
           </div>
         </CardContent>
       </Card>
@@ -292,9 +292,9 @@ export default function Challenges() {
               </div>
               <button
                 onClick={() => navigate(createPageUrl("Login"))}
-                style={{ background:"#1F3A64", color:"#fff", border:"none", borderRadius:10, padding:"10px 24px", fontSize:14, fontWeight:600, cursor:"pointer", whiteSpace:"nowrap" }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "#172E52"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "#1F3A64"}
+                style={{ background:"#1B2B5E", color:"#fff", border:"none", borderRadius:10, padding:"10px 24px", fontSize:14, fontWeight:600, cursor:"pointer", whiteSpace:"nowrap" }}
+                onMouseEnter={(e) => e.currentTarget.style.background = "#141E43"}
+                onMouseLeave={(e) => e.currentTarget.style.background = "#1B2B5E"}
               >Sign in to start</button>
             </CardContent>
           </Card>
@@ -326,7 +326,7 @@ export default function Challenges() {
             </Card>
             <Card className="border border-gray-100 shadow-sm bg-white">
               <CardContent className="p-6">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background:"#E8F8F0" }}><Zap className="w-5 h-5" style={{ color:"#22C55E" }}/></div>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background:"#E8F8F0" }}><Zap className="w-5 h-5" style={{ color:"#2D9B6F" }}/></div>
                 <p className="text-3xl font-bold text-gray-900">{totalDailyXP}</p>
                 <p className="text-sm text-gray-500 mt-1">XP Earned Today</p>
               </CardContent>

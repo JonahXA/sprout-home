@@ -128,7 +128,7 @@ export default function SchoolSelection() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-lime-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-16 h-16 border-4 border-[#1B2B5E] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
@@ -136,12 +136,12 @@ export default function SchoolSelection() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-lime-50 via-white to-green-50">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-white to-slate-100">
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-14 h-14 bg-gradient-to-br from-lime-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-14 h-14 bg-[#1B2B5E] rounded-2xl flex items-center justify-center shadow-lg">
               <Sprout className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -152,7 +152,7 @@ export default function SchoolSelection() {
         </div>
 
         <Card className="border-none shadow-2xl bg-white/90 backdrop-blur-xl">
-          <CardHeader className="text-center pb-6 bg-gradient-to-r from-lime-50 to-green-50 border-b">
+          <CardHeader className="text-center pb-6 bg-gradient-to-r from-slate-50 to-slate-100 border-b">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <School className="w-8 h-8 text-white" />
             </div>
@@ -177,7 +177,7 @@ export default function SchoolSelection() {
                       setSelectedSchool(null);
                     }}
                     placeholder="Type to search your school..."
-                    className="w-full pl-10 h-12 px-4 border-2 border-gray-300 rounded-lg bg-white text-base focus:border-lime-500 focus:outline-none"
+                    className="w-full pl-10 h-12 px-4 border-2 border-gray-300 rounded-lg bg-white text-base focus:border-[#1B2B5E] focus:outline-none"
                     autoComplete="off"
                     required
                   />
@@ -207,7 +207,7 @@ export default function SchoolSelection() {
                 </div>
 
                 {selectedSchool && (
-                  <div className="flex items-center gap-2 text-sm text-lime-700 bg-lime-50 border border-lime-200 rounded-lg px-3 py-2">
+                  <div className="flex items-center gap-2 text-sm text-[#2D9B6F] bg-blue-50 border border-gray-200 rounded-lg px-3 py-2">
                     <CheckCircle className="w-4 h-4" />
                     Selected: <span className="font-semibold">{selectedSchool.name}</span>
                   </div>
@@ -226,7 +226,7 @@ export default function SchoolSelection() {
                 <select
                   value={grade}
                   onChange={(e) => setGrade(e.target.value)}
-                  className="w-full h-12 px-4 border-2 border-gray-300 rounded-lg bg-white text-base focus:border-lime-500 focus:outline-none"
+                  className="w-full h-12 px-4 border-2 border-gray-300 rounded-lg bg-white text-base focus:border-[#1B2B5E] focus:outline-none"
                   required
                 >
                   <option value="">Select your grade</option>
@@ -247,7 +247,7 @@ export default function SchoolSelection() {
               </div>
 
               {/* Info */}
-              <div className="p-4 rounded-xl bg-gradient-to-r from-lime-50 to-green-50 border-2 border-lime-200">
+              <div className="p-4 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 border-2 border-gray-200">
                 <p className="text-sm text-gray-700">
                   💡 <span className="font-semibold">Why we ask:</span> This helps us connect you
                   with classmates and personalize your experience.
@@ -256,7 +256,7 @@ export default function SchoolSelection() {
 
               <Button
                 type="submit"
-                className="w-full h-14 text-base bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white shadow-lg shadow-lime-200"
+                className="w-full h-14 text-base bg-[#1B2B5E] hover:bg-[#141E43] text-white shadow-lg "
               >
                 Continue to Dashboard
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -266,8 +266,8 @@ export default function SchoolSelection() {
         </Card>
 
         <div className="flex justify-center mt-6 gap-2">
-          <div className="w-12 h-2 rounded-full bg-lime-500" />
-          <div className="w-12 h-2 rounded-full bg-lime-300" />
+          <div className="w-12 h-2 rounded-full bg-blue-500" />
+          <div className="w-12 h-2 rounded-full bg-[#1B2B5E]" />
         </div>
         <p className="text-center mt-3 text-sm text-gray-600">Step 1 of 2</p>
       </div>

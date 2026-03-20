@@ -13,9 +13,9 @@ import {
    TOKENS
 ───────────────────────────────────────────────────────────── */
 const C = {
-  navy:       "#1F3A64",
-  navyMid:    "#172E52",
-  navyLight:  "#264D82",
+  navy:       "#1B2B5E",
+  navyMid:    "#141E43",
+  navyLight:  "#243570",
   accent:     "#2563EB",
   accentSoft: "#EFF6FF",
   accentMid:  "#BFDBFE",

@@ -10,9 +10,9 @@ import { toast } from "sonner";
 import CourseCertificate from "../components/CourseCertificate";
 
 const C = {
-  navy:"#1F3A64", navyMid:"#172E52", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   red:"#EF4444", redSoft:"#FEF2F2",
   amber:"#F59E0B", amberSoft:"#FFF3E0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",

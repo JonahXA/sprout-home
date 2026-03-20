@@ -44,7 +44,7 @@ export default function InteractiveQuiz({ questions, onComplete }) {
     const passed = percentage >= 80;
 
     return (
-      <Card className={`border-none shadow-2xl ${passed ? "bg-gradient-to-r from-green-400 to-emerald-500" : "bg-gradient-to-r from-orange-400 to-red-500"} text-white`}>
+      <Card className={`border-none shadow-2xl ${passed ? "bg-[#1B2B5E]" : "bg-gradient-to-r from-orange-400 to-red-500"} text-white`}>
         <CardContent className="p-8 md:p-12 text-center">
           {passed ? (
             <>
@@ -56,7 +56,7 @@ export default function InteractiveQuiz({ questions, onComplete }) {
                 <Zap className="w-10 h-10" />
                 Knowledge Mastered!
               </div>
-              <Button onClick={() => onComplete?.(score)} className="bg-white text-green-600 hover:bg-gray-100 h-16 px-12 text-xl shadow-2xl">
+              <Button onClick={() => onComplete?.(score)} className="bg-white text-[#2D9B6F] hover:bg-gray-100 h-16 px-12 text-xl shadow-2xl">
                 Continue Learning
               </Button>
             </>
@@ -148,7 +148,7 @@ export default function InteractiveQuiz({ questions, onComplete }) {
                       className={`w-full p-5 rounded-xl text-left transition-all font-medium text-base relative overflow-hidden group ${
                         showResult
                           ? isCorrectAnswer
-                            ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-2 border-green-600 shadow-lg"
+                            ? "bg-[#1B2B5E] text-white border-2 border-green-600 shadow-lg"
                             : isSelected
                             ? "bg-gradient-to-r from-red-400 to-pink-500 text-white border-2 border-red-600"
                             : "bg-gray-100 border-2 border-gray-300 text-gray-500"
@@ -173,11 +173,11 @@ export default function InteractiveQuiz({ questions, onComplete }) {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`p-5 rounded-xl border-l-4 ${
-                    isCorrect ? "bg-gradient-to-r from-green-50 to-emerald-50 border-green-500" : "bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-500"
+                    isCorrect ? "bg-gradient-to-r bg-[#E6F5EF] border-[#2D9B6F]" : "bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-500"
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <Lightbulb className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isCorrect ? "text-green-600" : "text-blue-600"}`} />
+                    <Lightbulb className={`w-5 h-5 flex-shrink-0 mt-0.5 ${isCorrect ? "text-[#2D9B6F]" : "text-blue-600"}`} />
                     <div>
                       <p className="font-semibold mb-1 text-gray-900">{isCorrect ? "Correct! 🎉" : "Not quite!"}</p>
                       <p className="text-sm text-gray-700">{question.explanation}</p>

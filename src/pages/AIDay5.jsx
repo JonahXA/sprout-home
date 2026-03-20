@@ -8,9 +8,9 @@ import InteractiveQuiz from "@/components/InteractiveQuiz";
 import PromptWorkshop from "@/components/PromptWorkshop";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -84,7 +84,7 @@ export default function AIDay5() {
                 <p className="text-sm text-gray-600 ml-10">Provide background and relevant information</p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-lg border-l-4 border-[#2D9B6F]">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">L</div>
                   <h4 className="font-bold text-gray-900">Limits</h4>
@@ -131,15 +131,15 @@ export default function AIDay5() {
               </div>
             </div>
 
-            <div className="border-2 border-green-200 bg-green-50 rounded-lg overflow-hidden">
+            <div className="border-2 border-[#2D9B6F]/30 bg-[#E6F5EF] rounded-lg overflow-hidden">
               <div className="px-4 py-3">
-                <h4 className="font-bold text-green-700">✓ Strong Prompt</h4>
+                <h4 className="font-bold text-[#2D9B6F]">✓ Strong Prompt</h4>
               </div>
               <div className="p-4 space-y-2 text-sm">
                 <p className="italic text-gray-700">"Explain photosynthesis to a 9th grader in 5 bullet points with one analogy"</p>
-                <p className="text-green-700">✓ Audience: 9th grader</p>
-                <p className="text-green-700">✓ Format: 5 bullet points</p>
-                <p className="text-green-700">✓ Extra: include analogy</p>
+                <p className="text-[#2D9B6F]">✓ Audience: 9th grader</p>
+                <p className="text-[#2D9B6F]">✓ Format: 5 bullet points</p>
+                <p className="text-[#2D9B6F]">✓ Extra: include analogy</p>
               </div>
             </div>
           </div>

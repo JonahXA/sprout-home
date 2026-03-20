@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import logoImg from "./assets/logo.png";
 
 const C = {
-  navy:"#1F3A64", navyMid:"#172E52", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE", accentMid:"#BFDBFE",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB", borderMid:"#D1D5DB",

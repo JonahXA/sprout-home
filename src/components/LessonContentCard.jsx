@@ -15,7 +15,7 @@ export default function LessonContentCard({ section, index, onComplete }) {
 
   const getGradient = () => {
     if (section.type === "tip") return "from-yellow-400 to-orange-500";
-    if (section.type === "example") return "from-green-400 to-emerald-500";
+    if (section.type === "example") return "bg-[#1B2B5E]";
     return "from-blue-400 to-cyan-500";
   };
 
@@ -46,7 +46,7 @@ export default function LessonContentCard({ section, index, onComplete }) {
                 setRevealed(true);
                 onComplete?.(index);
               }}
-              className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white"
+              className="bg-[#1B2B5E] hover:bg-[#141E43] text-white"
             >
               Continue Reading
               <ChevronRight className="w-4 h-4 ml-2" />
@@ -55,8 +55,8 @@ export default function LessonContentCard({ section, index, onComplete }) {
         ) : (
           <div className="prose prose-sm max-w-none">
             <ReactMarkdown>{section.content}</ReactMarkdown>
-            <div className="mt-4 p-3 bg-green-50 rounded-lg border-2 border-green-200 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-600" />
+            <div className="mt-4 p-3 bg-[#E6F5EF] rounded-lg border-2 border-[#2D9B6F]/30 flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-[#2D9B6F]" />
               <span className="text-sm text-green-900 font-medium">Section completed!</span>
             </div>
           </div>

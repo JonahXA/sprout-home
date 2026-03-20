@@ -219,7 +219,7 @@ export default function PaycheckLesson2({ userName = "Your Name", onComplete }) 
                 <p className="text-xs text-gray-600 mt-2">👆 Click here to confirm</p>
               )}
               {netPayClicked && step === 2 && (
-                <div className="flex items-center gap-2 text-green-600 text-sm mt-2">
+                <div className="flex items-center gap-2 text-[#2D9B6F] text-sm mt-2">
                   <CheckCircle2 className="w-4 h-4" />
                   Confirmed!
                 </div>

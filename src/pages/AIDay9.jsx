@@ -7,9 +7,9 @@ import { ArrowLeft, ChevronRight, TrendingUp, Rocket, Brain, AlertCircle } from 
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -120,9 +120,9 @@ export default function AIDay9() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="border-2 border-green-200 bg-green-50 rounded-lg overflow-hidden">
+            <div className="border-2 border-[#2D9B6F]/30 bg-[#E6F5EF] rounded-lg overflow-hidden">
               <div className="px-4 py-3">
-                <h4 className="font-bold text-green-700">Opportunities Ahead</h4>
+                <h4 className="font-bold text-[#2D9B6F]">Opportunities Ahead</h4>
               </div>
               <div className="p-4 space-y-2 text-sm">
                 <p className="text-gray-700">✓ <strong>Education revolution:</strong> Personalized learning for everyone</p>

@@ -9,9 +9,9 @@ import InteractiveQuiz from "@/components/InteractiveQuiz";
 import { getCurrentUserSafe, getAIDayProgress, upsertAIDayProgress } from "@/lib/appClient";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -102,9 +102,9 @@ export default function AIDay10() {
               </div>
             </div>
 
-            <div className="border-2 border-green-200 rounded-lg overflow-hidden">
-              <div className="bg-green-50 px-4 py-3">
-                <h4 className="font-bold text-green-700">Practical Skills</h4>
+            <div className="border-2 border-[#2D9B6F]/30 rounded-lg overflow-hidden">
+              <div className="bg-[#E6F5EF] px-4 py-3">
+                <h4 className="font-bold text-[#2D9B6F]">Practical Skills</h4>
               </div>
               <div className="p-4 space-y-2 text-sm">
                 <p className="text-gray-700">✓ Writing effective prompts (CLEAR framework)</p>
@@ -140,12 +140,12 @@ export default function AIDay10() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl border-l-4 border-green-500">
+          <div className="bg-gradient-to-r bg-[#E6F5EF] p-6 rounded-xl border-l-4 border-[#2D9B6F]">
             <h4 className="font-bold text-gray-900 mb-3 text-lg">🔑 Top 10 Takeaways</h4>
             <div className="space-y-2">
               {keyTakeaways.map((takeaway, idx) => (
                 <div key={idx} className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <CheckCircle className="w-5 h-5 text-[#2D9B6F] mt-0.5 flex-shrink-0" />
                   <p className="text-sm text-gray-700">{takeaway}</p>
                 </div>
               ))}

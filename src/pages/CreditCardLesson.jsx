@@ -5,7 +5,7 @@ import { ArrowLeft, CreditCard } from "lucide-react";
 import CreditCardStatement from "../components/CreditCardStatement";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accentSoft:"#E8F0FE", bg:"#FFFFFF", bgSoft:"#F8FAFC", border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569",
 };

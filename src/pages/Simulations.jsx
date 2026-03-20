@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
 import { Calculator, TrendingUp, Briefcase, Users, Home, GraduationCap, Wallet } from "lucide-react";
 import InterestCalculator from "@/components/InterestCalculator";
 import PaperTradingSimulator from "@/components/PaperTradingSimulator";
@@ -14,27 +13,90 @@ const safeParse = (raw, fallback) => { try { return raw ? JSON.parse(raw) : fall
 const getLocalUser = () => safeParse(localStorage.getItem("sprout_user"), null);
 
 const C = {
-  navy:"#1F3A64", navyMid:"#172E52",
+  navy:"#1B2B5E", navyMid:"#141E43",
   text:"#0F172A", textSub:"#475569",
-  bg:"#FFFFFF", border:"#E5E7EB", borderMid:"#D1D5DB",
-  navyGlow:"rgba(31,58,100,0.12)",
+  bg:"#FFFFFF", bgMid:"#F1F5F9", border:"#E5E7EB", borderMid:"#D1D5DB",
+  navyGlow:"rgba(27,43,94,0.12)",
 };
+
+const NICHES = {
+  Finance:              { color:"#2D9B6F", softBg:"#E6F5EF", label:"Finance" },
+  "AI & Technology":   { color:"#7C3AED", softBg:"#F3F0FF", label:"AI & Technology" },
+  Entrepreneurship:    { color:"#F97316", softBg:"#FFF0E6", label:"Entrepreneurship" },
+  "Critical Thinking": { color:"#0891B2", softBg:"#E0F5FA", label:"Critical Thinking" },
+};
+
+const NICHE_ORDER = ["Finance", "AI & Technology", "Entrepreneurship", "Critical Thinking"];
 
 export default function Simulations() {
   const navigate = useNavigate();
   const [activeSimulation, setActiveSimulation] = useState(null);
 
   const simulations = [
-    { id:"budget-basics",         title:"Build Your Budget",        description:"Learn the fundamentals of budgeting with an interactive walkthrough of a real budget sheet.",         icon:Wallet,       thumb:{ bg:"#FFF3E0", color:"#F59E0B" }, component:BuildYourBudget },
-    { id:"college-budget",        title:"College Student Budget",         description:"Navigate variable income and irregular expenses. Spread textbook costs without going negative.",         icon:GraduationCap,thumb:{ bg:"#E8F0FE", color:"#3B82F6" }, component: CollegeStudentBudget },
-    { id:"first-job-budget",      title:"New Graduate Budget",            description:"First full-time job, first real budget. Build an emergency fund while managing debt.",                   icon:Briefcase,    thumb:{ bg:"#F2ECFF", color:"#8B5CF6" }, component:NewGraduateBudgetSimulation },
-    { id:"dual-income-budget",    title:"Early Career Dual Income",       description:"Two incomes, one budget. Save for a down payment while balancing lifestyle and future.",                 icon:Users,        thumb:{ bg:"#E8F0FE", color:"#3B82F6" }, component:() => <ScenarioBudgetSimulation scenarioId={2} /> },
-    { id:"family-budget",         title:"Mid-Career Family Budget",       description:"Two kids, two incomes. Add expenses without sacrificing retirement savings.",                             icon:Home,         thumb:{ bg:"#FFF3E0", color:"#F59E0B" }, component:() => <ScenarioBudgetSimulation scenarioId={3} /> },
-    { id:"paper-trading",         title:"Paper Trading",                  description:"Practice investing with virtual money. Trade real stocks and indexes with live market data.",             icon:TrendingUp,   thumb:{ bg:"#E8F8F0", color:"#22C55E" }, component:PaperTradingSimulator },
-    { id:"investment-calculator", title:"Investment Growth Calculator",   description:"Visualize how your investments grow over time with compound interest and adjustable contributions.",     icon:Calculator,   thumb:{ bg:"#E8F0FE", color:"#3B82F6" }, component:InterestCalculator },
+    {
+      id:"budget-basics",
+      title:"Build Your Budget",
+      description:"Learn the fundamentals of budgeting with an interactive walkthrough of a real budget sheet.",
+      icon:Wallet,
+      niche:"Finance",
+      component:BuildYourBudget,
+    },
+    {
+      id:"college-budget",
+      title:"College Student Budget",
+      description:"Navigate variable income and irregular expenses. Spread textbook costs without going negative.",
+      icon:GraduationCap,
+      niche:"Finance",
+      component:CollegeStudentBudget,
+    },
+    {
+      id:"first-job-budget",
+      title:"New Graduate Budget",
+      description:"First full-time job, first real budget. Build an emergency fund while managing debt.",
+      icon:Briefcase,
+      niche:"Finance",
+      component:NewGraduateBudgetSimulation,
+    },
+    {
+      id:"dual-income-budget",
+      title:"Early Career Dual Income",
+      description:"Two incomes, one budget. Save for a down payment while balancing lifestyle and future.",
+      icon:Users,
+      niche:"Finance",
+      component:() => <ScenarioBudgetSimulation scenarioId={2} />,
+    },
+    {
+      id:"family-budget",
+      title:"Mid-Career Family Budget",
+      description:"Two kids, two incomes. Add expenses without sacrificing retirement savings.",
+      icon:Home,
+      niche:"Finance",
+      component:() => <ScenarioBudgetSimulation scenarioId={3} />,
+    },
+    {
+      id:"paper-trading",
+      title:"Paper Trading",
+      description:"Practice investing with virtual money. Trade real stocks and indexes with live market data.",
+      icon:TrendingUp,
+      niche:"Finance",
+      component:PaperTradingSimulator,
+    },
+    {
+      id:"investment-calculator",
+      title:"Investment Growth Calculator",
+      description:"Visualize how your investments grow over time with compound interest and adjustable contributions.",
+      icon:Calculator,
+      niche:"Finance",
+      component:InterestCalculator,
+    },
   ];
 
-  // Gate: only redirect on Launch, not on page visit
+  const simsByNiche = {};
+  simulations.forEach((sim) => {
+    if (!simsByNiche[sim.niche]) simsByNiche[sim.niche] = [];
+    simsByNiche[sim.niche].push(sim);
+  });
+
   const handleLaunch = (sim, e) => {
     e.stopPropagation();
     const user = getLocalUser();
@@ -65,47 +127,63 @@ export default function Simulations() {
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
 
       {/* Header */}
-      <div style={{ marginBottom:28 }}>
+      <div style={{ marginBottom:32 }}>
         <h1 style={{ fontSize:34, fontWeight:900, color:C.text, margin:0, letterSpacing:"-1px", lineHeight:1.1 }}>Simulations</h1>
         <p style={{ fontSize:15, color:C.textSub, margin:"8px 0 0", fontWeight:500, lineHeight:1.5 }}>Interactive modules to practice real-world decisions — no risk, all learning.</p>
       </div>
 
-      {/* Uniform grid — each card uses flex-col so all content stretches identically */}
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }} className="sim-grid">
-        {simulations.map((sim) => {
-          const Icon = sim.icon;
+      {/* Niche sections */}
+      <div style={{ display:"flex", flexDirection:"column", gap:36 }}>
+        {NICHE_ORDER.map((nicheName) => {
+          const nicheSims = simsByNiche[nicheName];
+          if (!nicheSims || nicheSims.length === 0) return null;
+          const niche = NICHES[nicheName];
           return (
-            <div key={sim.id}
-              style={{
-                background:C.bg,
-                border:`1px solid ${C.border}`,
-                borderRadius:16,
-                overflow:"hidden",
-                display:"flex",
-                flexDirection:"column",
-                boxShadow:"0 1px 4px rgba(0,0,0,0.05)",
-                transition:"all 0.22s",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.transform = "translateY(-3px)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "none"; }}
-            >
-              {/* Thumbnail — fixed height */}
-              <div style={{ height:112, flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:sim.thumb.bg, borderBottom:`1px solid ${C.border}` }}>
-                <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:sim.thumb.color }}>
-                  <Icon size={26} />
-                </div>
+            <div key={nicheName}>
+              {/* Section header */}
+              <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:16 }}>
+                <div style={{ width:4, height:28, borderRadius:999, background:niche.color, flexShrink:0 }} />
+                <h2 style={{ fontSize:20, fontWeight:800, color:C.text, margin:0, letterSpacing:"-0.5px" }}>{niche.label}</h2>
+                <span style={{ fontSize:12, fontWeight:700, color:niche.color, background:niche.softBg, borderRadius:999, padding:"3px 10px" }}>
+                  {nicheSims.length} {nicheSims.length === 1 ? "simulation" : "simulations"}
+                </span>
               </div>
 
-              {/* Body — flex-col so description fills space and button stays at bottom */}
-              <div style={{ padding:"20px 20px 22px", display:"flex", flexDirection:"column", flex:1 }}>
-                <p style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:8, letterSpacing:"-0.3px", lineHeight:1.35 }}>{sim.title}</p>
-                <p style={{ fontSize:13, color:C.textSub, lineHeight:1.65, flex:1, minHeight:60, marginBottom:20, fontWeight:400 }}>{sim.description}</p>
-                <button
-                  onClick={(e) => handleLaunch(sim, e)}
-                  style={{ width:"100%", height:44, borderRadius:999, background:C.navy, color:"#fff", fontSize:14, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0, letterSpacing:"-0.1px" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = `0 6px 20px ${C.navyGlow}`; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
-                >Launch</button>
+              {/* Simulation grid */}
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }} className="sim-grid">
+                {nicheSims.map((sim) => {
+                  const Icon = sim.icon;
+                  return (
+                    <div key={sim.id}
+                      style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:16, overflow:"hidden", display:"flex", flexDirection:"column", boxShadow:"0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.transform = "translateY(-3px)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "none"; }}
+                    >
+                      {/* Thumbnail */}
+                      <div style={{ height:112, flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:niche.softBg, borderBottom:`1px solid ${C.border}`, position:"relative" }}>
+                        <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:niche.color }}>
+                          <Icon size={26} />
+                        </div>
+                        {/* Niche tag */}
+                        <div style={{ position:"absolute", top:10, left:10, background:niche.softBg, border:`1px solid ${niche.color}`, borderRadius:999, padding:"3px 10px", fontSize:11, fontWeight:700, color:niche.color }}>
+                          {niche.label}
+                        </div>
+                      </div>
+
+                      {/* Body */}
+                      <div style={{ padding:"20px 20px 22px", display:"flex", flexDirection:"column", flex:1 }}>
+                        <p style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:8, letterSpacing:"-0.3px", lineHeight:1.35 }}>{sim.title}</p>
+                        <p style={{ fontSize:13, color:C.textSub, lineHeight:1.65, flex:1, minHeight:60, marginBottom:20, fontWeight:400 }}>{sim.description}</p>
+                        <button
+                          onClick={(e) => handleLaunch(sim, e)}
+                          style={{ width:"100%", height:44, borderRadius:999, background:C.navy, color:"#fff", fontSize:14, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0, letterSpacing:"-0.1px" }}
+                          onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = `0 6px 20px ${C.navyGlow}`; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
+                        >Launch</button>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );

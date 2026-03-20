@@ -117,7 +117,7 @@ export default function Admin() {
               <p className="text-sm opacity-90">Total Users</p>
             </CardContent>
           </Card>
-          <Card className="border-none shadow-lg bg-gradient-to-br from-lime-400 to-green-500 text-white">
+          <Card className="border-none shadow-lg bg-[#1B2B5E] text-white">
             <CardContent className="p-6">
               <TrendingUp className="w-8 h-8 mb-2" />
               <p className="text-3xl font-bold">{activeUsers}</p>
@@ -212,7 +212,7 @@ export default function Admin() {
                           <tr key={u.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                             <td className="py-4 px-4">
                               <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                                <div className="w-10 h-10 bg-[#1B2B5E] rounded-full flex items-center justify-center text-white font-bold">
                                   {u.full_name?.[0]?.toUpperCase() || "U"}
                                 </div>
                                 <div>
@@ -253,8 +253,8 @@ export default function Admin() {
                             </td>
                             <td className="py-4 px-4">
                               <div className="flex items-center gap-2">
-                                <Zap className="w-4 h-4 text-lime-500" />
-                                <span className="font-semibold text-lime-600">{u.xp_points || 0}</span>
+                                <Zap className="w-4 h-4 text-[#2D9B6F]" />
+                                <span className="font-semibold text-[#2D9B6F]">{u.xp_points || 0}</span>
                               </div>
                             </td>
                             <td className="py-4 px-4">
@@ -319,7 +319,7 @@ export default function Admin() {
                             return (
                               <td key={d} className="text-center py-3 px-2">
                                 {dayRow?.completed ? (
-                                  <CheckCircle className="w-5 h-5 text-green-500 mx-auto" />
+                                  <CheckCircle className="w-5 h-5 text-[#2D9B6F] mx-auto" />
                                 ) : (
                                   <div className="w-5 h-5 rounded-full border-2 border-gray-200 mx-auto" />
                                 )}
@@ -327,7 +327,7 @@ export default function Admin() {
                             );
                           })}
                           <td className="text-center py-3 px-4">
-                            <Badge className={completedCount === 10 ? "bg-green-100 text-green-700" : "bg-purple-100 text-purple-700"}>
+                            <Badge className={completedCount === 10 ? "bg-green-100 text-[#2D9B6F]" : "bg-purple-100 text-purple-700"}>
                               {completedCount}/10
                             </Badge>
                           </td>
@@ -381,7 +381,7 @@ export default function Admin() {
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600">Total XP</span>
-                            <span className="font-semibold text-lime-600">{schoolXP}</span>
+                            <span className="font-semibold text-[#2D9B6F]">{schoolXP}</span>
                           </div>
                           <div className="flex justify-between text-sm">
                             <span className="text-gray-600">AI Days Completed</span>

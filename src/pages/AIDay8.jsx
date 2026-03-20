@@ -7,9 +7,9 @@ import { ArrowLeft, ChevronRight, Cpu, Zap, Brain, Activity } from "lucide-react
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 
 const C = {
-  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE",
-  green:"#22C55E", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E8F8F0",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -89,7 +89,7 @@ export default function AIDay8() {
                 <p className="text-sm text-gray-600">Smart thermostats learn your schedule, voice assistants answer questions, smart doorbells detect people</p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-lg border-l-4 border-[#2D9B6F]">
                 <p className="font-bold text-gray-900">📱 On Your Phone</p>
                 <p className="text-sm text-gray-600">Face unlock, photo organization, autocorrect, navigation with traffic prediction</p>
               </div>

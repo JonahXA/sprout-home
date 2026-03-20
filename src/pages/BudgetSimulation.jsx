@@ -109,14 +109,14 @@ export default function BudgetSimulation() {
   if (!user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#2D9B6F] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   const currentLesson = lessons[lessonNum];
 
-  const C = { navy:"#1F3A64", navyMid:"#172E52", navyGlow:"rgba(31,58,100,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
+  const C = { navy:"#1B2B5E", navyMid:"#141E43", navyGlow:"rgba(27,43,94,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
 
   return (
     <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>

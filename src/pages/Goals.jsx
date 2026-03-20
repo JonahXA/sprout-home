@@ -278,7 +278,7 @@ export default function Goals() {
             <DialogTrigger asChild>
               <Button
                 onClick={() => { resetForm(); setShowDialog(true); }}
-                className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white shadow-lg shadow-lime-200"
+                className="bg-[#1B2B5E] hover:bg-[#141E43] text-white shadow-lg "
               >
                 <Plus className="w-5 h-5 mr-2" />
                 New Goal
@@ -360,7 +360,7 @@ export default function Goals() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-lime-500 hover:bg-lime-600">
+                <Button type="submit" className="w-full bg-blue-500 hover:bg-[#2D9B6F]">
                   {editingGoal ? "Update Goal" : "Create Goal"}
                 </Button>
               </form>
@@ -377,7 +377,7 @@ export default function Goals() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gradient-to-br from-lime-400 to-green-500 text-white">
+          <Card className="border-none shadow-lg bg-[#1B2B5E] text-white">
             <CardContent className="p-6">
               <Target className="w-8 h-8 mb-2" />
               <p className="text-3xl font-bold">${totalTarget.toLocaleString()}</p>
@@ -484,9 +484,9 @@ export default function Goals() {
                     )}
 
                     {goal.completed && (
-                      <div className="p-3 rounded-lg bg-gradient-to-r from-green-50 to-lime-50 border border-green-200 text-center">
-                        <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-1" />
-                        <p className="text-sm font-semibold text-green-700">Goal Achieved! 🎉</p>
+                      <div className="p-3 rounded-lg bg-gradient-to-r bg-[#E6F5EF] border border-[#2D9B6F] text-center">
+                        <CheckCircle className="w-6 h-6 text-[#2D9B6F] mx-auto mb-1" />
+                        <p className="text-sm font-semibold text-[#2D9B6F]">Goal Achieved! 🎉</p>
                       </div>
                     )}
                   </CardContent>
@@ -504,7 +504,7 @@ export default function Goals() {
               <p className="text-gray-600 mb-6">Start setting financial goals to track your savings progress</p>
               <Button
                 onClick={() => setShowDialog(true)}
-                className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600"
+                className="bg-[#1B2B5E] hover:bg-[#141E43]"
               >
                 <Plus className="w-5 h-5 mr-2" />
                 Create Your First Goal

@@ -14,7 +14,7 @@ const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov
 
 // ─── Design Tokens ─────────────────────────────────────────────────────────────
 const C = {
-  navy:"#1F3A64", navyMid:"#172E52", navyLight:"#2A4A7F",
+  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570",
   accent:"#3B82F6", accentSoft:"#EFF6FF", accentMid:"#DBEAFE",
   green:"#16A34A", greenSoft:"#F0FDF4", greenMid:"#DCFCE7",
   amber:"#D97706", amberSoft:"#FFFBEB", amberMid:"#FEF3C7",
@@ -25,7 +25,7 @@ const C = {
   border:"#E2E8F0", borderMid:"#CBD5E1",
   shadow:"0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04)",
   shadowMd:"0 4px 16px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04)",
-  shadowLg:"0 12px 40px rgba(31,58,100,0.13)",
+  shadowLg:"0 12px 40px rgba(27,43,94,0.13)",
 };
 
 // ─── Scenarios ─────────────────────────────────────────────────────────────────

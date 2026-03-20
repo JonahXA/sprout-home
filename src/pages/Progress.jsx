@@ -240,14 +240,14 @@ export default function Progress() {
         <Card className="border-none shadow-lg bg-white/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Calendar className="w-6 h-6 text-lime-500" />
+              <Calendar className="w-6 h-6 text-[#2D9B6F]" />
               This Week's Activity
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-3 gap-4">
-              <div className="text-center p-4 rounded-xl bg-gradient-to-br from-lime-50 to-green-50">
-                <p className="text-3xl font-bold text-lime-600">{thisWeekLessons}</p>
+              <div className="text-center p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100">
+                <p className="text-3xl font-bold text-[#2D9B6F]">{thisWeekLessons}</p>
                 <p className="text-sm text-gray-600 mt-1">Lessons</p>
               </div>
               <div className="text-center p-4 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50">
@@ -329,7 +329,7 @@ export default function Progress() {
                   className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-lime-500" />
+                    <CheckCircle className="w-5 h-5 text-[#2D9B6F]" />
                     <div>
                       <p className="font-medium text-gray-900">Lesson Completed</p>
                       <p className="text-sm text-gray-600">
@@ -338,7 +338,7 @@ export default function Progress() {
                     </div>
                   </div>
                   {p.quiz_score != null && (
-                    <Badge className="bg-lime-100 text-lime-700">{p.quiz_score}% score</Badge>
+                    <Badge className="bg-blue-100 text-[#2D9B6F]">{p.quiz_score}% score</Badge>
                   )}
                 </div>
               );
