@@ -15,27 +15,27 @@ import PaycheckLesson2 from "@/components/PaycheckLesson2";
  */
 
 const lessonComponents = {
-  1: PaycheckLesson1,
-  2: PaycheckLesson2,
-  3: PaycheckLesson1,
-  4: PaycheckLesson1,
+ 1: PaycheckLesson1,
+ 2: PaycheckLesson2,
+ 3: PaycheckLesson1,
+ 4: PaycheckLesson1,
 };
 
 const lessonTitles = {
-  1: "Your First Paycheck",
-  2: "College Student Job",
-  3: "First Salary Job",
-  4: "Mid-Career Paycheck",
+ 1: "Your First Paycheck",
+ 2: "College Student Job",
+ 3: "First Salary Job",
+ 4: "Mid-Career Paycheck",
 };
 
 const COURSE_ID = "6943400844fa0b0b1fa81a56"; // keep as-is if your routes depend on it
 
 const safeParse = (raw, fallback) => {
-  try {
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
+ try {
+ return raw ? JSON.parse(raw) : fallback;
+ } catch {
+ return fallback;
+ }
 };
 
 const getUser = () => safeParse(localStorage.getItem("sprout_user"), null);
@@ -45,104 +45,104 @@ const getProgress = () => safeParse(localStorage.getItem("sprout_user_progress")
 const setProgress = (p) => localStorage.setItem("sprout_user_progress", JSON.stringify(p));
 
 export default function PaycheckSimulation() {
-  const { lessonNumber } = useParams();
-  const navigate = useNavigate();
+ const { lessonNumber } = useParams();
+ const navigate = useNavigate();
 
-  const [user, setUserState] = useState(null);
+ const [user, setUserState] = useState(null);
 
-  useEffect(() => {
-    const currentUser = getUser();
-    if (!currentUser) {
-      navigate(createPageUrl("Login"));
-      return;
-    }
-    setUserState(currentUser);
+ useEffect(() => {
+ const currentUser = getUser();
+ if (!currentUser) {
+ navigate(createPageUrl("Login"));
+ return;
+ }
+ setUserState(currentUser);
 
-    if (!currentUser.onboarding_completed) {
-      navigate(createPageUrl("SchoolSelection"));
-    }
-  }, [navigate]);
+ if (!currentUser.onboarding_completed) {
+ navigate(createPageUrl("SchoolSelection"));
+ }
+ }, [navigate]);
 
-  const lessonNum = useMemo(() => parseInt(lessonNumber, 10) || 1, [lessonNumber]);
-  const LessonComponent = lessonComponents[lessonNum] || PaycheckLesson1;
+ const lessonNum = useMemo(() => parseInt(lessonNumber, 10) || 1, [lessonNumber]);
+ const LessonComponent = lessonComponents[lessonNum] || PaycheckLesson1;
 
-  const handleComplete = () => {
-    if (!user) return;
+ const handleComplete = () => {
+ if (!user) return;
 
-    const now = new Date().toISOString();
-    const title = `Paycheck ${lessonNum}: ${lessonTitles[lessonNum]}`;
+ const now = new Date().toISOString();
+ const title = `Paycheck ${lessonNum}: ${lessonTitles[lessonNum]}`;
 
-    // Mark progress complete locally
-    const all = getProgress();
-    const existingIdx = all.findIndex(
-      (p) => p.user_email === user.email && p.course_id === COURSE_ID && p.lesson_title === title
-    );
+ // Mark progress complete locally
+ const all = getProgress();
+ const existingIdx = all.findIndex(
+ (p) => p.user_email === user.email && p.course_id === COURSE_ID && p.lesson_title === title
+ );
 
-    const record = {
-      id: existingIdx >= 0 ? all[existingIdx].id : (crypto?.randomUUID?.() || `pp_${Date.now()}`),
-      user_email: user.email,
-      course_id: COURSE_ID,
-      lesson_title: title,
-      completed: true,
-      completed_date: now,
-      quiz_score: 100,
-      time_spent_minutes: 15,
-    };
+ const record = {
+ id: existingIdx >= 0 ? all[existingIdx].id : (crypto?.randomUUID?.() || `pp_${Date.now()}`),
+ user_email: user.email,
+ course_id: COURSE_ID,
+ lesson_title: title,
+ completed: true,
+ completed_date: now,
+ quiz_score: 100,
+ time_spent_minutes: 15,
+ };
 
-    if (existingIdx >= 0) all[existingIdx] = { ...all[existingIdx], ...record };
-    else all.push(record);
+ if (existingIdx >= 0) all[existingIdx] = { ...all[existingIdx], ...record };
+ else all.push(record);
 
-    setProgress(all);
+ setProgress(all);
 
-    // XP reward (fallback if you don’t have the lessons list here)
-    const xpReward = 100;
+ // XP reward (fallback if you don’t have the lessons list here)
+ const xpReward = 100;
 
-    const updatedUser = {
-      ...user,
-      xp_points: (user.xp_points || 0) + xpReward,
-      total_lessons_completed: (user.total_lessons_completed || 0) + 1,
-      level: Math.floor(((user.xp_points || 0) + xpReward) / 100) + 1,
-    };
+ const updatedUser = {
+ ...user,
+ xp_points: (user.xp_points || 0) + xpReward,
+ total_lessons_completed: (user.total_lessons_completed || 0) + 1,
+ level: Math.floor(((user.xp_points || 0) + xpReward) / 100) + 1,
+ };
 
-    setUser(updatedUser);
-    setUserState(updatedUser);
+ setUser(updatedUser);
+ setUserState(updatedUser);
 
-    navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`);
-  };
+ navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`);
+ };
 
-  if (!user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="w-12 h-12 border-4 border-[#2D9B6F] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+ if (!user) {
+ return (
+ <div className="flex items-center justify-center min-h-screen">
+ <div className="w-12 h-12 border-4 border-[#2D9B6F] border-t-transparent rounded-full animate-spin"></div>
+ </div>
+ );
+ }
 
-  const C = { navy:"#1B2B5E", navyMid:"#141E43", navyGlow:"rgba(27,43,94,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
+ const C = { navy:"#1B2B5E", navyMid:"#141E43", navyGlow:"rgba(27,43,94,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
 
-  return (
-    <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
-      <div style={{ marginBottom:24 }}>
-        <button
-          onClick={() => navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`)}
-          style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"9px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.text, fontSize:13, fontWeight:600, cursor:"pointer", transition:"all 0.15s ease" }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.boxShadow = `0 4px 12px ${C.navyGlow}`; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}
-        >&#8592; Back to Course</button>
-      </div>
+ return (
+ <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
+ <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
+ <div style={{ marginBottom:24 }}>
+ <button
+ onClick={() => navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`)}
+ style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"9px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.text, fontSize:13, fontWeight:600, cursor:"pointer", transition:"all 0.15s ease" }}
+ onMouseEnter={(e) => { e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.boxShadow = `0 4px 12px ${C.navyGlow}`; }}
+ onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}
+ >&#8592; Back to Course</button>
+ </div>
 
-      <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:20, boxShadow:"0 2px 12px rgba(0,0,0,0.05)", padding:"36px 40px" }}>
-        <h1 style={{ fontSize:28, fontWeight:900, color:C.text, margin:"0 0 8px", letterSpacing:"-0.7px", lineHeight:1.15 }}>
-          Paycheck {lessonNum}: {lessonTitles[lessonNum]}
-        </h1>
-        <p style={{ fontSize:14, color:C.textSub, margin:"0 0 32px", fontWeight:500, lineHeight:1.6 }}>Interactive paycheck breakdown</p>
+ <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:20, boxShadow:"0 2px 12px rgba(0,0,0,0.05)", padding:"36px 40px" }}>
+ <h1 style={{ fontSize:28, fontWeight:900, color:C.text, margin:"0 0 8px", letterSpacing:"-0.7px", lineHeight:1.15 }}>
+ Paycheck {lessonNum}: {lessonTitles[lessonNum]}
+ </h1>
+ <p style={{ fontSize:14, color:C.textSub, margin:"0 0 32px", fontWeight:500, lineHeight:1.6 }}>Interactive paycheck breakdown</p>
 
-        <LessonComponent
-          userName={user.full_name || "Student"}
-          onComplete={handleComplete}
-        />
-      </div>
-    </div>
-  );
+ <LessonComponent
+ userName={user.full_name || "Student"}
+ onComplete={handleComplete}
+ />
+ </div>
+ </div>
+ );
 }

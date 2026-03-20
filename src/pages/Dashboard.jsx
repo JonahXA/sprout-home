@@ -4,306 +4,306 @@ import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { useAuth } from "@/lib/AuthContext";
 import {
-  Flame, BookOpen, ArrowRight,
-  TrendingUp, Award, ChevronRight, Sparkles, Calculator,
-  Play, CreditCard, Shield, Cpu, PieChart, Book, GraduationCap, Layers
+ Flame, BookOpen, ArrowRight,
+ TrendingUp, Award, ChevronRight, Sparkles, Calculator,
+ Play, CreditCard, Shield, Cpu, PieChart, Book, GraduationCap, Layers
 } from "lucide-react";
 
 const C = {
-  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
-  accent:"#3B82F6", accentSoft:"#E8F0FE", accentMid:"#BFDBFE",
-  green:"#2D9B6F", greenSoft:"#E6F5EF",
-  amber:"#F59E0B", amberSoft:"#FFF3E0",
-  purple:"#7C3AED", purpleSoft:"#F3F0FF",
-  teal:"#0891B2", tealSoft:"#E0F5FA",
-  orange:"#F97316", orangeSoft:"#FFF0E6",
-  bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
-  border:"#E5E7EB", borderMid:"#D1D5DB",
-  text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
+ navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
+ accent:"#3B82F6", accentSoft:"#E8F0FE", accentMid:"#BFDBFE",
+ green:"#2D9B6F", greenSoft:"#E6F5EF",
+ amber:"#F59E0B", amberSoft:"#FFF3E0",
+ purple:"#7C3AED", purpleSoft:"#F3F0FF",
+ teal:"#0891B2", tealSoft:"#E0F5FA",
+ orange:"#F97316", orangeSoft:"#FFF0E6",
+ bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
+ border:"#E5E7EB", borderMid:"#D1D5DB",
+ text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
 };
 
 const data = {
-  async listCourses() { return []; },
-  async listUserProgress() { return []; },
-  async listUserBadges() { return []; },
+ async listCourses() { return []; },
+ async listUserProgress() { return []; },
+ async listUserBadges() { return []; },
 };
 
 const getFirstName = (n) => {
-  if (!n) return "";
-  const w = String(n).trim().split(" ")[0];
-  return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+ if (!n) return "";
+ const w = String(n).trim().split(" ")[0];
+ return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
 };
 
 const pill = {
-  base: { display:"inline-flex", alignItems:"center", justifyContent:"center", padding:"8px 20px", borderRadius:999, fontSize:13, fontWeight:500, cursor:"pointer", textDecoration:"none", transition:"all 0.15s ease", whiteSpace:"nowrap", lineHeight:1, border:"none" },
+ base: { display:"inline-flex", alignItems:"center", justifyContent:"center", padding:"8px 20px", borderRadius:999, fontSize:13, fontWeight:500, cursor:"pointer", textDecoration:"none", transition:"all 0.15s ease", whiteSpace:"nowrap", lineHeight:1, border:"none" },
 };
 
 function SectionHeader({ title, sub, linkTo, linkLabel }) {
-  return (
-    <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:20 }}>
-      <div>
-        <h2 style={{ fontSize:22, fontWeight:800, color:C.text, margin:0, letterSpacing:"-0.5px", lineHeight:1.2 }}>{title}</h2>
-        {sub && <p style={{ fontSize:14, color:C.textSub, margin:"5px 0 0", fontWeight:500, lineHeight:1.4 }}>{sub}</p>}
-      </div>
-      {linkTo && (
-        <Link to={linkTo} style={{ fontSize:13, color:C.accent, textDecoration:"none", fontWeight:600, display:"flex", alignItems:"center", gap:3, paddingBottom:2 }}>
-          {linkLabel} <ChevronRight size={14} />
-        </Link>
-      )}
-    </div>
-  );
+ return (
+ <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:20 }}>
+ <div>
+ <h2 style={{ fontSize:22, fontWeight:800, color:C.text, margin:0, letterSpacing:"-0.5px", lineHeight:1.2 }}>{title}</h2>
+ {sub && <p style={{ fontSize:14, color:C.textSub, margin:"5px 0 0", fontWeight:500, lineHeight:1.4 }}>{sub}</p>}
+ </div>
+ {linkTo && (
+ <Link to={linkTo} style={{ fontSize:13, color:C.accent, textDecoration:"none", fontWeight:600, display:"flex", alignItems:"center", gap:3, paddingBottom:2 }}>
+ {linkLabel} <ChevronRight size={14} />
+ </Link>
+ )}
+ </div>
+ );
 }
 
 function StatCard({ icon, value, label, sub, iconBg, iconColor }) {
-  const [hov, setHov] = React.useState(false);
-  return (
-    <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ background:C.bg, border:`1px solid ${hov ? C.borderMid : C.border}`, borderRadius:16, overflow:"hidden", boxShadow: hov ? `0 8px 32px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s ease", transform: hov ? "translateY(-3px)" : "none", display:"flex", flexDirection:"column" }}>
-      <div style={{ background:iconBg, padding:"20px 22px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:`1px solid ${C.border}` }}>
-        <div style={{ width:44, height:44, borderRadius:12, background:"rgba(255,255,255,0.65)", display:"flex", alignItems:"center", justifyContent:"center", color:iconColor }}>{icon}</div>
-        <div style={{ fontSize:11, fontWeight:700, color:iconColor, opacity:0.7, textTransform:"uppercase", letterSpacing:"0.07em" }}>{label}</div>
-      </div>
-      <div style={{ padding:"18px 22px 20px" }}>
-        <div style={{ fontSize:36, fontWeight:900, color:C.text, lineHeight:1, letterSpacing:"-1.4px" }}>{value}</div>
-        <div style={{ fontSize:12, color:C.textSub, marginTop:6, fontWeight:500 }}>{sub}</div>
-      </div>
-    </div>
-  );
+ const [hov, setHov] = React.useState(false);
+ return (
+ <div onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+ style={{ background:C.bg, border:`1px solid ${hov ? C.borderMid : C.border}`, borderRadius:16, overflow:"hidden", boxShadow: hov ? `0 8px 32px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s ease", transform: hov ? "translateY(-3px)" : "none", display:"flex", flexDirection:"column" }}>
+ <div style={{ background:iconBg, padding:"20px 22px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", borderBottom:`1px solid ${C.border}` }}>
+ <div style={{ width:44, height:44, borderRadius:12, background:"rgba(255,255,255,0.65)", display:"flex", alignItems:"center", justifyContent:"center", color:iconColor }}>{icon}</div>
+ <div style={{ fontSize:11, fontWeight:700, color:iconColor, opacity:0.7, textTransform:"uppercase", letterSpacing:"0.07em" }}>{label}</div>
+ </div>
+ <div style={{ padding:"18px 22px 20px" }}>
+ <div style={{ fontSize:36, fontWeight:900, color:C.text, lineHeight:1, letterSpacing:"-1.4px" }}>{value}</div>
+ <div style={{ fontSize:12, color:C.textSub, marginTop:6, fontWeight:500 }}>{sub}</div>
+ </div>
+ </div>
+ );
 }
 
 function QuickTile({ icon, label, sub, onClick, iconBg, iconColor }) {
-  const [hov, setHov] = React.useState(false);
-  return (
-    <div onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ background: hov ? C.navy : C.bg, border:`1px solid ${hov ? C.navy : C.border}`, borderRadius:16, padding:"22px 18px", cursor:"pointer", textAlign:"center", transition:"all 0.22s ease", boxShadow: hov ? `0 10px 32px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transform: hov ? "translateY(-3px)" : "none" }}>
-      <div style={{ width:46, height:46, borderRadius:13, background: hov ? "rgba(255,255,255,0.12)" : (iconBg || C.accentSoft), display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", transition:"all 0.22s", color: hov ? "#fff" : (iconColor || C.accent) }}>{icon}</div>
-      <div style={{ fontSize:13, fontWeight:700, color: hov ? "#fff" : C.text, transition:"color 0.22s" }}>{label}</div>
-      <div style={{ fontSize:11, color: hov ? "rgba(255,255,255,0.65)" : C.textSub, marginTop:4, fontWeight:500, transition:"color 0.22s" }}>{sub}</div>
-    </div>
-  );
+ const [hov, setHov] = React.useState(false);
+ return (
+ <div onClick={onClick} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+ style={{ background: hov ? C.navy : C.bg, border:`1px solid ${hov ? C.navy : C.border}`, borderRadius:16, padding:"22px 18px", cursor:"pointer", textAlign:"center", transition:"all 0.22s ease", boxShadow: hov ? `0 10px 32px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transform: hov ? "translateY(-3px)" : "none" }}>
+ <div style={{ width:46, height:46, borderRadius:13, background: hov ? "rgba(255,255,255,0.12)" : (iconBg || C.accentSoft), display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", transition:"all 0.22s", color: hov ? "#fff" : (iconColor || C.accent) }}>{icon}</div>
+ <div style={{ fontSize:13, fontWeight:700, color: hov ? "#fff" : C.text, transition:"color 0.22s" }}>{label}</div>
+ <div style={{ fontSize:11, color: hov ? "rgba(255,255,255,0.65)" : C.textSub, marginTop:4, fontWeight:500, transition:"color 0.22s" }}>{sub}</div>
+ </div>
+ );
 }
 
 // Shared card used for both featured courses and featured simulations
 function FeaturedCard({ icon, name, description, niche, nicheSoftBg, nicheColor, meta, button }) {
-  const [hov, setHov] = React.useState(false);
-  return (
-    <div
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ background:C.bg, border:`1px solid ${hov ? C.borderMid : C.border}`, borderRadius:16, overflow:"hidden", cursor:"pointer", boxShadow: hov ? `0 10px 36px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s", display:"flex", flexDirection:"column", transform: hov ? "translateY(-3px)" : "none" }}
-    >
-      {/* Thumbnail */}
-      <div style={{ height:110, background:nicheSoftBg, display:"flex", alignItems:"center", justifyContent:"center", borderBottom:`1px solid ${C.border}`, flexShrink:0, position:"relative" }}>
-        <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:nicheColor }}>{icon}</div>
-        <div style={{ position:"absolute", top:10, left:10, background:nicheSoftBg, border:`1px solid ${nicheColor}`, borderRadius:999, padding:"3px 10px", fontSize:11, fontWeight:700, color:nicheColor }}>
-          {niche}
-        </div>
-      </div>
-      {/* Body */}
-      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", flex:1 }}>
-        <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:6, letterSpacing:"-0.3px", lineHeight:1.35, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{name}</div>
-        <div style={{ fontSize:13, color:C.textSub, lineHeight:1.6, flex:1, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden", marginBottom:14 }}>{description}</div>
-        {meta}
-        {button}
-      </div>
-    </div>
-  );
+ const [hov, setHov] = React.useState(false);
+ return (
+ <div
+ onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+ style={{ background:C.bg, border:`1px solid ${hov ? C.borderMid : C.border}`, borderRadius:16, overflow:"hidden", cursor:"pointer", boxShadow: hov ? `0 10px 36px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s", display:"flex", flexDirection:"column", transform: hov ? "translateY(-3px)" : "none" }}
+ >
+ {/* Thumbnail */}
+ <div style={{ height:110, background:nicheSoftBg, display:"flex", alignItems:"center", justifyContent:"center", borderBottom:`1px solid ${C.border}`, flexShrink:0, position:"relative" }}>
+ <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:nicheColor }}>{icon}</div>
+ <div style={{ position:"absolute", top:10, left:10, background:nicheSoftBg, border:`1px solid ${nicheColor}`, borderRadius:999, padding:"3px 10px", fontSize:11, fontWeight:700, color:nicheColor }}>
+ {niche}
+ </div>
+ </div>
+ {/* Body */}
+ <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", flex:1 }}>
+ <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:6, letterSpacing:"-0.3px", lineHeight:1.35, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{name}</div>
+ <div style={{ fontSize:13, color:C.textSub, lineHeight:1.6, flex:1, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden", marginBottom:14 }}>{description}</div>
+ {meta}
+ {button}
+ </div>
+ </div>
+ );
 }
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const { user } = useAuth();
+ const navigate = useNavigate();
+ const { user } = useAuth();
 
-  const { data: courses = [] }      = useQuery({ queryKey:["courses"],      queryFn:() => data.listCourses() });
-  const { data: userProgress = [] } = useQuery({ queryKey:["userProgress", user?.email], queryFn:() => data.listUserProgress(user?.email), enabled:!!user });
-  const { data: userBadges = [] }   = useQuery({ queryKey:["userBadges",   user?.email], queryFn:() => data.listUserBadges(user?.email),   enabled:!!user });
+ const { data: courses = [] } = useQuery({ queryKey:["courses"], queryFn:() => data.listCourses() });
+ const { data: userProgress = [] } = useQuery({ queryKey:["userProgress", user?.email], queryFn:() => data.listUserProgress(user?.email), enabled:!!user });
+ const { data: userBadges = [] } = useQuery({ queryKey:["userBadges", user?.email], queryFn:() => data.listUserBadges(user?.email), enabled:!!user });
 
-  const completedLessons = userProgress.filter((p) => p.completed).length;
-  const currentStreak   = user?.current_streak || 0;
-  const level           = user?.level || 1;
-  const firstName       = getFirstName(user?.full_name);
+ const completedLessons = userProgress.filter((p) => p.completed).length;
+ const currentStreak = user?.current_streak || 0;
+ const level = user?.level || 1;
+ const firstName = getFirstName(user?.full_name);
 
-  const featuredCourses = [
-    { id:"credit",      icon:<CreditCard size={28}/>, name:"Understanding Credit",  description:"Learn how credit scores work, what affects them, and how to build healthy credit over time.", niche:"Finance",         nicheSoftBg:C.greenSoft,  nicheColor:C.green,  path:"Learn" },
-    { id:"insurance",   icon:<Shield size={28}/>,     name:"Insurance 101",         description:"Understand the basics of insurance — health, auto, renters — and how to protect yourself.",  niche:"Finance",         nicheSoftBg:C.greenSoft,  nicheColor:C.green,  path:"Learn" },
-    { id:"ai-literacy", icon:<Cpu size={28}/>,        name:"AI Literacy",           description:"Learn how to use modern AI tools productively and responsibly in school, work, and life.",    niche:"AI & Technology", nicheSoftBg:C.purpleSoft, nicheColor:C.purple, path:"Learn" },
-  ];
+ const featuredCourses = [
+ { id:"credit", icon:<CreditCard size={28}/>, name:"Understanding Credit", description:"Learn how credit scores work, what affects them, and how to build healthy credit over time.", niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Learn" },
+ { id:"insurance", icon:<Shield size={28}/>, name:"Insurance 101", description:"Understand the basics of insurance — health, auto, renters — and how to protect yourself.", niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Learn" },
+ { id:"ai-literacy", icon:<Cpu size={28}/>, name:"AI Literacy", description:"Learn how to use modern AI tools productively and responsibly in school, work, and life.", niche:"AI & Technology", nicheSoftBg:C.purpleSoft, nicheColor:C.purple, path:"Learn" },
+ ];
 
-  const featuredSims = [
-    { id:"paper-trading",         icon:<TrendingUp size={28}/>, name:"Paper Trading",                description:"Practice buying and selling in a risk-free simulated market. Build confidence before investing.",     niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Simulations" },
-    { id:"investment-calculator", icon:<Calculator size={28}/>, name:"Investment Growth Calculator", description:"Explore how your money grows over time with compound interest. Adjust rate and contributions.",        niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"InvestmentCalculator" },
-    { id:"budget-builder",        icon:<PieChart size={28}/>,   name:"Build Your First Budget",      description:"Create a budget from scratch, categorize expenses, and learn to stay financially balanced.",          niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Simulations" },
-  ];
+ const featuredSims = [
+ { id:"paper-trading", icon:<TrendingUp size={28}/>, name:"Paper Trading", description:"Practice buying and selling in a risk-free simulated market. Build confidence before investing.", niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Simulations" },
+ { id:"investment-calculator", icon:<Calculator size={28}/>, name:"Investment Growth Calculator", description:"Explore how your money grows over time with compound interest. Adjust rate and contributions.", niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"InvestmentCalculator" },
+ { id:"budget-builder", icon:<PieChart size={28}/>, name:"Build Your First Budget", description:"Create a budget from scratch, categorize expenses, and learn to stay financially balanced.", niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Simulations" },
+ ];
 
-  return (
-    <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
+ return (
+ <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
 
-      {/* HERO */}
-      <div style={{ background:`linear-gradient(135deg,${C.navy} 0%,${C.navyLight} 60%,#1a4080 100%)`, borderRadius:20, padding:"48px 52px", marginBottom:32, position:"relative", overflow:"hidden", boxShadow:`0 12px 48px ${C.navyGlow}` }}>
-        <div style={{ position:"absolute", right:-60, top:-60, width:300, height:300, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.05)" }} />
-        <div style={{ position:"absolute", right:40, top:-20, width:180, height:180, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.07)" }} />
-        <div style={{ position:"absolute", right:120, bottom:-80, width:240, height:240, borderRadius:"50%", background:"rgba(255,255,255,0.025)" }} />
-        <div style={{ position:"relative", zIndex:1, display:"flex", justifyContent:"space-between", alignItems:"center", gap:32, flexWrap:"wrap" }}>
-          <div>
-            <div style={{ fontSize:13, fontWeight:600, color:"rgba(255,255,255,0.65)", letterSpacing:"0.07em", textTransform:"uppercase", marginBottom:10 }}>
-              {new Date().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" })}
-            </div>
-            <h1 style={{ fontSize:42, fontWeight:900, color:"#fff", margin:0, letterSpacing:"-1.2px", lineHeight:1.08 }}>
-              {user ? `Welcome back,\n${firstName}!` : "Hello, learner!"}
-            </h1>
-            <p style={{ fontSize:16, color:"rgba(255,255,255,0.75)", margin:"14px 0 0", lineHeight:1.6, fontWeight:400 }}>
-              {user ? "Keep the momentum going — your goals are within reach." : "Build real-world skills through interactive courses, simulations, and practical challenges."}
-            </p>
-            <div style={{ display:"flex", gap:12, marginTop:24, flexWrap:"wrap" }}>
-              <button onClick={() => navigate(createPageUrl("Learn"))}
-                style={{ ...pill.base, background:"#fff", color:C.navy, fontWeight:700, fontSize:14, padding:"11px 26px", boxShadow:"0 2px 16px rgba(0,0,0,0.15)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "none"; }}
-              >Start Learning <ArrowRight size={15} style={{ marginLeft:6 }} /></button>
-              {!user && (
-                <Link to={createPageUrl("Signup")}
-                  style={{ ...pill.base, background:"rgba(255,255,255,0.12)", color:"#fff", fontWeight:600, fontSize:14, padding:"11px 26px", border:"1px solid rgba(255,255,255,0.2)" }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.18)"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.12)"}
-                >Create Account</Link>
-              )}
-            </div>
-          </div>
-          <div style={{ background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", borderRadius:16, padding:"24px 28px", minWidth:260, backdropFilter:"blur(8px)" }}>
-            <div style={{ fontSize:12, fontWeight:600, color:"rgba(255,255,255,0.65)", textTransform:"uppercase", letterSpacing:"0.07em", marginBottom:16 }}>Your Progress</div>
-            <div style={{ marginBottom:16 }}>
-              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:7 }}>
-                <div style={{ display:"flex", alignItems:"center", gap:6 }}><Sparkles size={13} style={{ color:"#86EFAC" }} /><span style={{ fontSize:13, fontWeight:700, color:"#fff" }}>Level {level}</span></div>
-              </div>
-              <div style={{ height:7, background:"rgba(255,255,255,0.12)", borderRadius:999, overflow:"hidden" }}>
-                <div style={{ height:"100%", width:`${Math.min(100,(completedLessons % 10)*10)}%`, background:"linear-gradient(90deg,#2D9B6F,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
-              </div>
-            </div>
-            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
-              {[{icon:<Flame size={14}/>,val:currentStreak,lbl:"Streak"},{icon:<BookOpen size={14}/>,val:completedLessons,lbl:"Lessons"},{icon:<Award size={14}/>,val:userBadges.length,lbl:"Badges"}].map((s) => (
-                <div key={s.lbl} style={{ background:"rgba(255,255,255,0.07)", borderRadius:10, padding:"10px 8px", textAlign:"center" }}>
-                  <div style={{ color:"rgba(255,255,255,0.5)", marginBottom:4 }}>{s.icon}</div>
-                  <div style={{ fontSize:18, fontWeight:800, color:"#fff", lineHeight:1 }}>{s.val}</div>
-                  <div style={{ fontSize:10, color:"rgba(255,255,255,0.6)", marginTop:3, fontWeight:600, letterSpacing:"0.04em", textTransform:"uppercase" }}>{s.lbl}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+ {/* HERO */}
+ <div style={{ background:`linear-gradient(135deg,${C.navy} 0%,${C.navyLight} 60%,#1a4080 100%)`, borderRadius:20, padding:"48px 52px", marginBottom:32, position:"relative", overflow:"hidden", boxShadow:`0 12px 48px ${C.navyGlow}` }}>
+ <div style={{ position:"absolute", right:-60, top:-60, width:300, height:300, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.05)" }} />
+ <div style={{ position:"absolute", right:40, top:-20, width:180, height:180, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.07)" }} />
+ <div style={{ position:"absolute", right:120, bottom:-80, width:240, height:240, borderRadius:"50%", background:"rgba(255,255,255,0.025)" }} />
+ <div style={{ position:"relative", zIndex:1, display:"flex", justifyContent:"space-between", alignItems:"center", gap:32, flexWrap:"wrap" }}>
+ <div>
+ <div style={{ fontSize:13, fontWeight:600, color:"rgba(255,255,255,0.65)", letterSpacing:"0.07em", textTransform:"uppercase", marginBottom:10 }}>
+ {new Date().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" })}
+ </div>
+ <h1 style={{ fontSize:42, fontWeight:900, color:"#fff", margin:0, letterSpacing:"-1.2px", lineHeight:1.08 }}>
+ {user ? `Welcome back,\n${firstName}!` : "Hello, learner!"}
+ </h1>
+ <p style={{ fontSize:16, color:"rgba(255,255,255,0.75)", margin:"14px 0 0", lineHeight:1.6, fontWeight:400 }}>
+ {user ? "Keep the momentum going — your goals are within reach." : "Build real-world skills through interactive courses, simulations, and practical challenges."}
+ </p>
+ <div style={{ display:"flex", gap:12, marginTop:24, flexWrap:"wrap" }}>
+ <button onClick={() => navigate(createPageUrl("Learn"))}
+ style={{ ...pill.base, background:"#fff", color:C.navy, fontWeight:700, fontSize:14, padding:"11px 26px", boxShadow:"0 2px 16px rgba(0,0,0,0.15)" }}
+ onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+ onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "none"; }}
+ >Start Learning <ArrowRight size={15} style={{ marginLeft:6 }} /></button>
+ {!user && (
+ <Link to={createPageUrl("Signup")}
+ style={{ ...pill.base, background:"rgba(255,255,255,0.12)", color:"#fff", fontWeight:600, fontSize:14, padding:"11px 26px", border:"1px solid rgba(255,255,255,0.2)" }}
+ onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.18)"}
+ onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.12)"}
+ >Create Account</Link>
+ )}
+ </div>
+ </div>
+ <div style={{ background:"rgba(255,255,255,0.07)", border:"1px solid rgba(255,255,255,0.12)", borderRadius:16, padding:"24px 28px", minWidth:260, backdropFilter:"blur(8px)" }}>
+ <div style={{ fontSize:12, fontWeight:600, color:"rgba(255,255,255,0.65)", textTransform:"uppercase", letterSpacing:"0.07em", marginBottom:16 }}>Your Progress</div>
+ <div style={{ marginBottom:16 }}>
+ <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:7 }}>
+ <div style={{ display:"flex", alignItems:"center", gap:6 }}><Sparkles size={13} style={{ color:"#86EFAC" }} /><span style={{ fontSize:13, fontWeight:700, color:"#fff" }}>Level {level}</span></div>
+ </div>
+ <div style={{ height:7, background:"rgba(255,255,255,0.12)", borderRadius:999, overflow:"hidden" }}>
+ <div style={{ height:"100%", width:`${Math.min(100,(completedLessons % 10)*10)}%`, background:"linear-gradient(90deg,#2D9B6F,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
+ </div>
+ </div>
+ <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
+ {[{icon:<Flame size={14}/>,val:currentStreak,lbl:"Streak"},{icon:<BookOpen size={14}/>,val:completedLessons,lbl:"Lessons"},{icon:<Award size={14}/>,val:userBadges.length,lbl:"Badges"}].map((s) => (
+ <div key={s.lbl} style={{ background:"rgba(255,255,255,0.07)", borderRadius:10, padding:"10px 8px", textAlign:"center" }}>
+ <div style={{ color:"rgba(255,255,255,0.5)", marginBottom:4 }}>{s.icon}</div>
+ <div style={{ fontSize:18, fontWeight:800, color:"#fff", lineHeight:1 }}>{s.val}</div>
+ <div style={{ fontSize:10, color:"rgba(255,255,255,0.6)", marginTop:3, fontWeight:600, letterSpacing:"0.04em", textTransform:"uppercase" }}>{s.lbl}</div>
+ </div>
+ ))}
+ </div>
+ </div>
+ </div>
+ </div>
 
-      {/* STAT CARDS */}
-      <div className="stat-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:16, marginBottom:32 }}>
-        <StatCard icon={<Flame size={19}/>}    value={currentStreak}     label="Day Streak"    sub="Keep it up"     iconBg={C.amberSoft}  iconColor={C.amber}  />
-        <StatCard icon={<BookOpen size={19}/>} value={completedLessons}  label="Lessons Done"  sub="Great progress" iconBg={C.greenSoft}  iconColor={C.green}  />
-        <StatCard icon={<Award size={19}/>}    value={userBadges.length} label="Badges Earned" sub="Keep learning"  iconBg={C.purpleSoft} iconColor={C.purple} />
-        <StatCard icon={<GraduationCap size={19}/>} value={0}            label="Certificates"  sub="Complete a module" iconBg={C.tealSoft}  iconColor={C.teal}  />
-      </div>
+ {/* STAT CARDS */}
+ <div className="stat-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:16, marginBottom:32 }}>
+ <StatCard icon={<Flame size={19}/>} value={currentStreak} label="Day Streak" sub="Keep it up" iconBg={C.amberSoft} iconColor={C.amber} />
+ <StatCard icon={<BookOpen size={19}/>} value={completedLessons} label="Lessons Done" sub="Great progress" iconBg={C.greenSoft} iconColor={C.green} />
+ <StatCard icon={<Award size={19}/>} value={userBadges.length} label="Badges Earned" sub="Keep learning" iconBg={C.purpleSoft} iconColor={C.purple} />
+ <StatCard icon={<GraduationCap size={19}/>} value={0} label="Certificates" sub="Complete a module" iconBg={C.tealSoft} iconColor={C.teal} />
+ </div>
 
-      {/* CONTINUE LEARNING */}
-      <div style={{ marginBottom:36 }}>
-        <div style={{ background:`linear-gradient(140deg,${C.navy} 0%,${C.navyLight} 100%)`, borderRadius:20, padding:"44px 52px", position:"relative", overflow:"hidden", boxShadow:`0 12px 48px ${C.navyGlow}`, display:"flex", alignItems:"center", justifyContent:"space-between", gap:32, flexWrap:"wrap" }}>
-          <div style={{ position:"absolute", right:-60, bottom:-60, width:280, height:280, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.06)" }} />
-          <div style={{ position:"relative", zIndex:1 }}>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"rgba(255,255,255,0.10)", borderRadius:999, padding:"5px 14px", marginBottom:16, }}>
-              <Play size={12} style={{ color:"rgba(255,255,255,0.75)" }} />
-              <span style={{ fontSize:11, fontWeight:700, color:"rgba(255,255,255,0.75)", textTransform:"uppercase", letterSpacing:"0.08em" }}>Continue Learning</span>
-            </div>
-            <div style={{ fontSize:30, fontWeight:900, color:"#fff", marginBottom:10, letterSpacing:"-0.7px", lineHeight:1.1 }}>
-              {user ? "Pick up where you left off" : "Start your learning journey"}
-            </div>
-            <div style={{ fontSize:15, color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
-              {user ? "You're building great habits — consistency is the key to mastery." : "Sign up to save your progress, earn certificates, and resume lessons anytime."}
-            </div>
-          </div>
-          <div style={{ position:"relative", zIndex:1, flexShrink:0 }}>
-            <button onClick={() => user ? navigate(createPageUrl("Learn")) : navigate(createPageUrl("Login"))}
-              style={{ ...pill.base, background:"#fff", color:C.navy, fontWeight:800, fontSize:15, padding:"14px 32px", boxShadow:"0 2px 20px rgba(0,0,0,0.22)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "none"; }}
-            >{user ? "Resume Course" : "Get Started"} <ArrowRight size={15} style={{ marginLeft:7 }} /></button>
-          </div>
-        </div>
-      </div>
+ {/* CONTINUE LEARNING */}
+ <div style={{ marginBottom:36 }}>
+ <div style={{ background:`linear-gradient(140deg,${C.navy} 0%,${C.navyLight} 100%)`, borderRadius:20, padding:"44px 52px", position:"relative", overflow:"hidden", boxShadow:`0 12px 48px ${C.navyGlow}`, display:"flex", alignItems:"center", justifyContent:"space-between", gap:32, flexWrap:"wrap" }}>
+ <div style={{ position:"absolute", right:-60, bottom:-60, width:280, height:280, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.06)" }} />
+ <div style={{ position:"relative", zIndex:1 }}>
+ <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"rgba(255,255,255,0.10)", borderRadius:999, padding:"5px 14px", marginBottom:16, }}>
+ <Play size={12} style={{ color:"rgba(255,255,255,0.75)" }} />
+ <span style={{ fontSize:11, fontWeight:700, color:"rgba(255,255,255,0.75)", textTransform:"uppercase", letterSpacing:"0.08em" }}>Continue Learning</span>
+ </div>
+ <div style={{ fontSize:30, fontWeight:900, color:"#fff", marginBottom:10, letterSpacing:"-0.7px", lineHeight:1.1 }}>
+ {user ? "Pick up where you left off" : "Start your learning journey"}
+ </div>
+ <div style={{ fontSize:15, color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
+ {user ? "You're building great habits — consistency is the key to mastery." : "Sign up to save your progress, earn certificates, and resume lessons anytime."}
+ </div>
+ </div>
+ <div style={{ position:"relative", zIndex:1, flexShrink:0 }}>
+ <button onClick={() => user ? navigate(createPageUrl("Learn")) : navigate(createPageUrl("Login"))}
+ style={{ ...pill.base, background:"#fff", color:C.navy, fontWeight:800, fontSize:15, padding:"14px 32px", boxShadow:"0 2px 20px rgba(0,0,0,0.22)" }}
+ onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+ onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "none"; }}
+ >{user ? "Resume Course" : "Get Started"} <ArrowRight size={15} style={{ marginLeft:7 }} /></button>
+ </div>
+ </div>
+ </div>
 
-      {/* FEATURED COURSES */}
-      <div style={{ marginBottom:36 }}>
-        <SectionHeader title="Featured Courses" sub="Curated lessons to build real-world skills." linkTo={createPageUrl("Learn")} linkLabel="View all" />
-        <div className="course-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }}>
-          {featuredCourses.map((course) => (
-            <FeaturedCard
-              key={course.id}
-              icon={course.icon}
-              name={course.name}
-              description={course.description}
-              niche={course.niche}
-              nicheSoftBg={course.nicheSoftBg}
-              nicheColor={course.nicheColor}
-              meta={
-                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:12, color:C.textMuted, marginBottom:12 }}>
-                  <span style={{ display:"flex", alignItems:"center", gap:4 }}><Award size={12} style={{ color:course.nicheColor }} /><span style={{ color:course.nicheColor, fontWeight:700 }}>Certificate</span></span>
-                </div>
-              }
-              button={
-                <button
-                  onClick={() => navigate(createPageUrl(course.path))}
-                  style={{ width:"100%", height:40, borderRadius:999, background:C.navy, color:"#fff", fontSize:13, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0 }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; }}
-                >Start Learning</button>
-              }
-            />
-          ))}
-        </div>
-      </div>
+ {/* FEATURED COURSES */}
+ <div style={{ marginBottom:36 }}>
+ <SectionHeader title="Featured Courses" sub="Curated lessons to build real-world skills." linkTo={createPageUrl("Learn")} linkLabel="View all" />
+ <div className="course-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }}>
+ {featuredCourses.map((course) => (
+ <FeaturedCard
+ key={course.id}
+ icon={course.icon}
+ name={course.name}
+ description={course.description}
+ niche={course.niche}
+ nicheSoftBg={course.nicheSoftBg}
+ nicheColor={course.nicheColor}
+ meta={
+ <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:12, color:C.textMuted, marginBottom:12 }}>
+ <span style={{ display:"flex", alignItems:"center", gap:4 }}><Award size={12} style={{ color:course.nicheColor }} /><span style={{ color:course.nicheColor, fontWeight:700 }}>Certificate</span></span>
+ </div>
+ }
+ button={
+ <button
+ onClick={() => navigate(createPageUrl(course.path))}
+ style={{ width:"100%", height:40, borderRadius:999, background:C.navy, color:"#fff", fontSize:13, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0 }}
+ onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; }}
+ onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; }}
+ >Start Learning</button>
+ }
+ />
+ ))}
+ </div>
+ </div>
 
-      {/* FEATURED SIMULATIONS */}
-      <div style={{ marginBottom:36 }}>
-        <SectionHeader title="Featured Simulations" sub="Interactive modules to practice real-world decisions." linkTo={createPageUrl("Simulations")} linkLabel="View all" />
-        <div className="course-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }}>
-          {featuredSims.map((sim) => (
-            <FeaturedCard
-              key={sim.id}
-              icon={sim.icon}
-              name={sim.name}
-              description={sim.description}
-              niche={sim.niche}
-              nicheSoftBg={sim.nicheSoftBg}
-              nicheColor={sim.nicheColor}
-              meta={
-                <div style={{ display:"flex", alignItems:"center", fontSize:12, color:C.textMuted, marginBottom:12 }}>
-                  <span style={{ display:"flex", alignItems:"center", gap:4 }}><Award size={12} style={{ color:sim.nicheColor }} /><span style={{ color:sim.nicheColor, fontWeight:700 }}>Certificate</span></span>
-                </div>
-              }
-              button={
-                <button
-                  onClick={() => navigate(createPageUrl(sim.path))}
-                  style={{ width:"100%", height:40, borderRadius:999, background:C.navy, color:"#fff", fontSize:13, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0 }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; }}
-                >Launch Simulation</button>
-              }
-            />
-          ))}
-        </div>
-      </div>
+ {/* FEATURED SIMULATIONS */}
+ <div style={{ marginBottom:36 }}>
+ <SectionHeader title="Featured Simulations" sub="Interactive modules to practice real-world decisions." linkTo={createPageUrl("Simulations")} linkLabel="View all" />
+ <div className="course-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }}>
+ {featuredSims.map((sim) => (
+ <FeaturedCard
+ key={sim.id}
+ icon={sim.icon}
+ name={sim.name}
+ description={sim.description}
+ niche={sim.niche}
+ nicheSoftBg={sim.nicheSoftBg}
+ nicheColor={sim.nicheColor}
+ meta={
+ <div style={{ display:"flex", alignItems:"center", fontSize:12, color:C.textMuted, marginBottom:12 }}>
+ <span style={{ display:"flex", alignItems:"center", gap:4 }}><Award size={12} style={{ color:sim.nicheColor }} /><span style={{ color:sim.nicheColor, fontWeight:700 }}>Certificate</span></span>
+ </div>
+ }
+ button={
+ <button
+ onClick={() => navigate(createPageUrl(sim.path))}
+ style={{ width:"100%", height:40, borderRadius:999, background:C.navy, color:"#fff", fontSize:13, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0 }}
+ onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; }}
+ onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; }}
+ >Launch Simulation</button>
+ }
+ />
+ ))}
+ </div>
+ </div>
 
-      {/* QUICK ACCESS */}
-      <div style={{ marginBottom:16 }}>
-        <SectionHeader title="Quick Access" sub="Jump to any feature instantly" />
-        <div className="quick-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14 }}>
-          <QuickTile icon={<Book size={18}/>}          label="Courses"      sub={`${courses.length || ""} available`} onClick={() => navigate(createPageUrl("Learn"))}                iconBg={C.greenSoft}   iconColor={C.green}   />
-          <QuickTile icon={<PieChart size={18}/>}      label="Simulations"  sub="Practice for real life"              onClick={() => navigate(createPageUrl("Simulations"))}          iconBg={C.accentSoft}  iconColor={C.accent}  />
-          <QuickTile icon={<Layers size={18}/>}        label="Modules"      sub="Earn certificates"                   onClick={() => navigate(createPageUrl("Modules"))}              iconBg={C.tealSoft}    iconColor={C.teal}    />
-          <QuickTile icon={<Calculator size={18}/>}    label="Calculator"   sub="Growth projections"                  onClick={() => navigate(createPageUrl("InvestmentCalculator"))} iconBg={C.amberSoft}   iconColor={C.amber}   />
-        </div>
-      </div>
+ {/* QUICK ACCESS */}
+ <div style={{ marginBottom:16 }}>
+ <SectionHeader title="Quick Access" sub="Jump to any feature instantly" />
+ <div className="quick-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14 }}>
+ <QuickTile icon={<Book size={18}/>} label="Courses" sub={`${courses.length || ""} available`} onClick={() => navigate(createPageUrl("Learn"))} iconBg={C.greenSoft} iconColor={C.green} />
+ <QuickTile icon={<PieChart size={18}/>} label="Simulations" sub="Practice for real life" onClick={() => navigate(createPageUrl("Simulations"))} iconBg={C.accentSoft} iconColor={C.accent} />
+ <QuickTile icon={<Layers size={18}/>} label="Modules" sub="Earn certificates" onClick={() => navigate(createPageUrl("Modules"))} iconBg={C.tealSoft} iconColor={C.teal} />
+ <QuickTile icon={<Calculator size={18}/>} label="Calculator" sub="Growth projections" onClick={() => navigate(createPageUrl("InvestmentCalculator"))} iconBg={C.amberSoft} iconColor={C.amber} />
+ </div>
+ </div>
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        @media (max-width:1024px) { .course-grid { grid-template-columns:repeat(2,1fr) !important; } }
-        @media (max-width:900px)  { .stat-grid { grid-template-columns:repeat(2,1fr) !important; } .quick-grid { grid-template-columns:repeat(2,1fr) !important; } }
-        @media (max-width:640px)  { .stat-grid { grid-template-columns:1fr 1fr !important; } .course-grid { grid-template-columns:1fr !important; } .quick-grid { grid-template-columns:repeat(2,1fr) !important; } }
-      `}</style>
-    </div>
-  );
+ <style>{`
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+ @media (max-width:1024px) { .course-grid { grid-template-columns:repeat(2,1fr) !important; } }
+ @media (max-width:900px) { .stat-grid { grid-template-columns:repeat(2,1fr) !important; } .quick-grid { grid-template-columns:repeat(2,1fr) !important; } }
+ @media (max-width:640px) { .stat-grid { grid-template-columns:1fr 1fr !important; } .course-grid { grid-template-columns:1fr !important; } .quick-grid { grid-template-columns:repeat(2,1fr) !important; } }
+ `}</style>
+ </div>
+ );
 }

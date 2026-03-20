@@ -5,8 +5,8 @@ import { Toaster } from "@/components/ui/sonner.jsx"
 import "@/index.css"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
-    <App />
-    <Toaster />
-  </>
+ <>
+ <App />
+ <Toaster />
+ </>
 )
