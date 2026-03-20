@@ -3,13 +3,18 @@ import { getCurrentUserSafe, upsertAIDayProgress, getAIDayProgress } from "@/lib
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ChevronRight, Zap, PenTool, Brain } from "lucide-react";
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 import PromptWorkshop from "@/components/PromptWorkshop";
+
+const C = {
+  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  accent:"#3B82F6", accentSoft:"#E8F0FE",
+  green:"#22C55E", greenSoft:"#E8F8F0",
+  bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
+  border:"#E5E7EB",
+  text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
+};
 
 export default function AIDay5() {
   const navigate = useNavigate();
@@ -114,34 +119,34 @@ export default function AIDay5() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <Card className="border-2 border-red-200 bg-red-50">
-              <CardHeader>
-                <CardTitle className="text-red-700">❌ Weak Prompt</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
+            <div className="border-2 border-red-200 bg-red-50 rounded-lg overflow-hidden">
+              <div className="px-4 py-3">
+                <h4 className="font-bold text-red-700">❌ Weak Prompt</h4>
+              </div>
+              <div className="p-4 space-y-2 text-sm">
                 <p className="italic text-gray-700">"Explain photosynthesis"</p>
                 <p className="text-red-700">• No audience specified</p>
                 <p className="text-red-700">• No format requested</p>
                 <p className="text-red-700">• Too vague</p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 border-green-200 bg-green-50">
-              <CardHeader>
-                <CardTitle className="text-green-700">✓ Strong Prompt</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
+            <div className="border-2 border-green-200 bg-green-50 rounded-lg overflow-hidden">
+              <div className="px-4 py-3">
+                <h4 className="font-bold text-green-700">✓ Strong Prompt</h4>
+              </div>
+              <div className="p-4 space-y-2 text-sm">
                 <p className="italic text-gray-700">"Explain photosynthesis to a 9th grader in 5 bullet points with one analogy"</p>
                 <p className="text-green-700">✓ Audience: 9th grader</p>
                 <p className="text-green-700">✓ Format: 5 bullet points</p>
                 <p className="text-green-700">✓ Extra: include analogy</p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
-          <Button onClick={() => setCurrentStep(1)} className="w-full bg-indigo-600 hover:bg-indigo-700">
-            Try It Yourself <ChevronRight className="w-5 h-5 ml-2" />
-          </Button>
+          <button onClick={() => setCurrentStep(1)} style={{ width:"100%", padding:"14px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:15, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+            Try It Yourself <ChevronRight size={18} />
+          </button>
         </div>
       )
     },
@@ -163,9 +168,9 @@ export default function AIDay5() {
           <PromptWorkshop onComplete={() => setActivityComplete(true)} />
 
           {activityComplete && (
-            <Button onClick={() => setCurrentStep(2)} className="w-full bg-indigo-600 hover:bg-indigo-700">
-              Continue to Quiz <ChevronRight className="w-5 h-5 ml-2" />
-            </Button>
+            <button onClick={() => setCurrentStep(2)} style={{ width:"100%", padding:"14px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:15, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+              Continue to Quiz <ChevronRight size={18} />
+            </button>
           )}
         </div>
       )
@@ -211,64 +216,66 @@ export default function AIDay5() {
 
   if (isLoadingUser) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:C.bg }}>
+        <div style={{ textAlign:"center" }}>
+          <div style={{ width:64, height:64, border:`4px solid ${C.border}`, borderTopColor:C.navy, borderRadius:"50%", animation:"spin 1s linear infinite", margin:"0 auto 16px" }} />
+          <p style={{ color:C.textSub }}>Loading...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <Button variant="outline" onClick={() => navigate(createPageUrl("AILiteracy"))}>
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Course
-        </Button>
+    <>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+        <div className="max-w-4xl mx-auto space-y-6">
+          <button onClick={() => navigate(createPageUrl("AILiteracy"))} style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer", width:"fit-content" }}>
+            <ArrowLeft className="w-4 h-4" />
+            Back to Course
+          </button>
 
-        <div className="text-center space-y-2">
-          <Badge className="bg-indigo-600 text-white">Day 5 of 10</Badge>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Using AI Effectively: Prompting, Iteration, and Study Workflows
-          </h1>
-        </div>
+          <div className="text-center space-y-2">
+            <span style={{ fontSize:12, fontWeight:700, color:"#fff", background:C.navy, padding:"5px 14px", borderRadius:999 }}>Day 5 of 10</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+              Using AI Effectively: Prompting, Iteration, and Study Workflows
+            </h1>
+          </div>
 
-        <Card className="border-none shadow-lg">
-          <CardContent className="pt-6">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div style={{ borderRadius:16, border:`1px solid ${C.border}`, boxShadow:"0 1px 4px rgba(0,0,0,0.05)", background:C.bg, padding:"16px 20px" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", fontSize:13, fontWeight:600, color:C.textSub, marginBottom:8 }}>
               <span>Step {currentStep + 1} of {steps.length}</span>
-              <span>{Math.round(progressPercent)}%</span>
+              <span style={{ color:C.accent }}>{Math.round(progressPercent)}%</span>
             </div>
-            <Progress value={progressPercent} className="h-2" />
-          </CardContent>
-        </Card>
+            <div style={{ height:6, borderRadius:999, background:C.bgMid, overflow:"hidden" }}>
+              <div style={{ height:"100%", width:`${progressPercent}%`, borderRadius:999, background:C.accent, transition:"width 0.3s" }} />
+            </div>
+          </div>
 
-        <Card className="border-none shadow-xl">
-          <CardHeader className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
-            <CardTitle className="flex items-center gap-2">
+          <div style={{ borderRadius:20, border:`1px solid ${C.border}`, boxShadow:"0 2px 16px rgba(0,0,0,0.05)", background:C.bg, overflow:"hidden" }}>
+            <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, padding:"20px 28px", color:"#fff", display:"flex", alignItems:"center", gap:10 }}>
               {currentStepData.type === 'concept' && <Zap className="w-6 h-6" />}
               {currentStepData.type === 'activity' && <PenTool className="w-6 h-6" />}
               {currentStepData.type === 'quiz' && <Brain className="w-6 h-6" />}
-              {currentStepData.title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6">
-            {currentStepData.content}
-          </CardContent>
-        </Card>
+              <span style={{ fontSize:17, fontWeight:800 }}>{currentStepData.title}</span>
+            </div>
+            <div style={{ padding:"28px 32px" }}>
+              {currentStepData.content}
+            </div>
+          </div>
 
-        <div className="flex justify-center gap-2">
-          {steps.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => idx <= currentStep && setCurrentStep(idx)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                idx === currentStep ? 'bg-indigo-600 w-8' : idx < currentStep ? 'bg-green-500' : 'bg-gray-300'
-              }`}
-              disabled={idx > currentStep}
-            />
-          ))}
+          <div style={{ display:"flex", justifyContent:"center", gap:8 }}>
+            {steps.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => idx <= currentStep && setCurrentStep(idx)}
+                disabled={idx > currentStep}
+                style={{ height:10, width:idx === currentStep ? 28 : 10, borderRadius:999, background:idx === currentStep ? C.navy : idx < currentStep ? C.green : C.bgMid, border:"none", cursor:idx > currentStep ? "default" : "pointer", transition:"all 0.2s", padding:0 }}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

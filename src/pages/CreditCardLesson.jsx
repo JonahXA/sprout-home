@@ -1,60 +1,66 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, CreditCard } from "lucide-react";
 import CreditCardStatement from "../components/CreditCardStatement";
+
+const C = {
+  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  accentSoft:"#E8F0FE", bg:"#FFFFFF", bgSoft:"#F8FAFC", border:"#E5E7EB",
+  text:"#0F172A", textSub:"#475569",
+};
 
 export default function CreditCardLesson() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <div className="max-w-5xl mx-auto space-y-6">
-        <Button
-          variant="outline"
+    <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+      <div style={{ maxWidth:960, margin:"0 auto", display:"flex", flexDirection:"column", gap:24 }}>
+        <button
           onClick={() => navigate(createPageUrl("Learn"))}
-          className="shadow-md"
+          style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer", width:"fit-content" }}
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft size={16} />
           Back to Courses
-        </Button>
+        </button>
 
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
-              <CreditCard className="w-9 h-9 text-white" />
-            </div>
+        <div style={{ textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", gap:12 }}>
+          <div style={{ width:64, height:64, background:C.navy, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", boxShadow:`0 8px 24px ${C.navyGlow}` }}>
+            <CreditCard size={32} color="#fff" />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 style={{ fontSize:36, fontWeight:900, color:C.text, letterSpacing:"-1px", margin:0 }}>
             Understanding Your First Credit Card Statement
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Don't let credit card statements intimidate you! We'll walk through every section together, 
+          <p style={{ fontSize:16, color:C.textSub, maxWidth:640, margin:0 }}>
+            Don't let credit card statements intimidate you! We'll walk through every section together,
             so you'll know exactly what you're looking at and how to use it to build great credit.
           </p>
         </div>
 
         <CreditCardStatement />
 
-        <div className="mt-12 bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 p-6 rounded-lg">
-          <h3 className="font-bold text-lg text-gray-900 mb-2">🎓 What You Just Learned</h3>
-          <ul className="space-y-2 text-gray-700">
-            <li>• <strong>How to read a credit card statement</strong> from top to bottom</li>
-            <li>• <strong>Why paying only the minimum</strong> is a debt trap</li>
-            <li>• <strong>How to spot fraud</strong> by reviewing transactions</li>
-            <li>• <strong>How statements affect your credit score</strong> (on-time payments & utilization)</li>
-            <li>• <strong>The difference between statement date and due date</strong></li>
+        <div style={{ background:C.accentSoft, borderLeft:`4px solid ${C.navy}`, padding:24, borderRadius:"0 12px 12px 0" }}>
+          <h3 style={{ fontWeight:800, fontSize:16, color:C.text, margin:"0 0 10px" }}>What You Just Learned</h3>
+          <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:8 }}>
+            {[
+              ["How to read a credit card statement", "from top to bottom"],
+              ["Why paying only the minimum", "is a debt trap"],
+              ["How to spot fraud", "by reviewing transactions"],
+              ["How statements affect your credit score", "(on-time payments & utilization)"],
+              ["The difference between statement date and due date", ""],
+            ].map(([bold, rest]) => (
+              <li key={bold} style={{ color:C.textSub, fontSize:14 }}>• <strong style={{ color:C.text }}>{bold}</strong>{rest ? " " + rest : ""}</li>
+            ))}
           </ul>
         </div>
 
-        <div className="text-center">
-          <Button
+        <div style={{ textAlign:"center" }}>
+          <button
             onClick={() => navigate(createPageUrl("CreditCardQuiz"))}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white h-14 px-8 text-lg shadow-xl"
+            style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"14px 32px", borderRadius:999, background:C.navy, color:"#fff", fontSize:16, fontWeight:700, border:"none", cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
           >
             Test Your Knowledge →
-          </Button>
+          </button>
         </div>
       </div>
     </div>

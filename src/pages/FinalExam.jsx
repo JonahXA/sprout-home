@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Trophy, Sparkles, AlertCircle, CheckCircle, Zap,
   ArrowLeft, BookOpen, TrendingUp, Award
@@ -12,36 +9,31 @@ import {
 import { toast } from "sonner";
 import CourseCertificate from "../components/CourseCertificate";
 
-// NOTE: Base44 removed in migration pass.
-// TODO (later phase): replace these stubs with your real API/client layer.
+const C = {
+  navy:"#1F3A64", navyMid:"#172E52", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  accent:"#3B82F6", accentSoft:"#E8F0FE",
+  green:"#22C55E", greenSoft:"#E8F8F0",
+  red:"#EF4444", redSoft:"#FEF2F2",
+  amber:"#F59E0B", amberSoft:"#FFF3E0",
+  bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
+  border:"#E5E7EB", borderMid:"#D1D5DB",
+  text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
+};
+
 const getLocalUser = () => {
   try {
     const raw = localStorage.getItem("sprout_user");
     return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 };
 
 const data = {
-  async listCourses() {
-    return [];
-  },
-  async listLessons(/* courseId */) {
-    return [];
-  },
-  async listUserProgress(/* userEmail, courseId */) {
-    return [];
-  },
-  async getCourseCompletion(/* userEmail, courseId */) {
-    return null;
-  },
-  async upsertCourseCompletion(/* payload */) {
-    return;
-  },
-  async updateUserXP(/* payload */) {
-    return;
-  }
+  async listCourses() { return []; },
+  async listLessons() { return []; },
+  async listUserProgress() { return []; },
+  async getCourseCompletion() { return null; },
+  async upsertCourseCompletion() { return; },
+  async updateUserXP() { return; }
 };
 
 export default function FinalExam() {
@@ -58,10 +50,7 @@ export default function FinalExam() {
 
   useEffect(() => {
     const currentUser = getLocalUser();
-    if (!currentUser) {
-      navigate(createPageUrl("Login"));
-      return;
-    }
+    if (!currentUser) { navigate(createPageUrl("Login")); return; }
     setUser(currentUser);
   }, [navigate]);
 
@@ -78,9 +67,7 @@ export default function FinalExam() {
     queryKey: ["lessons", courseId],
     queryFn: async () => {
       const allLessons = await data.listLessons(courseId);
-      return allLessons
-        .filter((l) => l.course_id === courseId)
-        .sort((a, b) => (a.order || 0) - (b.order || 0));
+      return allLessons.filter((l) => l.course_id === courseId).sort((a, b) => (a.order || 0) - (b.order || 0));
     },
     enabled: !!courseId,
   });
@@ -106,23 +93,10 @@ export default function FinalExam() {
   const completeMutation = useMutation({
     mutationFn: async ({ examScore }) => {
       if (!user?.email || !courseId) return;
-
       const now = new Date().toISOString();
       const finalExamXP = 500;
-
-      await data.upsertCourseCompletion({
-        user_email: user.email,
-        course_id: courseId,
-        completed: true,
-        completed_date: now,
-        final_exam_score: examScore,
-      });
-
-      await data.updateUserXP({
-        email: user.email,
-        xp_delta: finalExamXP,
-        courses_completed_delta: 1,
-      });
+      await data.upsertCourseCompletion({ user_email: user.email, course_id: courseId, completed: true, completed_date: now, final_exam_score: examScore });
+      await data.updateUserXP({ email: user.email, xp_delta: finalExamXP, courses_completed_delta: 1 });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["courseCompletion"] });
@@ -133,27 +107,14 @@ export default function FinalExam() {
   });
 
   const handleExamSubmit = () => {
-    if (!course?.final_exam_questions) {
-      toast.error("This course is missing a final exam. Please contact support.");
-      return;
-    }
-
+    if (!course?.final_exam_questions) { toast.error("This course is missing a final exam. Please contact support."); return; }
     const totalQuestions = course.final_exam_questions.length;
     let correctAnswers = 0;
-
-    course.final_exam_questions.forEach((q, index) => {
-      if (examAnswers[index] === q.correct_answer) {
-        correctAnswers++;
-      }
-    });
-
+    course.final_exam_questions.forEach((q, index) => { if (examAnswers[index] === q.correct_answer) correctAnswers++; });
     const examScore = Math.round((correctAnswers / totalQuestions) * 100);
     setScore(examScore);
     setExamSubmitted(true);
-
-    if (examScore === 100) {
-      completeMutation.mutate({ examScore });
-    }
+    if (examScore === 100) completeMutation.mutate({ examScore });
   };
 
   const handleRetakeExam = () => {
@@ -163,50 +124,34 @@ export default function FinalExam() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Loading state with timeout
   const [loadingTimeout, setLoadingTimeout] = useState(false);
-
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!course) setLoadingTimeout(true);
-    }, 10000);
-
+    const timer = setTimeout(() => { if (!course) setLoadingTimeout(true); }, 10000);
     return () => clearTimeout(timer);
   }, [course]);
 
   if (!course && loadingTimeout) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md border-none shadow-xl">
-          <CardContent className="p-8 text-center">
-            <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Having Trouble Loading</h2>
-            <p className="text-gray-600 mb-6">
-              We're having trouble loading this exam. Please refresh or try again in a moment.
-            </p>
-            <div className="flex gap-3 justify-center">
-              <Button
-                onClick={() => window.location.reload()}
-                className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white"
-              >
-                Retry
-              </Button>
-              <Button variant="outline" onClick={() => navigate(createPageUrl("Learn"))}>
-                Back to Courses
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", padding:24 }}>
+        <div style={{ maxWidth:400, width:"100%", borderRadius:20, border:`1px solid ${C.border}`, padding:40, textAlign:"center", background:C.bg }}>
+          <AlertCircle size={56} color={C.red} style={{ margin:"0 auto 16px" }} />
+          <h2 style={{ fontSize:22, fontWeight:800, color:C.text, marginBottom:8 }}>Having Trouble Loading</h2>
+          <p style={{ color:C.textSub, marginBottom:24 }}>We're having trouble loading this exam. Please refresh or try again.</p>
+          <div style={{ display:"flex", gap:10, justifyContent:"center" }}>
+            <button onClick={() => window.location.reload()} style={{ padding:"10px 22px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, cursor:"pointer" }}>Retry</button>
+            <button onClick={() => navigate(createPageUrl("Learn"))} style={{ padding:"10px 22px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontWeight:600, cursor:"pointer" }}>Back to Courses</button>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!course) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-lime-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading exam...</p>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center" }}>
+        <div style={{ textAlign:"center" }}>
+          <div style={{ width:64, height:64, border:`4px solid ${C.border}`, borderTopColor:C.navy, borderRadius:"50%", animation:"spin 1s linear infinite", margin:"0 auto 16px" }} />
+          <p style={{ color:C.textSub }}>Loading exam...</p>
         </div>
       </div>
     );
@@ -214,284 +159,206 @@ export default function FinalExam() {
 
   const allLessonsCompleted =
     lessons.length > 0 &&
-    lessons.every((lesson) =>
-      userProgress.some((p) => p.lesson_id === lesson.id && p.completed)
-    );
+    lessons.every((lesson) => userProgress.some((p) => p.lesson_id === lesson.id && p.completed));
 
   if (lessons.length > 0 && !allLessonsCompleted) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md border-none shadow-xl">
-          <CardContent className="p-8 text-center">
-            <AlertCircle className="w-16 h-16 text-orange-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Not Ready Yet!</h2>
-            <p className="text-gray-600 mb-6">
-              You must complete all lessons before taking the final exam.
-            </p>
-            <Button
-              onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))}
-              className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Course
-            </Button>
-          </CardContent>
-        </Card>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", padding:24 }}>
+        <div style={{ maxWidth:400, width:"100%", borderRadius:20, border:`1px solid ${C.border}`, padding:40, textAlign:"center", background:C.bg }}>
+          <AlertCircle size={56} color={C.amber} style={{ margin:"0 auto 16px" }} />
+          <h2 style={{ fontSize:22, fontWeight:800, color:C.text, marginBottom:8 }}>Not Ready Yet!</h2>
+          <p style={{ color:C.textSub, marginBottom:24 }}>You must complete all lessons before taking the final exam.</p>
+          <button onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))} style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"10px 24px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, cursor:"pointer" }}>
+            <ArrowLeft size={16} />Back to Course
+          </button>
+        </div>
       </div>
     );
   }
 
   if (showCertificate) {
-    return (
-      <CourseCertificate
-        course={course}
-        user={user}
-        completionDate={new Date().toISOString()}
-        onContinue={() => navigate(createPageUrl("Learn"))}
-      />
-    );
+    return <CourseCertificate course={course} user={user} completionDate={new Date().toISOString()} onContinue={() => navigate(createPageUrl("Learn"))} />;
   }
 
   if (!course.final_exam_questions || course.final_exam_questions.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <Card className="max-w-md border-none shadow-xl">
-          <CardContent className="p-8 text-center">
-            <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Missing Exam</h2>
-            <p className="text-gray-600 mb-6">This course doesn't have a final exam configured yet.</p>
-            <Button
-              onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))}
-              className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Course
-            </Button>
-          </CardContent>
-        </Card>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", padding:24 }}>
+        <div style={{ maxWidth:400, width:"100%", borderRadius:20, border:`1px solid ${C.border}`, padding:40, textAlign:"center", background:C.bg }}>
+          <AlertCircle size={56} color={C.red} style={{ margin:"0 auto 16px" }} />
+          <h2 style={{ fontSize:22, fontWeight:800, color:C.text, marginBottom:8 }}>Missing Exam</h2>
+          <p style={{ color:C.textSub, marginBottom:24 }}>This course doesn't have a final exam configured yet.</p>
+          <button onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))} style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"10px 24px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, cursor:"pointer" }}>
+            <ArrowLeft size={16} />Back to Course
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
-      <div className="max-w-5xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <Button
-            variant="outline"
-            onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))}
-            className="shadow-md"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Course
-          </Button>
-          <Badge className="bg-purple-100 text-purple-700 text-sm px-3 py-1">
-            Final Exam
-          </Badge>
-        </div>
+    <>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+        <div style={{ maxWidth:960, margin:"0 auto", display:"flex", flexDirection:"column", gap:20 }}>
 
-        {/* Exam Header */}
-        <Card className="border-none shadow-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white overflow-hidden">
-          <CardContent className="p-8 md:p-12 relative">
-            <div className="absolute top-0 right-0 opacity-10">
-              <Trophy className="w-64 h-64" />
+          {/* Top bar */}
+          <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:12 }}>
+            <button
+              onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))}
+              style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer" }}
+            >
+              <ArrowLeft size={16} />Back to Course
+            </button>
+            <span style={{ fontSize:12, fontWeight:700, color:C.navy, background:C.accentSoft, padding:"4px 12px", borderRadius:999 }}>Final Exam</span>
+          </div>
+
+          {/* Hero */}
+          <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight},#1a4080)`, borderRadius:20, padding:"40px 48px", color:"#fff", boxShadow:`0 12px 48px ${C.navyGlow}`, position:"relative", overflow:"hidden" }}>
+            <div style={{ position:"absolute", top:0, right:0, opacity:0.08 }}>
+              <Trophy size={220} />
             </div>
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                <Award className="w-12 h-12" />
+            <div style={{ position:"relative", zIndex:1 }}>
+              <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:28 }}>
+                <Award size={44} />
                 <div>
-                  <h1 className="text-4xl md:text-5xl font-bold mb-2">Final Exam</h1>
-                  <p className="text-xl opacity-90">{course.name}</p>
+                  <h1 style={{ fontSize:38, fontWeight:900, letterSpacing:"-1px", margin:"0 0 4px" }}>Final Exam</h1>
+                  <p style={{ fontSize:16, opacity:0.85, margin:0 }}>{course.name}</p>
                 </div>
               </div>
-              <div className="grid grid-cols-3 gap-4 mt-8 p-6 bg-white/10 backdrop-blur-sm rounded-xl">
-                <div className="text-center">
-                  <p className="text-3xl font-bold">{course.final_exam_questions.length}</p>
-                  <p className="text-sm opacity-90">Questions</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold">100%</p>
-                  <p className="text-sm opacity-90">Required</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold">500 XP</p>
-                  <p className="text-sm opacity-90">Reward</p>
-                </div>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:16 }}>
+                {[
+                  [course.final_exam_questions.length, "Questions"],
+                  ["100%", "Required"],
+                  ["500 XP", "Reward"],
+                ].map(([val, label]) => (
+                  <div key={label} style={{ textAlign:"center", background:"rgba(255,255,255,0.1)", backdropFilter:"blur(4px)", borderRadius:14, padding:"16px 0" }}>
+                    <p style={{ fontSize:28, fontWeight:900, margin:"0 0 4px" }}>{val}</p>
+                    <p style={{ fontSize:12, opacity:0.8, margin:0 }}>{label}</p>
+                  </div>
+                ))}
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Exam Instructions */}
-        {!examSubmitted && (
-          <Card className="border-2 border-purple-200 shadow-lg bg-purple-50">
-            <CardContent className="p-6">
-              <h3 className="font-bold text-lg text-gray-900 mb-3">📋 Instructions</h3>
-              <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span>
-                    You must score <strong>100%</strong> to complete the course
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span>You can retake the exam as many times as needed</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span>Review the lessons if you need a refresher</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
-                  <span>Earn a certificate upon successful completion!</span>
-                </li>
+          {/* Instructions */}
+          {!examSubmitted && (
+            <div style={{ borderRadius:16, border:`1px solid ${C.accentSoft}`, background:C.accentSoft, padding:"20px 24px" }}>
+              <h3 style={{ fontWeight:800, fontSize:15, color:C.text, margin:"0 0 12px" }}>Instructions</h3>
+              <ul style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:10 }}>
+                {[
+                  "You must score 100% to complete the course",
+                  "You can retake the exam as many times as needed",
+                  "Review the lessons if you need a refresher",
+                  "Earn a certificate upon successful completion!",
+                ].map((item) => (
+                  <li key={item} style={{ display:"flex", alignItems:"flex-start", gap:10, fontSize:14, color:C.textSub }}>
+                    <CheckCircle size={18} color={C.navy} style={{ flexShrink:0, marginTop:1 }} />
+                    <span dangerouslySetInnerHTML={{ __html: item.replace("100%", "<strong>100%</strong>") }} />
+                  </li>
+                ))}
               </ul>
-            </CardContent>
-          </Card>
-        )}
+            </div>
+          )}
 
-        {/* Exam Questions */}
-        <div className="space-y-6">
-          {course.final_exam_questions.map((question, qIndex) => (
-            <Card key={qIndex} className="border-2 border-gray-200 shadow-xl overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b-2 border-purple-200">
-                <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 text-white font-bold text-xl shadow-lg">
+          {/* Questions */}
+          <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+            {course.final_exam_questions.map((question, qIndex) => (
+              <div key={qIndex} style={{ borderRadius:16, border:`2px solid ${C.border}`, overflow:"hidden" }}>
+                <div style={{ background:C.bgSoft, borderBottom:`1px solid ${C.border}`, padding:"18px 24px", display:"flex", alignItems:"flex-start", gap:16 }}>
+                  <div style={{ width:48, height:48, borderRadius:"50%", background:C.navy, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, color:"#fff", fontWeight:800, fontSize:18 }}>
                     {qIndex + 1}
                   </div>
-                  <p className="font-bold text-xl text-gray-900 flex-1 pt-3">
-                    {question.question}
-                  </p>
+                  <p style={{ fontWeight:700, fontSize:18, color:C.text, margin:0, paddingTop:10 }}>{question.question}</p>
                 </div>
-              </CardHeader>
-              <CardContent className="p-6 space-y-3">
-                {question.options.map((option, oIndex) => {
-                  const isSelected = examAnswers[qIndex] === oIndex;
-                  const isCorrect = question.correct_answer === oIndex;
-                  const showResult = examSubmitted;
-
-                  return (
-                    <button
-                      key={oIndex}
-                      onClick={() => !examSubmitted && setExamAnswers({ ...examAnswers, [qIndex]: oIndex })}
-                      disabled={examSubmitted}
-                      className={`w-full p-5 rounded-xl text-left transition-all font-medium text-base relative overflow-hidden group ${
-                        showResult
-                          ? isCorrect
-                            ? "bg-gradient-to-r from-green-400 to-emerald-500 text-white border-2 border-green-600 shadow-lg"
-                            : isSelected
-                            ? "bg-gradient-to-r from-red-400 to-pink-500 text-white border-2 border-red-600"
-                            : "bg-gray-100 border-2 border-gray-300 text-gray-500"
-                          : isSelected
-                          ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white border-2 border-purple-600 shadow-lg scale-105"
-                          : "bg-white border-2 border-gray-300 hover:border-purple-400 hover:shadow-md hover:scale-102 text-gray-700"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between relative z-10">
+                <div style={{ padding:"16px 24px", display:"flex", flexDirection:"column", gap:10 }}>
+                  {question.options.map((option, oIndex) => {
+                    const isSelected = examAnswers[qIndex] === oIndex;
+                    const isCorrect = question.correct_answer === oIndex;
+                    const showResult = examSubmitted;
+                    let bg = C.bg; let border2 = C.borderMid; let color = C.text;
+                    if (showResult) {
+                      if (isCorrect) { bg = C.green; border2 = C.green; color = "#fff"; }
+                      else if (isSelected) { bg = C.red; border2 = C.red; color = "#fff"; }
+                      else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
+                    } else if (isSelected) {
+                      bg = C.navy; border2 = C.navy; color = "#fff";
+                    }
+                    return (
+                      <button
+                        key={oIndex}
+                        onClick={() => !examSubmitted && setExamAnswers({ ...examAnswers, [qIndex]: oIndex })}
+                        disabled={examSubmitted}
+                        style={{ width:"100%", padding:"14px 20px", borderRadius:12, textAlign:"left", fontWeight:600, fontSize:15, background:bg, border:`2px solid ${border2}`, color, cursor:examSubmitted ? "default" : "pointer", transition:"all 0.15s", display:"flex", alignItems:"center", justifyContent:"space-between" }}
+                      >
                         <span>{option}</span>
-                        {showResult && isCorrect && <CheckCircle className="w-6 h-6 flex-shrink-0 ml-2" />}
-                        {showResult && isSelected && !isCorrect && <AlertCircle className="w-6 h-6 flex-shrink-0 ml-2" />}
-                      </div>
-                    </button>
-                  );
-                })}
-
-                {examSubmitted && question.explanation && (
-                  <div className="mt-4 p-5 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500">
-                    <p className="text-sm text-blue-900 flex items-start gap-2">
-                      <Sparkles className="w-5 h-5 flex-shrink-0 mt-0.5 text-blue-600" />
-                      <span>
-                        <strong className="font-bold">Explanation:</strong> {question.explanation}
-                      </span>
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Submit/Results */}
-        {!examSubmitted ? (
-          <Card className="border-none shadow-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white sticky bottom-4">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm opacity-90">
-                    {Object.keys(examAnswers).length} of {course.final_exam_questions.length} questions answered
-                  </p>
+                        {showResult && isCorrect && <CheckCircle size={18} style={{ flexShrink:0 }} />}
+                        {showResult && isSelected && !isCorrect && <AlertCircle size={18} style={{ flexShrink:0 }} />}
+                      </button>
+                    );
+                  })}
+                  {examSubmitted && question.explanation && (
+                    <div style={{ marginTop:8, padding:"14px 18px", borderRadius:12, background:C.accentSoft, borderLeft:`4px solid ${C.accent}` }}>
+                      <p style={{ fontSize:13, color:C.textSub, margin:0, display:"flex", alignItems:"flex-start", gap:8 }}>
+                        <Sparkles size={15} color={C.accent} style={{ flexShrink:0, marginTop:1 }} />
+                        <span><strong style={{ color:C.text }}>Explanation:</strong> {question.explanation}</span>
+                      </p>
+                    </div>
+                  )}
                 </div>
-                <Button
-                  onClick={handleExamSubmit}
-                  disabled={Object.keys(examAnswers).length !== course.final_exam_questions.length}
-                  className="bg-white text-purple-600 hover:bg-gray-100 h-14 px-10 text-lg shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <Trophy className="w-6 h-6 mr-2" />
-                  Submit Final Exam
-                </Button>
               </div>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card
-            className={`border-none shadow-2xl ${
-              score === 100
-                ? "bg-gradient-to-r from-green-400 to-emerald-500"
-                : "bg-gradient-to-r from-orange-400 to-red-500"
-            } text-white`}
-          >
-            <CardContent className="p-8 md:p-12 text-center">
+            ))}
+          </div>
+
+          {/* Submit / Results */}
+          {!examSubmitted ? (
+            <div style={{ borderRadius:16, background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, padding:"20px 28px", display:"flex", alignItems:"center", justifyContent:"space-between", gap:16, flexWrap:"wrap", position:"sticky", bottom:16 }}>
+              <p style={{ color:"rgba(255,255,255,0.8)", margin:0, fontSize:14 }}>
+                {Object.keys(examAnswers).length} of {course.final_exam_questions.length} questions answered
+              </p>
+              <button
+                onClick={handleExamSubmit}
+                disabled={Object.keys(examAnswers).length !== course.final_exam_questions.length}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"14px 32px", borderRadius:999, background:"#fff", color:C.navy, border:"none", fontWeight:800, fontSize:15, cursor:"pointer", opacity:Object.keys(examAnswers).length !== course.final_exam_questions.length ? 0.5 : 1 }}
+              >
+                <Trophy size={18} />Submit Final Exam
+              </button>
+            </div>
+          ) : (
+            <div style={{ borderRadius:20, padding:"48px 32px", textAlign:"center", background:score === 100 ? `linear-gradient(135deg,${C.navy},${C.navyLight})` : `linear-gradient(135deg,#C0392B,#E74C3C)`, color:"#fff" }}>
               {score === 100 ? (
                 <>
-                  <Trophy className="w-32 h-32 mx-auto mb-6 animate-bounce" />
-                  <h2 className="text-5xl md:text-6xl font-bold mb-4">Perfect Score!</h2>
-                  <p className="text-7xl font-bold mb-6">{score}%</p>
-                  <p className="text-2xl opacity-90 mb-8">🎉 Congratulations! You've mastered this course!</p>
-                  <div className="flex items-center justify-center gap-3 mb-10 text-3xl font-bold">
-                    <Zap className="w-10 h-10" />
-                    +500 XP Earned!
+                  <Trophy size={80} style={{ margin:"0 auto 20px", animation:"bounce 1s ease infinite" }} />
+                  <h2 style={{ fontSize:44, fontWeight:900, margin:"0 0 8px" }}>Perfect Score!</h2>
+                  <p style={{ fontSize:56, fontWeight:900, margin:"0 0 16px" }}>{score}%</p>
+                  <p style={{ fontSize:20, opacity:0.9, marginBottom:28 }}>Congratulations! You've mastered this course!</p>
+                  <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:10, fontSize:24, fontWeight:800, marginBottom:32 }}>
+                    <Zap size={28} />+500 XP Earned!
                   </div>
-                  <Button
-                    onClick={() => setShowCertificate(true)}
-                    className="bg-white text-green-600 hover:bg-gray-100 h-16 px-12 text-xl shadow-2xl"
-                  >
-                    <Award className="w-6 h-6 mr-2" />
-                    View Certificate
-                  </Button>
+                  <button onClick={() => setShowCertificate(true)} style={{ display:"inline-flex", alignItems:"center", gap:10, padding:"16px 40px", borderRadius:999, background:"#fff", color:C.navy, border:"none", fontWeight:800, fontSize:17, cursor:"pointer" }}>
+                    <Award size={20} />View Certificate
+                  </button>
                 </>
               ) : (
                 <>
-                  <AlertCircle className="w-32 h-32 mx-auto mb-6" />
-                  <h2 className="text-5xl font-bold mb-4">Keep Trying!</h2>
-                  <p className="text-7xl font-bold mb-6">{score}%</p>
-                  <p className="text-2xl opacity-90 mb-10">
-                    You need 100% to complete the course. Review the lessons and try again!
-                  </p>
-                  <div className="flex gap-4 justify-center flex-wrap">
-                    <Button
-                      onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))}
-                      variant="outline"
-                      className="h-14 px-8 text-base bg-white/20 border-2 border-white text-white hover:bg-white/30"
-                    >
-                      <BookOpen className="w-5 h-5 mr-2" />
-                      Review Course
-                    </Button>
-                    <Button
-                      onClick={handleRetakeExam}
-                      className="h-14 px-8 text-base bg-white text-orange-600 hover:bg-gray-100"
-                    >
-                      <TrendingUp className="w-5 h-5 mr-2" />
-                      Retake Exam
-                    </Button>
+                  <AlertCircle size={80} style={{ margin:"0 auto 20px" }} />
+                  <h2 style={{ fontSize:40, fontWeight:900, margin:"0 0 8px" }}>Keep Trying!</h2>
+                  <p style={{ fontSize:56, fontWeight:900, margin:"0 0 16px" }}>{score}%</p>
+                  <p style={{ fontSize:18, opacity:0.9, marginBottom:32 }}>You need 100% to complete the course. Review the lessons and try again!</p>
+                  <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
+                    <button onClick={() => navigate(createPageUrl(`CourseDetail?id=${courseId}`))} style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 24px", borderRadius:999, background:"rgba(255,255,255,0.2)", border:"2px solid rgba(255,255,255,0.5)", color:"#fff", fontWeight:700, cursor:"pointer", fontSize:14 }}>
+                      <BookOpen size={16} />Review Course
+                    </button>
+                    <button onClick={handleRetakeExam} style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 24px", borderRadius:999, background:"#fff", color:"#C0392B", border:"none", fontWeight:700, cursor:"pointer", fontSize:14 }}>
+                      <TrendingUp size={16} />Retake Exam
+                    </button>
                   </div>
                 </>
               )}
-            </CardContent>
-          </Card>
-        )}
+            </div>
+          )}
+
+        </div>
       </div>
-    </div>
+    </>
   );
 }

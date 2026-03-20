@@ -3,12 +3,17 @@ import { getCurrentUserSafe, upsertAIDayProgress, getAIDayProgress } from "@/lib
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ChevronRight, Briefcase, TrendingUp, Brain, Lightbulb } from "lucide-react";
 import InteractiveQuiz from "@/components/InteractiveQuiz";
+
+const C = {
+  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  accent:"#3B82F6", accentSoft:"#E8F0FE",
+  green:"#22C55E", greenSoft:"#E8F8F0",
+  bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
+  border:"#E5E7EB",
+  text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
+};
 
 export default function AIDay7() {
   const navigate = useNavigate();
@@ -89,11 +94,11 @@ export default function AIDay7() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <Card className="border-2 border-blue-200">
-              <CardHeader className="bg-blue-50">
-                <CardTitle className="text-blue-700">Jobs AI Enhances</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-4 space-y-2 text-sm">
+            <div className="border-2 border-blue-200 rounded-lg overflow-hidden">
+              <div className="bg-blue-50 px-4 py-3">
+                <h4 className="font-bold text-blue-700">Jobs AI Enhances</h4>
+              </div>
+              <div className="p-4 space-y-2 text-sm">
                 <p className="text-gray-700 font-bold">Creative fields:</p>
                 <ul className="list-disc ml-6 text-gray-600">
                   <li>Designers use AI for rapid prototyping</li>
@@ -106,14 +111,14 @@ export default function AIDay7() {
                   <li>Data analysts automate reporting</li>
                   <li>Researchers accelerate discovery</li>
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="border-2 border-orange-200">
-              <CardHeader className="bg-orange-50">
-                <CardTitle className="text-orange-700">Jobs At Risk</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-4 space-y-2 text-sm">
+            <div className="border-2 border-orange-200 rounded-lg overflow-hidden">
+              <div className="bg-orange-50 px-4 py-3">
+                <h4 className="font-bold text-orange-700">Jobs At Risk</h4>
+              </div>
+              <div className="p-4 space-y-2 text-sm">
                 <p className="text-gray-700">Roles with repetitive, predictable tasks:</p>
                 <ul className="list-disc ml-6 text-gray-600 space-y-1">
                   <li>Data entry clerks</li>
@@ -125,13 +130,13 @@ export default function AIDay7() {
                 <div className="bg-orange-100 p-2 rounded mt-3">
                   <p className="text-xs text-orange-900"><strong>Key insight:</strong> Jobs requiring human judgment, creativity, empathy, and complex problem-solving are safer</p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
-          <Button onClick={() => setCurrentStep(1)} className="w-full bg-green-600 hover:bg-green-700">
-            Explore Career Skills <ChevronRight className="w-5 h-5 ml-2" />
-          </Button>
+          <button onClick={() => setCurrentStep(1)} style={{ width:"100%", padding:"14px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:15, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+            Explore Career Skills <ChevronRight size={18} />
+          </button>
         </div>
       )
     },
@@ -149,28 +154,28 @@ export default function AIDay7() {
 
           <div className="grid md:grid-cols-2 gap-4">
             {careerSkills.map((skill, idx) => (
-              <Card
+              <div
                 key={idx}
                 onClick={() => {
                   if (!selectedSkills.includes(idx)) {
                     setSelectedSkills([...selectedSkills, idx]);
                   }
                 }}
-                className={`cursor-pointer border-2 transition-all ${
+                className={`cursor-pointer border-2 transition-all rounded-lg overflow-hidden ${
                   selectedSkills.includes(idx)
                     ? 'border-green-500 bg-green-50 shadow-lg'
                     : 'border-gray-200 hover:border-teal-300'
                 }`}
               >
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center justify-between">
-                    <span>{skill.name}</span>
-                    <Badge className={skill.demand === "Critical" ? "bg-red-500" : "bg-orange-500"}>
+                <div className="px-4 py-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-lg">{skill.name}</span>
+                    <span style={{ fontSize:11, fontWeight:700, color:"#fff", background:skill.demand === "Critical" ? "#EF4444" : "#F97316", padding:"3px 10px", borderRadius:999 }}>
                       {skill.demand}
-                    </Badge>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
+                    </span>
+                  </div>
+                </div>
+                <div className="px-4 pb-4">
                   <p className="text-sm text-gray-600">{skill.description}</p>
                   {selectedSkills.includes(idx) && (
                     <div className="mt-3 p-3 bg-white rounded border-l-4 border-green-500">
@@ -186,15 +191,15 @@ export default function AIDay7() {
                       </p>
                     </div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
 
           {selectedSkills.length >= 4 && (
-            <Button onClick={() => setCurrentStep(2)} className="w-full bg-green-600 hover:bg-green-700">
-              Continue to Quiz <ChevronRight className="w-5 h-5 ml-2" />
-            </Button>
+            <button onClick={() => setCurrentStep(2)} style={{ width:"100%", padding:"14px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:15, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>
+              Continue to Quiz <ChevronRight size={18} />
+            </button>
           )}
         </div>
       )
@@ -240,64 +245,66 @@ export default function AIDay7() {
 
   if (isLoadingUser) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", background:C.bg }}>
+        <div style={{ textAlign:"center" }}>
+          <div style={{ width:64, height:64, border:`4px solid ${C.border}`, borderTopColor:C.navy, borderRadius:"50%", animation:"spin 1s linear infinite", margin:"0 auto 16px" }} />
+          <p style={{ color:C.textSub }}>Loading...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-teal-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <Button variant="outline" onClick={() => navigate(createPageUrl("AILiteracy"))}>
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Course
-        </Button>
+    <>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+        <div className="max-w-4xl mx-auto space-y-6">
+          <button onClick={() => navigate(createPageUrl("AILiteracy"))} style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer", width:"fit-content" }}>
+            <ArrowLeft className="w-4 h-4" />
+            Back to Course
+          </button>
 
-        <div className="text-center space-y-2">
-          <Badge className="bg-green-600 text-white">Day 7 of 10</Badge>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-            AI and Your Future Career: Skills for Tomorrow
-          </h1>
-        </div>
+          <div className="text-center space-y-2">
+            <span style={{ fontSize:12, fontWeight:700, color:"#fff", background:C.navy, padding:"5px 14px", borderRadius:999 }}>Day 7 of 10</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+              AI and Your Future Career: Skills for Tomorrow
+            </h1>
+          </div>
 
-        <Card className="border-none shadow-lg">
-          <CardContent className="pt-6">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
+          <div style={{ borderRadius:16, border:`1px solid ${C.border}`, boxShadow:"0 1px 4px rgba(0,0,0,0.05)", background:C.bg, padding:"16px 20px" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", fontSize:13, fontWeight:600, color:C.textSub, marginBottom:8 }}>
               <span>Step {currentStep + 1} of {steps.length}</span>
-              <span>{Math.round(progressPercent)}%</span>
+              <span style={{ color:C.accent }}>{Math.round(progressPercent)}%</span>
             </div>
-            <Progress value={progressPercent} className="h-2" />
-          </CardContent>
-        </Card>
+            <div style={{ height:6, borderRadius:999, background:C.bgMid, overflow:"hidden" }}>
+              <div style={{ height:"100%", width:`${progressPercent}%`, borderRadius:999, background:C.accent, transition:"width 0.3s" }} />
+            </div>
+          </div>
 
-        <Card className="border-none shadow-xl">
-          <CardHeader className="bg-gradient-to-r from-green-500 to-teal-500 text-white">
-            <CardTitle className="flex items-center gap-2">
+          <div style={{ borderRadius:20, border:`1px solid ${C.border}`, boxShadow:"0 2px 16px rgba(0,0,0,0.05)", background:C.bg, overflow:"hidden" }}>
+            <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, padding:"20px 28px", color:"#fff", display:"flex", alignItems:"center", gap:10 }}>
               {currentStepData.type === 'concept' && <Briefcase className="w-6 h-6" />}
               {currentStepData.type === 'activity' && <Lightbulb className="w-6 h-6" />}
               {currentStepData.type === 'quiz' && <Brain className="w-6 h-6" />}
-              {currentStepData.title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6">
-            {currentStepData.content}
-          </CardContent>
-        </Card>
+              <span style={{ fontSize:17, fontWeight:800 }}>{currentStepData.title}</span>
+            </div>
+            <div style={{ padding:"28px 32px" }}>
+              {currentStepData.content}
+            </div>
+          </div>
 
-        <div className="flex justify-center gap-2">
-          {steps.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => idx <= currentStep && setCurrentStep(idx)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                idx === currentStep ? 'bg-green-600 w-8' : idx < currentStep ? 'bg-green-500' : 'bg-gray-300'
-              }`}
-              disabled={idx > currentStep}
-            />
-          ))}
+          <div style={{ display:"flex", justifyContent:"center", gap:8 }}>
+            {steps.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => idx <= currentStep && setCurrentStep(idx)}
+                disabled={idx > currentStep}
+                style={{ height:10, width:idx === currentStep ? 28 : 10, borderRadius:999, background:idx === currentStep ? C.navy : idx < currentStep ? C.green : C.bgMid, border:"none", cursor:idx > currentStep ? "default" : "pointer", transition:"all 0.2s", padding:0 }}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -2,11 +2,16 @@ import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Search, TrendingUp, PiggyBank, CreditCard, Shield, Brain, Briefcase, GraduationCap, Zap, Clock, Target } from "lucide-react";
+
+const C = {
+  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  accent:"#3B82F6", accentSoft:"#E8F0FE",
+  green:"#22C55E", greenSoft:"#E8F8F0",
+  bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
+  border:"#E5E7EB", borderMid:"#D1D5DB",
+  text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
+};
 
 const safeParse = (raw, fallback) => { try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } };
 const getLocalUser = () => safeParse(localStorage.getItem("sprout_user"), null);
@@ -54,7 +59,6 @@ export default function Learn() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Load user for progress display — but do NOT redirect if not logged in
   const user = getLocalUser();
 
   const { data: courses = [] } = useQuery({
@@ -89,7 +93,6 @@ export default function Learn() {
     return (completed / (Number(course.lessons_count||0)||1)) * 100;
   };
 
-  // Gate: redirect to login only when user actually tries to start a course
   const handleCourseClick = (course) => {
     if (!user) { navigate(createPageUrl("Login")); return; }
     if (course.name?.includes("AI Literacy")) {
@@ -100,80 +103,104 @@ export default function Learn() {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+      <div style={{ maxWidth:1200, margin:"0 auto", display:"flex", flexDirection:"column", gap:28 }}>
+
+        {/* Heading */}
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 tracking-tight">Explore Courses</h1>
-          <p className="text-gray-500">Browse and discover real-world skills — sign in to start learning.</p>
+          <h1 style={{ fontSize:34, fontWeight:900, color:C.text, letterSpacing:"-1px", margin:"0 0 6px" }}>Explore Courses</h1>
+          <p style={{ fontSize:15, color:C.textSub, fontWeight:500, margin:0 }}>Browse and discover real-world skills — sign in to start learning.</p>
         </div>
 
-        <div className="relative max-w-xl">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <Input type="text" placeholder="Search courses..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-12 h-12 bg-white border-gray-200 shadow-sm" />
+        {/* Search */}
+        <div style={{ position:"relative", maxWidth:480 }}>
+          <Search size={18} style={{ position:"absolute", left:14, top:"50%", transform:"translateY(-50%)", color:C.textMuted }} />
+          <input
+            type="text"
+            placeholder="Search courses..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ width:"100%", height:48, paddingLeft:44, paddingRight:16, borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, fontSize:14, color:C.text, outline:"none", boxSizing:"border-box", boxShadow:"0 1px 4px rgba(0,0,0,0.05)" }}
+          />
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        {/* Category filters */}
+        <div style={{ display:"flex", gap:8, overflowX:"auto", paddingBottom:4 }}>
           {categories.map((category) => {
             const Icon = categoryIcons[category] || Target;
             const isActive = selectedCategory === category;
             return (
               <button key={category} onClick={() => setSelectedCategory(category)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all border ${isActive ? "bg-[#1F3A64] text-white border-[#1F3A64] shadow-sm" : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50 hover:text-gray-900"}`}
+                style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 16px", borderRadius:999, border:`1px solid ${isActive ? C.navy : C.border}`, background:isActive ? C.navy : C.bg, color:isActive ? "#fff" : C.textSub, fontSize:13, fontWeight:600, whiteSpace:"nowrap", cursor:"pointer", transition:"all 0.15s", flexShrink:0 }}
               >
-                {category !== "All" && <Icon className="w-4 h-4" />}{category}
+                {category !== "All" && <Icon size={14} />}{category}
               </button>
             );
           })}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Course Grid */}
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:20 }}>
           {filteredCourses.map((course) => {
             const Icon = categoryIcons[course.category] || Target;
             const progress = getCourseProgress(course.id);
-            const thumb = categoryThumb[course.category] || { bg:"#F1F5F9", color:"#64748B" };
+            const thumb = categoryThumb[course.category] || { bg:C.bgMid, color:C.textMuted };
             return (
-              <Card key={course.id} className="border border-gray-100 shadow-sm hover:shadow-lg transition-all cursor-pointer group overflow-hidden bg-white" onClick={() => handleCourseClick(course)}>
-                <div className="h-36 flex items-center justify-center relative border-b border-gray-100" style={{ background:thumb.bg }}>
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background:"rgba(255,255,255,0.72)", color:thumb.color }}>
-                    <Icon className="w-7 h-7" />
+              <div
+                key={course.id}
+                onClick={() => handleCourseClick(course)}
+                style={{ borderRadius:16, border:`1px solid ${C.border}`, boxShadow:"0 1px 4px rgba(0,0,0,0.05)", background:C.bg, cursor:"pointer", overflow:"hidden", transition:"all 0.2s" }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.transform = "translateY(-3px)"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.transform = "translateY(0)"; }}
+              >
+                {/* Thumbnail */}
+                <div style={{ height:128, display:"flex", alignItems:"center", justifyContent:"center", background:thumb.bg, borderBottom:`1px solid ${C.border}`, position:"relative" }}>
+                  <div style={{ width:52, height:52, borderRadius:14, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:thumb.color }}>
+                    <Icon size={26} />
                   </div>
-                  <div className="absolute top-3 right-3">
-                    <Badge className="bg-white text-gray-700 border border-gray-200 shadow-sm font-medium text-xs">{course.difficulty || "Beginner"}</Badge>
+                  <div style={{ position:"absolute", top:10, right:10, background:C.bg, border:`1px solid ${C.border}`, borderRadius:999, padding:"3px 10px", fontSize:11, fontWeight:600, color:C.textSub }}>
+                    {course.difficulty || "Beginner"}
                   </div>
                 </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base font-bold group-hover:text-[#3B82F6] transition-colors tracking-tight">{course.name}</CardTitle>
-                  <p className="text-sm text-gray-500 line-clamp-2 mt-1 font-normal">{course.description}</p>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-1 text-gray-500"><Clock className="w-4 h-4" />{course.lessons_count} lessons</div>
-                    <div className="flex items-center gap-1 font-semibold" style={{ color:"#22C55E" }}><Zap className="w-4 h-4" />{course.xp_reward} XP</div>
+
+                {/* Body */}
+                <div style={{ padding:"16px 18px 20px" }}>
+                  <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:6, letterSpacing:"-0.3px" }}>{course.name}</div>
+                  <p style={{ fontSize:13, color:C.textSub, margin:"0 0 14px", lineHeight:1.5, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{course.description}</p>
+
+                  <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:12, color:C.textMuted, marginBottom:12 }}>
+                    <span style={{ display:"flex", alignItems:"center", gap:4 }}><Clock size={13} />{course.lessons_count} lessons</span>
+                    <span style={{ display:"flex", alignItems:"center", gap:4, color:C.green, fontWeight:700 }}><Zap size={13} />{course.xp_reward} XP</span>
                   </div>
+
                   {progress > 0 ? (
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-500">Progress</span>
-                        <span className="font-medium text-[#3B82F6]">{Math.round(progress)}%</span>
+                    <div>
+                      <div style={{ display:"flex", justifyContent:"space-between", fontSize:12, marginBottom:6 }}>
+                        <span style={{ color:C.textMuted }}>Progress</span>
+                        <span style={{ fontWeight:700, color:C.accent }}>{Math.round(progress)}%</span>
                       </div>
-                      <Progress value={progress} className="h-2" />
+                      <div style={{ height:6, borderRadius:999, background:C.bgMid, overflow:"hidden" }}>
+                        <div style={{ height:"100%", width:`${progress}%`, borderRadius:999, background:C.accent, transition:"width 0.3s" }} />
+                      </div>
                     </div>
                   ) : (
-                    <Badge variant="outline" className="w-full justify-center py-2 border-[#3B82F6] text-[#3B82F6] font-medium">
+                    <div style={{ textAlign:"center", padding:"8px 0", borderRadius:999, border:`1px solid ${C.accent}`, color:C.accent, fontSize:12, fontWeight:700 }}>
                       {user ? "Start Learning" : "Sign in to Start"}
-                    </Badge>
+                    </div>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             );
           })}
         </div>
 
         {filteredCourses.length === 0 && (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"><Search className="w-10 h-10 text-gray-400" /></div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No courses found</h3>
-            <p className="text-gray-500 text-sm">Try adjusting your search or filter.</p>
+          <div style={{ textAlign:"center", padding:"64px 0" }}>
+            <div style={{ width:80, height:80, background:C.bgMid, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 16px" }}>
+              <Search size={36} color={C.textMuted} />
+            </div>
+            <h3 style={{ fontSize:17, fontWeight:700, color:C.text, margin:"0 0 6px" }}>No courses found</h3>
+            <p style={{ fontSize:13, color:C.textMuted, margin:0 }}>Try adjusting your search or filter.</p>
           </div>
         )}
       </div>

@@ -3,42 +3,34 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 import ReactMarkdown from "react-markdown";
 import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle,
-  Zap,
-  Trophy,
-  Clock,
-  Sparkles,
-  BookOpen,
-  Star,
-  Target,
-  TrendingUp,
-  AlertCircle,
+  ArrowLeft, ArrowRight, CheckCircle, Zap, Trophy, Clock,
+  Sparkles, BookOpen, Star, Target, TrendingUp, AlertCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 import LevelUpModal from "@/components/LevelUpModal";
 import ChallengeCompleteModal from "@/components/ChallengeCompleteModal";
 import { useChallengeCheck } from "@/components/useChallengeCheck";
 
+const C = {
+  navy:"#1F3A64", navyMid:"#172E52", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  accent:"#3B82F6", accentSoft:"#E8F0FE", accentMid:"#BFDBFE",
+  green:"#22C55E", greenSoft:"#E8F8F0",
+  red:"#EF4444", redSoft:"#FEF2F2",
+  amber:"#F59E0B", amberSoft:"#FFF3E0",
+  bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
+  border:"#E5E7EB", borderMid:"#D1D5DB",
+  text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
+};
+
 /** ---------- local helpers ---------- */
 const safeParse = (raw, fallback) => {
-  try {
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
+  try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
 };
 
 const getJSON = (key, fallback) => safeParse(localStorage.getItem(key), fallback);
 const setJSON = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-
 const getLocalUser = () => getJSON("sprout_user", null);
 const setLocalUser = (user) => setJSON("sprout_user", user);
 
@@ -55,11 +47,7 @@ async function fetchJsonWithCache(url, cacheKey, fallback = []) {
 }
 
 const safeUUID = () => {
-  try {
-    return globalThis?.crypto?.randomUUID?.() || null;
-  } catch {
-    return null;
-  }
+  try { return globalThis?.crypto?.randomUUID?.() || null; } catch { return null; }
 };
 
 const data = {
@@ -116,58 +104,25 @@ const lessonImages = {
   career: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80",
 };
 
-// ✅ NEW: Detect if lesson should use a specific page
 function detectSpecialLessonPage(lesson) {
   if (!lesson || !lesson.title) return null;
-  
   const title = lesson.title.toLowerCase();
   const content = lesson.content || '';
   const contentLength = content.trim().length;
-  
-  // AI Day lessons (Day 1, Day 2, etc.) - these always redirect
   const dayMatch = lesson.title.match(/^Day (\d+):/i);
-  if (dayMatch) {
-    const dayNum = dayMatch[1];
-    return `AIDay${dayNum}`;
-  }
-  
-  // For other special pages, only redirect if content is SHORT (< 300 chars)
-  // This prevents real content lessons from being redirected
-  if (contentLength > 300) {
-    return null; // Has real content, use regular Lesson page
-  }
-  
-  // Budget lessons (only if short content)
-  if (title.includes('budget') && !title.includes('quiz')) {
-    return 'BudgetLesson';
-  }
-  
-  // Paycheck lessons (only if short content)
-  if (title.includes('paycheck') && !title.includes('quiz')) {
-    return 'PaycheckLesson';
-  }
-  
-  // Credit card lessons (only if short content)
-  if ((title.includes('credit') || title.includes('statement')) && !title.includes('quiz')) {
-    return 'CreditCardLesson';
-  }
-  
+  if (dayMatch) return `AIDay${dayMatch[1]}`;
+  if (contentLength > 300) return null;
+  if (title.includes('budget') && !title.includes('quiz')) return 'BudgetLesson';
+  if (title.includes('paycheck') && !title.includes('quiz')) return 'PaycheckLesson';
+  if ((title.includes('credit') || title.includes('statement')) && !title.includes('quiz')) return 'CreditCardLesson';
   return null;
 }
 
-// ✅ NEW: Better content validation
 function hasSubstantialContent(content) {
   if (!content || typeof content !== 'string') return false;
-  
   const trimmed = content.trim();
-  
-  // Check length
   if (trimmed.length < 200) return false;
-  
-  // Check for markdown structure (## headers)
-  const hasHeaders = /^##\s/m.test(trimmed);
-  
-  return hasHeaders;
+  return /^##\s/m.test(trimmed);
 }
 
 export default function Lesson() {
@@ -183,7 +138,6 @@ export default function Lesson() {
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [newLevel, setNewLevel] = useState(null);
 
-  // Read lesson ID from hash (HashRouter)
   const lessonId = useMemo(() => {
     const hash = window.location.hash;
     const queryStart = hash.indexOf('?');
@@ -195,16 +149,9 @@ export default function Lesson() {
 
   useEffect(() => {
     const currentUser = getLocalUser();
-    if (!currentUser) {
-      navigate(createPageUrl("Login"));
-      return;
-    }
-
+    if (!currentUser) { navigate(createPageUrl("Login")); return; }
     setUser(currentUser);
-
-    if (!currentUser.onboarding_completed) {
-      navigate(createPageUrl("SchoolSelection"));
-    }
+    if (!currentUser.onboarding_completed) navigate(createPageUrl("SchoolSelection"));
   }, [navigate]);
 
   const { completedChallenge, clearCompletedChallenge } = useChallengeCheck(user);
@@ -218,16 +165,10 @@ export default function Lesson() {
     enabled: !!lessonId,
   });
 
-  // ✅ NEW: Auto-redirect to special lesson pages
   useEffect(() => {
     if (!lesson) return;
-    
     const specialPage = detectSpecialLessonPage(lesson);
-    if (specialPage) {
-      console.log(`Redirecting to ${specialPage} for interactive lesson`);
-      // Use replace instead of push to avoid issues
-      navigate(createPageUrl(specialPage), { replace: true });
-    }
+    if (specialPage) navigate(createPageUrl(specialPage), { replace: true });
   }, [lesson, navigate]);
 
   const { data: course } = useQuery({
@@ -253,10 +194,7 @@ export default function Lesson() {
   const { data: progress, refetch: refetchProgress } = useQuery({
     queryKey: ["lessonProgress", user?.email, lessonId],
     queryFn: async () => {
-      const progressList = await data.listUserProgress({
-        user_email: user?.email,
-        lesson_id: lessonId,
-      });
+      const progressList = await data.listUserProgress({ user_email: user?.email, lesson_id: lessonId });
       return progressList[0] || null;
     },
     enabled: !!user && !!lessonId,
@@ -267,63 +205,28 @@ export default function Lesson() {
       if (!user?.email) throw new Error("Missing user");
       if (!lesson?.course_id) throw new Error("Missing lesson/course");
       if (!lessonId) throw new Error("Missing lessonId");
-
       const now = new Date().toISOString();
       const userEmail = user.email;
-
       const existing = progress;
       const progressRecord = existing
         ? { ...existing, completed: true, completed_date: now, quiz_score: quizScore }
-        : {
-            id: safeUUID() || `up_${Date.now()}`,
-            user_email: userEmail,
-            lesson_id: lessonId,
-            course_id: lesson.course_id,
-            completed: true,
-            completed_date: now,
-            quiz_score: quizScore,
-          };
-
+        : { id: safeUUID() || `up_${Date.now()}`, user_email: userEmail, lesson_id: lessonId, course_id: lesson.course_id, completed: true, completed_date: now, quiz_score: quizScore };
       await data.upsertUserProgress(progressRecord);
-
       const oldLevel = user.level || 1;
       const xpReward = Number(lesson.xp_reward || 0);
       const newXP = (user.xp_points || 0) + xpReward;
       const calculatedLevel = Math.floor(newXP / 100) + 1;
-
-      const updatedUser = {
-        ...user,
-        xp_points: newXP,
-        level: calculatedLevel,
-        total_lessons_completed: (user.total_lessons_completed || 0) + 1,
-      };
-
+      const updatedUser = { ...user, xp_points: newXP, level: calculatedLevel, total_lessons_completed: (user.total_lessons_completed || 0) + 1 };
       setLocalUser(updatedUser);
       setUser(updatedUser);
-
-      if (calculatedLevel > oldLevel) {
-        setNewLevel(calculatedLevel);
-        setShowLevelUp(true);
-      }
-
+      if (calculatedLevel > oldLevel) { setNewLevel(calculatedLevel); setShowLevelUp(true); }
       const today = new Date().toISOString().split("T")[0];
       const activities = await data.getDailyActivity({ user_email: userEmail, date: today });
-
       if (activities.length > 0) {
         const a = activities[0];
-        await data.upsertDailyActivity({
-          ...a,
-          lessons_completed: (a.lessons_completed || 0) + 1,
-          xp_earned: (a.xp_earned || 0) + xpReward,
-        });
+        await data.upsertDailyActivity({ ...a, lessons_completed: (a.lessons_completed || 0) + 1, xp_earned: (a.xp_earned || 0) + xpReward });
       } else {
-        await data.upsertDailyActivity({
-          id: safeUUID() || `da_${Date.now()}`,
-          user_email: userEmail,
-          date: today,
-          lessons_completed: 1,
-          xp_earned: xpReward,
-        });
+        await data.upsertDailyActivity({ id: safeUUID() || `da_${Date.now()}`, user_email: userEmail, date: today, lessons_completed: 1, xp_earned: xpReward });
       }
     },
     onSuccess: () => {
@@ -343,24 +246,13 @@ export default function Lesson() {
   const handleQuizSubmit = () => {
     const questions = lesson?.quiz_questions || [];
     const totalQuestions = questions.length;
-
-    if (!totalQuestions) {
-      toast.error("This lesson is missing a quiz.");
-      return;
-    }
-
+    if (!totalQuestions) { toast.error("This lesson is missing a quiz."); return; }
     let correct = 0;
-    questions.forEach((q, index) => {
-      if (quizAnswers[index] === q.correct_answer) correct++;
-    });
-
+    questions.forEach((q, index) => { if (quizAnswers[index] === q.correct_answer) correct++; });
     const quizScore = Math.round((correct / totalQuestions) * 100);
     setScore(quizScore);
     setQuizSubmitted(true);
-
-    if (quizScore === 100) {
-      completeMutation.mutate({ quizScore });
-    }
+    if (quizScore === 100) completeMutation.mutate({ quizScore });
   };
 
   const handleRetakeQuiz = () => {
@@ -372,22 +264,9 @@ export default function Lesson() {
 
   const handleNext = () => {
     const currentIndex = allLessons.findIndex((l) => String(l.id) === String(lessonId));
-
-    if (currentIndex === -1) {
-      navigate(createPageUrl("Learn"));
-      return;
-    }
-
-    if (currentIndex === allLessons.length - 1) {
-      navigate(createPageUrl(`FinalExam?courseId=${lesson.course_id}`));
-      return;
-    }
-
-    if (!progress?.completed) {
-      toast.error("Complete this lesson first!");
-      return;
-    }
-
+    if (currentIndex === -1) { navigate(createPageUrl("Learn")); return; }
+    if (currentIndex === allLessons.length - 1) { navigate(createPageUrl(`FinalExam?courseId=${lesson.course_id}`)); return; }
+    if (!progress?.completed) { toast.error("Complete this lesson first!"); return; }
     const nextLesson = allLessons[currentIndex + 1];
     navigate(createPageUrl(`Lesson?id=${nextLesson.id}`));
     setCurrentSection(0);
@@ -397,52 +276,46 @@ export default function Lesson() {
 
   if (!lessonId) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6 text-center">
-        <Card className="max-w-md border-none shadow-xl">
-          <CardContent className="p-8">
-            <AlertCircle className="w-12 h-12 text-orange-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Missing Lesson ID</h2>
-            <p className="text-gray-600 mb-6">This page needs a lesson id in the URL.</p>
-            <Button onClick={() => navigate(createPageUrl("Learn"))}>Back to Courses</Button>
-          </CardContent>
-        </Card>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center", padding:24, textAlign:"center" }}>
+        <div style={{ maxWidth:400, width:"100%", borderRadius:20, border:`1px solid ${C.border}`, padding:40, background:C.bg }}>
+          <AlertCircle size={48} color="#F59E0B" style={{ margin:"0 auto 16px" }} />
+          <h2 style={{ fontSize:22, fontWeight:800, color:C.text, marginBottom:8 }}>Missing Lesson ID</h2>
+          <p style={{ color:C.textSub, marginBottom:24 }}>This page needs a lesson id in the URL.</p>
+          <button onClick={() => navigate(createPageUrl("Learn"))} style={{ padding:"10px 24px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, cursor:"pointer" }}>Back to Courses</button>
+        </div>
       </div>
     );
   }
 
   if (!lesson || !course) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-lime-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading lesson...</p>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center" }}>
+        <div style={{ textAlign:"center" }}>
+          <div style={{ width:64, height:64, border:`4px solid ${C.border}`, borderTopColor:C.navy, borderRadius:"50%", animation:"spin 1s linear infinite", margin:"0 auto 16px" }} />
+          <p style={{ color:C.textSub }}>Loading lesson...</p>
         </div>
       </div>
     );
   }
 
-  // Check if this lesson should use a special page
   const specialPage = detectSpecialLessonPage(lesson);
   if (specialPage) {
-    // Return loading state while redirect happens
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading interactive lesson...</p>
+      <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center" }}>
+        <div style={{ textAlign:"center" }}>
+          <div style={{ width:64, height:64, border:`4px solid ${C.border}`, borderTopColor:C.navy, borderRadius:"50%", animation:"spin 1s linear infinite", margin:"0 auto 16px" }} />
+          <p style={{ color:C.textSub }}>Loading interactive lesson...</p>
         </div>
       </div>
     );
   }
 
   const splitContentIntoPages = (content) => {
-    const sections = String(content || "")
-      .split(/(?=^## )/m)
-      .filter((s) => s.trim());
+    const sections = String(content || "").split(/(?=^## )/m).filter((s) => s.trim());
     return sections.length > 1 ? sections : [String(content || "")];
   };
 
-  const contentSections = useMemo(() => splitContentIntoPages(lesson.content), [lesson.content]);
+  const contentSections = splitContentIntoPages(lesson.content);
   const totalSections = contentSections.length;
 
   const currentIndex = allLessons.findIndex((l) => String(l.id) === String(lessonId));
@@ -459,315 +332,256 @@ export default function Lesson() {
   if (t.includes("credit") || t.includes("debt")) lessonImage = lessonImages.credit;
   if (t.includes("career")) lessonImage = lessonImages.career;
 
-  // ✅ IMPROVED: Better content validation
   const hasLessonContent = hasSubstantialContent(lesson.content);
 
   return (
     <>
-      {showLevelUp && newLevel && (
-        <LevelUpModal level={newLevel} onClose={() => setShowLevelUp(false)} />
-      )}
-      {completedChallenge && (
-        <ChallengeCompleteModal challenge={completedChallenge} onClose={clearCompletedChallenge} />
-      )}
+      <style>{`
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .lesson-prose h1{font-size:26px;font-weight:800;margin-bottom:12px;color:${C.text}}
+        .lesson-prose h2{font-size:21px;font-weight:800;margin:24px 0 10px;color:${C.text}}
+        .lesson-prose h3{font-size:17px;font-weight:700;margin:18px 0 8px;color:${C.text}}
+        .lesson-prose p{font-size:16px;line-height:1.75;color:${C.textSub};margin-bottom:14px}
+        .lesson-prose ul,.lesson-prose ol{padding-left:22px;margin-bottom:14px}
+        .lesson-prose li{font-size:15px;line-height:1.7;color:${C.textSub};margin-bottom:6px}
+        .lesson-prose strong{color:${C.text};font-weight:700}
+        .lesson-prose code{background:${C.bgMid};padding:2px 6px;border-radius:4px;font-size:13px}
+        .lesson-prose blockquote{border-left:4px solid ${C.navy};padding:12px 16px;background:${C.accentSoft};border-radius:0 8px 8px 0;margin:16px 0}
+      `}</style>
 
-      <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-lime-50 via-white to-green-50">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <Button
-              variant="outline"
+      {showLevelUp && newLevel && <LevelUpModal level={newLevel} onClose={() => setShowLevelUp(false)} />}
+      {completedChallenge && <ChallengeCompleteModal challenge={completedChallenge} onClose={clearCompletedChallenge} />}
+
+      <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+        <div style={{ maxWidth:800, margin:"0 auto", display:"flex", flexDirection:"column", gap:16 }}>
+
+          {/* Header row */}
+          <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:12 }}>
+            <button
               onClick={() => navigate(createPageUrl(`CourseDetail?id=${lesson.course_id}`))}
-              className="shadow-md"
+              style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer" }}
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft size={16} />
               Back to Course
-            </Button>
-
-            <div className="flex items-center gap-3">
-              <Badge className="bg-lime-100 text-lime-700 text-sm px-3 py-1">
+            </button>
+            <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+              <span style={{ fontSize:12, fontWeight:700, color:C.accent, background:C.accentSoft, padding:"4px 12px", borderRadius:999 }}>
                 Lesson {Math.max(currentIndex, 0) + 1} of {allLessons.length || 1}
-              </Badge>
+              </span>
               {progress?.completed && (
-                <Badge className="bg-green-100 text-green-700 text-sm px-3 py-1">
-                  <CheckCircle className="w-3 h-3 mr-1" />
-                  Completed
-                </Badge>
+                <span style={{ fontSize:12, fontWeight:700, color:C.green, background:C.greenSoft, padding:"4px 12px", borderRadius:999, display:"inline-flex", alignItems:"center", gap:4 }}>
+                  <CheckCircle size={12} />Completed
+                </span>
               )}
             </div>
           </div>
 
-          {/* Course Progress */}
-          <Card className="border-none shadow-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <Target className="w-5 h-5" />
-                  <p className="text-sm font-semibold">{course.name}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Trophy className="w-5 h-5" />
-                  <p className="text-sm font-bold">{Math.round(progressPercent)}%</p>
-                </div>
-              </div>
-              <Progress value={progressPercent} className="h-3 bg-white/20">
-                <div className="h-full bg-white rounded-full transition-all" />
-              </Progress>
-            </CardContent>
-          </Card>
+          {/* Course Progress Bar */}
+          <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, borderRadius:16, padding:"16px 24px", color:"#fff", display:"flex", alignItems:"center", justifyContent:"space-between", gap:16 }}>
+            <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:14, fontWeight:600 }}>
+              <Target size={16} />{course.name}
+            </div>
+            <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:14, fontWeight:700 }}>
+              <Trophy size={16} />{Math.round(progressPercent)}%
+            </div>
+          </div>
 
+          {/* Lesson Content / Quiz */}
           {!showQuiz ? (
-            <Card className="border-none shadow-xl bg-white overflow-hidden">
+            <div style={{ borderRadius:20, border:`1px solid ${C.border}`, boxShadow:"0 2px 16px rgba(0,0,0,0.05)", background:C.bg, overflow:"hidden" }}>
               {currentSection === 0 && (
-                <div className="h-64 overflow-hidden relative">
-                  <img src={lessonImage} alt={lesson.title} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <Badge
-                      variant="outline"
-                      className="border-white text-white mb-2 bg-white/20 backdrop-blur-sm"
-                    >
+                <div style={{ height:220, overflow:"hidden", position:"relative" }}>
+                  <img src={lessonImage} alt={lesson.title} style={{ width:"100%", height:"100%", objectFit:"cover" }} />
+                  <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top,rgba(0,0,0,0.65),transparent)" }} />
+                  <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:24, color:"#fff" }}>
+                    <span style={{ display:"inline-block", fontSize:11, fontWeight:700, background:"rgba(255,255,255,0.2)", backdropFilter:"blur(4px)", padding:"3px 10px", borderRadius:999, marginBottom:8, border:"1px solid rgba(255,255,255,0.3)" }}>
                       {course.category}
-                    </Badge>
-                    <h1 className="text-3xl md:text-4xl font-bold">{lesson.title}</h1>
+                    </span>
+                    <h1 style={{ fontSize:26, fontWeight:900, margin:0, letterSpacing:"-0.5px" }}>{lesson.title}</h1>
                   </div>
                 </div>
               )}
 
-              <CardContent className="p-8 md:p-12">
+              <div style={{ padding:"32px 40px" }}>
                 {currentSection === 0 && (
-                  <div className="flex items-center justify-between mb-8 pb-6 border-b">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Clock className="w-5 h-5" />
-                      <span className="font-medium">{lesson.duration_minutes} minutes</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-lime-600">
-                      <Zap className="w-5 h-5" />
-                      <span className="font-medium">{lesson.xp_reward} XP</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-purple-600">
-                      <Star className="w-5 h-5" />
-                      <span className="font-medium">Quiz Required</span>
-                    </div>
+                  <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:32, paddingBottom:24, borderBottom:`1px solid ${C.border}`, flexWrap:"wrap", gap:16 }}>
+                    {[
+                      [Clock, `${lesson.duration_minutes} minutes`, C.textSub],
+                      [Zap, `${lesson.xp_reward} XP`, C.amber],
+                      [Star, "Quiz Required", C.accent],
+                    ].map(([Icon, text, color]) => (
+                      <div key={text} style={{ display:"flex", alignItems:"center", gap:6, fontSize:14, fontWeight:600, color }}>
+                        <Icon size={16} />{text}
+                      </div>
+                    ))}
                   </div>
                 )}
 
-                {/* ✅ IMPROVED: Better error messaging */}
                 {!hasLessonContent ? (
-                  <div className="text-center py-12">
-                    <AlertCircle className="w-16 h-16 text-orange-500 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                      Incomplete Lesson Content
-                    </h3>
-                    
-                    <p className="text-gray-600 mb-2 max-w-md mx-auto">
-                      This lesson doesn't have proper content yet. The content field only contains:
-                    </p>
-                    <div className="bg-gray-100 p-4 rounded-lg max-w-md mx-auto mb-4">
-                      <p className="text-sm text-gray-700 italic">"{lesson.content}"</p>
+                  <div style={{ textAlign:"center", padding:"48px 0" }}>
+                    <AlertCircle size={56} color={C.amber} style={{ margin:"0 auto 16px" }} />
+                    <h3 style={{ fontSize:22, fontWeight:800, color:C.text, marginBottom:10 }}>Incomplete Lesson Content</h3>
+                    <p style={{ color:C.textSub, marginBottom:8, maxWidth:400, margin:"0 auto 8px" }}>This lesson doesn't have proper content yet. The content field only contains:</p>
+                    <div style={{ background:C.bgMid, padding:16, borderRadius:12, maxWidth:400, margin:"0 auto 16px" }}>
+                      <p style={{ fontSize:13, color:C.textSub, fontStyle:"italic", margin:0 }}>"{lesson.content}"</p>
                     </div>
-                    <p className="text-sm text-gray-500 mb-6 max-w-md mx-auto">
-                      Lessons need structured markdown content with ## headers to display properly.
-                      Check the <code className="bg-gray-200 px-2 py-1 rounded">lessons.json</code> file
-                      or use a dedicated lesson page component instead.
+                    <p style={{ fontSize:13, color:C.textMuted, maxWidth:400, margin:"0 auto 24px" }}>
+                      Lessons need structured markdown content with ## headers.
                     </p>
-                    <div className="flex gap-3 justify-center">
-                      <Button
-                        onClick={() => navigate(createPageUrl(`CourseDetail?id=${lesson.course_id}`))}
-                        variant="outline"
-                      >
-                        <ArrowLeft className="w-4 h-4 mr-2" />
-                        Back to Course
-                      </Button>
-                      <Button
-                        onClick={() => navigate(createPageUrl("Learn"))}
-                        className="bg-lime-500 hover:bg-lime-600"
-                      >
+                    <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
+                      <button onClick={() => navigate(createPageUrl(`CourseDetail?id=${lesson.course_id}`))} style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"10px 20px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontWeight:600, cursor:"pointer", fontSize:14 }}>
+                        <ArrowLeft size={14} />Back to Course
+                      </button>
+                      <button onClick={() => navigate(createPageUrl("Learn"))} style={{ padding:"10px 20px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, cursor:"pointer", fontSize:14 }}>
                         Browse All Courses
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 ) : (
                   <>
                     {/* Section Progress */}
-                    <div className="mb-6">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-gray-600">
-                          Section {currentSection + 1} of {totalSections}
-                        </span>
-                        <span className="text-sm font-medium text-lime-600">
-                          {Math.round(((currentSection + 1) / totalSections) * 100)}%
-                        </span>
+                    <div style={{ marginBottom:24 }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", fontSize:13, fontWeight:600, marginBottom:8 }}>
+                        <span style={{ color:C.textSub }}>Section {currentSection + 1} of {totalSections}</span>
+                        <span style={{ color:C.accent }}>{Math.round(((currentSection + 1) / totalSections) * 100)}%</span>
                       </div>
-                      <Progress value={((currentSection + 1) / totalSections) * 100} className="h-2" />
+                      <div style={{ height:6, borderRadius:999, background:C.bgMid, overflow:"hidden" }}>
+                        <div style={{ height:"100%", width:`${((currentSection + 1) / totalSections) * 100}%`, borderRadius:999, background:C.accent, transition:"width 0.3s" }} />
+                      </div>
                     </div>
 
-                    {/* Content Section */}
-                    <div className="prose prose-lg max-w-none mb-8">
+                    {/* Content */}
+                    <div className="lesson-prose" style={{ marginBottom:32 }}>
                       <ReactMarkdown>{contentSections[currentSection]}</ReactMarkdown>
                     </div>
 
-                    {/* Navigation Buttons */}
-                    <div className="flex justify-between gap-4 pt-6 border-t">
+                    {/* Nav Buttons */}
+                    <div style={{ display:"flex", justifyContent:"space-between", gap:12, paddingTop:24, borderTop:`1px solid ${C.border}` }}>
                       {currentSection > 0 && (
-                        <Button
-                          onClick={() => {
-                            setCurrentSection(currentSection - 1);
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                          }}
-                          variant="outline"
-                          className="h-14 px-8"
+                        <button
+                          onClick={() => { setCurrentSection(currentSection - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                          style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 24px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontWeight:600, fontSize:14, cursor:"pointer" }}
                         >
-                          <ArrowLeft className="w-5 h-5 mr-2" />
-                          Previous
-                        </Button>
+                          <ArrowLeft size={16} />Previous
+                        </button>
                       )}
-
                       {currentSection < totalSections - 1 ? (
-                        <Button
-                          onClick={() => {
-                            setCurrentSection(currentSection + 1);
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                          }}
-                          className="ml-auto h-14 px-8 bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600"
+                        <button
+                          onClick={() => { setCurrentSection(currentSection + 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                          style={{ marginLeft:"auto", display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
                         >
-                          Continue
-                          <ArrowRight className="w-5 h-5 ml-2" />
-                        </Button>
+                          Continue<ArrowRight size={16} />
+                        </button>
                       ) : (
-                        <Button
+                        <button
                           onClick={() => {
-                            if (!lesson.quiz_questions || lesson.quiz_questions.length === 0) {
-                              toast.error("This lesson is missing a quiz.");
-                              return;
-                            }
+                            if (!lesson.quiz_questions || lesson.quiz_questions.length === 0) { toast.error("This lesson is missing a quiz."); return; }
                             setShowQuiz(true);
                             window.scrollTo({ top: 0, behavior: "smooth" });
                           }}
-                          className="ml-auto h-14 px-8 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+                          style={{ marginLeft:"auto", display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
                         >
-                          <Sparkles className="w-5 h-5 mr-2" />
-                          Take Quiz
-                        </Button>
+                          <Sparkles size={16} />Take Quiz
+                        </button>
                       )}
                     </div>
                   </>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ) : (
-            <Card className="border-none shadow-xl bg-white overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-8">
-                <div className="flex items-center justify-between">
+            <div style={{ borderRadius:20, border:`1px solid ${C.border}`, boxShadow:"0 2px 16px rgba(0,0,0,0.05)", background:C.bg, overflow:"hidden" }}>
+              {/* Quiz Header */}
+              <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, padding:"32px 40px", color:"#fff" }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                   <div>
-                    <CardTitle className="flex items-center gap-3 text-3xl mb-2">
-                      <Sparkles className="w-8 h-8" />
-                      Knowledge Challenge
-                    </CardTitle>
-                    <p className="opacity-90">You must score 100% to advance!</p>
+                    <h2 style={{ fontSize:26, fontWeight:900, margin:"0 0 6px", display:"flex", alignItems:"center", gap:10 }}>
+                      <Sparkles size={26} />Knowledge Challenge
+                    </h2>
+                    <p style={{ opacity:0.85, margin:0, fontSize:14 }}>You must score 100% to advance!</p>
                   </div>
-                  <div className="text-center bg-white/20 backdrop-blur-sm rounded-xl p-4">
-                    <Trophy className="w-10 h-10 mx-auto mb-1" />
-                    <p className="text-2xl font-bold">{lesson.xp_reward} XP</p>
+                  <div style={{ textAlign:"center", background:"rgba(255,255,255,0.15)", backdropFilter:"blur(4px)", borderRadius:16, padding:"12px 20px" }}>
+                    <Trophy size={28} style={{ margin:"0 auto 4px" }} />
+                    <p style={{ fontSize:20, fontWeight:900, margin:0 }}>{lesson.xp_reward} XP</p>
                   </div>
                 </div>
-              </CardHeader>
+              </div>
 
-              <CardContent className="p-8 space-y-6">
+              <div style={{ padding:"28px 40px", display:"flex", flexDirection:"column", gap:20 }}>
                 {(lesson.quiz_questions || []).map((question, qIndex) => (
-                  <Card key={qIndex} className="border-2 border-gray-200 shadow-md overflow-hidden">
-                    <CardHeader className="bg-gradient-to-r from-gray-50 to-white border-b">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lime-400 to-green-500 flex items-center justify-center flex-shrink-0 text-white font-bold text-lg">
-                          {qIndex + 1}
-                        </div>
-                        <p className="font-bold text-xl text-gray-900 flex-1 pt-2">
-                          {question.question}
-                        </p>
+                  <div key={qIndex} style={{ borderRadius:16, border:`2px solid ${C.border}`, overflow:"hidden" }}>
+                    <div style={{ background:C.bgSoft, borderBottom:`1px solid ${C.border}`, padding:"16px 20px", display:"flex", alignItems:"flex-start", gap:16 }}>
+                      <div style={{ width:44, height:44, borderRadius:"50%", background:C.navy, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, color:"#fff", fontWeight:800, fontSize:16 }}>
+                        {qIndex + 1}
                       </div>
-                    </CardHeader>
-
-                    <CardContent className="p-6 space-y-3">
+                      <p style={{ fontWeight:700, fontSize:17, color:C.text, margin:0, paddingTop:8 }}>{question.question}</p>
+                    </div>
+                    <div style={{ padding:"16px 20px", display:"flex", flexDirection:"column", gap:10 }}>
                       {(question.options || []).map((option, oIndex) => {
                         const isSelected = quizAnswers[qIndex] === oIndex;
                         const isCorrect = question.correct_answer === oIndex;
                         const showResult = quizSubmitted;
-
+                        let bg = C.bg; let border2 = C.borderMid; let color = C.text;
+                        if (showResult) {
+                          if (isCorrect) { bg = C.green; border2 = C.green; color = "#fff"; }
+                          else if (isSelected) { bg = C.red; border2 = C.red; color = "#fff"; }
+                          else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
+                        } else if (isSelected) {
+                          bg = C.navy; border2 = C.navy; color = "#fff";
+                        }
                         return (
                           <button
                             key={oIndex}
-                            onClick={() => {
-                              if (!quizSubmitted) {
-                                setQuizAnswers({ ...quizAnswers, [qIndex]: oIndex });
-                              }
-                            }}
+                            onClick={() => { if (!quizSubmitted) setQuizAnswers({ ...quizAnswers, [qIndex]: oIndex }); }}
                             disabled={quizSubmitted}
-                            className={`w-full p-5 rounded-xl text-left transition-all font-medium text-base ${
-                              showResult
-                                ? isCorrect
-                                  ? "bg-green-500 text-white"
-                                  : isSelected
-                                  ? "bg-red-500 text-white"
-                                  : "bg-gray-100 text-gray-500"
-                                : isSelected
-                                ? "bg-lime-500 text-white"
-                                : "bg-white border-2 border-gray-300 hover:border-lime-400 text-gray-700"
-                            }`}
+                            style={{ width:"100%", padding:"14px 18px", borderRadius:12, textAlign:"left", fontWeight:600, fontSize:15, background:bg, border:`2px solid ${border2}`, color, cursor:quizSubmitted ? "default" : "pointer", transition:"all 0.15s" }}
                           >
                             {option}
                           </button>
                         );
                       })}
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 ))}
 
                 {!quizSubmitted ? (
-                  <Button
+                  <button
                     onClick={handleQuizSubmit}
                     disabled={Object.keys(quizAnswers).length !== (lesson.quiz_questions || []).length}
-                    className="w-full h-16 text-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white disabled:opacity-50"
+                    style={{ width:"100%", padding:"16px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:800, fontSize:16, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:10, boxShadow:`0 4px 20px ${C.navyGlow}`, opacity:Object.keys(quizAnswers).length !== (lesson.quiz_questions || []).length ? 0.5 : 1 }}
                   >
-                    <Trophy className="w-6 h-6 mr-2" />
-                    Submit Answers
-                  </Button>
+                    <Trophy size={20} />Submit Answers
+                  </button>
                 ) : (
-                  <Card className="border-none shadow-2xl bg-gradient-to-r from-orange-400 to-red-500 text-white">
-                    <CardContent className="p-8 text-center">
-                      <h3 className="text-4xl font-bold mb-3">{score === 100 ? "Perfect!" : "Try again"}</h3>
-                      <p className="text-6xl font-bold mb-4">{score}%</p>
-
-                      {score === 100 ? (
-                        <Button onClick={handleNext} className="bg-white text-green-700 h-14 px-10">
-                          Next
-                          <ArrowRight className="w-5 h-5 ml-2" />
-                        </Button>
-                      ) : (
-                        <div className="flex gap-4 justify-center flex-wrap">
-                          <Button
-                            onClick={() => {
-                              setShowQuiz(false);
-                              setCurrentSection(0);
-                              window.scrollTo(0, 0);
-                            }}
-                            variant="outline"
-                            className="bg-white/20 border-white text-white"
-                          >
-                            <BookOpen className="w-5 h-5 mr-2" />
-                            Review Lesson
-                          </Button>
-                          <Button onClick={handleRetakeQuiz} className="bg-white text-orange-700">
-                            <TrendingUp className="w-5 h-5 mr-2" />
-                            Retake Quiz
-                          </Button>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
+                  <div style={{ borderRadius:20, padding:"40px 32px", textAlign:"center", background:score === 100 ? `linear-gradient(135deg,${C.navy},${C.navyLight})` : `linear-gradient(135deg,#C0392B,#E74C3C)`, color:"#fff" }}>
+                    <h3 style={{ fontSize:32, fontWeight:900, margin:"0 0 8px" }}>{score === 100 ? "Perfect!" : "Try again"}</h3>
+                    <p style={{ fontSize:56, fontWeight:900, margin:"0 0 20px" }}>{score}%</p>
+                    {score === 100 ? (
+                      <button onClick={handleNext} style={{ padding:"14px 36px", borderRadius:999, background:"#fff", color:C.navy, border:"none", fontWeight:800, fontSize:16, cursor:"pointer" }}>
+                        Next <ArrowRight size={16} style={{ display:"inline", marginLeft:6 }} />
+                      </button>
+                    ) : (
+                      <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
+                        <button
+                          onClick={() => { setShowQuiz(false); setCurrentSection(0); window.scrollTo(0, 0); }}
+                          style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 24px", borderRadius:999, background:"rgba(255,255,255,0.2)", border:"2px solid rgba(255,255,255,0.5)", color:"#fff", fontWeight:700, cursor:"pointer", fontSize:14 }}
+                        >
+                          <BookOpen size={16} />Review Lesson
+                        </button>
+                        <button
+                          onClick={handleRetakeQuiz}
+                          style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 24px", borderRadius:999, background:"#fff", color:"#C0392B", border:"none", fontWeight:700, cursor:"pointer", fontSize:14 }}
+                        >
+                          <TrendingUp size={16} />Retake Quiz
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )}
+
         </div>
       </div>
     </>

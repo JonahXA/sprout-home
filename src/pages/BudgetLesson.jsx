@@ -1,36 +1,39 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, TrendingUp, PiggyBank, Target } from "lucide-react";
 import BudgetWalkthrough from "@/components/BudgetWalkthrough";
+
+const C = {
+  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  bg:"#FFFFFF", bgSoft:"#F8FAFC", border:"#E5E7EB",
+  text:"#0F172A", textSub:"#475569",
+};
 
 export default function BudgetLesson() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-lime-50 via-white to-green-50">
-      <div className="max-w-5xl mx-auto space-y-6">
+    <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+      <div style={{ maxWidth:960, margin:"0 auto", display:"flex", flexDirection:"column", gap:24 }}>
         {/* Back Button */}
-        <Button
-          variant="outline"
+        <button
           onClick={() => navigate(createPageUrl("Learn"))}
-          className="shadow-md"
+          style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer", width:"fit-content" }}
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft size={16} />
           Back to Courses
-        </Button>
+        </button>
 
         {/* Header */}
-        <div className="text-center space-y-4">
-          <div className="inline-block p-4 bg-gradient-to-br from-lime-400 to-green-500 rounded-2xl shadow-lg mb-4">
-            <PiggyBank className="w-12 h-12 text-white" />
+        <div style={{ textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", gap:12 }}>
+          <div style={{ display:"inline-flex", padding:16, background:C.navy, borderRadius:20, boxShadow:`0 8px 24px ${C.navyGlow}`, marginBottom:8 }}>
+            <PiggyBank size={48} color="#fff" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h1 style={{ fontSize:40, fontWeight:900, color:C.text, letterSpacing:"-1px", margin:0 }}>
             Build Your First Real Budget
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p style={{ fontSize:17, color:C.textSub, maxWidth:560, margin:0 }}>
             Step-by-step walkthrough of a real budget spreadsheet. Learn where your money goes and how to take control.
           </p>
         </div>
@@ -39,51 +42,39 @@ export default function BudgetLesson() {
         <BudgetWalkthrough />
 
         {/* Summary */}
-        <Card className="border-none shadow-xl bg-gradient-to-r from-green-400 to-emerald-500 text-white">
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold mb-4">What You've Learned</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="flex items-start gap-3">
-                <Target className="w-6 h-6 flex-shrink-0 mt-1" />
+        <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, borderRadius:20, padding:32, color:"#fff", boxShadow:`0 8px 32px ${C.navyGlow}` }}>
+          <h2 style={{ fontSize:22, fontWeight:800, margin:"0 0 20px" }}>What You've Learned</h2>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))", gap:24 }}>
+            {[
+              { Icon: Target, title:"Budget Structure", desc:"How to organize expenses by month and category" },
+              { Icon: TrendingUp, title:"Fixed vs Variable", desc:"The difference and why it matters" },
+              { Icon: PiggyBank, title:"Real Savings", desc:"How to calculate and grow what's left over" },
+            ].map(({ Icon, title, desc }) => (
+              <div key={title} style={{ display:"flex", alignItems:"flex-start", gap:12 }}>
+                <Icon size={22} style={{ flexShrink:0, marginTop:2 }} />
                 <div>
-                  <h3 className="font-semibold mb-1">Budget Structure</h3>
-                  <p className="text-sm opacity-90">How to organize expenses by month and category</p>
+                  <div style={{ fontWeight:700, marginBottom:4 }}>{title}</div>
+                  <div style={{ fontSize:13, opacity:0.85 }}>{desc}</div>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <TrendingUp className="w-6 h-6 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold mb-1">Fixed vs Variable</h3>
-                  <p className="text-sm opacity-90">The difference and why it matters</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <PiggyBank className="w-6 h-6 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold mb-1">Real Savings</h3>
-                  <p className="text-sm opacity-90">How to calculate and grow what's left over</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+        </div>
 
         {/* CTA */}
-        <Card className="border-2 border-lime-200 shadow-xl">
-          <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Ready to Test Your Knowledge?</h3>
-            <p className="text-gray-600 mb-6">
-              Take the interactive quiz to analyze real budget scenarios and make smart financial decisions!
-            </p>
-            <Button
-              onClick={() => navigate(createPageUrl("BudgetQuiz"))}
-              className="bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white h-14 px-8 text-lg"
-            >
-              Take the Quiz
-              <ArrowLeft className="w-5 h-5 ml-2 rotate-180" />
-            </Button>
-          </CardContent>
-        </Card>
+        <div style={{ background:C.bg, borderRadius:20, border:`1px solid ${C.border}`, boxShadow:"0 1px 4px rgba(0,0,0,0.05)", padding:40, textAlign:"center" }}>
+          <h3 style={{ fontSize:22, fontWeight:800, color:C.text, margin:"0 0 10px" }}>Ready to Test Your Knowledge?</h3>
+          <p style={{ fontSize:15, color:C.textSub, marginBottom:24 }}>
+            Take the interactive quiz to analyze real budget scenarios and make smart financial decisions!
+          </p>
+          <button
+            onClick={() => navigate(createPageUrl("BudgetQuiz"))}
+            style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"14px 32px", borderRadius:999, background:C.navy, color:"#fff", fontSize:16, fontWeight:700, border:"none", cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
+          >
+            Take the Quiz
+            <ArrowLeft size={18} style={{ transform:"rotate(180deg)" }} />
+          </button>
+        </div>
       </div>
     </div>
   );

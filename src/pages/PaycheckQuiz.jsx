@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, DollarSign } from "lucide-react";
 import InteractiveQuiz from "@/components/InteractiveQuiz";
+
+const C = {
+  navy:"#1F3A64", navyLight:"#264D82", navyGlow:"rgba(31,58,100,0.12)",
+  bg:"#FFFFFF", border:"#E5E7EB", bgSoft:"#F8FAFC",
+  text:"#0F172A", textSub:"#475569",
+};
 
 const quizQuestions = [
   {
@@ -98,43 +102,36 @@ export default function PaycheckQuiz() {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-blue-50 via-white to-cyan-50">
-      <div className="max-w-5xl mx-auto space-y-6">
-        {/* Back Button */}
-        <Button
-          variant="outline"
+    <div style={{ minHeight:"100vh", background:C.bg, padding:"32px 16px", fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+      <div style={{ maxWidth:960, margin:"0 auto", display:"flex", flexDirection:"column", gap:24 }}>
+        <button
           onClick={() => navigate(createPageUrl("PaycheckLesson"))}
-          className="shadow-md"
+          style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer", width:"fit-content" }}
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
+          <ArrowLeft size={16} />
           Back to Lesson
-        </Button>
+        </button>
 
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <div className="inline-block p-4 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-2xl shadow-lg mb-4">
-            <DollarSign className="w-12 h-12 text-white" />
+        <div style={{ textAlign:"center", display:"flex", flexDirection:"column", alignItems:"center", gap:12 }}>
+          <div style={{ display:"inline-flex", padding:16, background:C.navy, borderRadius:20, boxShadow:`0 8px 24px ${C.navyGlow}`, marginBottom:8 }}>
+            <DollarSign size={48} color="#fff" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h1 style={{ fontSize:40, fontWeight:900, color:C.text, letterSpacing:"-1px", margin:0 }}>
             Paycheck Knowledge Quiz
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p style={{ fontSize:17, color:C.textSub, maxWidth:560, margin:0 }}>
             Apply what you learned! Calculate deductions and understand where your money goes.
           </p>
         </div>
 
-        {/* Interactive Quiz */}
         <InteractiveQuiz questions={quizQuestions} onComplete={handleComplete} />
 
-        {/* Info Card */}
-        <Card className="border-2 border-blue-200 shadow-xl">
-          <CardContent className="p-6 text-center">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">💡 Remember</h3>
-            <p className="text-gray-600">
-              Understanding your paycheck is the first step to budgeting. Always base your budget on Net Pay (take-home), not Gross Pay!
-            </p>
-          </CardContent>
-        </Card>
+        <div style={{ background:C.bgSoft, borderRadius:16, border:`1px solid ${C.border}`, padding:24, textAlign:"center" }}>
+          <h3 style={{ fontSize:16, fontWeight:800, color:C.text, margin:"0 0 8px" }}>Remember</h3>
+          <p style={{ fontSize:14, color:C.textSub, margin:0 }}>
+            Understanding your paycheck is the first step to budgeting. Always base your budget on Net Pay (take-home), not Gross Pay!
+          </p>
+        </div>
       </div>
     </div>
   );
