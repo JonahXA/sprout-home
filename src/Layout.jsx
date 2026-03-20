@@ -31,7 +31,7 @@ pill.danger = { ...pill.base, background:C.bg, color:"#DC2626", border:"1px soli
 
 const navLinks = [
   { label:"Home",           path:"Dashboard" },
-  { label:"Browse Courses", path:"Learn" },
+  { label:"Courses",         path:"Learn" },
   { label:"Simulations",    path:"Simulations" },
   { label:"Modules",        path:"Modules" },
 ];

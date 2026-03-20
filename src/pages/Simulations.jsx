@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Calculator, TrendingUp, Briefcase, Users, Home, GraduationCap, Wallet } from "lucide-react";
+import { Calculator, TrendingUp, Briefcase, Users, Home, GraduationCap, Wallet, Award } from "lucide-react";
 import InterestCalculator from "@/components/InterestCalculator";
 import PaperTradingSimulator from "@/components/PaperTradingSimulator";
 import BuildYourBudget from "@/components/BuildYourBudget";
@@ -171,9 +171,12 @@ export default function Simulations() {
                       </div>
 
                       {/* Body */}
-                      <div style={{ padding:"20px 20px 22px", display:"flex", flexDirection:"column", flex:1 }}>
-                        <p style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:8, letterSpacing:"-0.3px", lineHeight:1.35 }}>{sim.title}</p>
-                        <p style={{ fontSize:13, color:C.textSub, lineHeight:1.65, flex:1, minHeight:60, marginBottom:20, fontWeight:400 }}>{sim.description}</p>
+                      <div style={{ padding:"14px 16px 16px", display:"flex", flexDirection:"column", flex:1 }}>
+                        <p style={{ fontSize:14, fontWeight:800, color:C.text, marginBottom:6, letterSpacing:"-0.3px", lineHeight:1.35, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{sim.title}</p>
+                        <p style={{ fontSize:12, color:C.textSub, lineHeight:1.6, flex:1, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden", marginBottom:10, fontWeight:400 }}>{sim.description}</p>
+                        <div style={{ display:"flex", alignItems:"center", fontSize:11, color:C.textMuted, marginBottom:10 }}>
+                          <span style={{ display:"flex", alignItems:"center", gap:4, color:niche.color, fontWeight:700 }}><Award size={12} />Certificate</span>
+                        </div>
                         <button
                           onClick={(e) => handleLaunch(sim, e)}
                           style={{ width:"100%", height:44, borderRadius:999, background:C.navy, color:"#fff", fontSize:14, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0, letterSpacing:"-0.1px" }}

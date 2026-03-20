@@ -4,17 +4,19 @@ import { useNavigate, Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { useAuth } from "@/lib/AuthContext";
 import {
-  Flame, Trophy, BookOpen, Target, Zap, ArrowRight,
+  Flame, BookOpen, ArrowRight,
   TrendingUp, Award, ChevronRight, Sparkles, Calculator,
-  Play, BarChart2, CreditCard, Shield, Cpu, PieChart, Book
+  Play, CreditCard, Shield, Cpu, PieChart, Book, GraduationCap, Layers
 } from "lucide-react";
 
 const C = {
   navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
   accent:"#3B82F6", accentSoft:"#E8F0FE", accentMid:"#BFDBFE",
-  green:"#2D9B6F", greenSoft:"#E8F8F0",
+  green:"#2D9B6F", greenSoft:"#E6F5EF",
   amber:"#F59E0B", amberSoft:"#FFF3E0",
-  purple:"#8B5CF6", purpleSoft:"#F2ECFF",
+  purple:"#7C3AED", purpleSoft:"#F3F0FF",
+  teal:"#0891B2", tealSoft:"#E0F5FA",
+  orange:"#F97316", orangeSoft:"#FFF0E6",
   bg:"#FFFFFF", bgSoft:"#F8FAFC", bgMid:"#F1F5F9",
   border:"#E5E7EB", borderMid:"#D1D5DB",
   text:"#0F172A", textSub:"#475569", textMuted:"#94A3B8",
@@ -81,6 +83,32 @@ function QuickTile({ icon, label, sub, onClick, iconBg, iconColor }) {
   );
 }
 
+// Shared card used for both featured courses and featured simulations
+function FeaturedCard({ icon, name, description, niche, nicheSoftBg, nicheColor, meta, button }) {
+  const [hov, setHov] = React.useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ background:C.bg, border:`1px solid ${hov ? C.borderMid : C.border}`, borderRadius:16, overflow:"hidden", cursor:"pointer", boxShadow: hov ? `0 10px 36px ${C.navyGlow}` : "0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s", display:"flex", flexDirection:"column", transform: hov ? "translateY(-3px)" : "none" }}
+    >
+      {/* Thumbnail */}
+      <div style={{ height:110, background:nicheSoftBg, display:"flex", alignItems:"center", justifyContent:"center", borderBottom:`1px solid ${C.border}`, flexShrink:0, position:"relative" }}>
+        <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:nicheColor }}>{icon}</div>
+        <div style={{ position:"absolute", top:10, left:10, background:nicheSoftBg, border:`1px solid ${nicheColor}`, borderRadius:999, padding:"3px 10px", fontSize:11, fontWeight:700, color:nicheColor }}>
+          {niche}
+        </div>
+      </div>
+      {/* Body */}
+      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", flex:1 }}>
+        <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:6, letterSpacing:"-0.3px", lineHeight:1.35, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{name}</div>
+        <div style={{ fontSize:13, color:C.textSub, lineHeight:1.6, flex:1, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden", marginBottom:14 }}>{description}</div>
+        {meta}
+        {button}
+      </div>
+    </div>
+  );
+}
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -90,12 +118,21 @@ export default function Dashboard() {
   const { data: userBadges = [] }   = useQuery({ queryKey:["userBadges",   user?.email], queryFn:() => data.listUserBadges(user?.email),   enabled:!!user });
 
   const completedLessons = userProgress.filter((p) => p.completed).length;
-  const totalXP         = user?.xp_points || 0;
   const currentStreak   = user?.current_streak || 0;
   const level           = user?.level || 1;
-  const xpForNextLevel  = level * 100;
-  const xpProgress      = totalXP % 100;
   const firstName       = getFirstName(user?.full_name);
+
+  const featuredCourses = [
+    { id:"credit",      icon:<CreditCard size={28}/>, name:"Understanding Credit",  description:"Learn how credit scores work, what affects them, and how to build healthy credit over time.", niche:"Finance",         nicheSoftBg:C.greenSoft,  nicheColor:C.green,  path:"Learn" },
+    { id:"insurance",   icon:<Shield size={28}/>,     name:"Insurance 101",         description:"Understand the basics of insurance — health, auto, renters — and how to protect yourself.",  niche:"Finance",         nicheSoftBg:C.greenSoft,  nicheColor:C.green,  path:"Learn" },
+    { id:"ai-literacy", icon:<Cpu size={28}/>,        name:"AI Literacy",           description:"Learn how to use modern AI tools productively and responsibly in school, work, and life.",    niche:"AI & Technology", nicheSoftBg:C.purpleSoft, nicheColor:C.purple, path:"Learn" },
+  ];
+
+  const featuredSims = [
+    { id:"paper-trading",         icon:<TrendingUp size={28}/>, name:"Paper Trading",                description:"Practice buying and selling in a risk-free simulated market. Build confidence before investing.",     niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Simulations" },
+    { id:"investment-calculator", icon:<Calculator size={28}/>, name:"Investment Growth Calculator", description:"Explore how your money grows over time with compound interest. Adjust rate and contributions.",        niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"InvestmentCalculator" },
+    { id:"budget-builder",        icon:<PieChart size={28}/>,   name:"Build Your First Budget",      description:"Create a budget from scratch, categorize expenses, and learn to stay financially balanced.",          niche:"Finance", nicheSoftBg:C.greenSoft, nicheColor:C.green, path:"Simulations" },
+  ];
 
   return (
     <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
@@ -136,10 +173,9 @@ export default function Dashboard() {
             <div style={{ marginBottom:16 }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:7 }}>
                 <div style={{ display:"flex", alignItems:"center", gap:6 }}><Sparkles size={13} style={{ color:"#86EFAC" }} /><span style={{ fontSize:13, fontWeight:700, color:"#fff" }}>Level {level}</span></div>
-                <span style={{ fontSize:12, color:"rgba(255,255,255,0.7)", fontWeight:600 }}>Level {level}</span>
               </div>
               <div style={{ height:7, background:"rgba(255,255,255,0.12)", borderRadius:999, overflow:"hidden" }}>
-                <div style={{ height:"100%", width:`${(xpProgress/xpForNextLevel)*100}%`, background:"linear-gradient(90deg,#2D9B6F,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
+                <div style={{ height:"100%", width:`${Math.min(100,(completedLessons % 10)*10)}%`, background:"linear-gradient(90deg,#2D9B6F,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
               </div>
             </div>
             <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:10 }}>
@@ -157,130 +193,96 @@ export default function Dashboard() {
 
       {/* STAT CARDS */}
       <div className="stat-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:16, marginBottom:32 }}>
-        <StatCard icon={<Flame size={19}/>}    value={currentStreak}     label="Day Streak"    sub="Keep it up"       iconBg={C.amberSoft}  iconColor={C.amber}  />
-        <StatCard icon={<Zap size={19}/>}      value={totalXP}           label="Total XP"      sub={`Level ${level}`} iconBg={C.accentSoft} iconColor={C.accent} />
-        <StatCard icon={<BookOpen size={19}/>} value={completedLessons}  label="Lessons Done"  sub="Great progress"   iconBg={C.greenSoft}  iconColor={C.green}  />
-        <StatCard icon={<Award size={19}/>}    value={userBadges.length} label="Badges Earned" sub="Collector"        iconBg={C.purpleSoft} iconColor={C.purple} />
+        <StatCard icon={<Flame size={19}/>}    value={currentStreak}     label="Day Streak"    sub="Keep it up"     iconBg={C.amberSoft}  iconColor={C.amber}  />
+        <StatCard icon={<BookOpen size={19}/>} value={completedLessons}  label="Lessons Done"  sub="Great progress" iconBg={C.greenSoft}  iconColor={C.green}  />
+        <StatCard icon={<Award size={19}/>}    value={userBadges.length} label="Badges Earned" sub="Keep learning"  iconBg={C.purpleSoft} iconColor={C.purple} />
+        <StatCard icon={<GraduationCap size={19}/>} value={0}            label="Certificates"  sub="Complete a module" iconBg={C.tealSoft}  iconColor={C.teal}  />
       </div>
 
-      {/* FOCAL MODULES */}
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:20, marginBottom:36 }}>
-        <div style={{ background:`linear-gradient(140deg,${C.navy} 0%,${C.navyLight} 100%)`, borderRadius:20, padding:"40px", position:"relative", overflow:"hidden", boxShadow:`0 12px 48px ${C.navyGlow}`, minHeight:260 }}>
-          <div style={{ position:"absolute", right:-50, bottom:-50, width:220, height:220, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.06)" }} />
-          <div style={{ position:"relative", zIndex:1, height:"100%", display:"flex", flexDirection:"column" }}>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"rgba(255,255,255,0.10)", borderRadius:999, padding:"5px 14px", marginBottom:20, alignSelf:"flex-start" }}>
-              <Target size={12} style={{ color:"rgba(255,255,255,0.75)" }} />
-              <span style={{ fontSize:11, fontWeight:700, color:"rgba(255,255,255,0.75)", textTransform:"uppercase", letterSpacing:"0.08em" }}>Daily Challenge</span>
+      {/* CONTINUE LEARNING */}
+      <div style={{ marginBottom:36 }}>
+        <div style={{ background:`linear-gradient(140deg,${C.navy} 0%,${C.navyLight} 100%)`, borderRadius:20, padding:"44px 52px", position:"relative", overflow:"hidden", boxShadow:`0 12px 48px ${C.navyGlow}`, display:"flex", alignItems:"center", justifyContent:"space-between", gap:32, flexWrap:"wrap" }}>
+          <div style={{ position:"absolute", right:-60, bottom:-60, width:280, height:280, borderRadius:"50%", border:"1px solid rgba(255,255,255,0.06)" }} />
+          <div style={{ position:"relative", zIndex:1 }}>
+            <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:"rgba(255,255,255,0.10)", borderRadius:999, padding:"5px 14px", marginBottom:16, }}>
+              <Play size={12} style={{ color:"rgba(255,255,255,0.75)" }} />
+              <span style={{ fontSize:11, fontWeight:700, color:"rgba(255,255,255,0.75)", textTransform:"uppercase", letterSpacing:"0.08em" }}>Continue Learning</span>
             </div>
             <div style={{ fontSize:30, fontWeight:900, color:"#fff", marginBottom:10, letterSpacing:"-0.7px", lineHeight:1.1 }}>
-              {user ? "Complete 3 lessons today" : "Start your learning journey"}
+              {user ? "Pick up where you left off" : "Start your learning journey"}
             </div>
-            <div style={{ fontSize:14, color:"rgba(255,255,255,0.55)", marginBottom:16, lineHeight:1.6 }}>
-              {user ? "Build your streak and stay on track with your goals." : "Sign up to unlock daily challenges and track your progress."}
-            </div>
-            {user && <div style={{ display:"inline-flex", alignItems:"center", gap:6, background:"rgba(134,239,172,0.14)", border:"1px solid rgba(134,239,172,0.25)", borderRadius:999, padding:"5px 14px", marginBottom:8, alignSelf:"flex-start" }}><Award size={12} style={{ color:"#86EFAC" }} /><span style={{ fontSize:12, fontWeight:800, color:"#86EFAC" }}>Earn a Certificate</span></div>}
-            <div style={{ flex:1 }} />
-            <div style={{ marginTop:24 }}>
-              <button onClick={() => user ? navigate(createPageUrl("Challenges")) : navigate(createPageUrl("Login"))}
-                style={{ ...pill.base, background:"#fff", color:C.navy, fontWeight:800, fontSize:14, padding:"13px 30px", boxShadow:"0 2px 20px rgba(0,0,0,0.22)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "none"; }}
-              >{user ? "Start Challenge" : "Start Learning"} <ArrowRight size={15} style={{ marginLeft:7 }} /></button>
+            <div style={{ fontSize:15, color:"rgba(255,255,255,0.65)", lineHeight:1.6 }}>
+              {user ? "You're building great habits — consistency is the key to mastery." : "Sign up to save your progress, earn certificates, and resume lessons anytime."}
             </div>
           </div>
-        </div>
-        <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:20, padding:"40px", position:"relative", overflow:"hidden", boxShadow:"0 2px 12px rgba(0,0,0,0.05)", transition:"box-shadow 0.22s,border-color 0.22s", minHeight:260 }}
-          onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 16px 48px ${C.navyGlow}`; e.currentTarget.style.borderColor = C.borderMid; }}
-          onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.05)"; e.currentTarget.style.borderColor = C.border; }}
-        >
-          <div style={{ position:"absolute", right:-40, bottom:-40, width:200, height:200, borderRadius:"50%", background:`radial-gradient(circle,${C.accentSoft} 0%,transparent 70%)`, opacity:0.8 }} />
-          <div style={{ position:"relative", zIndex:1, height:"100%", display:"flex", flexDirection:"column" }}>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:7, background:C.accentSoft, border:`1px solid ${C.accentMid}`, borderRadius:999, padding:"5px 14px", marginBottom:20, alignSelf:"flex-start" }}>
-              <Play size={12} style={{ color:C.accent }} />
-              <span style={{ fontSize:11, fontWeight:700, color:C.accent, textTransform:"uppercase", letterSpacing:"0.08em" }}>Continue Learning</span>
-            </div>
-            <div style={{ fontSize:30, fontWeight:900, color:C.text, marginBottom:10, letterSpacing:"-0.7px", lineHeight:1.1 }}>
-              {user ? "Pick up where you left off" : "Track your progress"}
-            </div>
-            <div style={{ fontSize:14, color:C.textSub, marginBottom:16, lineHeight:1.6 }}>
-              {user ? "You're building great habits — consistency is the key to mastery." : "Create a free account to save your progress, earn badges, and resume lessons anytime."}
-            </div>
-            <div style={{ flex:1 }} />
-            <div style={{ marginTop:24 }}>
-              <button onClick={() => user ? navigate(createPageUrl("Learn")) : navigate(createPageUrl("Login"))}
-                style={{ ...pill.base, background:C.navy, color:"#fff", fontWeight:800, fontSize:14, padding:"13px 30px" }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 28px ${C.navyGlow}`; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
-              >{user ? "Resume Course" : "Sign In to Continue"} <ArrowRight size={15} style={{ marginLeft:7 }} /></button>
-            </div>
+          <div style={{ position:"relative", zIndex:1, flexShrink:0 }}>
+            <button onClick={() => user ? navigate(createPageUrl("Learn")) : navigate(createPageUrl("Login"))}
+              style={{ ...pill.base, background:"#fff", color:C.navy, fontWeight:800, fontSize:15, padding:"14px 32px", boxShadow:"0 2px 20px rgba(0,0,0,0.22)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#EFF6FF"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "none"; }}
+            >{user ? "Resume Course" : "Get Started"} <ArrowRight size={15} style={{ marginLeft:7 }} /></button>
           </div>
         </div>
       </div>
 
-      {/* FEATURED COURSES — updated copy */}
+      {/* FEATURED COURSES */}
       <div style={{ marginBottom:36 }}>
         <SectionHeader title="Featured Courses" sub="Curated lessons to build real-world skills." linkTo={createPageUrl("Learn")} linkLabel="View all" />
         <div className="course-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }}>
-          {[
-            { id:"credit",      icon:<CreditCard size={28}/>, name:"Understanding Credit",      description:"Learn how credit scores work, what affects them, and how to build healthy credit over time.", tag:"Finance Basics",  tagColor:C.accentSoft, tagText:C.accent, xp:120, path:"Learn" },
-            { id:"insurance",   icon:<Shield size={28}/>,     name:"Insurance 101",             description:"Understand the basics of insurance — health, auto, renters — and how to protect yourself.",  tag:"Risk Management", tagColor:C.greenSoft,  tagText:C.green,  xp:100, path:"Learn" },
-            { id:"ai-literacy", icon:<Cpu size={28}/>,        name:"AI Literacy",               description:"Learn how to use modern AI tools productively and responsibly in school, work, and life.",    tag:"Technology",      tagColor:C.purpleSoft, tagText:C.purple, xp:150, path:"Learn" },
-          ].map((course) => {
-            const pct = userProgress.filter((p) => p.course_id === course.id && p.completed).length > 0 ? 40 : 0;
-            return (
-              <div key={course.id} onClick={() => navigate(createPageUrl(course.path))}
-                style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:16, overflow:"hidden", cursor:"pointer", boxShadow:"0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s", display:"flex", flexDirection:"column" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.borderColor = C.borderMid; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.borderColor = C.border; }}
-              >
-                <div style={{ height:110, background:course.tagColor, display:"flex", alignItems:"center", justifyContent:"center", borderBottom:`1px solid ${C.border}`, flexShrink:0 }}>
-                  <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:course.tagText }}>{course.icon}</div>
+          {featuredCourses.map((course) => (
+            <FeaturedCard
+              key={course.id}
+              icon={course.icon}
+              name={course.name}
+              description={course.description}
+              niche={course.niche}
+              nicheSoftBg={course.nicheSoftBg}
+              nicheColor={course.nicheColor}
+              meta={
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:12, color:C.textMuted, marginBottom:12 }}>
+                  <span style={{ display:"flex", alignItems:"center", gap:4 }}><Award size={12} style={{ color:course.nicheColor }} /><span style={{ color:course.nicheColor, fontWeight:700 }}>Certificate</span></span>
                 </div>
-                <div style={{ padding:"18px 20px 20px", display:"flex", flexDirection:"column", flex:1 }}>
-                  <div style={{ display:"inline-block", background:course.tagColor, color:course.tagText, fontSize:10, fontWeight:700, padding:"3px 10px", borderRadius:999, marginBottom:10, alignSelf:"flex-start", letterSpacing:"0.04em", textTransform:"uppercase" }}>{course.tag}</div>
-                  <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:7, letterSpacing:"-0.3px", lineHeight:1.35 }}>{course.name}</div>
-                  <div style={{ fontSize:12.5, color:C.textSub, marginBottom:16, lineHeight:1.65, flex:1, fontWeight:400 }}>{course.description}</div>
-                  <div style={{ height:4, background:C.bgMid, borderRadius:999, overflow:"hidden", marginBottom:8 }}>
-                    <div style={{ height:"100%", width:`${pct}%`, background:`linear-gradient(90deg,${C.accent},#2D9B6F)`, borderRadius:999, transition:"width 0.5s" }} />
-                  </div>
-                  <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", fontSize:11, fontWeight:500 }}>
-                    <span style={{ color:C.textSub }}>{pct>0?`${pct}% complete`:"Not started"}</span>
-                    <span style={{ color:C.green, fontWeight:700, display:"flex", alignItems:"center", gap:4 }}><Award size={11} />Certificate</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+              }
+              button={
+                <button
+                  onClick={() => navigate(createPageUrl(course.path))}
+                  style={{ width:"100%", height:40, borderRadius:999, background:C.navy, color:"#fff", fontSize:13, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0 }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; }}
+                >Start Learning</button>
+              }
+            />
+          ))}
         </div>
       </div>
 
-      {/* FEATURED SIMULATIONS — updated copy */}
+      {/* FEATURED SIMULATIONS */}
       <div style={{ marginBottom:36 }}>
         <SectionHeader title="Featured Simulations" sub="Interactive modules to practice real-world decisions." linkTo={createPageUrl("Simulations")} linkLabel="View all" />
         <div className="course-grid" style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }}>
-          {[
-            { id:"paper-trading",         icon:<TrendingUp size={28}/>, name:"Paper Trading",                description:"Practice buying and selling in a risk-free simulated market. Build confidence before investing.",  tag:"Investing", tagColor:C.accentSoft, tagText:C.accent, path:"Simulations", label:"Launch Simulation" },
-            { id:"investment-calculator", icon:<Calculator size={28}/>, name:"Investment Growth Calculator", description:"Explore how your money grows over time with compound interest. Adjust rate and contributions.",       tag:"Planning",  tagColor:C.greenSoft,  tagText:C.green,  path:"InvestmentCalculator", label:"Open Calculator" },
-            { id:"budget-builder",        icon:<PieChart size={28}/>,   name:"Build Your First Budget",      description:"Create a budget from scratch, categorize expenses, and learn to stay financially balanced.",         tag:"Budgeting", tagColor:C.amberSoft,  tagText:C.amber,  path:"Simulations", label:"Start Budgeting" },
-          ].map((sim) => (
-            <div key={sim.id} onClick={() => navigate(createPageUrl(sim.path))}
-              style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:16, overflow:"hidden", cursor:"pointer", boxShadow:"0 1px 4px rgba(0,0,0,0.05)", transition:"all 0.22s", display:"flex", flexDirection:"column" }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.borderColor = C.borderMid; }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.transform = "none"; e.currentTarget.style.borderColor = C.border; }}
-            >
-              <div style={{ height:110, background:sim.tagColor, display:"flex", alignItems:"center", justifyContent:"center", borderBottom:`1px solid ${C.border}`, flexShrink:0 }}>
-                <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:sim.tagText }}>{sim.icon}</div>
-              </div>
-              <div style={{ padding:"18px 20px 20px", display:"flex", flexDirection:"column", flex:1 }}>
-                <div style={{ display:"inline-block", background:sim.tagColor, color:sim.tagText, fontSize:10, fontWeight:700, padding:"3px 10px", borderRadius:999, marginBottom:10, alignSelf:"flex-start", letterSpacing:"0.04em", textTransform:"uppercase" }}>{sim.tag}</div>
-                <div style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:7, letterSpacing:"-0.3px", lineHeight:1.35 }}>{sim.name}</div>
-                <div style={{ fontSize:12.5, color:C.textSub, marginBottom:18, lineHeight:1.65, flex:1, fontWeight:400 }}>{sim.description}</div>
-                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-                  <span style={{ fontSize:12, fontWeight:700, color:sim.tagText, display:"flex", alignItems:"center", gap:4 }}><Play size={11}/>{sim.label}</span>
-                  <div style={{ width:28, height:28, borderRadius:"50%", background:sim.tagColor, display:"flex", alignItems:"center", justifyContent:"center" }}><ArrowRight size={13} style={{ color:sim.tagText }} /></div>
+          {featuredSims.map((sim) => (
+            <FeaturedCard
+              key={sim.id}
+              icon={sim.icon}
+              name={sim.name}
+              description={sim.description}
+              niche={sim.niche}
+              nicheSoftBg={sim.nicheSoftBg}
+              nicheColor={sim.nicheColor}
+              meta={
+                <div style={{ display:"flex", alignItems:"center", fontSize:12, color:C.textMuted, marginBottom:12 }}>
+                  <span style={{ display:"flex", alignItems:"center", gap:4 }}><Award size={12} style={{ color:sim.nicheColor }} /><span style={{ color:sim.nicheColor, fontWeight:700 }}>Certificate</span></span>
                 </div>
-              </div>
-            </div>
+              }
+              button={
+                <button
+                  onClick={() => navigate(createPageUrl(sim.path))}
+                  style={{ width:"100%", height:40, borderRadius:999, background:C.navy, color:"#fff", fontSize:13, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0 }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; }}
+                >Launch Simulation</button>
+              }
+            />
           ))}
         </div>
       </div>
@@ -289,10 +291,10 @@ export default function Dashboard() {
       <div style={{ marginBottom:16 }}>
         <SectionHeader title="Quick Access" sub="Jump to any feature instantly" />
         <div className="quick-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14 }}>
-          <QuickTile icon={<Book size={18}/>}        label="Browse Courses"  sub={`${courses.length} available`}  onClick={() => navigate(createPageUrl("Learn"))}                iconBg={C.accentSoft}  iconColor={C.accent}  />
-          <QuickTile icon={<Target size={18}/>}      label="Challenges"      sub="Daily practice"                 onClick={() => navigate(createPageUrl("Challenges"))}           iconBg={C.amberSoft}   iconColor={C.amber}   />
-          <QuickTile icon={<Calculator size={18}/>}  label="Calculator"      sub="Growth projections"             onClick={() => navigate(createPageUrl("InvestmentCalculator"))} iconBg={C.greenSoft}   iconColor={C.green}   />
-          <QuickTile icon={<Trophy size={18}/>}      label="Leaderboard"     sub="See rankings"                   onClick={() => navigate(createPageUrl("Leaderboard"))}          iconBg={C.purpleSoft}  iconColor={C.purple}  />
+          <QuickTile icon={<Book size={18}/>}          label="Courses"      sub={`${courses.length || ""} available`} onClick={() => navigate(createPageUrl("Learn"))}                iconBg={C.greenSoft}   iconColor={C.green}   />
+          <QuickTile icon={<PieChart size={18}/>}      label="Simulations"  sub="Practice for real life"              onClick={() => navigate(createPageUrl("Simulations"))}          iconBg={C.accentSoft}  iconColor={C.accent}  />
+          <QuickTile icon={<Layers size={18}/>}        label="Modules"      sub="Earn certificates"                   onClick={() => navigate(createPageUrl("Modules"))}              iconBg={C.tealSoft}    iconColor={C.teal}    />
+          <QuickTile icon={<Calculator size={18}/>}    label="Calculator"   sub="Growth projections"                  onClick={() => navigate(createPageUrl("InvestmentCalculator"))} iconBg={C.amberSoft}   iconColor={C.amber}   />
         </div>
       </div>
 
