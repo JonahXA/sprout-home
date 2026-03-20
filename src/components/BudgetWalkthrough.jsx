@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Progress } from "./ui/progress";
 import { Badge } from "./ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, DollarSign, TrendingUp, Calendar, Home, Calculator, PiggyBank, BarChart, Eye } from "lucide-react";
+import { ChevronLeft, ChevronRight, DollarSign, TrendingUp, Calendar, Home, Calculator, PiggyBank, BarChart, Eye, CheckCircle2, Lightbulb } from "lucide-react";
 
 const budgetSteps = [
   {
@@ -157,12 +157,20 @@ const rows = [
 ];
 
 export default function BudgetWalkthrough() {
+  const [started, setStarted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+
   const step = budgetSteps[currentStep];
   const Icon = step.icon;
+  const isLastStep = currentStep === budgetSteps.length - 1;
 
   const nextStep = () => {
-    if (currentStep < budgetSteps.length - 1) setCurrentStep((s) => s + 1);
+    if (isLastStep) {
+      setIsComplete(true);
+    } else {
+      setCurrentStep((s) => s + 1);
+    }
   };
   const prevStep = () => {
     if (currentStep > 0) setCurrentStep((s) => s - 1);
@@ -182,6 +190,98 @@ export default function BudgetWalkthrough() {
   };
 
   const progress = ((currentStep + 1) / budgetSteps.length) * 100;
+
+  // ── Intro screen ────────────────────────────────────────────────────────────
+  if (!started) return (
+    <div className="space-y-5">
+      <Card className="border-2 border-lime-200 shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-lime-400 to-green-500 p-6 text-white">
+          <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
+            <Eye className="w-6 h-6 text-white" />
+          </div>
+          <p className="text-lime-100 text-xs font-semibold uppercase tracking-widest mb-2">Budget Walkthrough</p>
+          <h2 className="text-2xl font-bold mb-2">How to Read a Real Budget</h2>
+          <p className="text-lime-50 text-sm leading-relaxed">
+            Most people have never seen a real personal budget laid out as a spreadsheet. This walkthrough breaks down a real budget sheet section by section — so you understand exactly where every dollar goes and what the numbers mean.
+          </p>
+        </div>
+        <CardContent className="p-6">
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">What you will learn</p>
+          <div className="space-y-3">
+            {[
+              ["Why budgets are tracked monthly", "Monthly tracking reveals spending patterns that one-off reviews miss."],
+              ["Fixed vs. variable expenses", "Some costs never change; others are fully in your control."],
+              ["How to calculate net savings", "Income minus expenses — and why that number matters more than anything."],
+              ["How to read financial charts", "Bar charts and pie charts that make your spending obvious at a glance."],
+            ].map(([title, desc]) => (
+              <div key={title} className="flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">{title}</p>
+                  <p className="text-xs text-gray-500">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="bg-lime-50 border border-lime-200 rounded-xl p-5 flex items-start gap-3">
+        <div className="w-8 h-8 bg-lime-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <Lightbulb className="w-4 h-4 text-green-700" />
+        </div>
+        <div>
+          <p className="font-semibold text-gray-900 text-sm mb-1">How this works</p>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            A real budget sheet is shown throughout the walkthrough. As you progress through each of the 9 steps, the relevant section of the sheet is highlighted so you can see exactly what's being discussed.
+          </p>
+        </div>
+      </div>
+
+      <Button
+        onClick={() => setStarted(true)}
+        className="w-full h-12 bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600 text-white font-semibold text-base"
+      >
+        Start Walkthrough
+        <ChevronRight className="w-4 h-4 ml-2" />
+      </Button>
+    </div>
+  );
+
+  // ── Completion screen ────────────────────────────────────────────────────────
+  if (isComplete) return (
+    <div className="space-y-6">
+      <Card className="border-2 border-lime-200 shadow-xl">
+        <CardContent className="p-8 text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <CheckCircle2 className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Walkthrough Complete!</h2>
+          <p className="text-gray-500 mb-6 max-w-sm mx-auto">
+            You've reviewed all 9 sections of a real budget sheet. You now know how to read and use a monthly budget.
+          </p>
+          <div className="bg-lime-50 border border-lime-200 rounded-xl p-5 text-left max-w-sm mx-auto mb-6">
+            <p className="text-xs font-semibold text-green-700 uppercase tracking-wide mb-3">What You Covered</p>
+            <ul className="space-y-2 text-sm text-gray-700">
+              {["Fixed vs. variable expenses", "How to read income and savings", "Monthly patterns and visual charts", "A practical monthly budgeting routine"].map((item, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Button
+            onClick={() => { setCurrentStep(0); setIsComplete(false); }}
+            variant="outline"
+            className="border-lime-200 text-gray-700 hover:bg-lime-50"
+          >
+            Review Again
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
@@ -360,11 +460,10 @@ export default function BudgetWalkthrough() {
 
         <Button
           onClick={nextStep}
-          disabled={currentStep === budgetSteps.length - 1}
           className="h-12 px-6 bg-gradient-to-r from-lime-400 to-green-500 hover:from-lime-500 hover:to-green-600"
         >
-          Continue
-          <ChevronRight className="w-5 h-5 ml-2" />
+          {isLastStep ? "Complete Walkthrough" : "Continue"}
+          {!isLastStep && <ChevronRight className="w-5 h-5 ml-2" />}
         </Button>
       </div>
     </div>

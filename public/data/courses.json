@@ -761,5 +761,375 @@
     "created_by_id": "6914e9e56385c913e0144616",
     "created_by": "chand193@msu.edu",
     "is_sample": false
+  },
+  {
+    "name": "Budgeting Fundamentals",
+    "description": "Learn how to create and maintain a personal budget using the 50/15/5 rule. Build skills to track spending, set priorities, and avoid being broke.",
+    "category": "Personal Finance",
+    "difficulty": "Beginner",
+    "lessons_count": 10,
+    "xp_reward": 805,
+    "image_url": null,
+    "icon": null,
+    "color": "#166534",
+    "is_featured": true,
+    "slug": "budgeting-fundamentals",
+    "final_exam_questions": [
+      {
+        "question": "What does the 50/15/5 budgeting rule recommend?",
+        "options": [
+          "50% savings, 15% needs, 5% wants",
+          "No more than 50% on essentials, 15% on retirement, 5% on emergency savings",
+          "50% wants, 15% needs, 5% savings",
+          "Equal split across all categories"
+        ],
+        "correct_answer": 1,
+        "explanation": "The 50/15/5 rule: no more than 50% of take-home pay for essentials, 15% of pre-tax income for retirement, and 5% of take-home for emergency savings."
+      },
+      {
+        "question": "Why is it important to review your paycheck carefully?",
+        "options": [
+          "To memorize your employee ID",
+          "To understand your gross pay, taxes, deductions, and net pay",
+          "To compare salaries with coworkers",
+          "Paychecks don't need review"
+        ],
+        "correct_answer": 1,
+        "explanation": "Your paycheck shows gross pay, tax withholdings (FICA, federal, state), benefits deductions, and 401(k) contributions — all of which directly affect your take-home pay."
+      },
+      {
+        "question": "What is the primary purpose of a personal budget?",
+        "options": [
+          "To restrict all spending",
+          "To know where your money goes so you can make informed choices",
+          "To maximize credit card rewards",
+          "To impress your bank"
+        ],
+        "correct_answer": 1,
+        "explanation": "A budget helps you understand where your money goes, plan for financial goals, and avoid running out of money unexpectedly."
+      },
+      {
+        "question": "A budget is best described as:",
+        "options": [
+          "A fixed, one-time document",
+          "A living document updated when circumstances change",
+          "Only needed when in debt",
+          "A government form"
+        ],
+        "correct_answer": 1,
+        "explanation": "A budget is a living document. It should be updated whenever your circumstances change — new job, new family member, buying a car, etc."
+      },
+      {
+        "question": "FICA taxes on your paycheck fund:",
+        "options": [
+          "Your personal savings",
+          "Social Security and Medicare",
+          "State infrastructure",
+          "Your employer's profit"
+        ],
+        "correct_answer": 1,
+        "explanation": "FICA (Federal Insurance Contributions Act) taxes fund Social Security and Medicare — both visible as separate line items on your pay stub."
+      }
+    ],
+    "id": "course-budgeting-001",
+    "created_date": "2026-03-01T00:00:00.000Z",
+    "updated_date": "2026-03-01T00:00:00.000Z",
+    "is_sample": false
+  },
+  {
+    "name": "Banking in the Modern World",
+    "description": "Understand traditional banks, online banks, credit unions, debit cards, and payment services. Know how to choose the right bank and avoid costly fees.",
+    "category": "Personal Finance",
+    "difficulty": "Beginner",
+    "lessons_count": 8,
+    "xp_reward": 595,
+    "image_url": null,
+    "icon": null,
+    "color": "#15803d",
+    "is_featured": true,
+    "slug": "banking-modern-world",
+    "final_exam_questions": [
+      {
+        "question": "What is FDIC insurance?",
+        "options": [
+          "A type of credit card",
+          "Federal protection for bank deposits up to $250,000 per account",
+          "A fee banks charge",
+          "A savings account type"
+        ],
+        "correct_answer": 1,
+        "explanation": "FDIC (Federal Deposit Insurance Corporation) insures bank deposits up to $250,000 per account — protecting you if a bank fails."
+      },
+      {
+        "question": "How does a debit card differ from a credit card?",
+        "options": [
+          "Debit cards earn rewards; credit cards don't",
+          "Debit cards spend money directly from your checking account; credit cards borrow money",
+          "They are identical",
+          "Credit cards require a PIN; debit cards don't"
+        ],
+        "correct_answer": 1,
+        "explanation": "A debit card pulls money directly from your checking account. A credit card lets you borrow money from the bank to pay back later."
+      },
+      {
+        "question": "Why might an online bank offer better interest rates than a traditional bank?",
+        "options": [
+          "They take more risk",
+          "They have no physical branches, so lower overhead costs",
+          "They are less regulated",
+          "They invest in riskier assets"
+        ],
+        "correct_answer": 1,
+        "explanation": "Online banks have lower operating costs (no physical branches) and pass those savings on as higher interest rates and lower fees."
+      },
+      {
+        "question": "What happens if you write a check for more than your checking account balance?",
+        "options": [
+          "The bank covers the difference for free",
+          "You may face overdraft fees and the check may bounce",
+          "Nothing happens",
+          "Your credit score improves"
+        ],
+        "correct_answer": 1,
+        "explanation": "Writing a check without sufficient funds can result in overdraft fees, returned check fees, and damage to your financial reputation."
+      },
+      {
+        "question": "Credit unions differ from traditional banks in that they are:",
+        "options": [
+          "Government-owned",
+          "Non-profit and member-supported, often offering lower rates",
+          "For businesses only",
+          "Not insured by the FDIC"
+        ],
+        "correct_answer": 1,
+        "explanation": "Credit unions are non-profit financial institutions owned by their members. They often offer lower interest rates on loans and higher rates on savings."
+      }
+    ],
+    "id": "course-banking-002",
+    "created_date": "2026-03-01T00:00:00.000Z",
+    "updated_date": "2026-03-01T00:00:00.000Z",
+    "is_sample": false
+  },
+  {
+    "name": "Credit, Debt & Smart Borrowing",
+    "description": "Master credit scores, credit cards, Buy Now Pay Later, and debt repayment strategies. Learn to borrow smart and avoid the debt trap.",
+    "category": "Credit & Debt",
+    "difficulty": "Beginner",
+    "lessons_count": 8,
+    "xp_reward": 625,
+    "image_url": null,
+    "icon": null,
+    "color": "#1a7a3c",
+    "is_featured": true,
+    "slug": "credit-debt-smart-borrowing",
+    "final_exam_questions": [
+      {
+        "question": "What order should you generally pay off debts?",
+        "options": [
+          "Mortgage first, then student loans",
+          "Highest interest debts first (credit cards, then private loans, then car loans, then government loans, then mortgage)",
+          "Alphabetical by lender name",
+          "Smallest balance first regardless of interest"
+        ],
+        "correct_answer": 1,
+        "explanation": "Pay highest-interest debt first: credit cards, private student loans, car loans, then government student loans, and pay your mortgage last."
+      },
+      {
+        "question": "Buy Now Pay Later (BNPL) is best used for:",
+        "options": [
+          "Impulse buys and everyday food delivery",
+          "Planned, necessary larger purchases you can afford to repay on schedule",
+          "Anything under $50",
+          "Building emergency savings"
+        ],
+        "correct_answer": 1,
+        "explanation": "BNPL is most responsibly used for necessary, planned purchases (like a laptop or tires) where you've budgeted to repay on schedule."
+      },
+      {
+        "question": "What is the recommended credit card payment strategy?",
+        "options": [
+          "Pay only the minimum each month",
+          "Pay the full balance every month to avoid interest",
+          "Never use credit cards",
+          "Pay every other month"
+        ],
+        "correct_answer": 1,
+        "explanation": "Paying your full credit card balance every month avoids interest charges, builds your credit history, and keeps your credit score healthy."
+      },
+      {
+        "question": "Which of these is 'good debt'?",
+        "options": [
+          "Credit card debt for clothes",
+          "Student loans or a home mortgage (assets that build future value)",
+          "A vacation loan",
+          "Buy Now Pay Later for a coffee maker"
+        ],
+        "correct_answer": 1,
+        "explanation": "Good debt is used to acquire assets that grow in value or increase earning potential — like education (student loans) or a home (mortgage)."
+      },
+      {
+        "question": "A high credit score helps you by:",
+        "options": [
+          "Allowing you to borrow money at lower interest rates",
+          "Eliminating the need to repay loans",
+          "Giving you free cash",
+          "Reducing your taxes"
+        ],
+        "correct_answer": 0,
+        "explanation": "A strong credit score signals creditworthiness to lenders, qualifying you for lower interest rates on mortgages, car loans, and other borrowing."
+      }
+    ],
+    "id": "course-credit-003",
+    "created_date": "2026-03-01T00:00:00.000Z",
+    "updated_date": "2026-03-01T00:00:00.000Z",
+    "is_sample": false
+  },
+  {
+    "name": "Investing Fundamentals",
+    "description": "From stocks and bonds to ETFs and mutual funds — learn how to build a diversified investment portfolio and understand risk vs. reward.",
+    "category": "Investing",
+    "difficulty": "Intermediate",
+    "lessons_count": 9,
+    "xp_reward": 715,
+    "image_url": null,
+    "icon": null,
+    "color": "#14532d",
+    "is_featured": true,
+    "slug": "investing-fundamentals",
+    "final_exam_questions": [
+      {
+        "question": "What is a stock?",
+        "options": [
+          "A loan to a company",
+          "Partial ownership in a corporation",
+          "A government savings bond",
+          "A type of savings account"
+        ],
+        "correct_answer": 1,
+        "explanation": "A stock (equity) represents fractional ownership in a corporation, entitling you to a share of its assets and profits."
+      },
+      {
+        "question": "Why is diversification important in investing?",
+        "options": [
+          "It guarantees profits",
+          "It reduces risk by spreading investments across different assets",
+          "It focuses your money on the best one stock",
+          "It eliminates the need to research"
+        ],
+        "correct_answer": 1,
+        "explanation": "Diversification reduces risk by spreading investments across different asset types, industries, and geographies — not all investments move together."
+      },
+      {
+        "question": "Which investment type is passively managed and typically tracks a market index?",
+        "options": [
+          "Actively managed mutual fund",
+          "ETF (Exchange Traded Fund)",
+          "Individual stock",
+          "Savings account"
+        ],
+        "correct_answer": 1,
+        "explanation": "ETFs (Exchange Traded Funds) are typically passively managed to track an index like the S&P 500, resulting in lower fees than actively managed funds."
+      },
+      {
+        "question": "The core principle of 'time in the market vs. timing the market' means:",
+        "options": [
+          "Trade every day for best results",
+          "Staying invested long-term beats trying to predict market movements",
+          "Sell before a downturn every time",
+          "Buy only during market crashes"
+        ],
+        "correct_answer": 1,
+        "explanation": "No one can consistently predict market timing. Staying invested long-term — through ups and downs — outperforms most active trading strategies."
+      },
+      {
+        "question": "What percentage of a young investor's portfolio should be in cryptocurrency, according to most financial advisors?",
+        "options": [
+          "0% — crypto is banned",
+          "1–5% maximum",
+          "50% or more",
+          "100% for maximum gains"
+        ],
+        "correct_answer": 1,
+        "explanation": "Most advisors recommend no more than 1–5% of your portfolio in crypto. The remaining 95%+ should be in diversified index funds or ETFs."
+      }
+    ],
+    "id": "course-investing-004",
+    "created_date": "2026-03-01T00:00:00.000Z",
+    "updated_date": "2026-03-01T00:00:00.000Z",
+    "is_sample": false
+  },
+  {
+    "name": "Saving & Building Wealth",
+    "description": "Discover the power of compound interest, emergency funds, retirement accounts (401k, IRA, HSA), and strategies to build lasting financial security.",
+    "category": "Saving",
+    "difficulty": "Beginner",
+    "lessons_count": 8,
+    "xp_reward": 625,
+    "image_url": null,
+    "icon": null,
+    "color": "#166534",
+    "is_featured": true,
+    "slug": "saving-building-wealth",
+    "final_exam_questions": [
+      {
+        "question": "What is an emergency fund?",
+        "options": [
+          "Money for vacations",
+          "3–6 months of living expenses saved for unexpected events",
+          "An investment in stocks",
+          "A type of insurance"
+        ],
+        "correct_answer": 1,
+        "explanation": "An emergency fund is 3–6 months of living expenses saved in an accessible account, protecting you from financial shock during job loss or unexpected expenses."
+      },
+      {
+        "question": "What is the benefit of contributing to a 401(k) up to your employer match?",
+        "options": [
+          "You can withdraw it tax-free anytime",
+          "Your employer adds free money matching your contributions",
+          "It reduces your credit score",
+          "It only benefits your employer"
+        ],
+        "correct_answer": 1,
+        "explanation": "An employer match is essentially free money added to your retirement savings. Not contributing enough to get the full match is leaving free money on the table."
+      },
+      {
+        "question": "A Health Savings Account (HSA) is special because:",
+        "options": [
+          "It can only be used for gym memberships",
+          "Contributions, growth, and qualified withdrawals are all tax-free",
+          "It has no contribution limits",
+          "Anyone can open one without a health plan"
+        ],
+        "correct_answer": 1,
+        "explanation": "HSAs offer a triple tax advantage: contributions are pre-tax, growth is tax-free, and withdrawals for qualified medical expenses are tax-free."
+      },
+      {
+        "question": "The financial philosophy 'Save early, enough, and often' recommends saving what percentage of your income?",
+        "options": [
+          "5–10%",
+          "15–20%",
+          "50%",
+          "Whatever's left after spending"
+        ],
+        "correct_answer": 1,
+        "explanation": "Saving 15–20% of your income is the recommended baseline to build wealth, fund retirement, and handle financial emergencies."
+      },
+      {
+        "question": "Compound interest is most powerful when you:",
+        "options": [
+          "Save for a short time",
+          "Start saving early and leave money invested for many years",
+          "Withdraw frequently",
+          "Only invest during market highs"
+        ],
+        "correct_answer": 1,
+        "explanation": "Compound interest earns returns on your returns. The earlier you start and the longer you stay invested, the more dramatic the growth becomes."
+      }
+    ],
+    "id": "course-saving-005",
+    "created_date": "2026-03-01T00:00:00.000Z",
+    "updated_date": "2026-03-01T00:00:00.000Z",
+    "is_sample": false
   }
 ]

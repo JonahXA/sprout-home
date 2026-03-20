@@ -37,6 +37,7 @@ import Progress from "./pages/Progress";
 import SchoolSelection from "./pages/SchoolSelection";
 import Simulations from "./pages/Simulations";
 import Welcome from "./pages/Welcome";
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 
@@ -78,6 +79,7 @@ export const PAGES = {
   SchoolSelection,
   Simulations,
   Welcome,
+  Landing,
   Login,
   Signup,
 };

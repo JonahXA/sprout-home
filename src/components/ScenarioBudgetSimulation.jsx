@@ -35,6 +35,9 @@ const SCENARIOS = {
     icon:GraduationCap, iconBg:"#EFF6FF", iconColor:"#3B82F6",
     age:20, workExp:"Part-time", userIncome:18000, partnerIncome:0,
     children:0, retirementSavings:0,
+    intro:"You're a 20-year-old college student working part-time during the school year and full-time over summer. Your income rises in summer but drops when classes start — and textbooks add a $600 expense each semester.",
+    whyItMatters:"Variable income is one of the most common financial challenges for students and early-career workers. Learning to budget around income fluctuations — and planning ahead for predictable large expenses — is a skill that pays off for life.",
+    whatYouWillDo:["Review your monthly income and unavoidable fixed costs","Adjust your discretionary spending to avoid going into the red","Spread a $600 textbook expense across 4 months","Keep every month's budget at zero or positive"],
     incomeLogic:(m) => [4,5,6,7].includes(m) ? 2000 : 1500,
     baseExpenses:{
       housing:800, utilities:90, groceries:250, transportation:120,
@@ -61,6 +64,9 @@ const SCENARIOS = {
     icon:TrendingUp, iconBg:"#F0FDF4", iconColor:"#16A34A",
     age:22, workExp:"0 years full-time", userIncome:60000, partnerIncome:0,
     children:0, retirementSavings:0,
+    intro:"You just landed your first full-time job at $60,000/year ($5,000/month take-home). With a steady paycheck comes real financial responsibility: rent, student loans, and the need to build a financial safety net from scratch.",
+    whyItMatters:"Most financial advisors recommend 3–6 months of expenses as an emergency fund. Starting early is the single most impactful thing a new graduate can do for long-term financial security.",
+    whatYouWillDo:["Review your fixed monthly obligations including rent and debt payments","Identify discretionary categories you can reduce","Raise your emergency fund contributions by $200/month","Keep your total budget from going negative"],
     incomeLogic:() => 5000,
     baseExpenses:{
       housing:1600, utilities:160, groceries:350, transportation:220,
@@ -87,6 +93,9 @@ const SCENARIOS = {
     icon:Users, iconBg:"#F5F3FF", iconColor:"#7C3AED",
     age:30, workExp:"7 years", userIncome:85000, partnerIncome:55000,
     children:0, retirementSavings:35000,
+    intro:"You and your partner both work well-paying jobs. After years of renting, you're ready to buy a home. Saving $500/month toward a down payment requires cutting elsewhere without sacrificing your quality of life.",
+    whyItMatters:"Saving for a major goal like a home requires deliberate monthly contributions. Understanding how to fit a savings goal into a full budget — without eliminating every enjoyable expense — is the hallmark of mature financial planning.",
+    whatYouWillDo:["Review your combined household income and fixed obligations","Add a $500/month down payment savings category","Offset the new savings by reducing other discretionary spending","Keep dining/entertainment above $300/month and stay balanced"],
     incomeLogic:() => ({ user:7083, partner:4583 }),
     baseExpenses:{
       housing:2500, utilities:240, groceries:700, transportation:500,
@@ -113,6 +122,9 @@ const SCENARIOS = {
     icon:Home, iconBg:"#FFF7ED", iconColor:"#EA580C",
     age:40, workExp:"18 years", userIncome:120000, partnerIncome:75000,
     children:2, retirementSavings:235000,
+    intro:"You're 40, raising two kids with your partner, and comfortably saving for retirement. A new after-school activity adds $150/month to your household budget. You need to absorb it without reducing your retirement contributions.",
+    whyItMatters:"Mid-career families often face 'budget creep' — incremental cost increases that slowly erode savings if left unchecked. Protecting long-term financial goals while managing short-term cost increases is the defining budgeting challenge of this life stage.",
+    whatYouWillDo:["Review your household's income, fixed costs, and retirement position","Add $150/month to Childcare or Miscellaneous for the new activity","Offset the increase by reducing other discretionary spending","Protect your $2,000/month retirement contribution"],
     incomeLogic:() => ({ user:10000, partner:6250 }),
     baseExpenses:{
       housing:3300, utilities:380, groceries:1100, transportation:900,
@@ -296,6 +308,7 @@ function ProjectionPanel({ monthlySavings }) {
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function ScenarioBudgetSimulation({ scenarioId = 0, onComplete }) {
   const scenario = SCENARIOS[scenarioId];
+  const [showIntro, setShowIntro] = useState(true);
   const [budget, setBudget] = useState(() => initializeBudget(scenario));
   const [completed, setCompleted] = useState(false);
   const [showLearning, setShowLearning] = useState(false);
@@ -464,6 +477,71 @@ export default function ScenarioBudgetSimulation({ scenarioId = 0, onComplete })
 
   const ChallengeIcon = scenario.challenge.icon;
   const ScenarioIcon = scenario.icon;
+
+  // ── Intro screen ────────────────────────────────────────────────────────────
+  if (showIntro && scenario.intro) {
+    return (
+      <div style={{ display:"flex", flexDirection:"column", gap:20, fontFamily:"'Inter', system-ui, sans-serif" }}>
+        {/* Header */}
+        <div style={{ background:`linear-gradient(135deg, ${C.navy} 0%, ${C.navyLight} 100%)`, borderRadius:20, padding:"28px 32px", color:"#fff", boxShadow:C.shadowLg }}>
+          <div style={{ display:"flex", alignItems:"center", gap:16, marginBottom:16 }}>
+            <div style={{ width:52, height:52, background:"rgba(255,255,255,0.15)", borderRadius:14, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+              <ScenarioIcon size={26} color="#fff" />
+            </div>
+            <div>
+              <p style={{ color:"rgba(255,255,255,0.6)", fontSize:11, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", margin:0 }}>Budget Simulation</p>
+              <h2 style={{ fontSize:22, fontWeight:900, margin:"4px 0 0", letterSpacing:"-0.3px" }}>{scenario.title}</h2>
+              <p style={{ color:"rgba(255,255,255,0.7)", fontSize:13, margin:0 }}>{scenario.subtitle}</p>
+            </div>
+          </div>
+          <p style={{ color:"rgba(255,255,255,0.85)", fontSize:14, lineHeight:1.65, margin:0 }}>{scenario.intro}</p>
+        </div>
+
+        {/* Why it matters */}
+        <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:16, padding:"20px 24px", boxShadow:C.shadow }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:10 }}>
+            <Target size={16} color={C.navy} />
+            <span style={{ fontSize:13, fontWeight:700, color:C.text }}>Why this matters</span>
+          </div>
+          <p style={{ fontSize:14, color:C.textSub, lineHeight:1.65, margin:0 }}>{scenario.whyItMatters}</p>
+        </div>
+
+        {/* What you will do */}
+        <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:16, padding:"20px 24px", boxShadow:C.shadow }}>
+          <p style={{ fontSize:11, fontWeight:700, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:14, marginTop:0 }}>What you will do</p>
+          <ol style={{ margin:0, padding:0, listStyle:"none", display:"flex", flexDirection:"column", gap:10 }}>
+            {scenario.whatYouWillDo.map((step, i) => (
+              <li key={i} style={{ display:"flex", alignItems:"flex-start", gap:12 }}>
+                <span style={{ width:24, height:24, borderRadius:"50%", background:C.accentSoft, color:C.navy, fontSize:12, fontWeight:800, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, marginTop:1 }}>{i+1}</span>
+                <span style={{ fontSize:14, color:C.textSub, lineHeight:1.55 }}>{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {/* Challenge preview */}
+        <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:16, padding:"20px 24px", boxShadow:C.shadow }}>
+          <p style={{ fontSize:11, fontWeight:700, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:10, marginTop:0 }}>Your challenge</p>
+          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:8 }}>
+            <ChallengeIcon size={16} color={C.navy} />
+            <span style={{ fontSize:14, fontWeight:700, color:C.text }}>{scenario.challenge.title}</span>
+          </div>
+          <p style={{ fontSize:13, color:C.textSub, lineHeight:1.6, margin:0 }}>{scenario.challenge.description}</p>
+        </div>
+
+        {/* Start button */}
+        <button
+          onClick={() => setShowIntro(false)}
+          style={{ width:"100%", padding:"14px 24px", borderRadius:999, background:`linear-gradient(135deg, ${C.navy}, ${C.navyLight})`, color:"#fff", border:"none", fontWeight:700, fontSize:15, cursor:"pointer", boxShadow:C.shadowMd, display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}
+          onMouseEnter={e => e.currentTarget.style.background = `linear-gradient(135deg, ${C.navyMid}, ${C.navy})`}
+          onMouseLeave={e => e.currentTarget.style.background = `linear-gradient(135deg, ${C.navy}, ${C.navyLight})`}
+        >
+          Start Simulation
+          <DollarSign size={16} />
+        </button>
+      </div>
+    );
+  }
 
   const tabStyle = (active) => ({
     padding:"8px 18px", borderRadius:999, fontSize:13, fontWeight:600,
