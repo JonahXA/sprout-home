@@ -45,66 +45,73 @@ export default function Simulations() {
   if (activeSimulation) {
     const Simulation = activeSimulation.component;
     return (
-      <div className="min-h-screen bg-white p-4 md:p-8">
-        <div className="max-w-7xl mx-auto space-y-6">
-          <Button variant="outline" onClick={() => setActiveSimulation(null)}>&larr; Back to Simulations</Button>
-          <Simulation />
+      <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
+        <div style={{ marginBottom:24 }}>
+          <button
+            onClick={() => setActiveSimulation(null)}
+            style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"9px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.text, fontSize:13, fontWeight:600, cursor:"pointer", transition:"all 0.15s ease" }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.boxShadow = `0 4px 12px ${C.navyGlow}`; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}
+          >&#8592; Back to Simulations</button>
         </div>
+        <Simulation />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-8">
-        <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">Simulations</h1>
-          <p className="text-gray-500 mt-2">Interactive modules to practice real-world decisions — no risk, all learning.</p>
-        </div>
+    <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
 
-        {/* Uniform grid — each card uses flex-col so all content stretches identically */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {simulations.map((sim) => {
-            const Icon = sim.icon;
-            return (
-              <div key={sim.id}
-                style={{
-                  background:C.bg,
-                  border:`1px solid ${C.border}`,
-                  borderRadius:16,
-                  overflow:"hidden",
-                  display:"flex",
-                  flexDirection:"column",
-                  boxShadow:"0 1px 4px rgba(0,0,0,0.05)",
-                  transition:"all 0.22s",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.transform = "translateY(-3px)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "none"; }}
-              >
-                {/* Thumbnail — fixed height */}
-                <div style={{ height:112, flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:sim.thumb.bg, borderBottom:`1px solid ${C.border}` }}>
-                  <div style={{ width:52, height:52, borderRadius:14, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:sim.thumb.color }}>
-                    <Icon size={26} />
-                  </div>
-                </div>
+      {/* Header */}
+      <div style={{ marginBottom:28 }}>
+        <h1 style={{ fontSize:34, fontWeight:900, color:C.text, margin:0, letterSpacing:"-1px", lineHeight:1.1 }}>Simulations</h1>
+        <p style={{ fontSize:15, color:C.textSub, margin:"8px 0 0", fontWeight:500, lineHeight:1.5 }}>Interactive modules to practice real-world decisions — no risk, all learning.</p>
+      </div>
 
-                {/* Body — flex-col so description fills space and button stays at bottom */}
-                <div style={{ padding:"20px 20px 20px", display:"flex", flexDirection:"column", flex:1 }}>
-                  <p style={{ fontSize:15, fontWeight:700, color:C.text, marginBottom:10, letterSpacing:"-0.3px", lineHeight:1.35 }}>{sim.title}</p>
-                  {/* Description fixed height so all cards align at button */}
-                  <p style={{ fontSize:13, color:"#475569", lineHeight:1.6, flex:1, minHeight:60, marginBottom:20 }}>{sim.description}</p>
-                  <button
-                    onClick={(e) => handleLaunch(sim, e)}
-                    style={{ width:"100%", height:42, borderRadius:10, background:C.navy, color:"#fff", fontSize:14, fontWeight:600, border:"none", cursor:"pointer", transition:"background 0.15s", flexShrink:0 }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = C.navyMid}
-                    onMouseLeave={(e) => e.currentTarget.style.background = C.navy}
-                  >Launch</button>
+      {/* Uniform grid — each card uses flex-col so all content stretches identically */}
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }} className="sim-grid">
+        {simulations.map((sim) => {
+          const Icon = sim.icon;
+          return (
+            <div key={sim.id}
+              style={{
+                background:C.bg,
+                border:`1px solid ${C.border}`,
+                borderRadius:16,
+                overflow:"hidden",
+                display:"flex",
+                flexDirection:"column",
+                boxShadow:"0 1px 4px rgba(0,0,0,0.05)",
+                transition:"all 0.22s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 10px 36px ${C.navyGlow}`; e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.transform = "translateY(-3px)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.05)"; e.currentTarget.style.borderColor = C.border; e.currentTarget.style.transform = "none"; }}
+            >
+              {/* Thumbnail — fixed height */}
+              <div style={{ height:112, flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:sim.thumb.bg, borderBottom:`1px solid ${C.border}` }}>
+                <div style={{ width:54, height:54, borderRadius:15, background:"rgba(255,255,255,0.72)", display:"flex", alignItems:"center", justifyContent:"center", color:sim.thumb.color }}>
+                  <Icon size={26} />
                 </div>
               </div>
-            );
-          })}
-        </div>
+
+              {/* Body — flex-col so description fills space and button stays at bottom */}
+              <div style={{ padding:"20px 20px 22px", display:"flex", flexDirection:"column", flex:1 }}>
+                <p style={{ fontSize:15, fontWeight:800, color:C.text, marginBottom:8, letterSpacing:"-0.3px", lineHeight:1.35 }}>{sim.title}</p>
+                <p style={{ fontSize:13, color:C.textSub, lineHeight:1.65, flex:1, minHeight:60, marginBottom:20, fontWeight:400 }}>{sim.description}</p>
+                <button
+                  onClick={(e) => handleLaunch(sim, e)}
+                  style={{ width:"100%", height:44, borderRadius:999, background:C.navy, color:"#fff", fontSize:14, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease", flexShrink:0, letterSpacing:"-0.1px" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = `0 6px 20px ${C.navyGlow}`; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
+                >Launch</button>
+              </div>
+            </div>
+          );
+        })}
       </div>
+      <style>{`@media (max-width:1024px){.sim-grid{grid-template-columns:repeat(2,1fr)!important;}} @media (max-width:640px){.sim-grid{grid-template-columns:1fr!important;}}`}</style>
     </div>
   );
 }

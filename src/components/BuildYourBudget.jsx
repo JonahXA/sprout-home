@@ -31,8 +31,9 @@ const C = {
 };
 
 const GLOBAL_CSS = `
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   .byb-wrap * { box-sizing: border-box; }
-  .byb-wrap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F7FB; min-height: 100vh; }
+  .byb-wrap { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif; background: #FFFFFF; min-height: 100vh; }
   .byb-persona:hover  { border-color: #2563EB !important; background: #EFF6FF !important; transform: translateY(-1px); }
   .byb-persona.active { border-color: #2563EB !important; background: #EFF6FF !important; }
   .byb-btn-primary { cursor: pointer; transition: all 0.18s ease; }
@@ -275,7 +276,7 @@ function NavRow({ onPrev, onNext, prevLabel = "Previous", nextLabel = "Continue"
       <div>
         {onPrev && (
           <button className="byb-btn-ghost" onClick={onPrev}
-            style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 20px", borderRadius: 10, border: `1.5px solid ${C.border}`, background: "transparent", fontSize: 14, fontWeight: 600, color: C.textSec }}>
+            style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 22px", borderRadius: 999, border: `1.5px solid ${C.border}`, background: "transparent", fontSize: 14, fontWeight: 600, color: C.textSec }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
             {prevLabel}
           </button>
@@ -285,7 +286,7 @@ function NavRow({ onPrev, onNext, prevLabel = "Previous", nextLabel = "Continue"
         {blockMsg && <div style={{ fontSize: 12, color: C.red, fontWeight: 500 }}>{blockMsg}</div>}
         {onNext && (
           <button className="byb-btn-primary" onClick={onNext} disabled={nextDisabled}
-            style={{ display: "flex", alignItems: "center", gap: 7, padding: "11px 26px", borderRadius: 10, background: nextDisabled ? C.border : C.navy, color: nextDisabled ? C.textMuted : C.white, border: "none", fontSize: 14, fontWeight: 700 }}>
+            style={{ display: "flex", alignItems: "center", gap: 7, padding: "11px 26px", borderRadius: 999, background: nextDisabled ? C.border : C.navy, color: nextDisabled ? C.textMuted : C.white, border: "none", fontSize: 14, fontWeight: 700 }}>
             {nextLabel}
             {!nextDisabled && <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>}
           </button>

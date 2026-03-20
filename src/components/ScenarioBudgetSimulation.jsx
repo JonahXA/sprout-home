@@ -466,7 +466,7 @@ export default function ScenarioBudgetSimulation({ scenarioId = 0, onComplete })
   const ScenarioIcon = scenario.icon;
 
   const tabStyle = (active) => ({
-    padding:"8px 18px", borderRadius:8, fontSize:13, fontWeight:600,
+    padding:"8px 18px", borderRadius:999, fontSize:13, fontWeight:600,
     border:"none", cursor:"pointer", transition:"all 0.15s",
     background:active ? C.navy : "transparent",
     color:active ? "#fff" : C.textSub,

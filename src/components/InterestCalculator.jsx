@@ -199,15 +199,15 @@ export default function InterestCalculator() {
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', 'Inter', system-ui, sans-serif", color: C.text }}>
+    <div style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif", color: C.text }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         input:focus, select:focus { border-color: ${C.accent} !important; box-shadow: 0 0 0 3px ${C.accentSoft}; }
         input[type=range] { -webkit-appearance: none; height: 4px; border-radius: 999px; background: ${C.border}; outline: none; border: none; padding: 0; width: 100%; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: ${C.navy}; cursor: pointer; border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
         .sc-btn { transition: all 0.18s !important; }
         .sc-btn:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px ${C.navyGlow} !important; }
-        .card { background: #fff; border: 1px solid ${C.border}; border-radius: 18px; padding: 22px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+        .card { background: #fff; border: 1px solid ${C.border}; border-radius: 16px; padding: 22px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
         @media (max-width: 960px) { .main-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 640px) { .metric-grid { grid-template-columns: 1fr 1fr !important; } }
       `}</style>
@@ -241,7 +241,7 @@ export default function InterestCalculator() {
       {/* SCENARIO BUTTONS */}
       <div style={{ display: "flex", gap: 10, marginBottom: 20, flexWrap: "wrap" }}>
         {SCENARIOS.map(({ label, Icon, desc }, i) => (
-          <button key={i} className="sc-btn" onClick={() => { setActiveScenario(i); setV(SCENARIOS[i].values); setScrubYear(null); }} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 18px", borderRadius: 12, cursor: "pointer", border: `1.5px solid ${activeScenario === i ? C.navy : C.border}`, background: activeScenario === i ? C.navy : C.bgCard, color: activeScenario === i ? "#fff" : C.text, fontSize: 13, fontWeight: 600, boxShadow: activeScenario === i ? `0 4px 16px ${C.navyGlow}` : "0 1px 3px rgba(0,0,0,0.04)", fontFamily: "inherit" }}>
+          <button key={i} className="sc-btn" onClick={() => { setActiveScenario(i); setV(SCENARIOS[i].values); setScrubYear(null); }} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 18px", borderRadius: 999, cursor: "pointer", border: `1.5px solid ${activeScenario === i ? C.navy : C.border}`, background: activeScenario === i ? C.navy : C.bgCard, color: activeScenario === i ? "#fff" : C.text, fontSize: 13, fontWeight: 600, boxShadow: activeScenario === i ? `0 4px 16px ${C.navyGlow}` : "0 1px 3px rgba(0,0,0,0.04)", fontFamily: "inherit" }}>
             <Icon size={15} style={{ opacity: 0.8 }} />
             <div style={{ textAlign: "left" }}>
               <div>{label}</div>
@@ -363,7 +363,7 @@ export default function InterestCalculator() {
           )}
 
           {/* Save */}
-          <button onClick={saveSim} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 7, height: 40, borderRadius: 10, border: `1.5px solid ${C.border}`, background: C.bgCard, color: C.textSub, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s" }}>
+          <button onClick={saveSim} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 7, height: 40, borderRadius: 999, border: `1.5px solid ${C.border}`, background: C.bgCard, color: C.textSub, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", transition: "all 0.15s" }}>
             <Save size={14} />{saveMsg || "Save Simulation"}
           </button>
 
@@ -402,7 +402,7 @@ export default function InterestCalculator() {
                 const loss = result.finalValue - delayed.finalValue;
                 const active = waitMode === w.delay;
                 return (
-                  <button key={i} onClick={() => setWaitMode(w.delay)} style={{ flex: 1, padding: "10px 8px", borderRadius: 10, cursor: "pointer", fontFamily: "inherit", border: `1.5px solid ${active ? C.navy : C.border}`, background: active ? C.navy : C.bgCard, color: active ? "#fff" : C.text, transition: "all 0.15s" }}>
+                  <button key={i} onClick={() => setWaitMode(w.delay)} style={{ flex: 1, padding: "10px 8px", borderRadius: 12, cursor: "pointer", fontFamily: "inherit", border: `1.5px solid ${active ? C.navy : C.border}`, background: active ? C.navy : C.bgCard, color: active ? "#fff" : C.text, transition: "all 0.15s" }}>
                     <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 3 }}>{w.label}</div>
                     {i === 0
                       ? <div style={{ fontSize: 11, color: active ? "#86EFAC" : C.green, fontWeight: 600 }}>{fmtShort(result.finalValue)}</div>

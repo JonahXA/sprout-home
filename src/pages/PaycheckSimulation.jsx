@@ -118,28 +118,30 @@ export default function PaycheckSimulation() {
     );
   }
 
+  const C = { navy:"#1F3A64", navyMid:"#172E52", navyGlow:"rgba(31,58,100,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">
-      <div className="max-w-5xl mx-auto space-y-6">
-        <Button
-          variant="outline"
+    <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
+      <div style={{ marginBottom:24 }}>
+        <button
           onClick={() => navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`)}
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Course
-        </Button>
+          style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"9px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.text, fontSize:13, fontWeight:600, cursor:"pointer", transition:"all 0.15s ease" }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.boxShadow = `0 4px 12px ${C.navyGlow}`; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}
+        >&#8592; Back to Course</button>
+      </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
-          <h1 className="text-3xl font-bold mb-2">
-            Paycheck {lessonNum}: {lessonTitles[lessonNum]}
-          </h1>
-          <p className="text-gray-600 mb-8">Interactive paycheck breakdown</p>
+      <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:20, boxShadow:"0 2px 12px rgba(0,0,0,0.05)", padding:"36px 40px" }}>
+        <h1 style={{ fontSize:28, fontWeight:900, color:C.text, margin:"0 0 8px", letterSpacing:"-0.7px", lineHeight:1.15 }}>
+          Paycheck {lessonNum}: {lessonTitles[lessonNum]}
+        </h1>
+        <p style={{ fontSize:14, color:C.textSub, margin:"0 0 32px", fontWeight:500, lineHeight:1.6 }}>Interactive paycheck breakdown</p>
 
-          <LessonComponent
-            userName={user.full_name || "Student"}
-            onComplete={handleComplete}
-          />
-        </div>
+        <LessonComponent
+          userName={user.full_name || "Student"}
+          onComplete={handleComplete}
+        />
       </div>
     </div>
   );

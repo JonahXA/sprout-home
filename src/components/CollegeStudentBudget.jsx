@@ -111,8 +111,9 @@ const TRADEOFFS = [
    GLOBAL CSS
 ───────────────────────────────────────────────────────────── */
 const GLOBAL_CSS = `
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   .csb-wrap * { box-sizing: border-box; }
-  .csb-wrap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F7FA; }
+  .csb-wrap { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif; background: #FFFFFF; }
   .csb-pill { cursor: pointer; transition: all 0.15s ease; }
   .csb-pill:hover { opacity: 0.88; transform: translateY(-1px); }
   .csb-tab { cursor: pointer; border: none; transition: all 0.15s; }

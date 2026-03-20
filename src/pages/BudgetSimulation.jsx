@@ -116,44 +116,45 @@ export default function BudgetSimulation() {
 
   const currentLesson = lessons[lessonNum];
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <Button
-          variant="outline"
-          onClick={() =>
-            navigate(createPageUrl("CourseDetail") + "?id=6972392c60eb785db714b719")
-          }
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Course
-        </Button>
+  const C = { navy:"#1F3A64", navyMid:"#172E52", navyGlow:"rgba(31,58,100,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
 
-        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+  return (
+    <div style={{ fontFamily:"'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');`}</style>
+      <div style={{ marginBottom:24 }}>
+        <button
+          onClick={() => navigate(createPageUrl("CourseDetail") + "?id=6972392c60eb785db714b719")}
+          style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"9px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.text, fontSize:13, fontWeight:600, cursor:"pointer", transition:"all 0.15s ease" }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = C.borderMid; e.currentTarget.style.boxShadow = `0 4px 12px ${C.navyGlow}`; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.boxShadow = "none"; }}
+        >&#8592; Back to Course</button>
+      </div>
+
+      <div style={{ background:C.bg, border:`1px solid ${C.border}`, borderRadius:20, boxShadow:"0 2px 12px rgba(0,0,0,0.05)", padding:"36px 40px" }}>
           {lessonNum === 0 ? (
             <>
-              <h1 className="text-3xl font-bold mb-2">
+              <h1 style={{ fontSize:28, fontWeight:900, color:C.text, margin:"0 0 8px", letterSpacing:"-0.7px", lineHeight:1.15 }}>
                 {currentLesson?.title || "Build Your First Budget"}
               </h1>
-              <p className="text-gray-600 mb-8">
+              <p style={{ fontSize:14, color:C.textSub, margin:"0 0 32px", fontWeight:500, lineHeight:1.6 }}>
                 Learn budgeting fundamentals with an interactive walkthrough
               </p>
               <BudgetWalkthrough />
-              <div className="mt-6 flex justify-end">
-                <Button
+              <div style={{ marginTop:24, display:"flex", justifyContent:"flex-end" }}>
+                <button
                   onClick={() => completeMutation.mutate()}
-                  className="bg-green-600 hover:bg-green-700"
-                >
-                  Complete Lesson
-                </Button>
+                  style={{ padding:"11px 28px", borderRadius:999, background:C.navy, color:"#fff", fontSize:14, fontWeight:700, border:"none", cursor:"pointer", transition:"all 0.15s ease" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = C.navyMid; e.currentTarget.style.transform = "translateY(-1px)"; e.currentTarget.style.boxShadow = `0 6px 20px ${C.navyGlow}`; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = C.navy; e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}
+                >Complete Lesson</button>
               </div>
             </>
           ) : (
             <>
-              <h1 className="text-3xl font-bold mb-2">
+              <h1 style={{ fontSize:28, fontWeight:900, color:C.text, margin:"0 0 8px", letterSpacing:"-0.7px", lineHeight:1.15 }}>
                 {currentLesson?.title || `Budget ${lessonNum}`}
               </h1>
-              <p className="text-gray-600 mb-8">
+              <p style={{ fontSize:14, color:C.textSub, margin:"0 0 32px", fontWeight:500, lineHeight:1.6 }}>
                 {currentLesson?.content || "Interactive budget challenge"}
               </p>
               <ScenarioBudgetSimulation
@@ -163,7 +164,6 @@ export default function BudgetSimulation() {
             </>
           )}
         </div>
-      </div>
     </div>
   );
 }

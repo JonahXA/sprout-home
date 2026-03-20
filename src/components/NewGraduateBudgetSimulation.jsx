@@ -366,7 +366,7 @@ export default function NewGraduateBudgetSimulation({ onComplete }) {
   const groupColors = { needs:C.accent, wants:C.amber, savings:C.green };
 
   const tabStyle = (active, color) => ({
-    padding:"7px 16px",borderRadius:8,fontSize:12,fontWeight:600,
+    padding:"7px 16px",borderRadius:999,fontSize:12,fontWeight:600,
     border:"none",cursor:"pointer",transition:"all 0.15s",
     background:active?(color||C.navy):"transparent",
     color:active?"#fff":C.textSub,
