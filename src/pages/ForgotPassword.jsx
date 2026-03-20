@@ -113,7 +113,7 @@ export default function ForgotPassword() {
  <div className="space-y-4">
  <div className="p-4 rounded-xl #E6F5EF] border border-[#2D9B6F]">
  <p className="text-sm text-gray-700">
- 📧 Didn't receive the email? Check your spam folder or try again in a few minutes.
+ Didn't receive the email? Check your spam folder or try again in a few minutes.
  </p>
  </div>
 

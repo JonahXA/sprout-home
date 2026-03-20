@@ -79,8 +79,8 @@ export default function AIDay4() {
  <p className="text-gray-800 mb-2"><strong>Input:</strong> "The capital of France is"</p>
  <div className="ml-4 space-y-1 text-sm">
  <p className="text-[#2D9B6F]">"Paris" (99.9% probability)</p>
- <p className="text-gray-500">✗ "London" (0.05%)</p>
- <p className="text-gray-400">✗ "pizza" (0.00001%)</p>
+ <p className="text-gray-500">— "London" (0.05%)</p>
+ <p className="text-gray-400">— "pizza" (0.00001%)</p>
  </div>
  <p className="text-gray-800 mt-3"><strong>Output:</strong> "The capital of France is Paris"</p>
  </div>
@@ -110,11 +110,11 @@ export default function AIDay4() {
  <h4 className="font-bold text-red-700">What LLMs CAN'T Do</h4>
  </div>
  <div className="p-4 space-y-2 text-sm">
- <p>✗ Truly "understand" meaning</p>
- <p>✗ Access real-time information</p>
- <p>✗ Verify their own outputs</p>
- <p>✗ Do perfect math calculations</p>
- <p>✗ Know what's actually true</p>
+ <p>— Truly "understand" meaning</p>
+ <p>— Access real-time information</p>
+ <p>— Verify their own outputs</p>
+ <p>— Do perfect math calculations</p>
+ <p>— Know what's actually true</p>
  </div>
  </div>
  </div>

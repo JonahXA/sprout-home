@@ -77,7 +77,7 @@ export default function MLTrainingSimulator({ onComplete }) {
  <div className="grid md:grid-cols-2 gap-4">
  <div className="space-y-3">
  <div className="text-center">
- <div className="text-6xl mb-2">🐱</div>
+ <div className="text-4xl font-black mb-2 text-orange-500">CAT</div>
  <Badge className="text-2xl font-bold bg-orange-100 text-orange-700 px-4 py-2">
  {trainingData.cats} examples
  </Badge>
@@ -127,7 +127,7 @@ export default function MLTrainingSimulator({ onComplete }) {
 
  <div className="space-y-3">
  <div className="text-center">
- <div className="text-6xl mb-2">🐶</div>
+ <div className="text-4xl font-black mb-2 text-[#1B2B5E]">DOG</div>
  <Badge className="text-2xl font-bold bg-[#E8F0FE] text-[#1B2B5E] px-4 py-2">
  {trainingData.dogs} examples
  </Badge>

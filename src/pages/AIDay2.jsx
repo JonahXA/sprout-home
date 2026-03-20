@@ -163,7 +163,7 @@ export default function AIDay2() {
  content: (
  <div className="space-y-6">
  <div className="bg-yellow-50 p-6 rounded-xl border-l-4 border-yellow-500">
- <h3 className="text-xl font-bold text-gray-900 mb-2">🧪 Hands-On Lab</h3>
+ <h3 className="text-xl font-bold text-gray-900 mb-2">Hands-On Lab</h3>
  <p className="text-gray-700">
  You'll train a cat vs dog classifier. See how data quality affects model accuracy!
  </p>

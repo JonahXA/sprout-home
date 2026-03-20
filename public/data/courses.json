@@ -1,1135 +1,1135 @@
 [
-  {
-    "name": "Smart Savings Strategies",
-    "description": "Build real-world budgeting skills through interactive simulations across different life stages.",
-    "category": "Saving",
-    "difficulty": "Beginner",
-    "lessons_count": 5,
-    "xp_reward": 1000,
-    "image_url": null,
-    "icon": "💵",
-    "color": "#3b82f6",
-    "is_featured": true,
-    "final_exam_questions": [],
-    "id": "6972392c60eb785db714b719",
-    "created_date": "2026-01-22T14:50:20.857000",
-    "updated_date": "2026-01-22T14:50:20.857000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Money Management Essentials",
-    "description": "Master essential money management skills including understanding paychecks, budgeting, and financial planning.",
-    "category": "Personal Finance",
-    "difficulty": "Beginner",
-    "lessons_count": 4,
-    "xp_reward": 500,
-    "image_url": null,
-    "icon": "💰",
-    "color": "#10b981",
-    "is_featured": true,
-    "final_exam_questions": [],
-    "id": "6943400844fa0b0b1fa81a56",
-    "created_date": "2025-12-17T23:43:04.925000",
-    "updated_date": "2026-01-22T14:50:43.236000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Investing Basics",
-    "description": "Learn the fundamentals of investing, from stocks to bonds, and how to build a diversified portfolio.",
-    "category": "Investing",
-    "difficulty": "Beginner",
-    "lessons_count": 5,
-    "xp_reward": 250,
-    "image_url": null,
-    "icon": "📈",
-    "color": null,
-    "is_featured": true,
-    "final_exam_questions": [
-      {
-        "question": "What is a stock?",
-        "options": [
-          "A loan to a company",
-          "Ownership share in a company",
-          "A government bond",
-          "A savings account"
-        ],
-        "correct_answer": 1,
-        "explanation": "A stock represents partial ownership in a company. When you buy stock, you become a shareholder."
-      },
-      {
-        "question": "What is diversification in investing?",
-        "options": [
-          "Putting all money in one stock",
-          "Spreading investments across different assets to reduce risk",
-          "Only investing in bonds",
-          "Avoiding all risk"
-        ],
-        "correct_answer": 1,
-        "explanation": "Diversification means spreading your investments across different assets, sectors, or regions to reduce overall risk."
-      },
-      {
-        "question": "What is a bond?",
-        "options": [
-          "A type of stock",
-          "A loan you give to a company or government",
-          "A savings account",
-          "A type of currency"
-        ],
-        "correct_answer": 1,
-        "explanation": "A bond is essentially a loan you give to a company or government, and they pay you interest over time."
-      },
-      {
-        "question": "What does ROI stand for?",
-        "options": [
-          "Rate of Inflation",
-          "Return on Investment",
-          "Risk of Interest",
-          "Revenue of Income"
-        ],
-        "correct_answer": 1,
-        "explanation": "ROI stands for Return on Investment, which measures the profitability of an investment relative to its cost."
-      },
-      {
-        "question": "What is compound interest?",
-        "options": [
-          "Interest paid only once",
-          "Interest earned on both principal and previously earned interest",
-          "A type of loan",
-          "A government tax"
-        ],
-        "correct_answer": 1,
-        "explanation": "Compound interest is interest earned on both your original investment (principal) and on the interest that investment has already earned."
-      }
-    ],
-    "id": "6914ef07ea44941f461e64ea",
-    "created_date": "2025-11-12T20:33:11.694000",
-    "updated_date": "2025-11-24T07:18:16.245000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Personal Finance Foundations",
-    "description": "Build a strong foundation in personal finance with budgeting, goal-setting, and financial planning.",
-    "category": "Personal Finance",
-    "difficulty": "Beginner",
-    "lessons_count": 5,
-    "xp_reward": 250,
-    "image_url": null,
-    "icon": "💰",
-    "color": null,
-    "is_featured": false,
-    "final_exam_questions": [
-      {
-        "question": "What is the first step in creating a budget?",
-        "options": [
-          "Start investing",
-          "Track your income and expenses",
-          "Buy a house",
-          "Open a credit card"
-        ],
-        "correct_answer": 1,
-        "explanation": "The first step in budgeting is understanding where your money comes from and where it goes by tracking all income and expenses."
-      },
-      {
-        "question": "What is a financial goal?",
-        "options": [
-          "A random wish",
-          "A specific, measurable target for your money",
-          "A type of investment",
-          "A bank account"
-        ],
-        "correct_answer": 1,
-        "explanation": "A financial goal is a specific, measurable target you set for your money, such as saving $10,000 for a down payment in 2 years."
-      },
-      {
-        "question": "What does it mean to 'pay yourself first'?",
-        "options": [
-          "Buying whatever you want first",
-          "Setting aside savings before spending on other things",
-          "Paying bills late",
-          "Avoiding savings"
-        ],
-        "correct_answer": 1,
-        "explanation": "'Pay yourself first' means prioritizing savings by setting money aside for savings goals before spending on discretionary items."
-      },
-      {
-        "question": "What is net income?",
-        "options": [
-          "Total income before taxes",
-          "Income after taxes and deductions",
-          "Investment returns",
-          "Credit card rewards"
-        ],
-        "correct_answer": 1,
-        "explanation": "Net income is your take-home pay - the amount you actually receive after taxes, insurance, and other deductions are taken out."
-      },
-      {
-        "question": "Why is it important to review your budget regularly?",
-        "options": [
-          "It's not important",
-          "To adjust for changes in income, expenses, and goals",
-          "To impress friends",
-          "To qualify for loans"
-        ],
-        "correct_answer": 1,
-        "explanation": "Regular budget reviews help you adjust for life changes, track progress toward goals, and identify areas where you can improve your financial habits."
-      }
-    ],
-    "id": "6914ef07ea44941f461e64ef",
-    "created_date": "2025-11-12T20:33:11.694000",
-    "updated_date": "2025-11-24T07:18:17.822000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Understanding Credit",
-    "description": "Learn how credit works, how to build good credit, and avoid common debt traps.",
-    "category": "Credit & Debt",
-    "difficulty": "Beginner",
-    "lessons_count": 6,
-    "xp_reward": 300,
-    "image_url": null,
-    "icon": "💳",
-    "color": null,
-    "is_featured": true,
-    "final_exam_questions": [
-      {
-        "question": "What is a credit score?",
-        "options": [
-          "The amount of money you have",
-          "A numerical representation of your creditworthiness",
-          "Your bank account number",
-          "Your social security number"
-        ],
-        "correct_answer": 1,
-        "explanation": "A credit score is a three-digit number that represents your creditworthiness based on your credit history and financial behavior."
-      },
-      {
-        "question": "What is the ideal credit utilization ratio?",
-        "options": [
-          "Below 30%",
-          "Above 90%",
-          "Exactly 50%",
-          "100%"
-        ],
-        "correct_answer": 0,
-        "explanation": "Experts recommend keeping your credit utilization (the percentage of available credit you're using) below 30% for a healthy credit score."
-      },
-      {
-        "question": "What does APR stand for?",
-        "options": [
-          "Annual Payment Rate",
-          "Annual Percentage Rate",
-          "Average Principal Return",
-          "Automatic Payment Ratio"
-        ],
-        "correct_answer": 1,
-        "explanation": "APR stands for Annual Percentage Rate, which represents the yearly cost of borrowing money, including interest and fees."
-      },
-      {
-        "question": "Which payment history has the biggest impact on credit score?",
-        "options": [
-          "Making payments on time",
-          "Having multiple credit cards",
-          "Closing old accounts",
-          "Shopping for credit"
-        ],
-        "correct_answer": 0,
-        "explanation": "Payment history is the most important factor in your credit score, accounting for about 35% of your FICO score."
-      },
-      {
-        "question": "What is a good strategy for building credit?",
-        "options": [
-          "Maxing out credit cards",
-          "Making only minimum payments",
-          "Paying bills on time and keeping balances low",
-          "Closing all credit accounts"
-        ],
-        "correct_answer": 2,
-        "explanation": "Building good credit requires paying bills on time, keeping credit card balances low, and maintaining a mix of credit types."
-      }
-    ],
-    "id": "6914ef07ea44941f461e64ec",
-    "created_date": "2025-11-12T20:33:11.694000",
-    "updated_date": "2025-11-24T07:18:20.075000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Smart Saving Strategies",
-    "description": "Master the art of saving money and building an emergency fund for your future.",
-    "category": "Saving",
-    "difficulty": "Beginner",
-    "lessons_count": 8,
-    "xp_reward": 200,
-    "image_url": null,
-    "icon": "🏦",
-    "color": null,
-    "is_featured": true,
-    "final_exam_questions": [
-      {
-        "question": "What is the recommended budget allocation rule?",
-        "options": [
-          "50/30/20",
-          "60/20/20",
-          "40/40/20",
-          "70/20/10"
-        ],
-        "correct_answer": 0,
-        "explanation": "The 50/30/20 rule allocates 50% to needs, 30% to wants, and 20% to savings and debt repayment."
-      },
-      {
-        "question": "What is an emergency fund?",
-        "options": [
-          "Money for vacations",
-          "Savings set aside for unexpected expenses",
-          "Investment in stocks",
-          "Money for shopping"
-        ],
-        "correct_answer": 1,
-        "explanation": "An emergency fund is money saved specifically for unexpected expenses like medical bills, car repairs, or job loss."
-      },
-      {
-        "question": "How many months of expenses should an emergency fund cover?",
-        "options": [
-          "1 month",
-          "3-6 months",
-          "12 months",
-          "24 months"
-        ],
-        "correct_answer": 1,
-        "explanation": "Financial experts typically recommend saving 3-6 months of living expenses in an emergency fund."
-      },
-      {
-        "question": "What is the purpose of automating savings?",
-        "options": [
-          "To make saving harder",
-          "To ensure consistent saving without relying on willpower",
-          "To increase spending",
-          "To avoid taxes"
-        ],
-        "correct_answer": 1,
-        "explanation": "Automating savings ensures you save consistently by transferring money automatically, removing the need for willpower and reducing the temptation to spend."
-      },
-      {
-        "question": "What is a high-yield savings account?",
-        "options": [
-          "An account with no interest",
-          "An account that earns higher interest than traditional savings accounts",
-          "A checking account",
-          "A type of investment"
-        ],
-        "correct_answer": 1,
-        "explanation": "A high-yield savings account offers higher interest rates than traditional savings accounts, helping your money grow faster."
-      }
-    ],
-    "id": "6914ef07ea44941f461e64eb",
-    "created_date": "2025-11-12T20:33:11.694000",
-    "updated_date": "2025-11-24T07:18:21.037000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "AI Literacy: Using AI Responsibly and Effectively",
-    "description": "A comprehensive 2-week program teaching you to understand, use, and critically evaluate AI. Learn practical skills, ethics, and responsible AI use through interactive activities.",
-    "category": "AI & ML",
-    "difficulty": "Beginner",
-    "lessons_count": 10,
-    "xp_reward": 1000,
-    "image_url": null,
-    "icon": "🤖",
-    "color": null,
-    "is_featured": true,
-    "final_exam_questions": [
-      {
-        "question": "Most AI systems used today are best described as:",
-        "options": [
-          "Artificial General Intelligence (AGI)",
-          "Narrow (task-specific) AI",
-          "Conscious machines",
-          "Human brains"
-        ],
-        "correct_answer": 1,
-        "explanation": "Today's AI systems are narrow AI - excellent at specific tasks but not conscious or generally intelligent like humans."
-      },
-      {
-        "question": "In machine learning, the dataset used to adjust model parameters is called:",
-        "options": [
-          "Test set",
-          "Training set",
-          "Deployment set",
-          "Bias set"
-        ],
-        "correct_answer": 1,
-        "explanation": "The training set is the data used to teach and adjust the model's parameters during the learning process."
-      },
-      {
-        "question": "A model output that is fluent but factually wrong is often called:",
-        "options": [
-          "Compression",
-          "Hallucination",
-          "Encryption",
-          "Overclocking"
-        ],
-        "correct_answer": 1,
-        "explanation": "Hallucination is when AI generates plausible-sounding but factually incorrect information."
-      },
-      {
-        "question": "Which prompt is MOST likely to produce a useful response?",
-        "options": [
-          "Explain photosynthesis.",
-          "Explain photosynthesis to a 9th grader in 5 bullet points and include one analogy.",
-          "Photosynthesis??",
-          "Tell me everything."
-        ],
-        "correct_answer": 1,
-        "explanation": "Specific prompts with clear audience, format, and constraints produce better AI outputs."
-      },
-      {
-        "question": "Algorithmic bias refers to:",
-        "options": [
-          "Any bug in code",
-          "Systematic unfair outcomes for some groups",
-          "Fast algorithms",
-          "Using math in computers"
-        ],
-        "correct_answer": 1,
-        "explanation": "Algorithmic bias means the AI system produces systematically unfair outcomes for certain demographic groups."
-      },
-      {
-        "question": "Best first step when AI gives a surprising factual claim:",
-        "options": [
-          "Share it immediately",
-          "Verify with reputable sources",
-          "Assume it is correct",
-          "Ignore all AI forever"
-        ],
-        "correct_answer": 1,
-        "explanation": "Always verify AI-generated factual claims with reputable sources before trusting or sharing them."
-      },
-      {
-        "question": "A common cause of unfair AI outcomes is:",
-        "options": [
-          "Too much sunshine",
-          "Training data that is not representative",
-          "Using a keyboard",
-          "Too many users"
-        ],
-        "correct_answer": 1,
-        "explanation": "Biased or unrepresentative training data is a major cause of unfair AI outcomes."
-      },
-      {
-        "question": "Recommendation systems mainly optimize for:",
-        "options": [
-          "User engagement or predicted preference",
-          "World peace",
-          "Lower electricity bills",
-          "Perfect truth"
-        ],
-        "correct_answer": 0,
-        "explanation": "Recommendation systems are designed to maximize user engagement and predict what you'll likely interact with."
-      },
-      {
-        "question": "Which is a safe privacy practice?",
-        "options": [
-          "Paste passwords into AI to remember them",
-          "Avoid sharing personal/sensitive information with AI tools",
-          "Upload private medical records to get advice",
-          "Share your full address to personalize answers"
-        ],
-        "correct_answer": 1,
-        "explanation": "Never share personal, sensitive, or private information with AI tools - assume anything entered could be stored."
-      },
-      {
-        "question": "A 'test set' is used to:",
-        "options": [
-          "Train the model",
-          "Measure performance on new/unseen data",
-          "Store passwords",
-          "Make the model conscious"
-        ],
-        "correct_answer": 1,
-        "explanation": "Test sets contain new data the model hasn't seen, used to measure how well it generalizes."
-      },
-      {
-        "question": "Overfitting means the model:",
-        "options": [
-          "Learns general patterns well",
-          "Memorizes training examples and performs poorly on new data",
-          "Refuses to answer",
-          "Runs faster than normal"
-        ],
-        "correct_answer": 1,
-        "explanation": "Overfitting occurs when a model memorizes training data instead of learning general patterns."
-      },
-      {
-        "question": "A strong reason to disclose AI use in schoolwork is:",
-        "options": [
-          "It makes grades higher automatically",
-          "Honesty/transparency and following policy",
-          "It hides plagiarism",
-          "It replaces learning"
-        ],
-        "correct_answer": 1,
-        "explanation": "Academic integrity requires honest disclosure of AI use and following institutional policies."
-      },
-      {
-        "question": "Deepfakes are:",
-        "options": [
-          "A type of microscope",
-          "AI-generated or AI-altered media that can convincingly imitate reality",
-          "A math equation",
-          "A secure password system"
-        ],
-        "correct_answer": 1,
-        "explanation": "Deepfakes are AI-created or modified media (video, audio, images) that can convincingly fake reality."
-      },
-      {
-        "question": "Which is an ethical use of AI for studying?",
-        "options": [
-          "Generate practice questions and then answer them yourself",
-          "Have AI write your essay and submit it as your own",
-          "Use AI during a closed-book test",
-          "Copy answers without understanding"
-        ],
-        "correct_answer": 0,
-        "explanation": "Using AI to generate practice questions for self-testing is ethical and supports learning."
-      },
-      {
-        "question": "LLMs generate text mainly by:",
-        "options": [
-          "Searching the web for every answer",
-          "Predicting likely next tokens/words from patterns learned in training",
-          "Reading your mind",
-          "Running a calculator only"
-        ],
-        "correct_answer": 1,
-        "explanation": "LLMs work by predicting the most likely next word/token based on patterns learned from training data."
-      },
-      {
-        "question": "A key way to reduce misinformation risk is:",
-        "options": [
-          "Lateral reading: check multiple sources and context",
-          "Only trusting the first result",
-          "Never reading sources",
-          "Only using memes"
-        ],
-        "correct_answer": 0,
-        "explanation": "Lateral reading - checking multiple sources and evaluating context - is essential for reducing misinformation."
-      },
-      {
-        "question": "If an AI is used in high-stakes decisions (loans, hiring), a major concern is:",
-        "options": [
-          "Font choice",
-          "Fairness, accountability, and transparency",
-          "Typing speed",
-          "Brightness"
-        ],
-        "correct_answer": 1,
-        "explanation": "High-stakes AI systems must prioritize fairness, accountability, and transparency to avoid harm."
-      },
-      {
-        "question": "Which is a good prompting technique?",
-        "options": [
-          "Give no constraints",
-          "Specify role, audience, format, and success criteria",
-          "Use only one-word prompts always",
-          "Refuse to iterate"
-        ],
-        "correct_answer": 1,
-        "explanation": "Effective prompts specify role, audience, format, constraints, and success criteria for better results."
-      },
-      {
-        "question": "AI systems can impact society by:",
-        "options": [
-          "Only helping, never harming",
-          "Changing work, media, and access to opportunities",
-          "Eliminating all jobs instantly",
-          "Stopping the internet"
-        ],
-        "correct_answer": 1,
-        "explanation": "AI impacts society by transforming work, media, and opportunity access - with both benefits and risks."
-      },
-      {
-        "question": "Spaced practice means:",
-        "options": [
-          "Studying everything at once the night before",
-          "Distributing practice over time",
-          "Only watching videos",
-          "Studying while multitasking"
-        ],
-        "correct_answer": 1,
-        "explanation": "Spaced practice means distributing study sessions over time, which improves long-term retention."
-      },
-      {
-        "question": "Retrieval practice means:",
-        "options": [
-          "Rereading notes silently",
-          "Trying to recall answers from memory (self-testing)",
-          "Highlighting everything",
-          "Copying AI outputs"
-        ],
-        "correct_answer": 1,
-        "explanation": "Retrieval practice is actively recalling information from memory, which strengthens learning."
-      },
-      {
-        "question": "A model trained only on bright daytime images may fail at night because:",
-        "options": [
-          "Night is illegal",
-          "The training data lacked relevant examples",
-          "The camera is always broken",
-          "AI can't see"
-        ],
-        "correct_answer": 1,
-        "explanation": "Models fail on scenarios not represented in training data - this is why diverse data matters."
-      },
-      {
-        "question": "Which is a sign an AI answer needs verification?",
-        "options": [
-          "It includes uncertainty and asks you to check",
-          "It makes specific factual claims without sources",
-          "It is short",
-          "It uses bullet points"
-        ],
-        "correct_answer": 1,
-        "explanation": "AI answers making specific factual claims without sources or citations should be verified."
-      },
-      {
-        "question": "The most accurate statement about AI today is:",
-        "options": [
-          "AI is always objective",
-          "AI reflects data and design choices; it can be biased",
-          "AI has emotions",
-          "AI guarantees truth"
-        ],
-        "correct_answer": 1,
-        "explanation": "AI reflects the data and design choices that created it, and can inherit biases from both."
-      },
-      {
-        "question": "When using AI for writing, best practice is to:",
-        "options": [
-          "Submit AI output unchanged",
-          "Use it for brainstorming/drafting, then edit and add your own thinking",
-          "Avoid reading the output",
-          "Never cite sources"
-        ],
-        "correct_answer": 1,
-        "explanation": "Ethical AI use means using it as a brainstorming or drafting tool, then adding your own thinking and editing."
-      },
-      {
-        "question": "If a recommendation algorithm keeps showing extreme content, one potential reason is:",
-        "options": [
-          "It optimizes engagement signals",
-          "It cares about your well-being first",
-          "It is random always",
-          "It only shows educational content"
-        ],
-        "correct_answer": 0,
-        "explanation": "Recommendation algorithms optimize for engagement metrics, which can lead to showing extreme or polarizing content."
-      },
-      {
-        "question": "A good response to a suspected deepfake is:",
-        "options": [
-          "Share it fast",
-          "Check original sources, context, and corroboration before believing/sharing",
-          "Assume it's real",
-          "Ignore all news"
-        ],
-        "correct_answer": 1,
-        "explanation": "Always verify suspected deepfakes by checking original sources, context, and multiple corroborating sources."
-      },
-      {
-        "question": "A fair AI system should:",
-        "options": [
-          "Treat everyone identically regardless of context",
-          "Avoid systematic disadvantage for protected groups and be evaluated for disparate impact",
-          "Never be tested",
-          "Only be used by experts"
-        ],
-        "correct_answer": 1,
-        "explanation": "Fair AI systems avoid systematic disadvantages and are evaluated for disparate impact on different groups."
-      },
-      {
-        "question": "Which is NOT a recommended safe practice?",
-        "options": [
-          "Avoid entering personal data",
-          "Verify facts",
-          "Ask AI for help planning study",
-          "Share SSN to personalize answers"
-        ],
-        "correct_answer": 3,
-        "explanation": "Never share sensitive information like Social Security Numbers with AI tools."
-      },
-      {
-        "question": "The 'human in the loop' idea means:",
-        "options": [
-          "Humans should supervise and be responsible for AI decisions, especially in high-stakes contexts",
-          "Humans should never use AI",
-          "AI should be left alone",
-          "Only robots can decide"
-        ],
-        "correct_answer": 0,
-        "explanation": "Human in the loop means humans maintain oversight and responsibility for AI decisions, especially important ones."
-      }
-    ],
-    "id": "6914ef07ea44941f461e64ee",
-    "created_date": "2025-11-12T20:33:11.694000",
-    "updated_date": "2025-12-19T01:33:42.938000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Insurance 101",
-    "description": "Understand different types of insurance and how to protect yourself financially.",
-    "category": "Insurance",
-    "difficulty": "Beginner",
-    "lessons_count": 4,
-    "xp_reward": 200,
-    "image_url": null,
-    "icon": "🛡️",
-    "color": null,
-    "is_featured": false,
-    "final_exam_questions": [
-      {
-        "question": "What is the purpose of insurance?",
-        "options": [
-          "To make money",
-          "To protect against financial loss from unexpected events",
-          "To avoid paying taxes",
-          "To increase debt"
-        ],
-        "correct_answer": 1,
-        "explanation": "Insurance protects you financially from unexpected events by spreading risk across many people and providing compensation when covered losses occur."
-      },
-      {
-        "question": "What is a deductible?",
-        "options": [
-          "The monthly insurance payment",
-          "The amount you pay before insurance covers the rest",
-          "The total coverage limit",
-          "A type of insurance policy"
-        ],
-        "correct_answer": 1,
-        "explanation": "A deductible is the amount you must pay out-of-pocket before your insurance coverage kicks in to pay for covered expenses."
-      },
-      {
-        "question": "What is a premium?",
-        "options": [
-          "The best insurance policy",
-          "The regular payment you make for insurance coverage",
-          "The amount insurance pays you",
-          "A bonus payment"
-        ],
-        "correct_answer": 1,
-        "explanation": "A premium is the regular payment (usually monthly or annually) you make to maintain your insurance coverage."
-      },
-      {
-        "question": "What type of insurance is legally required for drivers in most states?",
-        "options": [
-          "Life insurance",
-          "Health insurance",
-          "Auto liability insurance",
-          "Homeowners insurance"
-        ],
-        "correct_answer": 2,
-        "explanation": "Auto liability insurance is legally required in most states to cover damages you might cause to others in an accident."
-      },
-      {
-        "question": "What is the relationship between deductibles and premiums?",
-        "options": [
-          "Higher deductible = higher premium",
-          "Higher deductible = lower premium",
-          "They are unrelated",
-          "They are always equal"
-        ],
-        "correct_answer": 1,
-        "explanation": "Generally, choosing a higher deductible results in lower premiums because you're taking on more financial risk yourself."
-      }
-    ],
-    "id": "6914ef07ea44941f461e64ed",
-    "created_date": "2025-11-12T20:33:11.694000",
-    "updated_date": "2025-11-24T07:18:18.963000",
-    "created_by_id": "6914e9e56385c913e0144616",
-    "created_by": "chand193@msu.edu",
-    "is_sample": false
-  },
-  {
-    "name": "Budgeting Fundamentals",
-    "description": "Learn how to create and maintain a personal budget using the 50/15/5 rule. Build skills to track spending, set priorities, and avoid being broke.",
-    "category": "Personal Finance",
-    "difficulty": "Beginner",
-    "lessons_count": 10,
-    "xp_reward": 805,
-    "image_url": null,
-    "icon": null,
-    "color": "#166534",
-    "is_featured": true,
-    "slug": "budgeting-fundamentals",
-    "final_exam_questions": [
-      {
-        "question": "What does the 50/15/5 budgeting rule recommend?",
-        "options": [
-          "50% savings, 15% needs, 5% wants",
-          "No more than 50% on essentials, 15% on retirement, 5% on emergency savings",
-          "50% wants, 15% needs, 5% savings",
-          "Equal split across all categories"
-        ],
-        "correct_answer": 1,
-        "explanation": "The 50/15/5 rule: no more than 50% of take-home pay for essentials, 15% of pre-tax income for retirement, and 5% of take-home for emergency savings."
-      },
-      {
-        "question": "Why is it important to review your paycheck carefully?",
-        "options": [
-          "To memorize your employee ID",
-          "To understand your gross pay, taxes, deductions, and net pay",
-          "To compare salaries with coworkers",
-          "Paychecks don't need review"
-        ],
-        "correct_answer": 1,
-        "explanation": "Your paycheck shows gross pay, tax withholdings (FICA, federal, state), benefits deductions, and 401(k) contributions — all of which directly affect your take-home pay."
-      },
-      {
-        "question": "What is the primary purpose of a personal budget?",
-        "options": [
-          "To restrict all spending",
-          "To know where your money goes so you can make informed choices",
-          "To maximize credit card rewards",
-          "To impress your bank"
-        ],
-        "correct_answer": 1,
-        "explanation": "A budget helps you understand where your money goes, plan for financial goals, and avoid running out of money unexpectedly."
-      },
-      {
-        "question": "A budget is best described as:",
-        "options": [
-          "A fixed, one-time document",
-          "A living document updated when circumstances change",
-          "Only needed when in debt",
-          "A government form"
-        ],
-        "correct_answer": 1,
-        "explanation": "A budget is a living document. It should be updated whenever your circumstances change — new job, new family member, buying a car, etc."
-      },
-      {
-        "question": "FICA taxes on your paycheck fund:",
-        "options": [
-          "Your personal savings",
-          "Social Security and Medicare",
-          "State infrastructure",
-          "Your employer's profit"
-        ],
-        "correct_answer": 1,
-        "explanation": "FICA (Federal Insurance Contributions Act) taxes fund Social Security and Medicare — both visible as separate line items on your pay stub."
-      }
-    ],
-    "id": "course-budgeting-001",
-    "created_date": "2026-03-01T00:00:00.000Z",
-    "updated_date": "2026-03-01T00:00:00.000Z",
-    "is_sample": false
-  },
-  {
-    "name": "Banking in the Modern World",
-    "description": "Understand traditional banks, online banks, credit unions, debit cards, and payment services. Know how to choose the right bank and avoid costly fees.",
-    "category": "Personal Finance",
-    "difficulty": "Beginner",
-    "lessons_count": 8,
-    "xp_reward": 595,
-    "image_url": null,
-    "icon": null,
-    "color": "#15803d",
-    "is_featured": true,
-    "slug": "banking-modern-world",
-    "final_exam_questions": [
-      {
-        "question": "What is FDIC insurance?",
-        "options": [
-          "A type of credit card",
-          "Federal protection for bank deposits up to $250,000 per account",
-          "A fee banks charge",
-          "A savings account type"
-        ],
-        "correct_answer": 1,
-        "explanation": "FDIC (Federal Deposit Insurance Corporation) insures bank deposits up to $250,000 per account — protecting you if a bank fails."
-      },
-      {
-        "question": "How does a debit card differ from a credit card?",
-        "options": [
-          "Debit cards earn rewards; credit cards don't",
-          "Debit cards spend money directly from your checking account; credit cards borrow money",
-          "They are identical",
-          "Credit cards require a PIN; debit cards don't"
-        ],
-        "correct_answer": 1,
-        "explanation": "A debit card pulls money directly from your checking account. A credit card lets you borrow money from the bank to pay back later."
-      },
-      {
-        "question": "Why might an online bank offer better interest rates than a traditional bank?",
-        "options": [
-          "They take more risk",
-          "They have no physical branches, so lower overhead costs",
-          "They are less regulated",
-          "They invest in riskier assets"
-        ],
-        "correct_answer": 1,
-        "explanation": "Online banks have lower operating costs (no physical branches) and pass those savings on as higher interest rates and lower fees."
-      },
-      {
-        "question": "What happens if you write a check for more than your checking account balance?",
-        "options": [
-          "The bank covers the difference for free",
-          "You may face overdraft fees and the check may bounce",
-          "Nothing happens",
-          "Your credit score improves"
-        ],
-        "correct_answer": 1,
-        "explanation": "Writing a check without sufficient funds can result in overdraft fees, returned check fees, and damage to your financial reputation."
-      },
-      {
-        "question": "Credit unions differ from traditional banks in that they are:",
-        "options": [
-          "Government-owned",
-          "Non-profit and member-supported, often offering lower rates",
-          "For businesses only",
-          "Not insured by the FDIC"
-        ],
-        "correct_answer": 1,
-        "explanation": "Credit unions are non-profit financial institutions owned by their members. They often offer lower interest rates on loans and higher rates on savings."
-      }
-    ],
-    "id": "course-banking-002",
-    "created_date": "2026-03-01T00:00:00.000Z",
-    "updated_date": "2026-03-01T00:00:00.000Z",
-    "is_sample": false
-  },
-  {
-    "name": "Credit, Debt & Smart Borrowing",
-    "description": "Master credit scores, credit cards, Buy Now Pay Later, and debt repayment strategies. Learn to borrow smart and avoid the debt trap.",
-    "category": "Credit & Debt",
-    "difficulty": "Beginner",
-    "lessons_count": 8,
-    "xp_reward": 625,
-    "image_url": null,
-    "icon": null,
-    "color": "#1a7a3c",
-    "is_featured": true,
-    "slug": "credit-debt-smart-borrowing",
-    "final_exam_questions": [
-      {
-        "question": "What order should you generally pay off debts?",
-        "options": [
-          "Mortgage first, then student loans",
-          "Highest interest debts first (credit cards, then private loans, then car loans, then government loans, then mortgage)",
-          "Alphabetical by lender name",
-          "Smallest balance first regardless of interest"
-        ],
-        "correct_answer": 1,
-        "explanation": "Pay highest-interest debt first: credit cards, private student loans, car loans, then government student loans, and pay your mortgage last."
-      },
-      {
-        "question": "Buy Now Pay Later (BNPL) is best used for:",
-        "options": [
-          "Impulse buys and everyday food delivery",
-          "Planned, necessary larger purchases you can afford to repay on schedule",
-          "Anything under $50",
-          "Building emergency savings"
-        ],
-        "correct_answer": 1,
-        "explanation": "BNPL is most responsibly used for necessary, planned purchases (like a laptop or tires) where you've budgeted to repay on schedule."
-      },
-      {
-        "question": "What is the recommended credit card payment strategy?",
-        "options": [
-          "Pay only the minimum each month",
-          "Pay the full balance every month to avoid interest",
-          "Never use credit cards",
-          "Pay every other month"
-        ],
-        "correct_answer": 1,
-        "explanation": "Paying your full credit card balance every month avoids interest charges, builds your credit history, and keeps your credit score healthy."
-      },
-      {
-        "question": "Which of these is 'good debt'?",
-        "options": [
-          "Credit card debt for clothes",
-          "Student loans or a home mortgage (assets that build future value)",
-          "A vacation loan",
-          "Buy Now Pay Later for a coffee maker"
-        ],
-        "correct_answer": 1,
-        "explanation": "Good debt is used to acquire assets that grow in value or increase earning potential — like education (student loans) or a home (mortgage)."
-      },
-      {
-        "question": "A high credit score helps you by:",
-        "options": [
-          "Allowing you to borrow money at lower interest rates",
-          "Eliminating the need to repay loans",
-          "Giving you free cash",
-          "Reducing your taxes"
-        ],
-        "correct_answer": 0,
-        "explanation": "A strong credit score signals creditworthiness to lenders, qualifying you for lower interest rates on mortgages, car loans, and other borrowing."
-      }
-    ],
-    "id": "course-credit-003",
-    "created_date": "2026-03-01T00:00:00.000Z",
-    "updated_date": "2026-03-01T00:00:00.000Z",
-    "is_sample": false
-  },
-  {
-    "name": "Investing Fundamentals",
-    "description": "From stocks and bonds to ETFs and mutual funds — learn how to build a diversified investment portfolio and understand risk vs. reward.",
-    "category": "Investing",
-    "difficulty": "Intermediate",
-    "lessons_count": 9,
-    "xp_reward": 715,
-    "image_url": null,
-    "icon": null,
-    "color": "#14532d",
-    "is_featured": true,
-    "slug": "investing-fundamentals",
-    "final_exam_questions": [
-      {
-        "question": "What is a stock?",
-        "options": [
-          "A loan to a company",
-          "Partial ownership in a corporation",
-          "A government savings bond",
-          "A type of savings account"
-        ],
-        "correct_answer": 1,
-        "explanation": "A stock (equity) represents fractional ownership in a corporation, entitling you to a share of its assets and profits."
-      },
-      {
-        "question": "Why is diversification important in investing?",
-        "options": [
-          "It guarantees profits",
-          "It reduces risk by spreading investments across different assets",
-          "It focuses your money on the best one stock",
-          "It eliminates the need to research"
-        ],
-        "correct_answer": 1,
-        "explanation": "Diversification reduces risk by spreading investments across different asset types, industries, and geographies — not all investments move together."
-      },
-      {
-        "question": "Which investment type is passively managed and typically tracks a market index?",
-        "options": [
-          "Actively managed mutual fund",
-          "ETF (Exchange Traded Fund)",
-          "Individual stock",
-          "Savings account"
-        ],
-        "correct_answer": 1,
-        "explanation": "ETFs (Exchange Traded Funds) are typically passively managed to track an index like the S&P 500, resulting in lower fees than actively managed funds."
-      },
-      {
-        "question": "The core principle of 'time in the market vs. timing the market' means:",
-        "options": [
-          "Trade every day for best results",
-          "Staying invested long-term beats trying to predict market movements",
-          "Sell before a downturn every time",
-          "Buy only during market crashes"
-        ],
-        "correct_answer": 1,
-        "explanation": "No one can consistently predict market timing. Staying invested long-term — through ups and downs — outperforms most active trading strategies."
-      },
-      {
-        "question": "What percentage of a young investor's portfolio should be in cryptocurrency, according to most financial advisors?",
-        "options": [
-          "0% — crypto is banned",
-          "1–5% maximum",
-          "50% or more",
-          "100% for maximum gains"
-        ],
-        "correct_answer": 1,
-        "explanation": "Most advisors recommend no more than 1–5% of your portfolio in crypto. The remaining 95%+ should be in diversified index funds or ETFs."
-      }
-    ],
-    "id": "course-investing-004",
-    "created_date": "2026-03-01T00:00:00.000Z",
-    "updated_date": "2026-03-01T00:00:00.000Z",
-    "is_sample": false
-  },
-  {
-    "name": "Saving & Building Wealth",
-    "description": "Discover the power of compound interest, emergency funds, retirement accounts (401k, IRA, HSA), and strategies to build lasting financial security.",
-    "category": "Saving",
-    "difficulty": "Beginner",
-    "lessons_count": 8,
-    "xp_reward": 625,
-    "image_url": null,
-    "icon": null,
-    "color": "#166534",
-    "is_featured": true,
-    "slug": "saving-building-wealth",
-    "final_exam_questions": [
-      {
-        "question": "What is an emergency fund?",
-        "options": [
-          "Money for vacations",
-          "3–6 months of living expenses saved for unexpected events",
-          "An investment in stocks",
-          "A type of insurance"
-        ],
-        "correct_answer": 1,
-        "explanation": "An emergency fund is 3–6 months of living expenses saved in an accessible account, protecting you from financial shock during job loss or unexpected expenses."
-      },
-      {
-        "question": "What is the benefit of contributing to a 401(k) up to your employer match?",
-        "options": [
-          "You can withdraw it tax-free anytime",
-          "Your employer adds free money matching your contributions",
-          "It reduces your credit score",
-          "It only benefits your employer"
-        ],
-        "correct_answer": 1,
-        "explanation": "An employer match is essentially free money added to your retirement savings. Not contributing enough to get the full match is leaving free money on the table."
-      },
-      {
-        "question": "A Health Savings Account (HSA) is special because:",
-        "options": [
-          "It can only be used for gym memberships",
-          "Contributions, growth, and qualified withdrawals are all tax-free",
-          "It has no contribution limits",
-          "Anyone can open one without a health plan"
-        ],
-        "correct_answer": 1,
-        "explanation": "HSAs offer a triple tax advantage: contributions are pre-tax, growth is tax-free, and withdrawals for qualified medical expenses are tax-free."
-      },
-      {
-        "question": "The financial philosophy 'Save early, enough, and often' recommends saving what percentage of your income?",
-        "options": [
-          "5–10%",
-          "15–20%",
-          "50%",
-          "Whatever's left after spending"
-        ],
-        "correct_answer": 1,
-        "explanation": "Saving 15–20% of your income is the recommended baseline to build wealth, fund retirement, and handle financial emergencies."
-      },
-      {
-        "question": "Compound interest is most powerful when you:",
-        "options": [
-          "Save for a short time",
-          "Start saving early and leave money invested for many years",
-          "Withdraw frequently",
-          "Only invest during market highs"
-        ],
-        "correct_answer": 1,
-        "explanation": "Compound interest earns returns on your returns. The earlier you start and the longer you stay invested, the more dramatic the growth becomes."
-      }
-    ],
-    "id": "course-saving-005",
-    "created_date": "2026-03-01T00:00:00.000Z",
-    "updated_date": "2026-03-01T00:00:00.000Z",
-    "is_sample": false
-  }
+ {
+ "name": "Smart Savings Strategies",
+ "description": "Build real-world budgeting skills through interactive simulations across different life stages.",
+ "category": "Saving",
+ "difficulty": "Beginner",
+ "lessons_count": 5,
+ "xp_reward": 1000,
+ "image_url": null,
+ "icon": "",
+ "color": "#3b82f6",
+ "is_featured": true,
+ "final_exam_questions": [],
+ "id": "6972392c60eb785db714b719",
+ "created_date": "2026-01-22T14:50:20.857000",
+ "updated_date": "2026-01-22T14:50:20.857000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Money Management Essentials",
+ "description": "Master essential money management skills including understanding paychecks, budgeting, and financial planning.",
+ "category": "Personal Finance",
+ "difficulty": "Beginner",
+ "lessons_count": 4,
+ "xp_reward": 500,
+ "image_url": null,
+ "icon": "",
+ "color": "#10b981",
+ "is_featured": true,
+ "final_exam_questions": [],
+ "id": "6943400844fa0b0b1fa81a56",
+ "created_date": "2025-12-17T23:43:04.925000",
+ "updated_date": "2026-01-22T14:50:43.236000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Investing Basics",
+ "description": "Learn the fundamentals of investing, from stocks to bonds, and how to build a diversified portfolio.",
+ "category": "Investing",
+ "difficulty": "Beginner",
+ "lessons_count": 5,
+ "xp_reward": 250,
+ "image_url": null,
+ "icon": "",
+ "color": null,
+ "is_featured": true,
+ "final_exam_questions": [
+ {
+ "question": "What is a stock?",
+ "options": [
+ "A loan to a company",
+ "Ownership share in a company",
+ "A government bond",
+ "A savings account"
+ ],
+ "correct_answer": 1,
+ "explanation": "A stock represents partial ownership in a company. When you buy stock, you become a shareholder."
+ },
+ {
+ "question": "What is diversification in investing?",
+ "options": [
+ "Putting all money in one stock",
+ "Spreading investments across different assets to reduce risk",
+ "Only investing in bonds",
+ "Avoiding all risk"
+ ],
+ "correct_answer": 1,
+ "explanation": "Diversification means spreading your investments across different assets, sectors, or regions to reduce overall risk."
+ },
+ {
+ "question": "What is a bond?",
+ "options": [
+ "A type of stock",
+ "A loan you give to a company or government",
+ "A savings account",
+ "A type of currency"
+ ],
+ "correct_answer": 1,
+ "explanation": "A bond is essentially a loan you give to a company or government, and they pay you interest over time."
+ },
+ {
+ "question": "What does ROI stand for?",
+ "options": [
+ "Rate of Inflation",
+ "Return on Investment",
+ "Risk of Interest",
+ "Revenue of Income"
+ ],
+ "correct_answer": 1,
+ "explanation": "ROI stands for Return on Investment, which measures the profitability of an investment relative to its cost."
+ },
+ {
+ "question": "What is compound interest?",
+ "options": [
+ "Interest paid only once",
+ "Interest earned on both principal and previously earned interest",
+ "A type of loan",
+ "A government tax"
+ ],
+ "correct_answer": 1,
+ "explanation": "Compound interest is interest earned on both your original investment (principal) and on the interest that investment has already earned."
+ }
+ ],
+ "id": "6914ef07ea44941f461e64ea",
+ "created_date": "2025-11-12T20:33:11.694000",
+ "updated_date": "2025-11-24T07:18:16.245000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Personal Finance Foundations",
+ "description": "Build a strong foundation in personal finance with budgeting, goal-setting, and financial planning.",
+ "category": "Personal Finance",
+ "difficulty": "Beginner",
+ "lessons_count": 5,
+ "xp_reward": 250,
+ "image_url": null,
+ "icon": "",
+ "color": null,
+ "is_featured": false,
+ "final_exam_questions": [
+ {
+ "question": "What is the first step in creating a budget?",
+ "options": [
+ "Start investing",
+ "Track your income and expenses",
+ "Buy a house",
+ "Open a credit card"
+ ],
+ "correct_answer": 1,
+ "explanation": "The first step in budgeting is understanding where your money comes from and where it goes by tracking all income and expenses."
+ },
+ {
+ "question": "What is a financial goal?",
+ "options": [
+ "A random wish",
+ "A specific, measurable target for your money",
+ "A type of investment",
+ "A bank account"
+ ],
+ "correct_answer": 1,
+ "explanation": "A financial goal is a specific, measurable target you set for your money, such as saving $10,000 for a down payment in 2 years."
+ },
+ {
+ "question": "What does it mean to 'pay yourself first'?",
+ "options": [
+ "Buying whatever you want first",
+ "Setting aside savings before spending on other things",
+ "Paying bills late",
+ "Avoiding savings"
+ ],
+ "correct_answer": 1,
+ "explanation": "'Pay yourself first' means prioritizing savings by setting money aside for savings goals before spending on discretionary items."
+ },
+ {
+ "question": "What is net income?",
+ "options": [
+ "Total income before taxes",
+ "Income after taxes and deductions",
+ "Investment returns",
+ "Credit card rewards"
+ ],
+ "correct_answer": 1,
+ "explanation": "Net income is your take-home pay - the amount you actually receive after taxes, insurance, and other deductions are taken out."
+ },
+ {
+ "question": "Why is it important to review your budget regularly?",
+ "options": [
+ "It's not important",
+ "To adjust for changes in income, expenses, and goals",
+ "To impress friends",
+ "To qualify for loans"
+ ],
+ "correct_answer": 1,
+ "explanation": "Regular budget reviews help you adjust for life changes, track progress toward goals, and identify areas where you can improve your financial habits."
+ }
+ ],
+ "id": "6914ef07ea44941f461e64ef",
+ "created_date": "2025-11-12T20:33:11.694000",
+ "updated_date": "2025-11-24T07:18:17.822000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Understanding Credit",
+ "description": "Learn how credit works, how to build good credit, and avoid common debt traps.",
+ "category": "Credit & Debt",
+ "difficulty": "Beginner",
+ "lessons_count": 6,
+ "xp_reward": 300,
+ "image_url": null,
+ "icon": "",
+ "color": null,
+ "is_featured": true,
+ "final_exam_questions": [
+ {
+ "question": "What is a credit score?",
+ "options": [
+ "The amount of money you have",
+ "A numerical representation of your creditworthiness",
+ "Your bank account number",
+ "Your social security number"
+ ],
+ "correct_answer": 1,
+ "explanation": "A credit score is a three-digit number that represents your creditworthiness based on your credit history and financial behavior."
+ },
+ {
+ "question": "What is the ideal credit utilization ratio?",
+ "options": [
+ "Below 30%",
+ "Above 90%",
+ "Exactly 50%",
+ "100%"
+ ],
+ "correct_answer": 0,
+ "explanation": "Experts recommend keeping your credit utilization (the percentage of available credit you're using) below 30% for a healthy credit score."
+ },
+ {
+ "question": "What does APR stand for?",
+ "options": [
+ "Annual Payment Rate",
+ "Annual Percentage Rate",
+ "Average Principal Return",
+ "Automatic Payment Ratio"
+ ],
+ "correct_answer": 1,
+ "explanation": "APR stands for Annual Percentage Rate, which represents the yearly cost of borrowing money, including interest and fees."
+ },
+ {
+ "question": "Which payment history has the biggest impact on credit score?",
+ "options": [
+ "Making payments on time",
+ "Having multiple credit cards",
+ "Closing old accounts",
+ "Shopping for credit"
+ ],
+ "correct_answer": 0,
+ "explanation": "Payment history is the most important factor in your credit score, accounting for about 35% of your FICO score."
+ },
+ {
+ "question": "What is a good strategy for building credit?",
+ "options": [
+ "Maxing out credit cards",
+ "Making only minimum payments",
+ "Paying bills on time and keeping balances low",
+ "Closing all credit accounts"
+ ],
+ "correct_answer": 2,
+ "explanation": "Building good credit requires paying bills on time, keeping credit card balances low, and maintaining a mix of credit types."
+ }
+ ],
+ "id": "6914ef07ea44941f461e64ec",
+ "created_date": "2025-11-12T20:33:11.694000",
+ "updated_date": "2025-11-24T07:18:20.075000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Smart Saving Strategies",
+ "description": "Master the art of saving money and building an emergency fund for your future.",
+ "category": "Saving",
+ "difficulty": "Beginner",
+ "lessons_count": 8,
+ "xp_reward": 200,
+ "image_url": null,
+ "icon": "",
+ "color": null,
+ "is_featured": true,
+ "final_exam_questions": [
+ {
+ "question": "What is the recommended budget allocation rule?",
+ "options": [
+ "50/30/20",
+ "60/20/20",
+ "40/40/20",
+ "70/20/10"
+ ],
+ "correct_answer": 0,
+ "explanation": "The 50/30/20 rule allocates 50% to needs, 30% to wants, and 20% to savings and debt repayment."
+ },
+ {
+ "question": "What is an emergency fund?",
+ "options": [
+ "Money for vacations",
+ "Savings set aside for unexpected expenses",
+ "Investment in stocks",
+ "Money for shopping"
+ ],
+ "correct_answer": 1,
+ "explanation": "An emergency fund is money saved specifically for unexpected expenses like medical bills, car repairs, or job loss."
+ },
+ {
+ "question": "How many months of expenses should an emergency fund cover?",
+ "options": [
+ "1 month",
+ "3-6 months",
+ "12 months",
+ "24 months"
+ ],
+ "correct_answer": 1,
+ "explanation": "Financial experts typically recommend saving 3-6 months of living expenses in an emergency fund."
+ },
+ {
+ "question": "What is the purpose of automating savings?",
+ "options": [
+ "To make saving harder",
+ "To ensure consistent saving without relying on willpower",
+ "To increase spending",
+ "To avoid taxes"
+ ],
+ "correct_answer": 1,
+ "explanation": "Automating savings ensures you save consistently by transferring money automatically, removing the need for willpower and reducing the temptation to spend."
+ },
+ {
+ "question": "What is a high-yield savings account?",
+ "options": [
+ "An account with no interest",
+ "An account that earns higher interest than traditional savings accounts",
+ "A checking account",
+ "A type of investment"
+ ],
+ "correct_answer": 1,
+ "explanation": "A high-yield savings account offers higher interest rates than traditional savings accounts, helping your money grow faster."
+ }
+ ],
+ "id": "6914ef07ea44941f461e64eb",
+ "created_date": "2025-11-12T20:33:11.694000",
+ "updated_date": "2025-11-24T07:18:21.037000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "AI Literacy: Using AI Responsibly and Effectively",
+ "description": "A comprehensive 2-week program teaching you to understand, use, and critically evaluate AI. Learn practical skills, ethics, and responsible AI use through interactive activities.",
+ "category": "AI & ML",
+ "difficulty": "Beginner",
+ "lessons_count": 10,
+ "xp_reward": 1000,
+ "image_url": null,
+ "icon": "",
+ "color": null,
+ "is_featured": true,
+ "final_exam_questions": [
+ {
+ "question": "Most AI systems used today are best described as:",
+ "options": [
+ "Artificial General Intelligence (AGI)",
+ "Narrow (task-specific) AI",
+ "Conscious machines",
+ "Human brains"
+ ],
+ "correct_answer": 1,
+ "explanation": "Today's AI systems are narrow AI - excellent at specific tasks but not conscious or generally intelligent like humans."
+ },
+ {
+ "question": "In machine learning, the dataset used to adjust model parameters is called:",
+ "options": [
+ "Test set",
+ "Training set",
+ "Deployment set",
+ "Bias set"
+ ],
+ "correct_answer": 1,
+ "explanation": "The training set is the data used to teach and adjust the model's parameters during the learning process."
+ },
+ {
+ "question": "A model output that is fluent but factually wrong is often called:",
+ "options": [
+ "Compression",
+ "Hallucination",
+ "Encryption",
+ "Overclocking"
+ ],
+ "correct_answer": 1,
+ "explanation": "Hallucination is when AI generates plausible-sounding but factually incorrect information."
+ },
+ {
+ "question": "Which prompt is MOST likely to produce a useful response?",
+ "options": [
+ "Explain photosynthesis.",
+ "Explain photosynthesis to a 9th grader in 5 bullet points and include one analogy.",
+ "Photosynthesis??",
+ "Tell me everything."
+ ],
+ "correct_answer": 1,
+ "explanation": "Specific prompts with clear audience, format, and constraints produce better AI outputs."
+ },
+ {
+ "question": "Algorithmic bias refers to:",
+ "options": [
+ "Any bug in code",
+ "Systematic unfair outcomes for some groups",
+ "Fast algorithms",
+ "Using math in computers"
+ ],
+ "correct_answer": 1,
+ "explanation": "Algorithmic bias means the AI system produces systematically unfair outcomes for certain demographic groups."
+ },
+ {
+ "question": "Best first step when AI gives a surprising factual claim:",
+ "options": [
+ "Share it immediately",
+ "Verify with reputable sources",
+ "Assume it is correct",
+ "Ignore all AI forever"
+ ],
+ "correct_answer": 1,
+ "explanation": "Always verify AI-generated factual claims with reputable sources before trusting or sharing them."
+ },
+ {
+ "question": "A common cause of unfair AI outcomes is:",
+ "options": [
+ "Too much sunshine",
+ "Training data that is not representative",
+ "Using a keyboard",
+ "Too many users"
+ ],
+ "correct_answer": 1,
+ "explanation": "Biased or unrepresentative training data is a major cause of unfair AI outcomes."
+ },
+ {
+ "question": "Recommendation systems mainly optimize for:",
+ "options": [
+ "User engagement or predicted preference",
+ "World peace",
+ "Lower electricity bills",
+ "Perfect truth"
+ ],
+ "correct_answer": 0,
+ "explanation": "Recommendation systems are designed to maximize user engagement and predict what you'll likely interact with."
+ },
+ {
+ "question": "Which is a safe privacy practice?",
+ "options": [
+ "Paste passwords into AI to remember them",
+ "Avoid sharing personal/sensitive information with AI tools",
+ "Upload private medical records to get advice",
+ "Share your full address to personalize answers"
+ ],
+ "correct_answer": 1,
+ "explanation": "Never share personal, sensitive, or private information with AI tools - assume anything entered could be stored."
+ },
+ {
+ "question": "A 'test set' is used to:",
+ "options": [
+ "Train the model",
+ "Measure performance on new/unseen data",
+ "Store passwords",
+ "Make the model conscious"
+ ],
+ "correct_answer": 1,
+ "explanation": "Test sets contain new data the model hasn't seen, used to measure how well it generalizes."
+ },
+ {
+ "question": "Overfitting means the model:",
+ "options": [
+ "Learns general patterns well",
+ "Memorizes training examples and performs poorly on new data",
+ "Refuses to answer",
+ "Runs faster than normal"
+ ],
+ "correct_answer": 1,
+ "explanation": "Overfitting occurs when a model memorizes training data instead of learning general patterns."
+ },
+ {
+ "question": "A strong reason to disclose AI use in schoolwork is:",
+ "options": [
+ "It makes grades higher automatically",
+ "Honesty/transparency and following policy",
+ "It hides plagiarism",
+ "It replaces learning"
+ ],
+ "correct_answer": 1,
+ "explanation": "Academic integrity requires honest disclosure of AI use and following institutional policies."
+ },
+ {
+ "question": "Deepfakes are:",
+ "options": [
+ "A type of microscope",
+ "AI-generated or AI-altered media that can convincingly imitate reality",
+ "A math equation",
+ "A secure password system"
+ ],
+ "correct_answer": 1,
+ "explanation": "Deepfakes are AI-created or modified media (video, audio, images) that can convincingly fake reality."
+ },
+ {
+ "question": "Which is an ethical use of AI for studying?",
+ "options": [
+ "Generate practice questions and then answer them yourself",
+ "Have AI write your essay and submit it as your own",
+ "Use AI during a closed-book test",
+ "Copy answers without understanding"
+ ],
+ "correct_answer": 0,
+ "explanation": "Using AI to generate practice questions for self-testing is ethical and supports learning."
+ },
+ {
+ "question": "LLMs generate text mainly by:",
+ "options": [
+ "Searching the web for every answer",
+ "Predicting likely next tokens/words from patterns learned in training",
+ "Reading your mind",
+ "Running a calculator only"
+ ],
+ "correct_answer": 1,
+ "explanation": "LLMs work by predicting the most likely next word/token based on patterns learned from training data."
+ },
+ {
+ "question": "A key way to reduce misinformation risk is:",
+ "options": [
+ "Lateral reading: check multiple sources and context",
+ "Only trusting the first result",
+ "Never reading sources",
+ "Only using memes"
+ ],
+ "correct_answer": 0,
+ "explanation": "Lateral reading - checking multiple sources and evaluating context - is essential for reducing misinformation."
+ },
+ {
+ "question": "If an AI is used in high-stakes decisions (loans, hiring), a major concern is:",
+ "options": [
+ "Font choice",
+ "Fairness, accountability, and transparency",
+ "Typing speed",
+ "Brightness"
+ ],
+ "correct_answer": 1,
+ "explanation": "High-stakes AI systems must prioritize fairness, accountability, and transparency to avoid harm."
+ },
+ {
+ "question": "Which is a good prompting technique?",
+ "options": [
+ "Give no constraints",
+ "Specify role, audience, format, and success criteria",
+ "Use only one-word prompts always",
+ "Refuse to iterate"
+ ],
+ "correct_answer": 1,
+ "explanation": "Effective prompts specify role, audience, format, constraints, and success criteria for better results."
+ },
+ {
+ "question": "AI systems can impact society by:",
+ "options": [
+ "Only helping, never harming",
+ "Changing work, media, and access to opportunities",
+ "Eliminating all jobs instantly",
+ "Stopping the internet"
+ ],
+ "correct_answer": 1,
+ "explanation": "AI impacts society by transforming work, media, and opportunity access - with both benefits and risks."
+ },
+ {
+ "question": "Spaced practice means:",
+ "options": [
+ "Studying everything at once the night before",
+ "Distributing practice over time",
+ "Only watching videos",
+ "Studying while multitasking"
+ ],
+ "correct_answer": 1,
+ "explanation": "Spaced practice means distributing study sessions over time, which improves long-term retention."
+ },
+ {
+ "question": "Retrieval practice means:",
+ "options": [
+ "Rereading notes silently",
+ "Trying to recall answers from memory (self-testing)",
+ "Highlighting everything",
+ "Copying AI outputs"
+ ],
+ "correct_answer": 1,
+ "explanation": "Retrieval practice is actively recalling information from memory, which strengthens learning."
+ },
+ {
+ "question": "A model trained only on bright daytime images may fail at night because:",
+ "options": [
+ "Night is illegal",
+ "The training data lacked relevant examples",
+ "The camera is always broken",
+ "AI can't see"
+ ],
+ "correct_answer": 1,
+ "explanation": "Models fail on scenarios not represented in training data - this is why diverse data matters."
+ },
+ {
+ "question": "Which is a sign an AI answer needs verification?",
+ "options": [
+ "It includes uncertainty and asks you to check",
+ "It makes specific factual claims without sources",
+ "It is short",
+ "It uses bullet points"
+ ],
+ "correct_answer": 1,
+ "explanation": "AI answers making specific factual claims without sources or citations should be verified."
+ },
+ {
+ "question": "The most accurate statement about AI today is:",
+ "options": [
+ "AI is always objective",
+ "AI reflects data and design choices; it can be biased",
+ "AI has emotions",
+ "AI guarantees truth"
+ ],
+ "correct_answer": 1,
+ "explanation": "AI reflects the data and design choices that created it, and can inherit biases from both."
+ },
+ {
+ "question": "When using AI for writing, best practice is to:",
+ "options": [
+ "Submit AI output unchanged",
+ "Use it for brainstorming/drafting, then edit and add your own thinking",
+ "Avoid reading the output",
+ "Never cite sources"
+ ],
+ "correct_answer": 1,
+ "explanation": "Ethical AI use means using it as a brainstorming or drafting tool, then adding your own thinking and editing."
+ },
+ {
+ "question": "If a recommendation algorithm keeps showing extreme content, one potential reason is:",
+ "options": [
+ "It optimizes engagement signals",
+ "It cares about your well-being first",
+ "It is random always",
+ "It only shows educational content"
+ ],
+ "correct_answer": 0,
+ "explanation": "Recommendation algorithms optimize for engagement metrics, which can lead to showing extreme or polarizing content."
+ },
+ {
+ "question": "A good response to a suspected deepfake is:",
+ "options": [
+ "Share it fast",
+ "Check original sources, context, and corroboration before believing/sharing",
+ "Assume it's real",
+ "Ignore all news"
+ ],
+ "correct_answer": 1,
+ "explanation": "Always verify suspected deepfakes by checking original sources, context, and multiple corroborating sources."
+ },
+ {
+ "question": "A fair AI system should:",
+ "options": [
+ "Treat everyone identically regardless of context",
+ "Avoid systematic disadvantage for protected groups and be evaluated for disparate impact",
+ "Never be tested",
+ "Only be used by experts"
+ ],
+ "correct_answer": 1,
+ "explanation": "Fair AI systems avoid systematic disadvantages and are evaluated for disparate impact on different groups."
+ },
+ {
+ "question": "Which is NOT a recommended safe practice?",
+ "options": [
+ "Avoid entering personal data",
+ "Verify facts",
+ "Ask AI for help planning study",
+ "Share SSN to personalize answers"
+ ],
+ "correct_answer": 3,
+ "explanation": "Never share sensitive information like Social Security Numbers with AI tools."
+ },
+ {
+ "question": "The 'human in the loop' idea means:",
+ "options": [
+ "Humans should supervise and be responsible for AI decisions, especially in high-stakes contexts",
+ "Humans should never use AI",
+ "AI should be left alone",
+ "Only robots can decide"
+ ],
+ "correct_answer": 0,
+ "explanation": "Human in the loop means humans maintain oversight and responsibility for AI decisions, especially important ones."
+ }
+ ],
+ "id": "6914ef07ea44941f461e64ee",
+ "created_date": "2025-11-12T20:33:11.694000",
+ "updated_date": "2025-12-19T01:33:42.938000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Insurance 101",
+ "description": "Understand different types of insurance and how to protect yourself financially.",
+ "category": "Insurance",
+ "difficulty": "Beginner",
+ "lessons_count": 4,
+ "xp_reward": 200,
+ "image_url": null,
+ "icon": "",
+ "color": null,
+ "is_featured": false,
+ "final_exam_questions": [
+ {
+ "question": "What is the purpose of insurance?",
+ "options": [
+ "To make money",
+ "To protect against financial loss from unexpected events",
+ "To avoid paying taxes",
+ "To increase debt"
+ ],
+ "correct_answer": 1,
+ "explanation": "Insurance protects you financially from unexpected events by spreading risk across many people and providing compensation when covered losses occur."
+ },
+ {
+ "question": "What is a deductible?",
+ "options": [
+ "The monthly insurance payment",
+ "The amount you pay before insurance covers the rest",
+ "The total coverage limit",
+ "A type of insurance policy"
+ ],
+ "correct_answer": 1,
+ "explanation": "A deductible is the amount you must pay out-of-pocket before your insurance coverage kicks in to pay for covered expenses."
+ },
+ {
+ "question": "What is a premium?",
+ "options": [
+ "The best insurance policy",
+ "The regular payment you make for insurance coverage",
+ "The amount insurance pays you",
+ "A bonus payment"
+ ],
+ "correct_answer": 1,
+ "explanation": "A premium is the regular payment (usually monthly or annually) you make to maintain your insurance coverage."
+ },
+ {
+ "question": "What type of insurance is legally required for drivers in most states?",
+ "options": [
+ "Life insurance",
+ "Health insurance",
+ "Auto liability insurance",
+ "Homeowners insurance"
+ ],
+ "correct_answer": 2,
+ "explanation": "Auto liability insurance is legally required in most states to cover damages you might cause to others in an accident."
+ },
+ {
+ "question": "What is the relationship between deductibles and premiums?",
+ "options": [
+ "Higher deductible = higher premium",
+ "Higher deductible = lower premium",
+ "They are unrelated",
+ "They are always equal"
+ ],
+ "correct_answer": 1,
+ "explanation": "Generally, choosing a higher deductible results in lower premiums because you're taking on more financial risk yourself."
+ }
+ ],
+ "id": "6914ef07ea44941f461e64ed",
+ "created_date": "2025-11-12T20:33:11.694000",
+ "updated_date": "2025-11-24T07:18:18.963000",
+ "created_by_id": "6914e9e56385c913e0144616",
+ "created_by": "chand193@msu.edu",
+ "is_sample": false
+ },
+ {
+ "name": "Budgeting Fundamentals",
+ "description": "Learn how to create and maintain a personal budget using the 50/15/5 rule. Build skills to track spending, set priorities, and avoid being broke.",
+ "category": "Personal Finance",
+ "difficulty": "Beginner",
+ "lessons_count": 10,
+ "xp_reward": 805,
+ "image_url": null,
+ "icon": null,
+ "color": "#166534",
+ "is_featured": true,
+ "slug": "budgeting-fundamentals",
+ "final_exam_questions": [
+ {
+ "question": "What does the 50/15/5 budgeting rule recommend?",
+ "options": [
+ "50% savings, 15% needs, 5% wants",
+ "No more than 50% on essentials, 15% on retirement, 5% on emergency savings",
+ "50% wants, 15% needs, 5% savings",
+ "Equal split across all categories"
+ ],
+ "correct_answer": 1,
+ "explanation": "The 50/15/5 rule: no more than 50% of take-home pay for essentials, 15% of pre-tax income for retirement, and 5% of take-home for emergency savings."
+ },
+ {
+ "question": "Why is it important to review your paycheck carefully?",
+ "options": [
+ "To memorize your employee ID",
+ "To understand your gross pay, taxes, deductions, and net pay",
+ "To compare salaries with coworkers",
+ "Paychecks don't need review"
+ ],
+ "correct_answer": 1,
+ "explanation": "Your paycheck shows gross pay, tax withholdings (FICA, federal, state), benefits deductions, and 401(k) contributions — all of which directly affect your take-home pay."
+ },
+ {
+ "question": "What is the primary purpose of a personal budget?",
+ "options": [
+ "To restrict all spending",
+ "To know where your money goes so you can make informed choices",
+ "To maximize credit card rewards",
+ "To impress your bank"
+ ],
+ "correct_answer": 1,
+ "explanation": "A budget helps you understand where your money goes, plan for financial goals, and avoid running out of money unexpectedly."
+ },
+ {
+ "question": "A budget is best described as:",
+ "options": [
+ "A fixed, one-time document",
+ "A living document updated when circumstances change",
+ "Only needed when in debt",
+ "A government form"
+ ],
+ "correct_answer": 1,
+ "explanation": "A budget is a living document. It should be updated whenever your circumstances change — new job, new family member, buying a car, etc."
+ },
+ {
+ "question": "FICA taxes on your paycheck fund:",
+ "options": [
+ "Your personal savings",
+ "Social Security and Medicare",
+ "State infrastructure",
+ "Your employer's profit"
+ ],
+ "correct_answer": 1,
+ "explanation": "FICA (Federal Insurance Contributions Act) taxes fund Social Security and Medicare — both visible as separate line items on your pay stub."
+ }
+ ],
+ "id": "course-budgeting-001",
+ "created_date": "2026-03-01T00:00:00.000Z",
+ "updated_date": "2026-03-01T00:00:00.000Z",
+ "is_sample": false
+ },
+ {
+ "name": "Banking in the Modern World",
+ "description": "Understand traditional banks, online banks, credit unions, debit cards, and payment services. Know how to choose the right bank and avoid costly fees.",
+ "category": "Personal Finance",
+ "difficulty": "Beginner",
+ "lessons_count": 8,
+ "xp_reward": 595,
+ "image_url": null,
+ "icon": null,
+ "color": "#15803d",
+ "is_featured": true,
+ "slug": "banking-modern-world",
+ "final_exam_questions": [
+ {
+ "question": "What is FDIC insurance?",
+ "options": [
+ "A type of credit card",
+ "Federal protection for bank deposits up to $250,000 per account",
+ "A fee banks charge",
+ "A savings account type"
+ ],
+ "correct_answer": 1,
+ "explanation": "FDIC (Federal Deposit Insurance Corporation) insures bank deposits up to $250,000 per account — protecting you if a bank fails."
+ },
+ {
+ "question": "How does a debit card differ from a credit card?",
+ "options": [
+ "Debit cards earn rewards; credit cards don't",
+ "Debit cards spend money directly from your checking account; credit cards borrow money",
+ "They are identical",
+ "Credit cards require a PIN; debit cards don't"
+ ],
+ "correct_answer": 1,
+ "explanation": "A debit card pulls money directly from your checking account. A credit card lets you borrow money from the bank to pay back later."
+ },
+ {
+ "question": "Why might an online bank offer better interest rates than a traditional bank?",
+ "options": [
+ "They take more risk",
+ "They have no physical branches, so lower overhead costs",
+ "They are less regulated",
+ "They invest in riskier assets"
+ ],
+ "correct_answer": 1,
+ "explanation": "Online banks have lower operating costs (no physical branches) and pass those savings on as higher interest rates and lower fees."
+ },
+ {
+ "question": "What happens if you write a check for more than your checking account balance?",
+ "options": [
+ "The bank covers the difference for free",
+ "You may face overdraft fees and the check may bounce",
+ "Nothing happens",
+ "Your credit score improves"
+ ],
+ "correct_answer": 1,
+ "explanation": "Writing a check without sufficient funds can result in overdraft fees, returned check fees, and damage to your financial reputation."
+ },
+ {
+ "question": "Credit unions differ from traditional banks in that they are:",
+ "options": [
+ "Government-owned",
+ "Non-profit and member-supported, often offering lower rates",
+ "For businesses only",
+ "Not insured by the FDIC"
+ ],
+ "correct_answer": 1,
+ "explanation": "Credit unions are non-profit financial institutions owned by their members. They often offer lower interest rates on loans and higher rates on savings."
+ }
+ ],
+ "id": "course-banking-002",
+ "created_date": "2026-03-01T00:00:00.000Z",
+ "updated_date": "2026-03-01T00:00:00.000Z",
+ "is_sample": false
+ },
+ {
+ "name": "Credit, Debt & Smart Borrowing",
+ "description": "Master credit scores, credit cards, Buy Now Pay Later, and debt repayment strategies. Learn to borrow smart and avoid the debt trap.",
+ "category": "Credit & Debt",
+ "difficulty": "Beginner",
+ "lessons_count": 8,
+ "xp_reward": 625,
+ "image_url": null,
+ "icon": null,
+ "color": "#1a7a3c",
+ "is_featured": true,
+ "slug": "credit-debt-smart-borrowing",
+ "final_exam_questions": [
+ {
+ "question": "What order should you generally pay off debts?",
+ "options": [
+ "Mortgage first, then student loans",
+ "Highest interest debts first (credit cards, then private loans, then car loans, then government loans, then mortgage)",
+ "Alphabetical by lender name",
+ "Smallest balance first regardless of interest"
+ ],
+ "correct_answer": 1,
+ "explanation": "Pay highest-interest debt first: credit cards, private student loans, car loans, then government student loans, and pay your mortgage last."
+ },
+ {
+ "question": "Buy Now Pay Later (BNPL) is best used for:",
+ "options": [
+ "Impulse buys and everyday food delivery",
+ "Planned, necessary larger purchases you can afford to repay on schedule",
+ "Anything under $50",
+ "Building emergency savings"
+ ],
+ "correct_answer": 1,
+ "explanation": "BNPL is most responsibly used for necessary, planned purchases (like a laptop or tires) where you've budgeted to repay on schedule."
+ },
+ {
+ "question": "What is the recommended credit card payment strategy?",
+ "options": [
+ "Pay only the minimum each month",
+ "Pay the full balance every month to avoid interest",
+ "Never use credit cards",
+ "Pay every other month"
+ ],
+ "correct_answer": 1,
+ "explanation": "Paying your full credit card balance every month avoids interest charges, builds your credit history, and keeps your credit score healthy."
+ },
+ {
+ "question": "Which of these is 'good debt'?",
+ "options": [
+ "Credit card debt for clothes",
+ "Student loans or a home mortgage (assets that build future value)",
+ "A vacation loan",
+ "Buy Now Pay Later for a coffee maker"
+ ],
+ "correct_answer": 1,
+ "explanation": "Good debt is used to acquire assets that grow in value or increase earning potential — like education (student loans) or a home (mortgage)."
+ },
+ {
+ "question": "A high credit score helps you by:",
+ "options": [
+ "Allowing you to borrow money at lower interest rates",
+ "Eliminating the need to repay loans",
+ "Giving you free cash",
+ "Reducing your taxes"
+ ],
+ "correct_answer": 0,
+ "explanation": "A strong credit score signals creditworthiness to lenders, qualifying you for lower interest rates on mortgages, car loans, and other borrowing."
+ }
+ ],
+ "id": "course-credit-003",
+ "created_date": "2026-03-01T00:00:00.000Z",
+ "updated_date": "2026-03-01T00:00:00.000Z",
+ "is_sample": false
+ },
+ {
+ "name": "Investing Fundamentals",
+ "description": "From stocks and bonds to ETFs and mutual funds — learn how to build a diversified investment portfolio and understand risk vs. reward.",
+ "category": "Investing",
+ "difficulty": "Intermediate",
+ "lessons_count": 9,
+ "xp_reward": 715,
+ "image_url": null,
+ "icon": null,
+ "color": "#14532d",
+ "is_featured": true,
+ "slug": "investing-fundamentals",
+ "final_exam_questions": [
+ {
+ "question": "What is a stock?",
+ "options": [
+ "A loan to a company",
+ "Partial ownership in a corporation",
+ "A government savings bond",
+ "A type of savings account"
+ ],
+ "correct_answer": 1,
+ "explanation": "A stock (equity) represents fractional ownership in a corporation, entitling you to a share of its assets and profits."
+ },
+ {
+ "question": "Why is diversification important in investing?",
+ "options": [
+ "It guarantees profits",
+ "It reduces risk by spreading investments across different assets",
+ "It focuses your money on the best one stock",
+ "It eliminates the need to research"
+ ],
+ "correct_answer": 1,
+ "explanation": "Diversification reduces risk by spreading investments across different asset types, industries, and geographies — not all investments move together."
+ },
+ {
+ "question": "Which investment type is passively managed and typically tracks a market index?",
+ "options": [
+ "Actively managed mutual fund",
+ "ETF (Exchange Traded Fund)",
+ "Individual stock",
+ "Savings account"
+ ],
+ "correct_answer": 1,
+ "explanation": "ETFs (Exchange Traded Funds) are typically passively managed to track an index like the S&P 500, resulting in lower fees than actively managed funds."
+ },
+ {
+ "question": "The core principle of 'time in the market vs. timing the market' means:",
+ "options": [
+ "Trade every day for best results",
+ "Staying invested long-term beats trying to predict market movements",
+ "Sell before a downturn every time",
+ "Buy only during market crashes"
+ ],
+ "correct_answer": 1,
+ "explanation": "No one can consistently predict market timing. Staying invested long-term — through ups and downs — outperforms most active trading strategies."
+ },
+ {
+ "question": "What percentage of a young investor's portfolio should be in cryptocurrency, according to most financial advisors?",
+ "options": [
+ "0% — crypto is banned",
+ "1–5% maximum",
+ "50% or more",
+ "100% for maximum gains"
+ ],
+ "correct_answer": 1,
+ "explanation": "Most advisors recommend no more than 1–5% of your portfolio in crypto. The remaining 95%+ should be in diversified index funds or ETFs."
+ }
+ ],
+ "id": "course-investing-004",
+ "created_date": "2026-03-01T00:00:00.000Z",
+ "updated_date": "2026-03-01T00:00:00.000Z",
+ "is_sample": false
+ },
+ {
+ "name": "Saving & Building Wealth",
+ "description": "Discover the power of compound interest, emergency funds, retirement accounts (401k, IRA, HSA), and strategies to build lasting financial security.",
+ "category": "Saving",
+ "difficulty": "Beginner",
+ "lessons_count": 8,
+ "xp_reward": 625,
+ "image_url": null,
+ "icon": null,
+ "color": "#166534",
+ "is_featured": true,
+ "slug": "saving-building-wealth",
+ "final_exam_questions": [
+ {
+ "question": "What is an emergency fund?",
+ "options": [
+ "Money for vacations",
+ "3–6 months of living expenses saved for unexpected events",
+ "An investment in stocks",
+ "A type of insurance"
+ ],
+ "correct_answer": 1,
+ "explanation": "An emergency fund is 3–6 months of living expenses saved in an accessible account, protecting you from financial shock during job loss or unexpected expenses."
+ },
+ {
+ "question": "What is the benefit of contributing to a 401(k) up to your employer match?",
+ "options": [
+ "You can withdraw it tax-free anytime",
+ "Your employer adds free money matching your contributions",
+ "It reduces your credit score",
+ "It only benefits your employer"
+ ],
+ "correct_answer": 1,
+ "explanation": "An employer match is essentially free money added to your retirement savings. Not contributing enough to get the full match is leaving free money on the table."
+ },
+ {
+ "question": "A Health Savings Account (HSA) is special because:",
+ "options": [
+ "It can only be used for gym memberships",
+ "Contributions, growth, and qualified withdrawals are all tax-free",
+ "It has no contribution limits",
+ "Anyone can open one without a health plan"
+ ],
+ "correct_answer": 1,
+ "explanation": "HSAs offer a triple tax advantage: contributions are pre-tax, growth is tax-free, and withdrawals for qualified medical expenses are tax-free."
+ },
+ {
+ "question": "The financial philosophy 'Save early, enough, and often' recommends saving what percentage of your income?",
+ "options": [
+ "5–10%",
+ "15–20%",
+ "50%",
+ "Whatever's left after spending"
+ ],
+ "correct_answer": 1,
+ "explanation": "Saving 15–20% of your income is the recommended baseline to build wealth, fund retirement, and handle financial emergencies."
+ },
+ {
+ "question": "Compound interest is most powerful when you:",
+ "options": [
+ "Save for a short time",
+ "Start saving early and leave money invested for many years",
+ "Withdraw frequently",
+ "Only invest during market highs"
+ ],
+ "correct_answer": 1,
+ "explanation": "Compound interest earns returns on your returns. The earlier you start and the longer you stay invested, the more dramatic the growth becomes."
+ }
+ ],
+ "id": "course-saving-005",
+ "created_date": "2026-03-01T00:00:00.000Z",
+ "updated_date": "2026-03-01T00:00:00.000Z",
+ "is_sample": false
+ }
 ]

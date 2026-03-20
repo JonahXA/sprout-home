@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
+import { CheckCircle, XCircle, AlertTriangle, Flag } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HallucinationDetector({ onComplete }) {
@@ -145,7 +145,7 @@ export default function HallucinationDetector({ onComplete }) {
 
  {scenario.redFlags.length > 0 && (
  <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
- <p className="font-semibold text-gray-900 mb-2">🚩 Red Flags:</p>
+ <p className="font-semibold text-gray-900 mb-2 flex items-center gap-2"><Flag className="w-4 h-4 text-red-500" /> Red Flags:</p>
  <ul className="text-sm text-gray-700 space-y-1">
  {scenario.redFlags.map((flag, i) => (
  <li key={i}>• {flag}</li>

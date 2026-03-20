@@ -135,7 +135,7 @@ export default function AIDay6() {
  <p className="text-gray-700 mb-2">System predicted recidivism risk for sentencing decisions</p>
  <p className="text-sm text-gray-600"><strong>Problem:</strong> Higher false positive rates for Black defendants</p>
  <p className="text-sm text-gray-600"><strong>Cause:</strong> Trained on biased historical data</p>
- <p className="text-sm text-gray-600">⚖️ <strong>Impact:</strong> Influenced bail and sentencing, perpetuating bias</p>
+ <p className="text-sm text-gray-600"><strong>Impact:</strong> Influenced bail and sentencing, perpetuating bias</p>
  </div>
 
  <button onClick={() => setCurrentStep(1)} style={{ width:"100%", padding:"14px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:15, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:8 }}>

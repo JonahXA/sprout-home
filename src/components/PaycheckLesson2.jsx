@@ -216,7 +216,7 @@ export default function PaycheckLesson2({ userName = "Your Name", onComplete }) 
  <span className="text-2xl font-bold text-blue-600">${paycheckData.netPay.toFixed(2)}</span>
  </div>
  {step === 2 && !netPayClicked && (
- <p className="text-xs text-gray-600 mt-2">👆 Click here to confirm</p>
+ <p className="text-xs text-gray-600 mt-2">Click to confirm</p>
  )}
  {netPayClicked && step === 2 && (
  <div className="flex items-center gap-2 text-[#2D9B6F] text-sm mt-2">

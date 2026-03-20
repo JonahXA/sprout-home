@@ -123,7 +123,7 @@ export default function LevelUpModal({ level, onClose }) {
  Level {level}
  </p>
  <p className="text-gray-600 font-medium">
- You're becoming a financial expert! 💪
+ You're becoming a financial expert!
  </p>
  </div>
 

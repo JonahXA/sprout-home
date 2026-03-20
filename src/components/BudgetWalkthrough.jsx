@@ -403,7 +403,7 @@ export default function BudgetWalkthrough() {
  </div>
 
  <div className="bg-white p-4 rounded-lg border">
- <h4 className="font-semibold text-sm mb-2 text-gray-700">🥧 Categories</h4>
+ <h4 className="font-semibold text-sm mb-2 text-gray-700">Categories</h4>
  <div className="flex items-center justify-center h-24">
  <svg viewBox="0 0 100 100" className="w-24 h-24">
  <path d="M 50 50 L 50 0 A 50 50 0 0 1 85.36 14.64 Z" fill="#10b981" />

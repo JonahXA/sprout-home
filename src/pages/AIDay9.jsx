@@ -138,11 +138,11 @@ export default function AIDay9() {
  <h4 className="font-bold text-red-700">Challenges to Address</h4>
  </div>
  <div className="p-4 space-y-2 text-sm">
- <p className="text-gray-700">⚠ <strong>Job displacement:</strong> Some careers will vanish</p>
- <p className="text-gray-700">⚠ <strong>Misinformation:</strong> Deepfakes getting more convincing</p>
- <p className="text-gray-700">⚠ <strong>Privacy:</strong> AI surveillance concerns</p>
- <p className="text-gray-700">⚠ <strong>Inequality:</strong> AI access gaps between rich/poor</p>
- <p className="text-gray-700">⚠ <strong>Control:</strong> Ensuring AI stays beneficial</p>
+ <p className="text-gray-700">— <strong>Job displacement:</strong> Some careers will vanish</p>
+ <p className="text-gray-700">— <strong>Misinformation:</strong> Deepfakes getting more convincing</p>
+ <p className="text-gray-700">— <strong>Privacy:</strong> AI surveillance concerns</p>
+ <p className="text-gray-700">— <strong>Inequality:</strong> AI access gaps between rich/poor</p>
+ <p className="text-gray-700">— <strong>Control:</strong> Ensuring AI stays beneficial</p>
  </div>
  </div>
  </div>

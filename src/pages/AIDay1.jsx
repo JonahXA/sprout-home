@@ -290,7 +290,7 @@ function AIOrHumanGame({ onComplete }) {
  explanation: "Generic, formal tone typical of AI weather summaries",
  },
  {
- text: "OMG it's so nice out!! Finally stopped raining lol. Gonna hit the park with my dog 🐕",
+ text: "OMG it's so nice out!! Finally stopped raining lol. Gonna hit the park with my dog",
  answer: "Human",
  explanation: "Casual tone, emojis, personal details, informal language",
  },
@@ -359,12 +359,12 @@ function AIOrHumanGame({ onComplete }) {
  AI Generated
  </button>
  <button onClick={() => handleAnswer("Human")} style={{ height:80, fontSize:18, borderRadius:12, background:"#16A34A", color:"#fff", border:"none", cursor:"pointer", fontWeight:600 }}>
- 👤 Human Written
+ Human Written
  </button>
  </div>
  ) : (
  <div className={`p-4 rounded-lg ${isCorrect ? "bg-[#E6F5EF] border-2 border-[#2D9B6F]" : "bg-orange-50 border-2 border-orange-500"}`}>
- <p className="font-semibold mb-2">{isCorrect ? "Correct!" : "✗ Not quite!"}</p>
+ <p className="font-semibold mb-2">{isCorrect ? "Correct!" : "Not quite!"}</p>
  <p className="text-sm text-gray-700">
  <strong>Answer:</strong> {question.answer}
  </p>

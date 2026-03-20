@@ -3,7 +3,7 @@ import { getCurrentUserSafe, upsertAIDayProgress, getAIDayProgress } from "@/lib
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ArrowLeft, ChevronRight, Cpu, Zap, Brain, Activity } from "lucide-react";
+import { ArrowLeft, ChevronRight, Cpu, Zap, Brain, Activity, MessageSquare, Eye, Mic, Film, Car } from "lucide-react";
 import InteractiveQuiz from "@/components/InteractiveQuiz";
 
 const C = {
@@ -63,12 +63,12 @@ export default function AIDay8() {
  });
 
  const aiTechnologies = [
- { name: "Natural Language Processing", icon: "💬", uses: "Translation, chatbots, sentiment analysis" },
- { name: "Computer Vision", icon: "👁️", uses: "Face recognition, medical imaging, self-driving" },
- { name: "Recommendation Systems", icon: "", uses: "Netflix, Spotify, Amazon product suggestions" },
- { name: "Robotics & Automation", icon: "", uses: "Manufacturing, warehouse logistics, surgery assistance" },
- { name: "Predictive Analytics", icon: "", uses: "Weather forecasting, stock prediction, risk assessment" },
- { name: "Voice Assistants", icon: "🎙️", uses: "Siri, Alexa, Google Assistant" }
+ { name: "Natural Language Processing", Icon: MessageSquare, uses: "Translation, chatbots, sentiment analysis" },
+ { name: "Computer Vision", Icon: Eye, uses: "Face recognition, medical imaging, self-driving" },
+ { name: "Recommendation Systems", Icon: Cpu, uses: "Netflix, Spotify, Amazon product suggestions" },
+ { name: "Robotics & Automation", Icon: Activity, uses: "Manufacturing, warehouse logistics, surgery assistance" },
+ { name: "Predictive Analytics", Icon: Zap, uses: "Weather forecasting, stock prediction, risk assessment" },
+ { name: "Voice Assistants", Icon: Mic, uses: "Siri, Alexa, Google Assistant" }
  ];
 
  const steps = [
@@ -95,7 +95,7 @@ export default function AIDay8() {
  </div>
 
  <div className="bg-white p-4 rounded-lg border-l-4 border-[#1B2B5E]">
- <p className="font-bold text-gray-900">🎬 Entertainment</p>
+ <p className="font-bold text-gray-900">Entertainment</p>
  <p className="text-sm text-gray-600">Netflix/Spotify recommendations, TikTok For You page, YouTube suggestions, gaming AI opponents</p>
  </div>
 
@@ -105,7 +105,7 @@ export default function AIDay8() {
  </div>
 
  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
- <p className="font-bold text-gray-900">🚗 Transportation</p>
+ <p className="font-bold text-gray-900">Transportation</p>
  <p className="text-sm text-gray-600">Google Maps traffic routing, Tesla Autopilot, parking assistance, ride-share matching</p>
  </div>
  </div>
@@ -150,7 +150,7 @@ export default function AIDay8() {
  >
  <div className="px-4 py-3">
  <div className="flex items-center gap-2">
- <span className="text-3xl">{tech.icon}</span>
+ {tech.Icon && <tech.Icon className="w-7 h-7 text-[#1B2B5E]" />}
  <span className="font-bold text-lg">{tech.name}</span>
  </div>
  </div>
