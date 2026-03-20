@@ -136,7 +136,7 @@ export default function Dashboard() {
             <div style={{ marginBottom:16 }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:7 }}>
                 <div style={{ display:"flex", alignItems:"center", gap:6 }}><Sparkles size={13} style={{ color:"#86EFAC" }} /><span style={{ fontSize:13, fontWeight:700, color:"#fff" }}>Level {level}</span></div>
-                <span style={{ fontSize:12, color:"rgba(255,255,255,0.7)", fontWeight:600 }}>{xpProgress}/{xpForNextLevel} XP</span>
+                <span style={{ fontSize:12, color:"rgba(255,255,255,0.7)", fontWeight:600 }}>Level {level}</span>
               </div>
               <div style={{ height:7, background:"rgba(255,255,255,0.12)", borderRadius:999, overflow:"hidden" }}>
                 <div style={{ height:"100%", width:`${(xpProgress/xpForNextLevel)*100}%`, background:"linear-gradient(90deg,#2D9B6F,#86EFAC)", borderRadius:999, transition:"width 0.5s ease" }} />
@@ -176,9 +176,9 @@ export default function Dashboard() {
               {user ? "Complete 3 lessons today" : "Start your learning journey"}
             </div>
             <div style={{ fontSize:14, color:"rgba(255,255,255,0.55)", marginBottom:16, lineHeight:1.6 }}>
-              {user ? "Build your streak and stay on track with your goals." : "Sign up to unlock daily challenges, earn XP, and track your progress."}
+              {user ? "Build your streak and stay on track with your goals." : "Sign up to unlock daily challenges and track your progress."}
             </div>
-            {user && <div style={{ display:"inline-flex", alignItems:"center", gap:6, background:"rgba(134,239,172,0.14)", border:"1px solid rgba(134,239,172,0.25)", borderRadius:999, padding:"5px 14px", marginBottom:8, alignSelf:"flex-start" }}><Zap size={12} style={{ color:"#86EFAC" }} /><span style={{ fontSize:12, fontWeight:800, color:"#86EFAC" }}>+50 XP Reward</span></div>}
+            {user && <div style={{ display:"inline-flex", alignItems:"center", gap:6, background:"rgba(134,239,172,0.14)", border:"1px solid rgba(134,239,172,0.25)", borderRadius:999, padding:"5px 14px", marginBottom:8, alignSelf:"flex-start" }}><Award size={12} style={{ color:"#86EFAC" }} /><span style={{ fontSize:12, fontWeight:800, color:"#86EFAC" }}>Earn a Certificate</span></div>}
             <div style={{ flex:1 }} />
             <div style={{ marginTop:24 }}>
               <button onClick={() => user ? navigate(createPageUrl("Challenges")) : navigate(createPageUrl("Login"))}
@@ -245,7 +245,7 @@ export default function Dashboard() {
                   </div>
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", fontSize:11, fontWeight:500 }}>
                     <span style={{ color:C.textSub }}>{pct>0?`${pct}% complete`:"Not started"}</span>
-                    <span style={{ color:C.green, fontWeight:700 }}>+{course.xp} XP</span>
+                    <span style={{ color:C.green, fontWeight:700, display:"flex", alignItems:"center", gap:4 }}><Award size={11} />Certificate</span>
                   </div>
                 </div>
               </div>
@@ -290,7 +290,7 @@ export default function Dashboard() {
         <SectionHeader title="Quick Access" sub="Jump to any feature instantly" />
         <div className="quick-grid" style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:14 }}>
           <QuickTile icon={<Book size={18}/>}        label="Browse Courses"  sub={`${courses.length} available`}  onClick={() => navigate(createPageUrl("Learn"))}                iconBg={C.accentSoft}  iconColor={C.accent}  />
-          <QuickTile icon={<Target size={18}/>}      label="Challenges"      sub="Earn XP daily"                  onClick={() => navigate(createPageUrl("Challenges"))}           iconBg={C.amberSoft}   iconColor={C.amber}   />
+          <QuickTile icon={<Target size={18}/>}      label="Challenges"      sub="Daily practice"                 onClick={() => navigate(createPageUrl("Challenges"))}           iconBg={C.amberSoft}   iconColor={C.amber}   />
           <QuickTile icon={<Calculator size={18}/>}  label="Calculator"      sub="Growth projections"             onClick={() => navigate(createPageUrl("InvestmentCalculator"))} iconBg={C.greenSoft}   iconColor={C.green}   />
           <QuickTile icon={<Trophy size={18}/>}      label="Leaderboard"     sub="See rankings"                   onClick={() => navigate(createPageUrl("Leaderboard"))}          iconBg={C.purpleSoft}  iconColor={C.purple}  />
         </div>

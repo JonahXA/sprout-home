@@ -33,7 +33,7 @@ const navLinks = [
   { label:"Home",           path:"Dashboard" },
   { label:"Browse Courses", path:"Learn" },
   { label:"Simulations",    path:"Simulations" },
-  { label:"Challenges",     path:"Challenges" },
+  { label:"Modules",        path:"Modules" },
 ];
 
 const noLayoutPages = new Set([

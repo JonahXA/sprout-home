@@ -187,7 +187,7 @@ export default function CourseDetail() {
               {[
                 [BookOpen, `${lessons.length} Lessons`],
                 [Clock, `${lessons.reduce((sum, l) => sum + (Number(l.duration_minutes) || 0), 0)} Minutes`],
-                [Zap, `${course.xp_reward} XP Total`],
+                [Award, "Earn Certificate"],
                 [Award, course.difficulty || "Beginner"],
               ].map(([Icon, text]) => (
                 <div key={text} style={{ display:"flex", alignItems:"center", gap:8, opacity:0.9 }}>
@@ -211,7 +211,7 @@ export default function CourseDetail() {
             </div>
             <div style={{ display:"flex", justifyContent:"space-between", fontSize:13, color:C.textSub }}>
               <span>{completedLessons} of {lessons.length} lessons completed</span>
-              <span>{Math.max(0, Number(course.xp_reward || 0) - completedLessons * (Number(course.xp_reward || 0) / (lessons.length || 1))).toFixed(0)} XP remaining</span>
+              <span>{lessons.length - completedLessons} lessons remaining</span>
             </div>
           </div>
 
@@ -221,7 +221,7 @@ export default function CourseDetail() {
               <div>
                 <p style={{ fontSize:12, opacity:0.8, margin:"0 0 4px", fontWeight:600 }}>Continue Learning</p>
                 <h3 style={{ fontSize:20, fontWeight:800, margin:"0 0 6px" }}>{nextLesson.title}</h3>
-                <p style={{ fontSize:13, opacity:0.7, margin:0 }}>{nextLesson.duration_minutes} minutes • {nextLesson.xp_reward} XP</p>
+                <p style={{ fontSize:13, opacity:0.7, margin:0 }}>{nextLesson.duration_minutes} minutes</p>
               </div>
               <button
                 onClick={() => navigate(createPageUrl(`Lesson?id=${nextLesson.id}`))}
@@ -300,7 +300,7 @@ export default function CourseDetail() {
                         <div style={{ fontWeight:700, color:C.text, fontSize:14, marginBottom:4 }}>{lesson.title}</div>
                         <div style={{ display:"flex", alignItems:"center", gap:12, fontSize:12, color:C.textMuted }}>
                           <span style={{ display:"flex", alignItems:"center", gap:4 }}><Clock size={11} />{lesson.duration_minutes} min</span>
-                          <span style={{ display:"flex", alignItems:"center", gap:4 }}><Zap size={11} color="#F59E0B" />{lesson.xp_reward} XP</span>
+                          <span style={{ display:"flex", alignItems:"center", gap:4 }}>{lesson.duration_minutes} min</span>
                         </div>
                       </div>
                     </div>

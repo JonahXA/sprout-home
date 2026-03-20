@@ -39,6 +39,7 @@ import Simulations from "./pages/Simulations";
 import Welcome from "./pages/Welcome";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
+import Modules from "./pages/Modules";
 import Signup from "./pages/Signup";
 
 export const PAGES = {
@@ -81,6 +82,7 @@ export const PAGES = {
   Welcome,
   Landing,
   Login,
+  Modules,
   Signup,
 };
 

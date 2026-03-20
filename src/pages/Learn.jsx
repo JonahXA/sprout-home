@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Search, TrendingUp, PiggyBank, CreditCard, Shield, Brain, Briefcase, GraduationCap, Zap, Clock, Target } from "lucide-react";
+import { Search, TrendingUp, PiggyBank, CreditCard, Shield, Brain, Briefcase, GraduationCap, Award, Clock, Target } from "lucide-react";
 
 const C = {
   navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
@@ -165,7 +165,7 @@ export default function Learn() {
                 </div>
 
                 {/* Course grid */}
-                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:20 }}>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:20 }} className="course-grid">
                   {nicheCourses.map((course) => {
                     const Icon = categoryIcons[course.category] || Target;
                     const progress = getCourseProgress(course.id);
@@ -199,7 +199,7 @@ export default function Learn() {
 
                           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", fontSize:12, color:C.textMuted, marginBottom:12 }}>
                             <span style={{ display:"flex", alignItems:"center", gap:4 }}><Clock size={13} />{course.lessons_count} lessons</span>
-                            <span style={{ display:"flex", alignItems:"center", gap:4, color:niche.color, fontWeight:700 }}><Zap size={13} />{course.xp_reward} XP</span>
+                            <span style={{ display:"flex", alignItems:"center", gap:4, color:niche.color, fontWeight:700 }}><Award size={13} />Certificate</span>
                           </div>
 
                           {progress > 0 ? (
@@ -227,6 +227,8 @@ export default function Learn() {
           })
         )}
       </div>
+      </div>
+      <style>{`@media (max-width:1100px){.course-grid{grid-template-columns:repeat(3,1fr)!important;}} @media (max-width:780px){.course-grid{grid-template-columns:repeat(2,1fr)!important;}} @media (max-width:480px){.course-grid{grid-template-columns:1fr!important;}}`}</style>
     </div>
   );
 }

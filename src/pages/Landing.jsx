@@ -32,8 +32,8 @@ const FEATURES = [
   },
   {
     icon: Zap,
-    title: "XP and Streaks",
-    desc: "Earn experience points, level up, and maintain your learning streak. Financial education has never felt this rewarding.",
+    title: "Certificates & Progress",
+    desc: "Complete modules and courses to earn certificates. Maintain your learning streak and track your growth over time.",
   },
   {
     icon: Shield,
@@ -88,7 +88,7 @@ const STATS = [
 const HOW_IT_WORKS = [
   { step: "01", title: "Create your account",  desc: "Sign up in under a minute. No credit card required." },
   { step: "02", title: "Choose a course",       desc: "Start with budgeting basics or jump straight to investing — your call." },
-  { step: "03", title: "Learn by doing",        desc: "Answer questions, run simulations, and earn XP as you progress." },
+  { step: "03", title: "Learn by doing",        desc: "Answer questions, run simulations, and earn certificates as you progress." },
   { step: "04", title: "Build real skills",     desc: "Apply what you learn. Track your progress. Grow your financial confidence." },
 ];
 
@@ -493,7 +493,7 @@ function WhatYouGet() {
   const items = [
     "Guided, step-by-step financial lessons",
     "Real-world budget and investment simulations",
-    "XP system and progress tracking",
+    "Certificates and progress tracking",
     "Courses on budgeting, credit, investing, and more",
     "No cost — free for all students",
   ];

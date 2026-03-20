@@ -150,7 +150,7 @@ export default function Simulations() {
               </div>
 
               {/* Simulation grid */}
-              <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:18 }} className="sim-grid">
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:18 }} className="sim-grid">
                 {nicheSims.map((sim) => {
                   const Icon = sim.icon;
                   return (
@@ -189,7 +189,7 @@ export default function Simulations() {
           );
         })}
       </div>
-      <style>{`@media (max-width:1024px){.sim-grid{grid-template-columns:repeat(2,1fr)!important;}} @media (max-width:640px){.sim-grid{grid-template-columns:1fr!important;}}`}</style>
+      <style>{`@media (max-width:1100px){.sim-grid{grid-template-columns:repeat(3,1fr)!important;}} @media (max-width:780px){.sim-grid{grid-template-columns:repeat(2,1fr)!important;}} @media (max-width:480px){.sim-grid{grid-template-columns:1fr!important;}}`}</style>
     </div>
   );
 }
