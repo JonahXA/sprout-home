@@ -201,3 +201,15 @@ export async function trackLessonStart(courseSlug, dayNumber) {
 
  await trackEvent("lesson_started", { courseSlug, dayNumber });
 }
+// ── simulation tracking ──────────────────────────────────────────
+export async function trackSimulationStart(simulationId, simulationTitle) {
+  return trackEvent("simulation_started", {
+    metadata: { simulation_id: simulationId, simulation_title: simulationTitle },
+  }).catch(() => {});
+}
+
+export async function trackSimulationComplete(simulationId, simulationTitle, details = {}) {
+  return trackEvent("simulation_completed", {
+    metadata: { simulation_id: simulationId, simulation_title: simulationTitle, ...details },
+  }).catch(() => {});
+}

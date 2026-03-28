@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import LevelUpModal from "@/components/LevelUpModal";
 import ChallengeCompleteModal from "@/components/ChallengeCompleteModal";
 import { useChallengeCheck } from "@/components/useChallengeCheck";
+import { trackEvent } from "@/lib/activityTracker";
 
 const C = {
  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",
@@ -212,6 +213,7 @@ export default function Lesson() {
  ? { ...existing, completed: true, completed_date: now, quiz_score: quizScore }
  : { id: safeUUID() || `up_${Date.now()}`, user_email: userEmail, lesson_id: lessonId, course_id: lesson.course_id, completed: true, completed_date: now, quiz_score: quizScore };
  await data.upsertUserProgress(progressRecord);
+ trackEvent("lesson_completed", { lesson_id: lessonId, lesson_title: lesson.title, course_id: lesson.course_id, quiz_score: quizScore, xp_earned: Number(lesson.xp_reward || 0) }).catch(() => {});
  const oldLevel = user.level || 1;
  const xpReward = Number(lesson.xp_reward || 0);
  const newXP = (user.xp_points || 0) + xpReward;

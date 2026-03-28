@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import PaycheckLesson1 from "@/components/PaycheckLesson1";
 import PaycheckLesson2 from "@/components/PaycheckLesson2";
+import { trackSimulationStart, trackSimulationComplete } from "@/lib/activityTracker";
 
 /**
  * NOTE: Base44 removed.
@@ -57,10 +58,7 @@ export default function PaycheckSimulation() {
  return;
  }
  setUserState(currentUser);
-
- if (!currentUser.onboarding_completed) {
- navigate(createPageUrl("SchoolSelection"));
- }
+ trackSimulationStart("paycheck-simulation", "Paycheck Simulation").catch(() => {});
  }, [navigate]);
 
  const lessonNum = useMemo(() => parseInt(lessonNumber, 10) || 1, [lessonNumber]);
@@ -106,7 +104,7 @@ export default function PaycheckSimulation() {
 
  setUser(updatedUser);
  setUserState(updatedUser);
-
+ trackSimulationComplete("paycheck-simulation", "Paycheck Simulation", { lesson_number: lessonNum, lesson_title: lessonTitles[lessonNum], xp_earned: xpReward }).catch(() => {});
  navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`);
  };
 

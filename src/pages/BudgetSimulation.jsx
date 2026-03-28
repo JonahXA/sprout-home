@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { createPageUrl } from "@/utils";
 import BudgetWalkthrough from "@/components/BudgetWalkthrough";
 import ScenarioBudgetSimulation from "@/components/ScenarioBudgetSimulation";
+import { trackEvent, trackSimulationStart, trackSimulationComplete } from "@/lib/activityTracker";
 
 // NOTE: Base44 removed in migration pass.
 // TODO (later phase): replace these stubs with your real API/client layer.
@@ -48,6 +49,7 @@ export default function BudgetSimulation() {
  return;
  }
  setUser(currentUser);
+ trackSimulationStart("budget-simulation", "Budget Simulation").catch(() => {});
  }, [navigate]);
 
  const lessonNum = parseInt(lessonNumber, 10) || 0;
