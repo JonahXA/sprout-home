@@ -3824,9 +3824,9 @@
  },
  {
   "id": "lesson-prompting-pro-001",
-  "course_id": "6914ef07ea44941f461e64ee",
+  "course_id": "course-prompting-pro-001",
   "title": "Prompting Like a Pro",
-  "order": 11,
+  "order": 1,
   "duration_minutes": 70,
   "xp_reward": 150,
   "is_deleted": false,

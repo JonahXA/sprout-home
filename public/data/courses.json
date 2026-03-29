@@ -342,7 +342,7 @@
   "description": "A comprehensive 2-week program teaching you to understand, use, and critically evaluate AI. Learn practical skills, ethics, and responsible AI use through interactive activities.",
   "category": "AI & ML",
   "difficulty": "Beginner",
-  "lessons_count": 11,
+  "lessons_count": 10,
   "xp_reward": 1000,
   "image_url": null,
   "icon": "",
@@ -1131,5 +1131,21 @@
   "created_date": "2026-03-01T00:00:00.000Z",
   "updated_date": "2026-03-01T00:00:00.000Z",
   "is_sample": false
+ },
+ {
+  "id": "course-prompting-pro-001",
+  "name": "Prompting Like a Pro",
+  "description": "Learn to write AI prompts that actually work. Master the four-part framework, avoid hallucinations, and get dramatically better results in 60 minutes.",
+  "category": "AI & ML",
+  "difficulty": "Beginner",
+  "lessons_count": 1,
+  "xp_reward": 150,
+  "image_url": null,
+  "icon": "",
+  "color": null,
+  "is_featured": true,
+  "is_sample": false,
+  "created_date": "2026-03-28T00:00:00.000Z",
+  "updated_date": "2026-03-28T00:00:00.000Z"
  }
 ]
