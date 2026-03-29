@@ -166,32 +166,42 @@ const SECTION_LABELS = {
 
 // ─── Inline components ──────────────────────────────────────────
 
-// InlineCheck — single-question gate; user must answer before continuing.
-// check_type: only "multiple_choice" is implemented; others fall through.
-function InlineCheck({ section, onPass }) {
+// ─── Shared check primitives ────────────────────────────────────
+function CheckBanner({ label = "Quick Check" }) {
+  return (
+    <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:C.accentSoft, border:`1px solid ${C.accentMid}`, borderRadius:8, padding:"8px 14px", fontSize:13, fontWeight:700, color:C.accent }}>
+      <Lightbulb size={14} />{label}
+    </div>
+  );
+}
+function CheckExplanation({ correct, text }) {
+  return (
+    <div style={{ borderRadius:10, padding:"14px 16px", background: correct ? C.greenSoft : C.amberSoft, border:`1px solid ${correct ? C.green : C.amber}`, fontSize:14, color: correct ? C.green : "#92400E" }}>
+      <p style={{ fontWeight:700, margin:"0 0 4px" }}>{correct ? "Correct!" : "Good to know:"}</p>
+      <p style={{ margin:0 }}>{text}</p>
+    </div>
+  );
+}
+function ContinueBtn({ onPass }) {
+  return (
+    <div style={{ display:"flex", justifyContent:"flex-end" }}>
+      <button onClick={onPass} style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}>
+        Continue <ArrowRight size={16} />
+      </button>
+    </div>
+  );
+}
+
+// ─── multiple_choice ─────────────────────────────────────────────
+function MultipleChoice({ section, onPass }) {
   const [selected, setSelected] = useState(null);
   const [revealed, setRevealed] = useState(false);
-
-  const choose = (idx) => {
-    if (revealed) return;
-    setSelected(idx);
-    setRevealed(true);
-  };
-
   const isCorrect = selected === section.correct_answer;
-
+  const choose = (idx) => { if (revealed) return; setSelected(idx); setRevealed(true); };
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
-      {/* Banner */}
-      <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:C.accentSoft, border:`1px solid ${C.accentMid}`, borderRadius:8, padding:"8px 14px", fontSize:13, fontWeight:700, color:C.accent }}>
-        <Lightbulb size={14} />
-        Quick Check
-      </div>
-
-      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>
-        {section.question}
-      </p>
-
+      <CheckBanner />
+      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question}</p>
       <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
         {(section.options || []).map((opt, i) => {
           let bg = C.bg, border2 = C.borderMid, color = C.text, cursor = "pointer";
@@ -200,46 +210,355 @@ function InlineCheck({ section, onPass }) {
             else if (i === selected) { bg = C.redSoft; border2 = C.red; color = C.red; }
             else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
             cursor = "default";
-          } else if (!revealed) {
-            // hover handled via onMouseEnter inline; base state is neutral
           }
           return (
-            <button
-              key={i}
-              onClick={() => choose(i)}
-              disabled={revealed}
-              style={{ width:"100%", textAlign:"left", padding:"12px 16px", borderRadius:10, border:`2px solid ${border2}`, background:bg, color, fontWeight:600, fontSize:14, cursor, transition:"all 0.15s", display:"flex", alignItems:"center", gap:10 }}
-            >
+            <button key={i} onClick={() => choose(i)} disabled={revealed}
+              style={{ width:"100%", textAlign:"left", padding:"12px 16px", borderRadius:10, border:`2px solid ${border2}`, background:bg, color, fontWeight:600, fontSize:14, cursor, transition:"all 0.15s", display:"flex", alignItems:"center", gap:10 }}>
               <span style={{ width:24, height:24, borderRadius:"50%", border:`2px solid currentColor`, display:"inline-flex", alignItems:"center", justifyContent:"center", fontSize:11, fontWeight:800, flexShrink:0 }}>
-                {revealed && i === section.correct_answer ? "✓" :
-                 revealed && i === selected && !isCorrect ? "✗" :
-                 String.fromCharCode(65 + i)}
+                {revealed && i === section.correct_answer ? "✓" : revealed && i === selected && !isCorrect ? "✗" : String.fromCharCode(65 + i)}
               </span>
               {opt}
             </button>
           );
         })}
       </div>
+      {revealed && <CheckExplanation correct={isCorrect} text={section.explanation} />}
+      {revealed && <ContinueBtn onPass={onPass} />}
+    </div>
+  );
+}
 
-      {revealed && (
-        <div style={{ borderRadius:10, padding:"14px 16px", background: isCorrect ? C.greenSoft : C.amberSoft, border:`1px solid ${isCorrect ? C.green : C.amber}`, fontSize:14, color: isCorrect ? C.green : "#92400E" }}>
-          <p style={{ fontWeight:700, margin:"0 0 4px" }}>{isCorrect ? "Correct!" : "Good to know:"}</p>
-          <p style={{ margin:0 }}>{section.explanation}</p>
-        </div>
-      )}
-
-      {revealed && (
+// ─── multi_select ────────────────────────────────────────────────
+// section.correct_answers: number[] (indices of all correct options)
+// section.min_correct: optional minimum required to pass (default: all)
+function MultiSelect({ section, onPass }) {
+  const [selected, setSelected] = useState(new Set());
+  const [revealed, setRevealed] = useState(false);
+  const correct = new Set(section.correct_answers || []);
+  const toggle = (i) => { if (revealed) return; setSelected(prev => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; }); };
+  const submit = () => setRevealed(true);
+  const allCorrect = [...correct].every(i => selected.has(i)) && [...selected].every(i => correct.has(i));
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+      <CheckBanner label="Select All That Apply" />
+      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question}</p>
+      <p style={{ fontSize:12, color:C.textMuted, margin:0 }}>Select all correct answers, then click Check.</p>
+      <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+        {(section.options || []).map((opt, i) => {
+          const isSelected = selected.has(i);
+          const isCorrectOpt = correct.has(i);
+          let bg = isSelected ? C.accentSoft : C.bg;
+          let border2 = isSelected ? C.accent : C.borderMid;
+          let color = C.text;
+          if (revealed) {
+            if (isCorrectOpt) { bg = C.greenSoft; border2 = C.green; color = C.green; }
+            else if (isSelected) { bg = C.redSoft; border2 = C.red; color = C.red; }
+            else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
+          }
+          return (
+            <button key={i} onClick={() => toggle(i)} disabled={revealed}
+              style={{ width:"100%", textAlign:"left", padding:"12px 16px", borderRadius:10, border:`2px solid ${border2}`, background:bg, color, fontWeight:600, fontSize:14, cursor: revealed ? "default" : "pointer", transition:"all 0.15s", display:"flex", alignItems:"center", gap:10 }}>
+              <span style={{ width:22, height:22, borderRadius:4, border:`2px solid currentColor`, display:"inline-flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:900, flexShrink:0 }}>
+                {revealed && isCorrectOpt ? "✓" : revealed && isSelected && !isCorrectOpt ? "✗" : isSelected ? "✓" : ""}
+              </span>
+              {opt}
+            </button>
+          );
+        })}
+      </div>
+      {!revealed && (
         <div style={{ display:"flex", justifyContent:"flex-end" }}>
-          <button
-            onClick={onPass}
-            style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
-          >
-            Continue <ArrowRight size={16} />
+          <button onClick={submit} disabled={selected.size === 0}
+            style={{ padding:"10px 22px", borderRadius:999, background: selected.size === 0 ? C.borderMid : C.navy, color: selected.size === 0 ? C.textMuted : "#fff", border:"none", fontWeight:700, fontSize:14, cursor: selected.size === 0 ? "not-allowed" : "pointer" }}>
+            Check Answers
           </button>
         </div>
       )}
+      {revealed && <CheckExplanation correct={allCorrect} text={section.explanation} />}
+      {revealed && <ContinueBtn onPass={onPass} />}
     </div>
   );
+}
+
+// ─── prompt_improve ──────────────────────────────────────────────
+// section.weak_prompt: string — the bad prompt to rewrite
+// section.criteria: string[] — signals to detect ("context","task","constraints","format")
+// section.min_length: number — minimum character count before Submit unlocks
+// section.improved_output: string — shown after passing
+// Uses same signal arrays as PromptImprovementSimulation
+const _CTX = [/\bI'?m\b/i,/\bmy\b/i,/\bstudent\b/i,/\bgrade\b/i,/\bclass\b/i,/\bcourse\b/i,/\bbeginne?r\b/i,/\bexam\b/i,/\btest\b/i,/\bproject\b/i,/\bassignment\b/i,/\bpreparing\b/i,/\bworking on\b/i,/\bsubject\b/i,/\bschool\b/i];
+const _TASK = [/\bcreate\b/i,/\bwrite\b/i,/\bexplain\b/i,/\bsummariz/i,/\blist\b/i,/\bcompare\b/i,/\bgive me\b/i,/\bshow me\b/i,/\bmake\b/i,/\bgenerate\b/i,/\bprovide\b/i,/\boutline\b/i,/\bdraft\b/i,/\bteach\b/i,/\bstep.by.step\b/i,/\bstudy guide\b/i,/\bpractice questions?\b/i];
+const _CON = [/\bword(s)?\b/i,/\bshort\b/i,/\bbrief\b/i,/\bconcise\b/i,/\bonly\b/i,/\bavoid\b/i,/\bno jargon\b/i,/\bsimple\b/i,/\bmax(imum)?\b/i,/\blimit\b/i,/\bformal\b/i,/\bcasual\b/i,/\btone\b/i,/\bdo not include\b/i,/\bunder \d+\b/i,/\b\d+ words?\b/i,/\bkeep it\b/i];
+const _FMT = [/\bbullet(s|ed)?\b/i,/\blist\b/i,/\btable\b/i,/\bparagraph\b/i,/\bheader(s)?\b/i,/\bnumber(ed)?\b/i,/\bformat\b/i,/\bchart\b/i,/\boutline\b/i,/\bstep.by.step\b/i,/\bsection(s)?\b/i,/\bpros and cons\b/i,/\bflashcard(s)?\b/i];
+const SIGNAL_MAP = { context: _CTX, task: _TASK, constraints: _CON, format: _FMT };
+function scorePromptText(text, criteria) {
+  const res = {};
+  (criteria || []).forEach(c => { res[c] = (SIGNAL_MAP[c] || []).some(r => r.test(text)); });
+  return res;
+}
+const CRITERIA_HINTS = {
+  context: "Who are you? What subject/situation? What do you already know?",
+  task: "What exactly do you want the AI to produce?",
+  constraints: "Length, tone, scope, or exclusions?",
+  format: "How should it be structured — list, table, steps, chart?",
+};
+
+function PromptImprove({ section, onPass }) {
+  const [input, setInput] = useState("");
+  const [phase, setPhase] = useState("input"); // input | feedback | output
+  const [scores, setScores] = useState(null);
+  const criteria = section.criteria || ["context", "task"];
+  const minLen = section.min_length || 30;
+  const tooShort = input.trim().length < minLen;
+  const allPassed = scores && criteria.every(c => scores[c]);
+
+  const evaluate = () => { setScores(scorePromptText(input, criteria)); setPhase("feedback"); };
+  const retry = () => { setScores(null); setPhase("input"); };
+
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+      <CheckBanner label="Improve the Prompt" />
+      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question || "Rewrite this prompt to include the missing elements."}</p>
+
+      {/* Weak prompt display */}
+      <div>
+        <div style={{ fontSize:11, fontWeight:700, color:C.textMuted, letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>Weak Prompt</div>
+        <div style={{ background:C.bgSoft, border:`1px solid ${C.border}`, borderRadius:10, padding:"12px 14px", fontSize:14, color:C.textSub, lineHeight:1.6 }}>{section.weak_prompt}</div>
+      </div>
+
+      {phase === "input" && (
+        <>
+          <div>
+            <div style={{ fontSize:11, fontWeight:700, color:C.textMuted, letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>Your Improved Prompt</div>
+            <textarea value={input} onChange={e => setInput(e.target.value)}
+              placeholder={`Rewrite the prompt with: ${criteria.join(", ")}...`}
+              style={{ width:"100%", boxSizing:"border-box", minHeight:90, padding:"12px 14px", borderRadius:10, border:`1.5px solid ${input.length > 20 ? C.navy : C.border}`, fontSize:14, color:C.text, lineHeight:1.6, fontFamily:"inherit", resize:"vertical", outline:"none", background:"#fff" }} />
+          </div>
+          <div style={{ display:"flex", justifyContent:"flex-end" }}>
+            <button onClick={evaluate} disabled={tooShort}
+              style={{ padding:"10px 22px", borderRadius:999, background: tooShort ? C.borderMid : C.navy, color: tooShort ? C.textMuted : "#fff", border:"none", fontWeight:700, fontSize:14, cursor: tooShort ? "not-allowed" : "pointer" }}>
+              Evaluate
+            </button>
+          </div>
+        </>
+      )}
+
+      {phase === "feedback" && (
+        <>
+          <div style={{ background:"#fff", border:`1.5px solid ${allPassed ? C.green : "#F59E0B"}`, borderRadius:10, padding:"12px 14px", fontSize:14, color:C.text, lineHeight:1.6 }}>{input}</div>
+          <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+            {criteria.map(c => (
+              <div key={c} style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"8px 10px", borderRadius:8, background: scores[c] ? C.greenSoft : C.redSoft, border:`1px solid ${scores[c] ? C.green : C.red}` }}>
+                <span style={{ fontSize:13, fontWeight:900, color: scores[c] ? C.green : C.red, flexShrink:0 }}>{scores[c] ? "✓" : "✗"}</span>
+                <div>
+                  <span style={{ fontSize:13, fontWeight:700, color: scores[c] ? C.green : C.red }}>{c.charAt(0).toUpperCase() + c.slice(1)}</span>
+                  {!scores[c] && <p style={{ margin:"2px 0 0", fontSize:12, color:C.textSub, lineHeight:1.4 }}>{CRITERIA_HINTS[c]}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+          {allPassed ? (
+            <>
+              <div style={{ borderRadius:10, padding:"12px 14px", background:C.greenSoft, border:`1px solid ${C.green}`, fontSize:14, color:C.green }}>{section.explanation || "Great — that prompt has all the key elements."}</div>
+              {section.improved_output && (
+                <button onClick={() => setPhase("output")} style={{ width:"100%", padding:"11px 0", borderRadius:999, background:C.green, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer" }}>See the improved output →</button>
+              )}
+              {!section.improved_output && <ContinueBtn onPass={onPass} />}
+            </>
+          ) : (
+            <>
+              <div style={{ borderRadius:10, padding:"12px 14px", background:"#FFFBEB", border:"1px solid #FDE68A", fontSize:14, color:"#92400E" }}>
+                Missing: {criteria.filter(c => !scores[c]).join(" and ")}. Revise and try again.
+              </div>
+              <button onClick={retry} style={{ width:"100%", padding:"11px 0", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer" }}>Revise and retry</button>
+            </>
+          )}
+        </>
+      )}
+
+      {phase === "output" && (
+        <>
+          <div>
+            <div style={{ fontSize:11, fontWeight:700, color:C.textMuted, letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:5 }}>Result With Your Improved Prompt</div>
+            <div style={{ background:C.greenSoft, border:`1px solid ${C.green}`, borderRadius:10, padding:"12px 14px", fontSize:13.5, color:C.text, lineHeight:1.7, whiteSpace:"pre-wrap" }}>{section.improved_output}</div>
+          </div>
+          <ContinueBtn onPass={onPass} />
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── compare ─────────────────────────────────────────────────────
+// section.prompt_a / section.prompt_b: string — two prompts (or outputs) to compare
+// section.label_a / section.label_b: optional labels (default "Option A" / "Option B")
+// section.better: "a" | "b" — which is better
+// section.explanation: string
+function Compare({ section, onPass }) {
+  const [choice, setChoice] = useState(null);
+  const [revealed, setRevealed] = useState(false);
+  const correct = (section.better || "b").toLowerCase();
+  const isCorrect = choice === correct;
+  const choose = (v) => { if (revealed) return; setChoice(v); setRevealed(true); };
+  const labelA = section.label_a || "Option A";
+  const labelB = section.label_b || "Option B";
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+      <CheckBanner label="Compare" />
+      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question || "Which is better?"}</p>
+      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+        {[["a", labelA, section.prompt_a], ["b", labelB, section.prompt_b]].map(([val, label, text]) => {
+          const isChosen = choice === val;
+          const isCorrectOpt = val === correct;
+          let border2 = C.borderMid, bg = C.bgSoft;
+          if (revealed) {
+            if (isCorrectOpt) { border2 = C.green; bg = C.greenSoft; }
+            else if (isChosen) { border2 = C.red; bg = C.redSoft; }
+          } else if (isChosen) { border2 = C.navy; bg = C.accentSoft; }
+          return (
+            <button key={val} onClick={() => choose(val)} disabled={revealed}
+              style={{ textAlign:"left", padding:"14px 16px", borderRadius:12, border:`2px solid ${border2}`, background:bg, cursor: revealed ? "default" : "pointer", transition:"all 0.15s", display:"flex", flexDirection:"column", gap:8 }}>
+              <span style={{ fontSize:11, fontWeight:800, color: revealed && isCorrectOpt ? C.green : revealed && isChosen && !isCorrectOpt ? C.red : C.textSub, textTransform:"uppercase", letterSpacing:"0.05em" }}>
+                {revealed && isCorrectOpt ? "✓ " : revealed && isChosen && !isCorrectOpt ? "✗ " : ""}{label}
+              </span>
+              <span style={{ fontSize:13.5, color:C.text, lineHeight:1.6, fontStyle:"italic" }}>"{text}"</span>
+            </button>
+          );
+        })}
+      </div>
+      {revealed && <CheckExplanation correct={isCorrect} text={section.explanation} />}
+      {revealed && <ContinueBtn onPass={onPass} />}
+    </div>
+  );
+}
+
+// ─── prediction ──────────────────────────────────────────────────
+// section.setup: string — scenario / prompt shown to student
+// section.options: string[] — possible outputs to predict
+// section.correct_answer: number — index of what will actually appear
+// section.reveal: string — the actual output revealed after answering
+function Prediction({ section, onPass }) {
+  const [selected, setSelected] = useState(null);
+  const [revealed, setRevealed] = useState(false);
+  const isCorrect = selected === section.correct_answer;
+  const choose = (i) => { if (revealed) return; setSelected(i); setRevealed(true); };
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+      <CheckBanner label="Predict the Output" />
+      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question || "What will the AI produce?"}</p>
+      {section.setup && (
+        <div style={{ background:C.bgSoft, border:`1px solid ${C.border}`, borderRadius:10, padding:"12px 14px" }}>
+          <div style={{ fontSize:11, fontWeight:700, color:C.textMuted, textTransform:"uppercase", letterSpacing:"0.06em", marginBottom:6 }}>The Prompt</div>
+          <p style={{ fontSize:14, color:C.text, margin:0, lineHeight:1.6, fontStyle:"italic" }}>"{section.setup}"</p>
+        </div>
+      )}
+      <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+        {(section.options || []).map((opt, i) => {
+          let bg = C.bg, border2 = C.borderMid, color = C.text;
+          if (revealed) {
+            if (i === section.correct_answer) { bg = C.greenSoft; border2 = C.green; color = C.green; }
+            else if (i === selected) { bg = C.redSoft; border2 = C.red; color = C.red; }
+            else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
+          }
+          return (
+            <button key={i} onClick={() => choose(i)} disabled={revealed}
+              style={{ width:"100%", textAlign:"left", padding:"12px 16px", borderRadius:10, border:`2px solid ${border2}`, background:bg, color, fontWeight:600, fontSize:14, cursor: revealed ? "default" : "pointer", transition:"all 0.15s", display:"flex", alignItems:"center", gap:10 }}>
+              <span style={{ width:24, height:24, borderRadius:"50%", border:`2px solid currentColor`, display:"inline-flex", alignItems:"center", justifyContent:"center", fontSize:11, fontWeight:800, flexShrink:0 }}>
+                {revealed && i === section.correct_answer ? "✓" : revealed && i === selected && !isCorrect ? "✗" : String.fromCharCode(65 + i)}
+              </span>
+              {opt}
+            </button>
+          );
+        })}
+      </div>
+      {revealed && section.reveal && (
+        <div style={{ borderRadius:10, border:`1px solid ${C.borderMid}`, overflow:"hidden" }}>
+          <div style={{ padding:"8px 14px", background:C.bgMid, fontSize:11, fontWeight:700, color:C.textSub, textTransform:"uppercase", letterSpacing:"0.06em" }}>Actual Output</div>
+          <div style={{ padding:"14px 16px", fontSize:13.5, color:C.text, lineHeight:1.7, background:"#fff", whiteSpace:"pre-wrap" }}>{section.reveal}</div>
+        </div>
+      )}
+      {revealed && <CheckExplanation correct={isCorrect} text={section.explanation} />}
+      {revealed && <ContinueBtn onPass={onPass} />}
+    </div>
+  );
+}
+
+// ─── ordering ────────────────────────────────────────────────────
+// section.items: string[] — items in shuffled order as presented
+// section.correct_order: number[] — indices of section.items in correct sequence
+function Ordering({ section, onPass }) {
+  const items = section.items || [];
+  const [order, setOrder] = useState(() => items.map((_, i) => i));
+  const [revealed, setRevealed] = useState(false);
+  const [dragIdx, setDragIdx] = useState(null);
+
+  const moveItem = (from, to) => {
+    if (from === to) return;
+    setOrder(prev => {
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved);
+      return next;
+    });
+  };
+
+  const check = () => setRevealed(true);
+
+  const correctOrder = section.correct_order || items.map((_, i) => i);
+  const allCorrect = order.every((itemIdx, pos) => itemIdx === correctOrder[pos]);
+
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+      <CheckBanner label="Put in Order" />
+      <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question || "Arrange these in the correct order."}</p>
+      <p style={{ fontSize:12, color:C.textMuted, margin:0 }}>Use the arrows to reorder, then click Check.</p>
+      <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+        {order.map((itemIdx, pos) => {
+          const isCorrectPos = revealed && itemIdx === correctOrder[pos];
+          const isWrongPos = revealed && itemIdx !== correctOrder[pos];
+          return (
+            <div key={itemIdx} style={{ display:"flex", alignItems:"center", gap:8, padding:"11px 14px", borderRadius:10, border:`2px solid ${isCorrectPos ? C.green : isWrongPos ? C.red : C.borderMid}`, background: isCorrectPos ? C.greenSoft : isWrongPos ? C.redSoft : C.bg, transition:"all 0.15s" }}>
+              <span style={{ width:24, height:24, borderRadius:"50%", background: isCorrectPos ? C.green : isWrongPos ? C.red : C.bgMid, color: (isCorrectPos || isWrongPos) ? "#fff" : C.textSub, display:"inline-flex", alignItems:"center", justifyContent:"center", fontSize:12, fontWeight:800, flexShrink:0 }}>
+                {pos + 1}
+              </span>
+              <span style={{ flex:1, fontSize:14, fontWeight:600, color: isCorrectPos ? C.green : isWrongPos ? C.red : C.text, lineHeight:1.4 }}>{items[itemIdx]}</span>
+              {!revealed && (
+                <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
+                  <button onClick={() => moveItem(pos, pos - 1)} disabled={pos === 0}
+                    style={{ padding:"2px 6px", borderRadius:4, border:`1px solid ${C.border}`, background:C.bg, cursor: pos === 0 ? "not-allowed" : "pointer", opacity: pos === 0 ? 0.3 : 1, fontSize:10 }}>▲</button>
+                  <button onClick={() => moveItem(pos, pos + 1)} disabled={pos === order.length - 1}
+                    style={{ padding:"2px 6px", borderRadius:4, border:`1px solid ${C.border}`, background:C.bg, cursor: pos === order.length - 1 ? "not-allowed" : "pointer", opacity: pos === order.length - 1 ? 0.3 : 1, fontSize:10 }}>▼</button>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      {!revealed && (
+        <div style={{ display:"flex", justifyContent:"flex-end" }}>
+          <button onClick={check} style={{ padding:"10px 22px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer" }}>Check Order</button>
+        </div>
+      )}
+      {revealed && <CheckExplanation correct={allCorrect} text={section.explanation} />}
+      {revealed && <ContinueBtn onPass={onPass} />}
+    </div>
+  );
+}
+
+// ─── InlineCheck — dispatcher ────────────────────────────────────
+// Routes to the correct sub-component based on check_type.
+// Preserves full backward compatibility — existing multiple_choice
+// sections continue to work unchanged.
+function InlineCheck({ section, onPass }) {
+  switch (section.check_type) {
+    case "multi_select":   return <MultiSelect    section={section} onPass={onPass} />;
+    case "prompt_improve": return <PromptImprove  section={section} onPass={onPass} />;
+    case "compare":        return <Compare        section={section} onPass={onPass} />;
+    case "prediction":     return <Prediction     section={section} onPass={onPass} />;
+    case "ordering":       return <Ordering       section={section} onPass={onPass} />;
+    case "multiple_choice":
+    default:               return <MultipleChoice section={section} onPass={onPass} />;
+  }
 }
 
 // MisconceptionCard — myth vs reality callout.
