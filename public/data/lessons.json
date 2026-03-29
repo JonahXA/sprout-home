@@ -3827,7 +3827,7 @@
   "course_id": "course-prompting-pro-001",
   "title": "Prompting Like a Pro",
   "order": 1,
-  "duration_minutes": 75,
+  "duration_minutes": 76,
   "xp_reward": 150,
   "is_deleted": false,
   "is_sample": false,
@@ -3899,40 +3899,257 @@
     "section_id": "sec-hook",
     "type": "hook",
     "title": "Same AI. Completely Different Results.",
-    "duration_minutes": 8,
+    "duration_minutes": 5,
     "learning_objective_refs": [
      "obj-1"
     ],
-    "body": "## Same AI. Completely Different Results.\n\nBefore we get into frameworks or theory, look at these two interactions with the exact same AI system:\n\n---\n\n### Prompt A\n\n> \"Help me study\"\n\n**AI Output:**\n\n> \"Sure! I'd be happy to help you study. What subject are you working on? You could try making flashcards, rereading your notes, or doing practice problems. Let me know what you need!\"\n\n---\n\n### Prompt B\n\n> \"I'm a 10th grade student with a US History exam tomorrow on the causes of World War I. Create a one-page study guide with the 5 most important causes, a brief explanation of each (2–3 sentences), and 3 short-answer practice questions at the end. Use bullet points and bold the key vocabulary terms.\"\n\n**AI Output:**\n\n> **WWI Causes Study Guide**\n>\n> **Militarism** — European powers, especially Germany and Britain, had been in a massive arms race for decades. Enormous standing armies and navies made large-scale war both possible and widely anticipated.\n>\n> **Alliance Systems** — Europe was divided into two armed blocs: the Triple Alliance (Germany, Austria-Hungary, Italy) and the Triple Entente (France, Britain, Russia). When conflict broke out between two nations, treaty obligations automatically pulled all the others in.\n>\n> **Imperialism** — Competition for colonies in Africa and Asia had created deep economic and political rivalry between the major powers for decades, stoking resentment and distrust.\n>\n> **Nationalism** — Intense national and ethnic pride — especially in the Balkans, where ethnic groups sought independence from Austria-Hungary — created a politically unstable region that had already seen two wars.\n>\n> **The Spark: Assassination of Franz Ferdinand** — On June 28, 1914, Archduke Franz Ferdinand was assassinated in Sarajevo by a Bosnian Serb nationalist. This single event triggered the alliance system, pulling Europe into total war within weeks.\n>\n> **Practice Questions:**\n> 1. How did the alliance system turn a regional conflict into a world war?\n> 2. In what ways did nationalism in the Balkans contribute to instability in pre-war Europe?\n> 3. Why is the assassination of Franz Ferdinand described as a \"spark\" rather than a \"root cause\"?\n\n---\n\n**The AI didn't change. The topic didn't change. Only the prompt changed — and the results are completely different.**\n\nPrompt A produced a generic, surface-level response that could apply to any student studying anything. It gave no actual help. Prompt B produced a focused, structured, genuinely useful study guide tailored to a specific exam on a specific topic in a specific format.\n\nLook at what Prompt B included that Prompt A didn't:\n\n- It told the AI *who* was asking and *why* — a 10th grader preparing for a history exam\n- It gave a *specific task* — create a study guide — not just a vague request\n- It included *constraints* — one page, five causes, two to three sentences each, three questions\n- It specified an *output format* — bullet points, bold key terms\n\nThose four things — **context, task, constraints, and format** — are the foundation of effective prompting. That's what this lesson is built around.\n\nAs you go through each section, keep asking yourself one question: **What information does the AI need to give me what I actually want?**"
+    "body": "## Same AI. Completely Different Results.\n\nBefore any theory, look at two interactions with the **exact same AI**:\n\n---\n\n### Prompt A\n> \"Help me study\"\n\n**AI Output:**\n> \"Sure! Studying can be tough. Here are some general tips: try making flashcards, reread your notes, do practice problems, study in short bursts, and get enough sleep. Let me know what you need!\"\n\n---\n\n### Prompt B\n> \"I'm a 10th grade student with a US History exam tomorrow on the causes of World War I. Create a one-page study guide with the 5 most important causes, a brief explanation of each (2–3 sentences), and 3 short-answer practice questions at the end. Use bullet points and bold the key vocabulary terms.\"\n\n**AI Output:**\n> **WWI Causes Study Guide**\n>\n> **Militarism** — European powers had been in a massive arms race for decades, making large-scale war both possible and widely anticipated.\n>\n> **Alliance Systems** — Europe was split into two armed blocs. When one nation fought, treaty obligations automatically pulled all others in.\n>\n> **Imperialism** — Competition for colonies created deep economic rivalry between the major powers.\n>\n> **Nationalism** — Intense ethnic pride — especially in the Balkans — created a politically unstable region.\n>\n> **Assassination of Franz Ferdinand** — The June 28, 1914 spark that triggered the alliance system within weeks.\n>\n> **Practice Questions:**\n> 1. How did the alliance system turn a regional conflict into a world war?\n> 2. Why did nationalism in the Balkans destabilize Europe before 1914?\n> 3. Why is the assassination described as a \"spark\" rather than a root cause?\n\n---\n\nThe AI didn't change. The topic didn't change. **Only the prompt changed — and the results are completely different.**\n\nPrompt B included four things Prompt A didn't. Before we name them, take a guess at what made the difference."
    },
    {
-    "section_id": "sec-framework",
+    "section_id": "sec-check-hook",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "What Made Prompt B Work?",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-1"
+    ],
+    "question": "Prompt B produced a dramatically better result than Prompt A. What was the main reason?",
+    "options": [
+     "Prompt B was longer, and longer prompts always get better results.",
+     "Prompt B told the AI who was asking, what they needed, specific limits, and how to format the response.",
+     "Prompt B used more polite language, which AI responds to better.",
+     "Prompt B mentioned a deadline, which made the AI prioritize the response."
+    ],
+    "correct_index": 1,
+    "correct_answer": 1,
+    "explanation": "Length alone doesn't improve results — structure does. Prompt B gave the AI four key pieces: context (10th grade student, US History exam tomorrow), a specific task (create a one-page study guide with 5 causes), constraints (2–3 sentence explanations, 3 questions), and output format (bullet points, bold key terms). Those four elements are the whole framework of this lesson."
+   },
+   {
+    "section_id": "sec-context",
     "type": "instruction",
-    "title": "The Four-Part Prompt Framework",
-    "duration_minutes": 15,
+    "title": "Part 1: Context",
+    "duration_minutes": 3,
     "learning_objective_refs": [
      "obj-1",
      "obj-2"
     ],
-    "body": "## The Four-Part Prompt Framework\n\nMost people treat AI like a search engine — they type a few words, hit enter, and hope for the best. But AI is not a search engine. It's a system that generates responses based on *everything you give it*. The more clearly you communicate what you want, the better the output.\n\nThink of it this way: if you walked up to a stranger and said \"help me,\" they wouldn't know where to start. But if you said, \"I'm lost and trying to find the nearest subway — can you give me walking directions from here?\" they'd have everything they need. Effective prompting works the same way.\n\nUse this four-part structure:\n\n---\n\n## Part 1: Context\n\n**What it is:** Background information that helps the AI understand your situation.\n\n**Why it matters:** AI has no idea who you are, what you already know, or why you're asking. Without context, it defaults to generic answers aimed at no one in particular.\n\n**What to include:**\n- Who you are (student, beginner, professional, expert)\n- What you're working on or what situation you're in\n- What you already know, if it's relevant\n- Any constraints on your background — grade level, subject knowledge, purpose\n\n**Without context (weak):**\n> \"Explain how mortgages work.\"\n\n**With context (strong):**\n> \"I'm a 17-year-old with no financial background. My parents are buying a house and I want to understand how mortgages work at a basic level — no jargon.\"\n\nThe second prompt will produce an explanation that actually makes sense to the person asking. The first might give you a textbook definition that's technically correct but practically useless for a teenager who's never encountered this topic before.\n\n---\n\n## Part 2: Task\n\n**What it is:** A clear, specific description of what you want the AI to *do*.\n\n**Why it matters:** Vague requests lead to vague responses. The more specifically you describe the task, the more targeted and useful the output will be.\n\n**What to include:**\n- A specific action verb (explain, summarize, write, compare, create, evaluate, list, rewrite)\n- The exact deliverable you want\n- A clear scope — not \"write something about investing\" but \"write a 3-paragraph introduction to index funds for beginners\"\n\n**Without a clear task (weak):**\n> \"Tell me about climate change.\"\n\n**With a clear task (strong):**\n> \"Compare the effects of climate change on agriculture in the US versus Southeast Asia. Focus on food security and give two specific examples for each region.\"\n\nA good task statement answers: *What exactly do you want, and what should it cover?*\n\n---\n\n## Part 3: Constraints\n\n**What it is:** Specific rules or limits that shape how the AI responds.\n\n**Why it matters:** Without constraints, AI tends to be either too broad or too generic. Constraints focus the output and make it actually usable.\n\n**Common types of constraints:**\n- **Length:** \"In 150 words or less,\" \"exactly three bullet points,\" \"one short paragraph\"\n- **Tone:** \"Use a conversational tone,\" \"write formally,\" \"avoid technical jargon\"\n- **Audience:** \"For a 7th grader,\" \"for someone who has never invested before,\" \"for a board of directors\"\n- **Scope:** \"Only cover the years 1920–1945,\" \"focus only on the US,\" \"do not include cryptocurrency\"\n- **Inclusion/Exclusion:** \"Include real company examples,\" \"do not give me generic advice like 'spend less money'\"\n\n**Without constraints (weak):**\n> \"Give me advice on saving money.\"\n\n**With constraints (strong):**\n> \"Give me five specific, actionable tips for saving money on a $400/month income as a part-time student. No generic advice — give me specific tactics I can use this week.\"\n\nConstraints transform open-ended responses into targeted, practical answers.\n\n---\n\n## Part 4: Output Format\n\n**What it is:** The structure or presentation style you want the AI to use.\n\n**Why it matters:** The same information can be presented in dozens of ways — a paragraph, a list, a table, a step-by-step guide, a pros/cons breakdown. If you don't specify, the AI picks whatever it defaults to, which may not match your actual need.\n\n**Common output formats:**\n- Bulleted list\n- Numbered step-by-step instructions\n- Comparison table\n- Short paragraphs with headers\n- Pros and cons list\n- Flashcard-style Q&A pairs\n- Outline\n- Essay format\n\n**Without format (weak):**\n> \"Compare a Roth IRA and a traditional IRA.\"\n\n**With format (strong):**\n> \"Compare a Roth IRA and a traditional IRA using a two-column table. Include rows for: tax treatment, income limits, withdrawal rules, and who each is best suited for.\"\n\nSpecifying the format ensures the output is immediately usable — you don't have to reformat it yourself.\n\n---\n\n## Putting It All Together\n\nHere's what a full four-part prompt looks like:\n\n**Topic:** Understanding compound interest\n\n| Part | What You Write |\n|------|----------------|\n| Context | I'm a 16-year-old who just opened my first savings account and has never studied investing |\n| Task | Explain compound interest and why starting to save early matters |\n| Constraints | Use a friendly, clear tone with no jargon. Keep it under 200 words |\n| Format | Short paragraphs followed by a simple numeric example showing $1,000 growing over 10 and 30 years at 7% |\n\n**Combined Prompt:**\n> \"I'm a 16-year-old who just opened my first savings account and has never studied investing. Explain compound interest and why starting to save early matters. Use a friendly, clear tone with no jargon, and keep it under 200 words. Include a simple numeric example showing what $1,000 would grow to in 10 years versus 30 years at a 7% annual return.\"\n\nThis will consistently produce a focused, readable, genuinely useful explanation. A vague prompt asking \"what is compound interest\" might give you a Wikipedia-style definition that's technically correct but practically useless.\n\n**You don't need to use all four parts for every single prompt.** A quick casual question doesn't need this level of structure. But for any task that actually matters — studying for an exam, getting career guidance, writing something you'll submit — the four-part framework will reliably get you better results."
+    "body": "## Part 1: Context\n\n**Context** is background information that tells the AI who you are and why you're asking.\n\nAI has no idea if you're a sixth grader, a college student, or a professional. Without context, it defaults to a generic answer aimed at no one in particular — technically correct, but practically useless for your specific situation.\n\n**What to include:**\n- Who you are (grade level, experience, background)\n- What you're working on and why\n- What you already know — or specifically don't know\n\n**Without context:**\n> \"Explain how mortgages work.\"\n\n**With context:**\n> \"I'm a 17-year-old with no financial background. My parents are buying a house and I want to understand mortgages at a basic level — no jargon.\"\n\nThe second prompt produces an explanation written for this exact person. The first might give you a textbook definition that's technically correct but reads like it was written for a bank executive."
    },
    {
-    "section_id": "sec-practice",
-    "type": "guided_practice",
-    "title": "Rebuilding a Weak Prompt, Step by Step",
-    "duration_minutes": 8,
+    "section_id": "sec-check-context-1",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: Spotting Context",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2"
+    ],
+    "question": "Which prompt includes the most useful context?",
+    "options": [
+     "Tell me about photosynthesis.",
+     "Explain photosynthesis really well so I can understand it.",
+     "I'm a 9th grade biology student who understands the basic definition of photosynthesis but struggles with how the light-dependent and light-independent reactions connect. Explain how those two stages relate and why both are necessary.",
+     "Photosynthesis explanation please — detailed and comprehensive."
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "Option C tells the AI exactly who is asking (9th grade biology student), what they already know (the basic definition), and precisely where they're stuck (the connection between the two reaction stages). That's enough for the AI to produce a targeted explanation instead of starting from scratch or going too deep. Options A, B, and D give the AI nothing personal to work with."
+   },
+   {
+    "section_id": "sec-check-context-2",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Apply It: Adding Context",
+    "duration_minutes": 2,
     "learning_objective_refs": [
      "obj-2",
      "obj-3"
     ],
-    "body": "## Rebuilding a Weak Prompt, Step by Step\n\nNow it's your turn to apply the framework. We're going to take one of the most common — and most ineffective — prompts students give AI and rebuild it one layer at a time.\n\n**Starting Prompt:**\n> \"Help me study for a test\"\n\nThis prompt is missing everything the AI needs to actually help:\n- Which subject?\n- What topics on that test?\n- When is the test?\n- What format of studying works best for you?\n- What do you already know vs. what's confusing you?\n\nWithout these answers, the AI can only give a generic response like: *\"Sure! You could try flashcards, rereading notes, or practice problems.\"* That's useless. Let's fix it.\n\n---\n\n## Step 1: Add Context\n\nWho are you, what are you studying, and what's your situation?\n\n**Prompt evolves to:**\n> \"I'm a 10th grade student with a chemistry test in two days on periodic table trends — specifically electronegativity, atomic radius, and ionization energy. I understand what these properties are, but I struggle to remember the patterns across periods and groups.\"\n\nNow the AI knows: your grade, subject, timeline, specific topics, and exactly where you're getting stuck.\n\n---\n\n## Step 2: Add a Clear Task\n\nWhat exactly do you want the AI to produce?\n\n**Prompt evolves to:**\n> \"...Create a study guide that explains each of the three trends clearly and why they occur.\"\n\nNow the AI has a clear job: create a specific study guide — not give generic advice.\n\n---\n\n## Step 3: Add Constraints\n\nWhat limits should shape the response?\n\n**Prompt evolves to:**\n> \"...Keep it concise — one page maximum. Use simple language and avoid advanced chemistry I haven't covered yet. Focus only on the trends across periods and groups.\"\n\nThese constraints prevent the AI from writing a 10-page chemistry lecture when you need a focused one-pager.\n\n---\n\n## Step 4: Specify the Output Format\n\nHow should it be structured so it's actually useful for studying?\n\n**Prompt evolves to:**\n> \"...Format it as a quick-reference chart with each trend as its own row, showing: (1) what it measures, (2) which direction it increases across periods and down groups, and (3) a one-sentence reason why. Add three short-answer practice questions at the end.\"\n\n---\n\n## The Final Rebuilt Prompt\n\n> \"I'm a 10th grade student with a chemistry test in two days on periodic table trends — specifically electronegativity, atomic radius, and ionization energy. I understand what these properties are, but I struggle to remember the patterns. Create a study guide that explains each of the three trends clearly and why they occur. Keep it to one page maximum, use simple language, and focus only on trends across periods and down groups. Format it as a quick-reference chart with each trend as its own row showing: (1) what it measures, (2) the direction it increases, and (3) a one-sentence explanation of why. Add three short-answer practice questions at the end.\"\n\n**Compare that to where we started:** \"Help me study for a test\"\n\nThe rebuilt prompt will produce a focused, organized, tailored study guide in exactly the format you need for your specific exam. The original produced nothing useful.\n\n---\n\n## Try It Yourself\n\nThink about what context, task, constraints, and format you'd add to each of these weak prompts:\n\n**Prompt 1:** \"Write me a cover letter\"\n- What's missing? Who's applying? For what job? What tone? How long?\n\n**Prompt 2:** \"Explain the stock market to me\"\n- Who are you in this scenario? What specifically about the market? What level of detail? What format?\n\n**Prompt 3:** \"Give me feedback on my essay\"\n- What kind of feedback? Grammar only? Argument structure? Tone? What's the essay for? What grade level?\n\nYou don't need to fully rebuild these right now — but start noticing *what's missing* in every prompt you write. That habit alone will dramatically improve your results."
+    "question": "A student types: \"Explain the French Revolution.\" Which version adds the most useful context?",
+    "options": [
+     "Please explain the French Revolution to me in detail.",
+     "Explain the French Revolution — it's for a school assignment.",
+     "I'm a 10th grade student writing a 2-page history essay arguing that economic inequality was the primary cause of the French Revolution. Explain the revolution with that argument in mind, focusing on evidence I could use to support it.",
+     "Explain the French Revolution. Make it interesting and engaging."
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "Option C gives the AI three essential context pieces: grade level, what they're producing (a 2-page essay), and the specific argument they're making (economic inequality as primary cause). Now the AI can tailor its explanation to support that exact thesis rather than giving a general overview of everything. Option B mentions 'school assignment' but tells the AI nothing about what kind of response would actually help."
+   },
+   {
+    "section_id": "sec-task",
+    "type": "instruction",
+    "title": "Part 2: Task",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-1",
+     "obj-2"
+    ],
+    "body": "## Part 2: Task\n\n**Task** is a clear, specific description of what you want the AI to actually *do*.\n\nVague requests lead to vague responses. The difference between \"help me with my essay\" and \"rewrite this paragraph to be more concise and persuasive\" is enormous — the second prompt tells the AI exactly what action to take and what the deliverable is.\n\n**Use a strong action verb:**\n- explain, summarize, write, compare, create, evaluate, list, rewrite, outline, simplify, translate\n\n**What to include:**\n- A specific action — not just \"help me\"\n- The exact deliverable you want\n- A clear scope — what to include and what to leave out\n\n**Without a clear task:**\n> \"Tell me about climate change.\"\n\n**With a clear task:**\n> \"Compare the effects of climate change on agriculture in the US vs. Southeast Asia. Focus on food security and give two specific examples from each region.\"\n\nThe second prompt has a clear action (compare), a specific scope (agriculture, food security), and defined coverage (two examples per region). The AI knows exactly what to produce."
+   },
+   {
+    "section_id": "sec-check-task-1",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: Identifying a Clear Task",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2"
+    ],
+    "question": "Which prompt has the clearest, most specific task?",
+    "options": [
+     "Help me with my presentation.",
+     "I need something about climate change for class.",
+     "List the 5 strongest arguments for raising the federal minimum wage, with one supporting statistic for each argument.",
+     "Can you give me some information about the minimum wage debate?"
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "Option C has a clear action verb (list), a specific quantity (5 arguments), a defined position (for raising the minimum wage, not a general debate overview), and an added specification (one statistic per argument). You know exactly what the AI should produce. Options A, B, and D are so open-ended that the AI could respond in dozens of ways without knowing what you actually need."
+   },
+   {
+    "section_id": "sec-check-task-2",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Apply It: Writing a Task Statement",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2",
+     "obj-3"
+    ],
+    "question": "A student wants AI help preparing for a job interview at a local grocery store. Which task statement gets the most useful response?",
+    "options": [
+     "Help me prepare for a job interview.",
+     "Give me some interview advice.",
+     "List the 5 most common questions asked in entry-level retail job interviews and give me a strong example answer for each one.",
+     "What should I say in a job interview?"
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "Option C specifies the action (list), quantity (5 questions), context-specific scope (entry-level retail), and exactly what the deliverable includes (a strong example answer for each question). The AI knows precisely what to produce. The other options are so vague the AI has to guess what kind of help you want — and it'll probably give generic tips that don't match your specific situation."
+   },
+   {
+    "section_id": "sec-constraints",
+    "type": "instruction",
+    "title": "Part 3: Constraints",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-1",
+     "obj-2"
+    ],
+    "body": "## Part 3: Constraints\n\n**Constraints** are specific limits that shape how the AI responds. Without them, AI tends to be too long, too short, too technical, or too generic.\n\nThink of constraints as the rules of the assignment. A teacher doesn't say \"write something\" — they say \"write a 5-paragraph essay, use formal tone, cite at least two sources, avoid first-person.\" Constraints make the output fit your actual need.\n\n**Common constraint types:**\n- **Length:** \"Under 150 words,\" \"exactly 3 bullet points,\" \"one paragraph\"\n- **Tone:** \"Conversational,\" \"formal,\" \"avoid jargon,\" \"write like you're talking to a friend\"\n- **Scope:** \"Only cover 1920–1945,\" \"focus on the US,\" \"don't include cryptocurrency\"\n- **Audience:** \"For a 7th grader,\" \"for someone who has never invested before\"\n- **Exclusions:** \"No generic advice,\" \"don't include passive voice\"\n\n**Without constraints:**\n> \"Give me advice on saving money.\"\n\n**With constraints:**\n> \"Give me 5 specific, actionable tips for saving money on a $400/month income as a part-time student. No generic advice — give me tactics I can use this week.\"\n\nThe second prompt will produce something actually useful. The first produces \"spend less than you earn\" — advice that helps no one."
+   },
+   {
+    "section_id": "sec-check-constraints-1",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: Spotting Constraints",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2"
+    ],
+    "question": "Which prompt contains the most meaningful constraints?",
+    "options": [
+     "Explain the stock market to me.",
+     "Explain the stock market in a very detailed and comprehensive way.",
+     "Explain how the stock market works to someone who is 16 and has never invested. Keep it under 200 words, use simple language, avoid jargon, and focus only on how stocks are bought and sold — don't cover bonds, ETFs, or options.",
+     "Explain the stock market. I'm in high school and I'm a beginner."
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "Option C has multiple specific constraints working together: audience (16-year-old, never invested), length (under 200 words), tone (simple language, no jargon), and scope (buying/selling only, explicitly excluding bonds/ETFs/options). Each constraint removes a decision the AI would otherwise make on its own — and those default decisions usually produce something that doesn't fit what you actually need."
+   },
+   {
+    "section_id": "sec-check-constraints-2",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Apply It: What Constraint Is Missing?",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2",
+     "obj-3"
+    ],
+    "question": "A student writes: \"I'm a 10th grader writing an argumentative essay on social media. Write me a strong thesis statement arguing that social media is harmful to teenagers.\" What constraint would most improve this prompt?",
+    "options": [
+     "Nothing — the prompt already has enough information for a good thesis.",
+     "Add the word 'please' to make the AI more helpful.",
+     "Specify what makes a good thesis here — e.g., 'Keep it to one sentence, make it specific and arguable (not just a statement of fact), and include a reason why.'",
+     "Add more general background about social media and its history."
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "Without a constraint defining what a strong thesis looks like, the AI might produce something too broad ('Social media is bad for teenagers') or too obvious to be arguable. Adding 'one sentence, specific and arguable, includes a reason' tells the AI exactly what standard to meet — and prevents you from getting something you can't actually use in your essay."
+   },
+   {
+    "section_id": "sec-format",
+    "type": "instruction",
+    "title": "Part 4: Output Format",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-1",
+     "obj-2"
+    ],
+    "body": "## Part 4: Output Format\n\n**Output format** is the structure you want the AI's response to use.\n\nThe same information can be delivered as a wall of text, a bullet list, a table, or a step-by-step guide — and those formats are not interchangeable. A format that's great for studying is useless for a presentation. If you don't specify, the AI picks whatever it defaults to.\n\n**Common output formats:**\n- Bullet list\n- Numbered step-by-step instructions\n- Comparison table (great for side-by-side decisions)\n- Short paragraphs with bold headers\n- Pros and cons list\n- Flashcard-style Q&A pairs\n- Outline\n\n**Without format:**\n> \"Compare a Roth IRA and a traditional IRA.\"\n\n**With format:**\n> \"Compare a Roth IRA and a traditional IRA using a two-column table. Include rows for: tax treatment, income limits, withdrawal rules, and who each is best suited for.\"\n\nThe first might give you three paragraphs of prose you have to mentally reorganize. The second gives you a table you can use immediately."
+   },
+   {
+    "section_id": "sec-check-format-1",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: Matching Format to Purpose",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2"
+    ],
+    "question": "A student is making a quick-reference card they can glance at during a science test on cell division. Which output format is most useful?",
+    "options": [
+     "Three detailed paragraphs explaining mitosis and meiosis in depth.",
+     "A short essay comparing the two processes with a strong conclusion.",
+     "A table with one row per stage of each process, showing: stage name, what happens, and one key vocabulary term.",
+     "A comprehensive list of everything the student needs to know about cell biology."
+    ],
+    "correct_index": 2,
+    "correct_answer": 2,
+    "explanation": "A reference card needs to be scannable at a glance — a table with clear rows and columns is exactly the right tool. Paragraphs and essays require reading time the student won't have during a test. 'A list of everything' is too broad and unstructured to use quickly. Matching your output format to how you'll actually use the information is what separates a useful AI response from one you have to reformat yourself."
+   },
+   {
+    "section_id": "sec-check-format-2",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Apply It: Spot the Missing Piece",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-2",
+     "obj-3"
+    ],
+    "question": "Read this prompt: \"Write me a 200-word summary of the causes of World War I. Use bullet points.\" Which framework element is missing?",
+    "options": [
+     "Task — there's no clear action for the AI to take.",
+     "Constraints — there's no length limit specified.",
+     "Output format — bullet points weren't mentioned.",
+     "Context — there's no information about who's asking or why, so the AI can't calibrate depth or vocabulary."
+    ],
+    "correct_index": 3,
+    "correct_answer": 3,
+    "explanation": "This prompt has a task (write a summary), a constraint (200 words), and a format (bullet points). What's missing is context. The AI doesn't know if this is for a 6th grader or a college student, for a quick review or a research paper. Adding even 'I'm a 10th grade student reviewing for a test' tells the AI how to calibrate the depth and vocabulary of the response."
+   },
+   {
+    "section_id": "sec-practice",
+    "type": "guided_practice",
+    "title": "Seeing the Framework in Action",
+    "duration_minutes": 4,
+    "learning_objective_refs": [
+     "obj-2",
+     "obj-3"
+    ],
+    "body": "## Seeing the Framework in Action\n\nWatch one weak prompt transform when all four parts are added:\n\n**Starting prompt:**\n> \"Help me study for a test\"\n\nThis gives the AI nothing. No subject, no deadline, no level, no format. It can only give generic advice.\n\n---\n\n**After adding Context:**\n> \"I'm a 10th grade student with a chemistry test in two days on periodic table trends — specifically electronegativity, atomic radius, and ionization energy. I understand what each property is, but struggle to remember the patterns across periods and down groups.\"\n\n**After adding Task:**\n> \"...Create a study guide that explains each of the three trends clearly and why they occur.\"\n\n**After adding Constraints:**\n> \"...One page maximum. Simple language only. Focus only on trends across periods and down groups.\"\n\n**After adding Format:**\n> \"...Format it as a quick-reference chart: each trend as a row showing (1) what it measures, (2) which direction it increases, and (3) a one-sentence reason why. Add 3 short-answer practice questions at the end.\"\n\n---\n\n**The complete prompt:**\n> \"I'm a 10th grade student with a chemistry test in two days on periodic table trends — specifically electronegativity, atomic radius, and ionization energy. I understand what these properties are, but struggle to remember the patterns. Create a study guide that explains each of the three trends and why they occur. Keep it to one page, use simple language, and focus only on trends across periods and down groups. Format it as a quick-reference chart with each trend as a row showing: (1) what it measures, (2) the direction it increases, and (3) a one-sentence explanation of why. Add 3 short-answer practice questions at the end.\"\n\n**Compare that to where we started:** \"Help me study for a test\"\n\nThe rebuilt prompt produces a focused, organized, tailored study guide. The original produced nothing useful."
    },
    {
     "section_id": "sec-check-1",
     "type": "check",
     "check_type": "multiple_choice",
-    "title": "Check: Identifying the Strongest Prompt",
-    "duration_minutes": 5,
+    "title": "Check: Identify the Strongest Prompt",
+    "duration_minutes": 3,
     "learning_objective_refs": [
      "obj-2"
     ],
@@ -3944,7 +4161,8 @@
      "Write a detailed essay about why the Civil War happened, covering all the major causes and their effects."
     ],
     "correct_index": 2,
-    "explanation": "Option C is the strongest prompt because it uses all four framework elements: context (10th grade student, 5-minute presentation), a clear task (summarize 4 main causes), constraints (simple language, under 200 words), and output format (bullet points, bold each cause). Option A is too vague. Option B adds length but no structure or constraints. Option D asks for an essay — the opposite of what a presentation needs."
+    "correct_answer": 2,
+    "explanation": "Option C uses all four framework elements: context (10th grade student, 5-minute presentation), a clear task (summarize 4 main causes), constraints (simple language, under 200 words), and output format (bullet points, bold each cause name). Option A is too vague. Option B adds length but no structure. Option D asks for an essay — the opposite of what a short class presentation needs."
    },
    {
     "section_id": "sec-check-practice",
@@ -3956,22 +4174,22 @@
      "obj-2",
      "obj-3"
     ],
-    "question": "A student needs to apply for a part-time job at a coffee shop and types: \"Write me a cover letter.\" Which answer best describes what this prompt is missing?",
+    "question": "A student applying for a part-time job at a coffee shop types: \"Write me a cover letter.\" What is this prompt most missing?",
     "options": [
      "Nothing — it's clear enough. Cover letters always follow the same format.",
-     "Context (who they are, what job), constraints (length and tone), and output format — without these the AI produces a generic template that doesn't represent the student at all.",
+     "Context (who they are, what job, their background), constraints (length, tone), and output format — without these the AI produces a generic template that doesn't represent this student at all.",
      "Only the output format. The AI already knows what a cover letter looks like.",
-     "The student should write the cover letter themselves and not use AI for job applications."
+     "A polite opening. AI performs better when prompts start with 'please'."
     ],
     "correct_index": 1,
     "correct_answer": 1,
-    "explanation": "\"Write me a cover letter\" gives the AI nothing personal to work with. Without context (a high school student, applying for a barista role, with no formal work experience), constraints (keep it under one page, professional but warm tone, emphasize reliability and willingness to learn), and format (3 short paragraphs: opening, why this role, closing), the AI will produce a generic corporate-sounding template that is useless for this specific application."
+    "explanation": "\"Write me a cover letter\" gives the AI nothing personal to work with. Without context (high school student, applying for a barista role, no formal work experience), constraints (under one page, professional but warm tone, highlight reliability and willingness to learn), and format (3 short paragraphs: opening, why this role, closing), the AI produces a generic corporate template that is useless for this specific application."
    },
    {
     "section_id": "sec-misconception-longer",
     "type": "misconception",
     "title": "Misconception: Longer Prompts Are Always Better",
-    "duration_minutes": 3,
+    "duration_minutes": 2,
     "learning_objective_refs": [
      "obj-2"
     ],
@@ -3980,38 +4198,68 @@
    {
     "section_id": "sec-verification",
     "type": "instruction",
-    "title": "Why AI Can Be Wrong — And What To Do About It",
-    "duration_minutes": 10,
+    "title": "Why AI Can Be Confidently Wrong",
+    "duration_minutes": 4,
     "learning_objective_refs": [
      "obj-4"
     ],
-    "body": "## Why AI Can Be Wrong — And What To Do About It\n\nYou've learned how to write better prompts. Now you need to understand one of the most important — and most overlooked — realities of using AI: **AI can be confidently, fluently, completely wrong.**\n\nThis isn't a flaw that will eventually be fixed. It's a fundamental characteristic of how current AI systems work. Understanding why it happens is what separates smart AI users from naive ones.\n\n---\n\n## What Is Hallucination?\n\nIn AI, a **hallucination** is when the model generates information that sounds accurate and is presented with complete confidence — but is factually incorrect, misleading, or entirely fabricated.\n\nHere are documented real-world examples:\n\n- A lawyer submitted AI-generated legal briefs to a US federal court. The briefs cited six court cases that did not exist. The AI had invented them — complete with case names, court dates, and ruling summaries. The lawyer was sanctioned by the judge.\n- Students have cited AI-generated academic papers with fake authors, fake journals, fake page numbers — that no library can find because they were never published.\n- AI systems have generated dangerous medical dosage recommendations, invented quotes attributed to real people, and described historical events that never happened.\n\nIn every case, the AI didn't flag uncertainty. It wrote the false information with the same fluent, authoritative tone it uses when it's correct.\n\n---\n\n## Why Does This Happen?\n\nTo understand hallucination, you need to understand what AI is actually doing.\n\nAI language models are, at their core, **extremely sophisticated pattern-matching machines**. They were trained on enormous amounts of text and learned to predict: *given everything before this point, what words are most likely to come next?*\n\nThis means:\n- AI generates text that *sounds like* what an answer to your question would look like\n- It optimizes for coherent, fluent, convincing-sounding language\n- It has no internal fact-checker verifying what it writes\n- It has no genuine understanding of \"true\" vs. \"false\"\n\nWhen the AI doesn't know something, it doesn't say \"I don't know\" and stop. It continues generating text that *sounds right* — which can produce completely invented information that reads as authoritative fact.\n\n**AI is not a librarian who looks things up. It's a pattern predictor that generates plausible-sounding text. Those are fundamentally different things.**\n\n---\n\n## The Confidence Problem\n\nHere's what makes hallucination especially dangerous: **AI writes wrong information in exactly the same confident, fluent tone it uses for correct information.**\n\nThere's no hesitation. No \"I'm not sure about this.\" No shift in writing quality. A hallucinated statistic reads identically to a real one. A fake citation looks identical to a genuine one.\n\nThis is why the confident tone of an AI response is **not** evidence of its accuracy. The AI has no self-awareness about what it doesn't know.\n\n---\n\n## When Should You Verify?\n\nNot every AI output needs the same level of scrutiny. Here's a practical framework:\n\n### Always Verify When the Output Involves:\n- **Specific facts, statistics, or numbers** — dates, percentages, prices, research findings\n- **Citations or sources** — any paper, book, study, expert, or quote the AI references\n- **Medical, legal, or financial guidance** — decisions with real-world consequences\n- **Statements about living people** — what someone said, believed, or did\n- **Recent events** — AI knowledge has a cutoff date and may be significantly outdated\n- **Anything you plan to use publicly** — in a presentation, paper, assignment, or professional context\n\n### Lower Priority When:\n- Brainstorming ideas (you're generating options, not acting on them yet)\n- Getting structural help with writing — organization, tone, transitions\n- Explaining well-established, widely-documented concepts at a general level\n- Rewriting or rephrasing your own content\n\n---\n\n## Three Verification Strategies\n\n**1. Ask the AI for sources — then check them.**\nFollow up: *\"What sources support the specific claims you made? Give me author, title, and publication for each.\"* Then actually look them up. If they don't exist, treat the whole response with skepticism.\n\n**2. Cross-check with an authoritative outside source.**\nSearch for the same claim on a reliable, authoritative source — government databases (.gov), peer-reviewed research, established journalism, official institutional websites. If the AI's claim can't be confirmed anywhere credible, treat it as unverified.\n\n**3. Ask the AI to flag its own uncertainty.**\nYou can explicitly prompt: *\"After your response, identify any claims you are less than fully confident about and explain why.\"* This won't catch everything, but it often surfaces the weakest parts of a response and signals where extra scrutiny is warranted.\n\n---\n\n## The Right Mental Model\n\nThink of AI as a research assistant who has read almost everything — but who sometimes misremembers, fills in gaps with confident-sounding guesses, and genuinely cannot distinguish between what it knows and what it's inventing.\n\nYou wouldn't submit your research assistant's first draft without reading it. You wouldn't trust their citation list without spot-checking it. You'd use their work as a strong starting point — and verify the parts that matter before staking anything on them.\n\n**That's exactly how you should use AI.**\n\nBetter prompts get you better first drafts. Verification ensures those drafts are actually accurate. Both skills together are what it means to use AI responsibly in the real world."
+    "body": "## Why AI Can Be Confidently Wrong\n\nHere's something most people don't realize until it catches them: **AI can be completely wrong and show zero signs of it.**\n\nThis isn't a bug that will eventually be fixed. It's a fundamental characteristic of how the technology works.\n\n**Real documented examples:**\n- A lawyer submitted AI-generated legal briefs to a US federal court. The briefs cited six court cases that did not exist — the AI invented them, complete with case names, dates, and ruling summaries. The lawyer was sanctioned.\n- Students have cited AI-generated academic papers with fake authors, fake journals, and fake page numbers. None of the papers were ever published.\n\n**Why it happens:**\n\nAI language models are **pattern-matching machines**. They were trained to predict: *given everything before this point, what words are most likely to come next?*\n\nThis means AI generates text that *sounds like* a correct answer — not text that has been verified to be true. There is no internal fact-checker. The model has no way to distinguish between what it knows and what it's pattern-matching its way through.\n\n**The dangerous part:** AI writes incorrect information in the exact same confident, fluent tone it uses for correct information. A hallucinated statistic reads identically to a real one. A fake citation looks identical to a genuine one. A confident AI response is not evidence of accuracy — it's evidence that the model is good at writing fluent text."
+   },
+   {
+    "section_id": "sec-check-hallucination",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: Understanding Hallucination",
+    "duration_minutes": 2,
+    "learning_objective_refs": [
+     "obj-4"
+    ],
+    "question": "An AI confidently states: \"The Gettysburg Address was delivered by Abraham Lincoln on November 19, 1865.\" You remember learning the date was 1863. What best explains this?",
+    "options": [
+     "The AI is using a different historical dating system.",
+     "The AI hallucinated the date — it generated a plausible-sounding year that happens to be wrong.",
+     "The AI is correct and your memory is mistaken. AI doesn't make errors on well-known historical facts.",
+     "The AI's knowledge cutoff means it doesn't have complete information about Lincoln."
+    ],
+    "correct_index": 1,
+    "correct_answer": 1,
+    "explanation": "The Gettysburg Address was delivered November 19, 1863. This is a textbook hallucination: the AI generated a specific, plausible-sounding year (1865) that is simply wrong by two years. Lincoln died in April 1865, which may explain why the AI's pattern-matching landed on that year. Nothing in the response signals the error — the confident, fluent phrasing gives no hint that the date is incorrect. This is exactly why specific dates, statistics, and facts warrant verification."
+   },
+   {
+    "section_id": "sec-when-to-verify",
+    "type": "instruction",
+    "title": "When to Verify — A Practical Guide",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-4"
+    ],
+    "body": "## When to Verify — A Practical Guide\n\nNot every AI output needs the same scrutiny. Here's how to decide:\n\n**Always verify before using:**\n- **Specific statistics or numbers** — dates, percentages, prices, research findings\n- **Citations or sources** — any paper, book, expert, or quote the AI references\n- **Medical, legal, or financial guidance** — decisions with real-world consequences\n- **Quotes attributed to real people** — AI frequently invents these\n- **Recent events** — AI has a knowledge cutoff and may be significantly outdated\n- **Anything you're submitting publicly** — assignments, presentations, reports\n\n**Lower priority:**\n- Brainstorming ideas (you're generating options, not acting on them yet)\n- Help with structure, organization, or tone of your own writing\n- Explanations of well-established general concepts\n- Rewriting or rephrasing text you wrote yourself\n\n**Three quick verification moves:**\n1. Ask the AI: *\"What sources support these specific claims?\"* — then actually look them up\n2. Search the same claim on a .gov site, published study, or authoritative institution\n3. Add to your prompt: *\"After your response, flag any claims you're less than fully confident about\"*\n\nThe goal isn't to distrust everything — it's to know which parts can be trusted and which need a second look."
    },
    {
     "section_id": "sec-check-2",
     "type": "check",
     "check_type": "multiple_choice",
     "title": "Check: When to Verify",
-    "duration_minutes": 3,
+    "duration_minutes": 2,
     "learning_objective_refs": [
      "obj-4"
     ],
-    "question": "An AI gives you a response that includes this line: \"Studies show that 73% of teenagers experience anxiety symptoms linked to social media use.\" You want to cite this in your persuasive essay. What should you do?",
+    "question": "An AI gives you this line: \"Studies show that 73% of teenagers experience anxiety symptoms linked to social media use.\" You want to cite it in your persuasive essay. What should you do?",
     "options": [
-     "Use it — the specific percentage shows the AI is citing a real study with real data.",
-     "Ask the AI where it got the statistic, then copy whatever source it names directly into your citation.",
+     "Use it — the specific percentage proves the AI is citing a real study with real data.",
+     "Ask the AI where it got the statistic, then copy whatever source it names into your citation.",
      "Skip all statistics entirely — AI-generated numbers are never reliable.",
      "Search for the original study from a credible source before using the statistic in your essay."
     ],
     "correct_index": 3,
     "correct_answer": 3,
-    "explanation": "Specific statistics and percentages are among the most commonly hallucinated AI outputs. The precision of \"73%\" makes it sound credible — but AI generates specific-sounding numbers that often don't correspond to any real study. Always trace the claim back to an original source (a published study, a government report, a peer-reviewed journal) before citing it. And if the AI names a source when you ask, verify that source too — AI can hallucinate citations just as easily as statistics."
+    "explanation": "Specific statistics and percentages are among the most commonly hallucinated AI outputs. The precision of '73%' makes it sound credible — but AI generates specific-sounding numbers that often don't correspond to any real study. Always trace the claim back to an original source before citing it. And if the AI names a source when you ask, verify that source too — AI can hallucinate citations just as easily as statistics."
    },
    {
     "section_id": "sec-misconception-confident",
     "type": "misconception",
-    "title": "Common Misconception: Confidence Means Accuracy",
-    "duration_minutes": 3,
+    "title": "Misconception: Confidence Means Accuracy",
+    "duration_minutes": 2,
     "learning_objective_refs": [
      "obj-4"
     ],
@@ -4035,12 +4283,12 @@
     "section_id": "sec-reflection",
     "type": "reflection",
     "title": "When Do You Trust AI?",
-    "duration_minutes": 5,
+    "duration_minutes": 4,
     "learning_objective_refs": [
      "obj-3",
      "obj-4"
     ],
-    "prompt": "Think about how you've used AI in the past — for homework, research, writing, or just getting quick answers. Was there a time you used an AI output without verifying it? Looking at what you've learned today: in what specific situations will you commit to verifying AI outputs before using them? And what's one concrete change you'll make to how you write prompts going forward?"
+    "prompt": "Think about how you've used AI in the past — for homework, research, writing, or quick answers. Was there a time you used an AI output without verifying it? Looking at what you've learned today: in what specific situations will you commit to verifying AI outputs before using them? And what's one concrete change you'll make to how you write prompts going forward?"
    }
   ],
   "exit_ticket": [
