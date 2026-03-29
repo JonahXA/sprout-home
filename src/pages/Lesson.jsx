@@ -377,6 +377,7 @@ function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
         else if (componentName === "InterestCalculator") m = await import("@/components/InterestCalculator");
         else if (componentName === "CreditCardStatement") m = await import("@/components/CreditCardStatement");
         else if (componentName === "PaycheckStatement") m = await import("@/components/PaycheckStatement");
+        else if (componentName === "PromptImprovementSimulation") m = await import("@/components/PromptImprovementSimulation");
         if (m) setComp(() => m.default);
       } catch (e) {
         console.error("SimulationEmbed: failed to load", componentName, e);
