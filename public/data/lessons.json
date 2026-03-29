@@ -3827,7 +3827,7 @@
   "course_id": "course-prompting-pro-001",
   "title": "Prompting Like a Pro",
   "order": 1,
-  "duration_minutes": 70,
+  "duration_minutes": 75,
   "xp_reward": 150,
   "is_deleted": false,
   "is_sample": false,
@@ -3920,7 +3920,7 @@
     "section_id": "sec-practice",
     "type": "guided_practice",
     "title": "Rebuilding a Weak Prompt, Step by Step",
-    "duration_minutes": 10,
+    "duration_minutes": 8,
     "learning_objective_refs": [
      "obj-2",
      "obj-3"
@@ -3947,6 +3947,37 @@
     "explanation": "Option C is the strongest prompt because it uses all four framework elements: context (10th grade student, 5-minute presentation), a clear task (summarize 4 main causes), constraints (simple language, under 200 words), and output format (bullet points, bold each cause). Option A is too vague. Option B adds length but no structure or constraints. Option D asks for an essay — the opposite of what a presentation needs."
    },
    {
+    "section_id": "sec-check-practice",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: What's Missing?",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-2",
+     "obj-3"
+    ],
+    "question": "A student needs to apply for a part-time job at a coffee shop and types: \"Write me a cover letter.\" Which answer best describes what this prompt is missing?",
+    "options": [
+     "Nothing — it's clear enough. Cover letters always follow the same format.",
+     "Context (who they are, what job), constraints (length and tone), and output format — without these the AI produces a generic template that doesn't represent the student at all.",
+     "Only the output format. The AI already knows what a cover letter looks like.",
+     "The student should write the cover letter themselves and not use AI for job applications."
+    ],
+    "correct_index": 1,
+    "correct_answer": 1,
+    "explanation": "\"Write me a cover letter\" gives the AI nothing personal to work with. Without context (a high school student, applying for a barista role, with no formal work experience), constraints (keep it under one page, professional but warm tone, emphasize reliability and willingness to learn), and format (3 short paragraphs: opening, why this role, closing), the AI will produce a generic corporate-sounding template that is useless for this specific application."
+   },
+   {
+    "section_id": "sec-misconception-longer",
+    "type": "misconception",
+    "title": "Misconception: Longer Prompts Are Always Better",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-2"
+    ],
+    "misconception_ref": "mc-longer"
+   },
+   {
     "section_id": "sec-verification",
     "type": "instruction",
     "title": "Why AI Can Be Wrong — And What To Do About It",
@@ -3955,6 +3986,36 @@
      "obj-4"
     ],
     "body": "## Why AI Can Be Wrong — And What To Do About It\n\nYou've learned how to write better prompts. Now you need to understand one of the most important — and most overlooked — realities of using AI: **AI can be confidently, fluently, completely wrong.**\n\nThis isn't a flaw that will eventually be fixed. It's a fundamental characteristic of how current AI systems work. Understanding why it happens is what separates smart AI users from naive ones.\n\n---\n\n## What Is Hallucination?\n\nIn AI, a **hallucination** is when the model generates information that sounds accurate and is presented with complete confidence — but is factually incorrect, misleading, or entirely fabricated.\n\nHere are documented real-world examples:\n\n- A lawyer submitted AI-generated legal briefs to a US federal court. The briefs cited six court cases that did not exist. The AI had invented them — complete with case names, court dates, and ruling summaries. The lawyer was sanctioned by the judge.\n- Students have cited AI-generated academic papers with fake authors, fake journals, fake page numbers — that no library can find because they were never published.\n- AI systems have generated dangerous medical dosage recommendations, invented quotes attributed to real people, and described historical events that never happened.\n\nIn every case, the AI didn't flag uncertainty. It wrote the false information with the same fluent, authoritative tone it uses when it's correct.\n\n---\n\n## Why Does This Happen?\n\nTo understand hallucination, you need to understand what AI is actually doing.\n\nAI language models are, at their core, **extremely sophisticated pattern-matching machines**. They were trained on enormous amounts of text and learned to predict: *given everything before this point, what words are most likely to come next?*\n\nThis means:\n- AI generates text that *sounds like* what an answer to your question would look like\n- It optimizes for coherent, fluent, convincing-sounding language\n- It has no internal fact-checker verifying what it writes\n- It has no genuine understanding of \"true\" vs. \"false\"\n\nWhen the AI doesn't know something, it doesn't say \"I don't know\" and stop. It continues generating text that *sounds right* — which can produce completely invented information that reads as authoritative fact.\n\n**AI is not a librarian who looks things up. It's a pattern predictor that generates plausible-sounding text. Those are fundamentally different things.**\n\n---\n\n## The Confidence Problem\n\nHere's what makes hallucination especially dangerous: **AI writes wrong information in exactly the same confident, fluent tone it uses for correct information.**\n\nThere's no hesitation. No \"I'm not sure about this.\" No shift in writing quality. A hallucinated statistic reads identically to a real one. A fake citation looks identical to a genuine one.\n\nThis is why the confident tone of an AI response is **not** evidence of its accuracy. The AI has no self-awareness about what it doesn't know.\n\n---\n\n## When Should You Verify?\n\nNot every AI output needs the same level of scrutiny. Here's a practical framework:\n\n### Always Verify When the Output Involves:\n- **Specific facts, statistics, or numbers** — dates, percentages, prices, research findings\n- **Citations or sources** — any paper, book, study, expert, or quote the AI references\n- **Medical, legal, or financial guidance** — decisions with real-world consequences\n- **Statements about living people** — what someone said, believed, or did\n- **Recent events** — AI knowledge has a cutoff date and may be significantly outdated\n- **Anything you plan to use publicly** — in a presentation, paper, assignment, or professional context\n\n### Lower Priority When:\n- Brainstorming ideas (you're generating options, not acting on them yet)\n- Getting structural help with writing — organization, tone, transitions\n- Explaining well-established, widely-documented concepts at a general level\n- Rewriting or rephrasing your own content\n\n---\n\n## Three Verification Strategies\n\n**1. Ask the AI for sources — then check them.**\nFollow up: *\"What sources support the specific claims you made? Give me author, title, and publication for each.\"* Then actually look them up. If they don't exist, treat the whole response with skepticism.\n\n**2. Cross-check with an authoritative outside source.**\nSearch for the same claim on a reliable, authoritative source — government databases (.gov), peer-reviewed research, established journalism, official institutional websites. If the AI's claim can't be confirmed anywhere credible, treat it as unverified.\n\n**3. Ask the AI to flag its own uncertainty.**\nYou can explicitly prompt: *\"After your response, identify any claims you are less than fully confident about and explain why.\"* This won't catch everything, but it often surfaces the weakest parts of a response and signals where extra scrutiny is warranted.\n\n---\n\n## The Right Mental Model\n\nThink of AI as a research assistant who has read almost everything — but who sometimes misremembers, fills in gaps with confident-sounding guesses, and genuinely cannot distinguish between what it knows and what it's inventing.\n\nYou wouldn't submit your research assistant's first draft without reading it. You wouldn't trust their citation list without spot-checking it. You'd use their work as a strong starting point — and verify the parts that matter before staking anything on them.\n\n**That's exactly how you should use AI.**\n\nBetter prompts get you better first drafts. Verification ensures those drafts are actually accurate. Both skills together are what it means to use AI responsibly in the real world."
+   },
+   {
+    "section_id": "sec-check-2",
+    "type": "check",
+    "check_type": "multiple_choice",
+    "title": "Check: When to Verify",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-4"
+    ],
+    "question": "An AI gives you a response that includes this line: \"Studies show that 73% of teenagers experience anxiety symptoms linked to social media use.\" You want to cite this in your persuasive essay. What should you do?",
+    "options": [
+     "Use it — the specific percentage shows the AI is citing a real study with real data.",
+     "Ask the AI where it got the statistic, then copy whatever source it names directly into your citation.",
+     "Skip all statistics entirely — AI-generated numbers are never reliable.",
+     "Search for the original study from a credible source before using the statistic in your essay."
+    ],
+    "correct_index": 3,
+    "correct_answer": 3,
+    "explanation": "Specific statistics and percentages are among the most commonly hallucinated AI outputs. The precision of \"73%\" makes it sound credible — but AI generates specific-sounding numbers that often don't correspond to any real study. Always trace the claim back to an original source (a published study, a government report, a peer-reviewed journal) before citing it. And if the AI names a source when you ask, verify that source too — AI can hallucinate citations just as easily as statistics."
+   },
+   {
+    "section_id": "sec-misconception-confident",
+    "type": "misconception",
+    "title": "Common Misconception: Confidence Means Accuracy",
+    "duration_minutes": 3,
+    "learning_objective_refs": [
+     "obj-4"
+    ],
+    "misconception_ref": "mc-confident"
    },
    {
     "section_id": "sec-simulation",
@@ -3969,16 +4030,6 @@
     "simulation_id": "sim-prompt-improvement-001",
     "component": "PromptImprovementSimulation",
     "scenario_id": null
-   },
-   {
-    "section_id": "sec-misconception",
-    "type": "misconception",
-    "title": "Common Misconception: Confidence Means Accuracy",
-    "duration_minutes": 5,
-    "learning_objective_refs": [
-     "obj-4"
-    ],
-    "misconception_ref": "mc-confident"
    },
    {
     "section_id": "sec-reflection",

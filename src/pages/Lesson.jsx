@@ -274,8 +274,10 @@ function MisconceptionCard({ myth, reality, onContinue }) {
   );
 }
 
-// ReflectionCard — prompt with a soft "I've reflected" continue button.
+// ReflectionCard — prompt with a textarea for writing thoughts + continue button.
 function ReflectionCard({ prompt, onContinue }) {
+  const [text, setText] = useState("");
+  const hasWritten = text.trim().length > 20;
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
       <div style={{ display:"inline-flex", alignItems:"center", gap:8, background:"#F5F3FF", border:"1px solid #DDD6FE", borderRadius:8, padding:"8px 14px", fontSize:13, fontWeight:700, color:"#7C3AED" }}>
@@ -289,12 +291,26 @@ function ReflectionCard({ prompt, onContinue }) {
         </p>
       </div>
 
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Write your thoughts here..."
+        style={{
+          width:"100%", boxSizing:"border-box", minHeight:110,
+          padding:"12px 14px", borderRadius:10,
+          border:`1.5px solid ${text.length > 10 ? "#7C3AED" : C.border}`,
+          fontSize:14, color:C.text, lineHeight:1.6, fontFamily:"inherit",
+          resize:"vertical", outline:"none", transition:"border-color 0.15s",
+          background:"#fff",
+        }}
+      />
+
       <div style={{ display:"flex", justifyContent:"flex-end" }}>
         <button
           onClick={onContinue}
           style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:"#7C3AED", color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer" }}
         >
-          I've reflected — continue <ArrowRight size={16} />
+          {hasWritten ? "Continue" : "Skip — continue"} <ArrowRight size={16} />
         </button>
       </div>
     </div>
@@ -695,7 +711,7 @@ export default function Lesson() {
   if (t.includes("budget")) lessonImage = lessonImages.budget;
   if (t.includes("paycheck")) lessonImage = lessonImages.paycheck;
   if (t.includes("insurance")) lessonImage = lessonImages.insurance;
-  if (t.includes("ai") || t.includes("artificial")) lessonImage = lessonImages.ai;
+  if (t.includes("ai") || t.includes("artificial") || t.includes("prompt")) lessonImage = lessonImages.ai;
   if (t.includes("machine") || t.includes("neural")) lessonImage = lessonImages.ml;
   if (t.includes("invest")) lessonImage = lessonImages.investing;
   if (t.includes("credit") || t.includes("debt")) lessonImage = lessonImages.credit;
