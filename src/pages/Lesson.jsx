@@ -754,7 +754,7 @@ function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
 }
 
 // ─── Main section renderer ──────────────────────────────────────
-function renderSection(section, { onContinue, onCheckPass, lesson, misconceptions }) {
+function renderSection(section, { onContinue, lesson, misconceptions }) {
   switch (section.type) {
     case "hook":
     case "instruction":
@@ -766,8 +766,7 @@ function renderSection(section, { onContinue, onCheckPass, lesson, misconception
       );
 
     case "check":
-      // check_type: only "multiple_choice" implemented; others fall through to same UI
-      return <InlineCheck section={section} onPass={onCheckPass} />;
+      return <InlineCheck section={section} onPass={onContinue} />;
 
     case "simulation":
       return (
@@ -1168,21 +1167,22 @@ export default function Lesson() {
                     {/* Section content — type switch */}
                     <div style={{ marginBottom:32 }}>
                       {renderSection(currentSection, {
-                        // For gated sections that have their own Continue button
+                        // onContinue: used by gated types (check, simulation, misconception, reflection)
+                        // Each section renders its own forward button; this handler marks + advances.
                         onContinue: () => {
                           markSectionPassed(sectionKey);
                           if (sectionIndex < totalSections - 1) goToSection(sectionIndex + 1);
                           else if (terminalQuestions.length > 0) { setShowQuiz(true); window.scrollTo(0, 0); }
                           else completeMutation.mutate({ quizScore: 100 });
                         },
-                        // For InlineCheck — marks passed then allows manual Continue
-                        onCheckPass: () => markSectionPassed(sectionKey),
                         lesson,
                         misconceptions: lesson.misconceptions,
                       })}
                     </div>
 
-                    {/* Nav buttons — unchanged layout, Continue disabled if gated */}
+                    {/* Nav buttons — Previous always available; Continue only for non-gated types.
+                        Gated types (check / simulation / misconception / reflection) own their
+                        forward button internally — no shell Continue rendered for them. */}
                     <div style={{ display:"flex", justifyContent:"space-between", gap:12, paddingTop:24, borderTop:`1px solid ${C.border}` }}>
                       {sectionIndex > 0 && (
                         <button
@@ -1193,8 +1193,8 @@ export default function Lesson() {
                         </button>
                       )}
 
-                      {/* Gated sections (check/sim/misconception/reflection) render
-                          their own Continue button above — we hide the global one */}
+                      {/* Shell Continue is shown ONLY for non-gated types (hook, instruction, guided_practice).
+                          All gated types handle their own forward action. */}
                       {!isGated && (
                         sectionIndex < totalSections - 1 ? (
                           <button
@@ -1217,19 +1217,16 @@ export default function Lesson() {
                         )
                       )}
 
-                      {/* For check sections that have been passed, show Continue
-                          via the global button too (InlineCheck also shows one) */}
-                      {isGated && sectionType === "check" && sectionPassed && (
+                      {/* REMOVED: the old "check + sectionPassed" shell Continue block that caused
+                          a duplicate button alongside the check component's own ContinueBtn.
+                          Checks now route onPass → onContinue directly (mark + advance). */}
+                      {false && sectionType === "check" && sectionPassed && (
                         sectionIndex < totalSections - 1 ? (
-                          <button
-                            onClick={() => goToSection(sectionIndex + 1)}
-                            style={{ marginLeft:"auto", display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
-                          >
+                          <button onClick={() => goToSection(sectionIndex + 1)} style={{ display:"none" }}>
                             Continue <ArrowRight size={16} />
                           </button>
                         ) : (
-                          <button
-                            onClick={() => {
+                          <button onClick={() => {
                               if (!terminalQuestions.length) { toast.error("This lesson is missing a quiz."); return; }
                               setShowQuiz(true);
                               window.scrollTo({ top: 0, behavior: "smooth" });
