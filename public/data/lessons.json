@@ -3827,7 +3827,7 @@
     "course_id": "course-prompting-pro-001",
     "title": "Prompting Like a Pro",
     "order": 1,
-    "duration_minutes": 75,
+    "duration_minutes": 77,
     "xp_reward": 150,
     "is_deleted": false,
     "is_sample": false,
@@ -4332,6 +4332,144 @@
         "misconception_ref": "mc-longer"
       },
       {
+        "section_id": "sec-sim-setup",
+        "type": "guided_practice",
+        "title": "The Night Before",
+        "duration_minutes": 1,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3"
+        ],
+        "body": "## It's 9:47pm.\n\nYou have a college application essay due tomorrow morning.\n\nYou open an AI assistant. You have one shot to get something useful before you run out of time.\n\nNo hints. No framework reminder. Just you and a blank prompt field.\n\n**Let's see what happens.**"
+      },
+      {
+        "section_id": "sec-sim-act1",
+        "type": "check",
+        "check_type": "multiple_choice",
+        "title": "Act 1: The Send",
+        "duration_minutes": 2,
+        "learning_objective_refs": [
+          "obj-1",
+          "obj-2"
+        ],
+        "setup": "You type the first thing that comes to mind and hit send:\n\n> \"Help me write my college essay. It should be good and show who I am.\"\n\nThe AI responds:\n\n---\n\n*\"Writing a college essay is an exciting opportunity to share your story! Here's a template to get you started:*\n\n*My name is [YOUR NAME] and I am applying to [COLLEGE NAME] because I have always been passionate about [YOUR INTEREST]. One experience that shaped who I am was [YOUR EXPERIENCE]. Through this, I learned [YOUR LESSON]. I believe this makes me a strong candidate because [YOUR REASON].*\n\n*Feel free to personalize this with your own details!\"*\n\n---\n\nA placeholder. You could have Googled this.",
+        "question": "Why did the AI produce a generic template instead of a real essay?",
+        "options": [
+          "The AI didn't try hard enough — a better AI would have written something real.",
+          "The prompt gave the AI nothing specific to work with, so it filled in the gaps with placeholders.",
+          "AI cannot write personal essays because it doesn't understand human emotions.",
+          "The prompt was too short — longer prompts always produce stronger results."
+        ],
+        "correct_answer": 1,
+        "explanation": "The prompt gave the AI no story, no voice, no constraints, and no format — so it produced a template that fits everyone and helps no one. The AI didn't fail. The prompt did."
+      },
+      {
+        "section_id": "sec-sim-act2",
+        "type": "check",
+        "check_type": "prompt_improve",
+        "title": "Act 2: The Revision",
+        "duration_minutes": 5,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3"
+        ],
+        "question": "Now you know more about the student you're helping. Rewrite the prompt to get a real essay opening — not a template.\n\n**About this student:**\n- First-generation college student\n- Applying to study environmental science\n- Has a story: organized a neighborhood cleanup after a local flood\n\nWrite a complete prompt using everything you know. No hints this time.",
+        "weak_prompt": "Help me write my college essay. It should be good and show who I am.",
+        "criteria": [
+          "context",
+          "task",
+          "constraints",
+          "format"
+        ],
+        "min_length": 60,
+        "branching": {
+          "enabled": true,
+          "evaluation": "criteria_count",
+          "branches": {
+            "low": {
+              "criteria_threshold": [
+                0,
+                1
+              ],
+              "label": "LOW",
+              "excerpt": "College is an important step in many students' lives. I have always been interested in the environment and how it affects communities. This essay will discuss my experiences and what I hope to achieve in my future academic career.",
+              "note": "Generic. Could be anyone. The AI had nothing real to work with."
+            },
+            "mid": {
+              "criteria_threshold": [
+                2,
+                3
+              ],
+              "label": "MID",
+              "excerpt": "Growing up as a first-generation student, I knew the odds were stacked against me. When a flood hit our neighborhood last spring, I saw an opportunity to give back — and I took it. The cleanup I organized brought together over 40 families and removed debris from three city blocks.",
+              "note": "Relevant and specific, but the voice is still slightly formal. One or two more constraints would have sharpened it."
+            },
+            "high": {
+              "criteria_threshold": [
+                4,
+                4
+              ],
+              "label": "HIGH",
+              "excerpt": "Forty-three trash bags. That's what we pulled out of the storm drain behind Riverside Park — me, my neighbors, and a borrowed wheelbarrow. I'd organized the cleanup three weeks after the flood, not because someone asked me to, but because no one else was going to. That decision is why I'm applying to study environmental science.",
+              "note": "Specific, voiced, structured. This reads like a real person because the prompt gave the AI a real person to write about."
+            }
+          }
+        },
+        "improved_output": "Example high-branch prompt:\n\n\"I'm a first-generation student applying to study environmental science. I want to open my college essay with the story of a neighborhood cleanup I organized after a flood — starting with a specific detail (like the number of trash bags we collected), not a broad statement. Write a 150-word opening paragraph in a high school senior voice — direct, personal, not formal. Avoid phrases like 'I have always been passionate about' or 'this experience taught me.'\"",
+        "explanation": "Every element in the high-branch prompt did specific work. The story detail (flood cleanup) gave the AI something real. The opening instruction (start with a detail, not a statement) shaped the structure. The tone constraint (not formal) set the voice. The exclusion (avoid clichés) cut the dead weight."
+      },
+      {
+        "section_id": "sec-sim-act3",
+        "type": "check",
+        "check_type": "multi_select",
+        "title": "Act 3: The Consequence",
+        "duration_minutes": 3,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3"
+        ],
+        "setup": "Here are three essay openings. All three were written by AI. All three used the same student's story.\n\n---\n\n**Response A:**\n\"College is an important step in many students' lives. I have always been interested in the environment and how it affects communities. This essay will discuss my experiences and what I hope to achieve in my future academic career.\"\n\n**Response B:**\n\"Growing up as a first-generation student, I knew the odds were stacked against me. When a flood hit our neighborhood last spring, I saw an opportunity to give back — and I took it. The cleanup I organized brought together over 40 families and removed debris from three city blocks.\"\n\n**Response C:**\n\"Forty-three trash bags. That's what we pulled out of the storm drain behind Riverside Park — me, my neighbors, and a borrowed wheelbarrow. I'd organized the cleanup three weeks after the flood, not because someone asked me to, but because no one else was going to. That decision is why I'm applying to study environmental science.\"\n\n---\n\nIt's 10:15pm. Your counselor needs a draft by morning.",
+        "question": "Response C came from a prompt that included all of the following. Select every element that was present:",
+        "options": [
+          "Who the writer is and what they're applying for (first-gen student, environmental science)",
+          "The specific story being told (neighborhood flood cleanup)",
+          "A word count and tone instruction (150 words, high school senior voice, not formal)",
+          "An instruction on how to open (start with a specific detail, not a broad statement)",
+          "A list of phrases to avoid (no 'I have always been passionate about' or 'this experience taught me')"
+        ],
+        "correct_answers": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "explanation": "Every element in that list is something the student controlled. Response A came from a prompt with none of them. Response C came from a prompt with all of them. The AI didn't change — the instructions did."
+      },
+      {
+        "section_id": "sec-sim-reveal",
+        "type": "guided_practice",
+        "title": "What a Good Prompt Produces",
+        "duration_minutes": 1,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3"
+        ],
+        "body": "## This is what a good prompt produces.\n\n> \"Forty-three trash bags. That's what we pulled out of the storm drain behind Riverside Park — me, my neighbors, and a borrowed wheelbarrow. I'd organized the cleanup three weeks after the flood, not because someone asked me to, but because no one else was going to. That decision is why I'm applying to study environmental science.\"\n\n---\n\nThe prompt that generated this:\n\n> \"I'm a first-generation student applying to study environmental science. I want to open my college essay with the story of a neighborhood cleanup I organized after a flood — starting with a specific detail, not a broad statement. Write a 150-word opening paragraph in a high school senior voice — direct, personal, not formal. Avoid phrases like 'I have always been passionate about' or 'this experience taught me.'\"\n\n---\n\nYou now know how to write one."
+      },
+      {
+        "section_id": "sec-sim-reflection",
+        "type": "reflection",
+        "title": "Your Prompt, Your Rules",
+        "duration_minutes": 2,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3",
+          "obj-4"
+        ],
+        "prompt": "Think about the last time you used AI for something that mattered — a homework assignment, a college application, a job search, a question you actually needed answered. What did your prompt look like? What would it look like now? Write the version you would send today."
+      },
+      {
         "section_id": "sec-verification",
         "type": "instruction",
         "title": "Why AI Can Be Confidently Wrong",
@@ -4400,27 +4538,6 @@
           "obj-4"
         ],
         "misconception_ref": "mc-confident"
-      },
-      {
-        "section_id": "sec-simulation",
-        "type": "simulation",
-        "title": "Prompt Improvement Lab",
-        "duration_minutes": 12,
-        "learning_objective_refs": [
-          "obj-2",
-          "obj-3",
-          "obj-4"
-        ],
-        "simulation_id": "sim-prompt-improvement-001",
-        "component": "PromptImprovementSimulation",
-        "scenario_id": null,
-        "_audit": "NEEDS_AUDIT",
-        "_audit_todos": [
-          "Verify multiple distinct interaction types are present (not all MCQ)",
-          "Verify feedback is meaningful and non-repetitive",
-          "Verify at least one write/improve interaction",
-          "Verify completion state fires correctly"
-        ]
       },
       {
         "section_id": "sec-reflection",

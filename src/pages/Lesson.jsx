@@ -201,6 +201,11 @@ function MultipleChoice({ section, onPass }) {
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
       <CheckBanner />
+      {section.setup && (
+        <div style={{ background:C.bgSoft, border:`1px solid ${C.border}`, borderRadius:10, padding:"14px 16px", fontSize:14, color:C.text, lineHeight:1.7 }}>
+          <ReactMarkdown>{section.setup}</ReactMarkdown>
+        </div>
+      )}
       <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question}</p>
       <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
         {(section.options || []).map((opt, i) => {
@@ -241,6 +246,11 @@ function MultiSelect({ section, onPass }) {
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
       <CheckBanner label="Select All That Apply" />
+      {section.setup && (
+        <div style={{ background:C.bgSoft, border:`1px solid ${C.border}`, borderRadius:10, padding:"14px 16px", fontSize:14, color:C.text, lineHeight:1.7 }}>
+          <ReactMarkdown>{section.setup}</ReactMarkdown>
+        </div>
+      )}
       <p style={{ fontSize:16, fontWeight:700, color:C.text, margin:0, lineHeight:1.5 }}>{section.question}</p>
       <p style={{ fontSize:12, color:C.textMuted, margin:0 }}>Select all correct answers, then click Check.</p>
       <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
@@ -304,16 +314,34 @@ const CRITERIA_HINTS = {
 };
 
 function PromptImprove({ section, onPass }) {
-  const [input, setInput] = useState("");
-  const [phase, setPhase] = useState("input"); // input | feedback | output
-  const [scores, setScores] = useState(null);
+  const [input, setInput]       = useState("");
+  const [phase, setPhase]       = useState("input"); // input | feedback | output
+  const [scores, setScores]     = useState(null);
+  const [reflection, setReflection] = useState(""); // branching free-response
   const criteria = section.criteria || ["context", "task"];
-  const minLen = section.min_length || 30;
+  const minLen   = section.min_length || 30;
   const tooShort = input.trim().length < minLen;
   const allPassed = scores && criteria.every(c => scores[c]);
 
+  // ── Branching support (sec-sim-act2) ────────────────────────────
+  // section.branching: { enabled, branches: { low, mid, high } }
+  // Each branch: { criteria_threshold: [min,max], excerpt, note }
+  const branching = section.branching;
+  const branchEnabled = !!branching?.enabled;
+
+  const selectBranch = (scoresObj) => {
+    if (!branchEnabled || !scoresObj) return null;
+    const count = criteria.filter(c => scoresObj[c]).length;
+    const { low, mid, high } = branching.branches;
+    if (count <= 1) return low;
+    if (count <= 3) return mid;
+    return high;
+  };
+  const currentBranch    = scores ? selectBranch(scores) : null;
+  const reflectionReady  = reflection.trim().length >= 1;
+
   const evaluate = () => { setScores(scorePromptText(input, criteria)); setPhase("feedback"); };
-  const retry = () => { setScores(null); setPhase("input"); };
+  const retry    = () => { setScores(null); setPhase("input"); };
 
   return (
     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
@@ -343,7 +371,54 @@ function PromptImprove({ section, onPass }) {
         </>
       )}
 
-      {phase === "feedback" && (
+      {/* ── Branching feedback (Act 2 simulation) ── */}
+      {phase === "feedback" && branchEnabled && currentBranch && (
+        <>
+          {/* 1. AI-output excerpt block */}
+          <div>
+            <div style={{ fontSize:11, fontWeight:700, color:C.textMuted, letterSpacing:"0.06em", textTransform:"uppercase", marginBottom:6 }}>AI Output — Based on Your Prompt</div>
+            <div style={{ background:"#F0F4FF", border:`1.5px solid ${C.accent}`, borderRadius:10, padding:"16px 18px", fontSize:14, color:C.text, lineHeight:1.75, fontStyle:"italic" }}>
+              "{currentBranch.excerpt}"
+            </div>
+            {/* 2. Note caption */}
+            <p style={{ fontSize:12, color:C.textSub, margin:"8px 0 0", lineHeight:1.5, fontStyle:"normal" }}>{currentBranch.note}</p>
+          </div>
+
+          {/* 3. Criteria scorecard */}
+          <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+            {criteria.map(c => (
+              <div key={c} style={{ display:"flex", alignItems:"flex-start", gap:8, padding:"8px 10px", borderRadius:8, background: scores[c] ? C.greenSoft : C.bgMid, border:`1px solid ${scores[c] ? C.green : C.border}` }}>
+                <span style={{ fontSize:13, fontWeight:900, color: scores[c] ? C.green : C.textMuted, flexShrink:0 }}>{scores[c] ? "✓" : "○"}</span>
+                <div>
+                  <span style={{ fontSize:13, fontWeight:700, color: scores[c] ? C.green : C.textSub }}>{c.charAt(0).toUpperCase() + c.slice(1)}</span>
+                  {!scores[c] && <p style={{ margin:"2px 0 0", fontSize:12, color:C.textMuted, lineHeight:1.4 }}>{CRITERIA_HINTS[c]}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 4. Reflection free-response */}
+          <div>
+            <div style={{ fontSize:13, fontWeight:700, color:C.text, marginBottom:8, lineHeight:1.4 }}>
+              What's the one thing you'd add or change to move this response up a level?
+            </div>
+            <textarea value={reflection} onChange={e => setReflection(e.target.value)}
+              placeholder="Write your answer here..."
+              style={{ width:"100%", boxSizing:"border-box", minHeight:72, padding:"10px 12px", borderRadius:10, border:`1.5px solid ${reflection.length > 0 ? C.navy : C.border}`, fontSize:14, color:C.text, lineHeight:1.6, fontFamily:"inherit", resize:"vertical", outline:"none", background:"#fff", transition:"border-color 0.15s" }} />
+          </div>
+
+          {/* 5. Advance button — unlocks after 1+ char */}
+          <div style={{ display:"flex", justifyContent:"flex-end" }}>
+            <button onClick={onPass} disabled={!reflectionReady}
+              style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 24px", borderRadius:999, background: reflectionReady ? C.navy : C.borderMid, color: reflectionReady ? "#fff" : C.textMuted, border:"none", fontWeight:700, fontSize:14, cursor: reflectionReady ? "pointer" : "not-allowed", transition:"all 0.15s", boxShadow: reflectionReady ? `0 4px 16px ${C.navyGlow}` : "none" }}>
+              See what a full prompt produces <ArrowRight size={16} />
+            </button>
+          </div>
+        </>
+      )}
+
+      {/* ── Standard feedback (all other prompt_improve checks) ── */}
+      {phase === "feedback" && !branchEnabled && (
         <>
           <div style={{ background:"#fff", border:`1.5px solid ${allPassed ? C.green : "#F59E0B"}`, borderRadius:10, padding:"12px 14px", fontSize:14, color:C.text, lineHeight:1.6 }}>{input}</div>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
