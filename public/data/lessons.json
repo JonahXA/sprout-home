@@ -3827,7 +3827,7 @@
     "course_id": "course-prompting-pro-001",
     "title": "Prompting Like a Pro",
     "order": 1,
-    "duration_minutes": 77,
+    "duration_minutes": 75,
     "xp_reward": 150,
     "is_deleted": false,
     "is_sample": false,
@@ -4091,17 +4091,6 @@
         "min_length": 50,
         "improved_output": "Example improved version:\n\n\"I'm a 10th grader writing an argumentative essay arguing social media harms teenagers' mental health. Write one thesis statement: one sentence, specific and arguable (not just a fact), stating a clear position and the main reason why. Don't give me multiple options — just the strongest one.\"\n\nConstraints: one sentence, specific and arguable, state position and reason. Format: a single ready-to-use statement, not a list of options.",
         "explanation": "Constraints tell the AI what makes a thesis strong. Format prevents it from handing you five options when you needed one."
-      },
-      {
-        "section_id": "sec-gp-intro",
-        "type": "guided_practice",
-        "title": "Build It: Start with the Weakest Prompt",
-        "duration_minutes": 1,
-        "learning_objective_refs": [
-          "obj-2",
-          "obj-3"
-        ],
-        "body": "## Build It Step by Step\n\nLet's apply the full framework to build a prompt from scratch — one element at a time.\n\n**Starting prompt:**\n\n> \"Help me study for a test.\"\n\nThis has zero context, a vague task, no constraints, and no format. Almost everything the AI generates will be generic advice you already know.\n\nWe're going to build it into something genuinely useful."
       },
       {
         "section_id": "sec-gp-pi-1",
@@ -4433,14 +4422,13 @@
         "options": [
           "Who the writer is and what they're applying for (first-gen student, environmental science)",
           "The specific story being told (neighborhood flood cleanup)",
-          "A word count and tone instruction (150 words, high school senior voice, not formal)",
+          "A request to write in third person rather than first person, to sound more professional",
           "An instruction on how to open (start with a specific detail, not a broad statement)",
           "A list of phrases to avoid (no 'I have always been passionate about' or 'this experience taught me')"
         ],
         "correct_answers": [
           0,
           1,
-          2,
           3,
           4
         ],
@@ -4456,18 +4444,6 @@
           "obj-3"
         ],
         "body": "## This is what a good prompt produces.\n\n> \"Forty-three trash bags. That's what we pulled out of the storm drain behind Riverside Park — me, my neighbors, and a borrowed wheelbarrow. I'd organized the cleanup three weeks after the flood, not because someone asked me to, but because no one else was going to. That decision is why I'm applying to study environmental science.\"\n\n---\n\nThe prompt that generated this:\n\n> \"I'm a first-generation student applying to study environmental science. I want to open my college essay with the story of a neighborhood cleanup I organized after a flood — starting with a specific detail, not a broad statement. Write a 150-word opening paragraph in a high school senior voice — direct, personal, not formal. Avoid phrases like 'I have always been passionate about' or 'this experience taught me.'\"\n\n---\n\nYou now know how to write one."
-      },
-      {
-        "section_id": "sec-sim-reflection",
-        "type": "reflection",
-        "title": "Your Prompt, Your Rules",
-        "duration_minutes": 2,
-        "learning_objective_refs": [
-          "obj-2",
-          "obj-3",
-          "obj-4"
-        ],
-        "prompt": "Think about the last time you used AI for something that mattered — a homework assignment, a college application, a job search, a question you actually needed answered. What did your prompt look like? What would it look like now? Write the version you would send today."
       },
       {
         "section_id": "sec-verification",
@@ -4512,22 +4488,21 @@
       {
         "section_id": "sec-check-2",
         "type": "check",
-        "check_type": "multiple_choice",
-        "title": "Check: Should You Verify This?",
-        "duration_minutes": 2,
+        "check_type": "prompt_improve",
+        "title": "Practice: Prompt for Verification",
+        "duration_minutes": 3,
         "learning_objective_refs": [
           "obj-4"
         ],
-        "question": "An AI response includes: \"Studies show that 73% of teenagers experience anxiety symptoms linked to social media use.\" You want to use it in your persuasive essay. What do you do?",
-        "options": [
-          "Use it — the specific percentage proves the AI is citing a real study.",
-          "Ask the AI for its source, then copy whatever name it gives into your citation.",
-          "Skip all statistics — AI-generated numbers are never reliable.",
-          "Search for the original study from a credible source before using it in your essay."
+        "question": "You want to use an AI claim in your essay but need to verify the statistic first. Rewrite this prompt to include who you are and exactly what you need.",
+        "weak_prompt": "Verify this stat: Studies show 73% of teenagers experience anxiety linked to social media use.",
+        "criteria": [
+          "context",
+          "task"
         ],
-        "correct_index": 3,
-        "correct_answer": 3,
-        "explanation": "Specific statistics are among the most commonly hallucinated AI outputs. The precision of '73%' makes it feel credible — but AI generates specific-sounding numbers that often don't correspond to any real study. Trace it back to an original source. And if the AI names a source when you ask, verify that too — AI can hallucinate citations just as easily as statistics."
+        "min_length": 40,
+        "improved_output": "Example improved version:\n\n\"I'm a high school student writing a persuasive essay on social media's effects on teen mental health. Before I use this statistic — 'Studies show 73% of teenagers experience anxiety linked to social media use' — I need to verify it. Find the original study this refers to. If you can't identify a specific source, say so directly rather than inventing one.\"\n\nContext: high school student, persuasive essay on this topic. Task: find the original study, or explicitly say it can't be found.",
+        "explanation": "Giving the AI your context (essay topic, why you need accuracy) focuses the response. The explicit task — find it or say you can't — closes the gap that lets it invent a plausible-sounding citation."
       },
       {
         "section_id": "sec-misconception-confident",
@@ -4540,15 +4515,16 @@
         "misconception_ref": "mc-confident"
       },
       {
-        "section_id": "sec-reflection",
+        "section_id": "sec-final-reflection",
         "type": "reflection",
-        "title": "When Do You Trust AI?",
+        "title": "What Will You Do Differently?",
         "duration_minutes": 3,
         "learning_objective_refs": [
+          "obj-2",
           "obj-3",
           "obj-4"
         ],
-        "prompt": "Think about how you've used AI before — for homework, research, writing, or quick answers. Was there a time you used an AI output without verifying it? In what specific situations will you commit to verifying AI outputs before using them? And what's one concrete change you'll make to how you write prompts going forward?"
+        "prompt": "Think about the last time you used AI for something that mattered — a homework assignment, a college application, a job search, a question you actually needed answered. What did your prompt look like? What would it look like now? And what's one situation coming up where you'll verify before you trust?"
       }
     ],
     "exit_ticket": [
