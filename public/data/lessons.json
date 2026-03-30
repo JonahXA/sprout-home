@@ -3950,10 +3950,10 @@
         "question": "Both prompts ask for help with a college application essay. Which gets a better first draft?",
         "label_a": "Option A",
         "label_b": "Option B",
-        "prompt_a": "Help me write my college essay.",
+        "prompt_a": "I'm applying to college. Help me write a personal essay about a meaningful experience that shows who I am — make it compelling and authentic.",
         "prompt_b": "Help me draft a 650-word college application essay for a first-generation student applying to study environmental science. I want to write about organizing a neighborhood cleanup. Narrative structure, high school senior voice — not formal academic. Avoid clichés.",
         "better": "b",
-        "explanation": "Option B covers all four parts: context (first-gen student, environmental science), task (draft 650-word essay), constraints (avoid clichés, specific voice), and format (narrative structure). Option A leaves the AI to invent everything — and it will pick the safest, most generic version of each choice."
+        "explanation": "Option A has context and a vague task but leaves everything else open — topic, length, voice, structure. The AI will pick a safe, generic interpretation of every unconstrained choice. Option B adds word count, specific topic, voice, format, and what to avoid."
       },
       {
         "section_id": "sec-context-task",
@@ -4001,7 +4001,7 @@
           "What caused World War I?"
         ],
         "correct_answer": 0,
-        "explanation": "Option A identifies who's asking (10th grade history student), what to produce (a summary for an essay), and the angle (economic vs. political comparison). Option B has a task but no context. Option C has context but a vague task. Option D has neither."
+        "explanation": "Option A gives the AI an audience (10th grade history student), a specific output (essay summary), and an angle (economic vs. political) — that's context + task. The others have one or the other, not both."
       },
       {
         "section_id": "sec-constraints-format",
@@ -4025,10 +4025,10 @@
         "question": "A student is preparing for their first job interview at a coffee shop. Which prompt gets the most useful response?",
         "label_a": "Option A",
         "label_b": "Option B",
-        "prompt_a": "Help me prepare for a job interview at a coffee shop.",
+        "prompt_a": "I'm 17 applying for my first barista job. Can you help me prepare for the interview — give me some common questions and how to answer them?",
         "prompt_b": "I'm 17 applying for my first barista job. Give me the 5 most common interview questions for entry-level café work, with one short example answer each. Keep answers conversational — not corporate-sounding.",
         "better": "b",
-        "explanation": "Option B adds constraints (5 questions, short answers, conversational tone) and a clear format (question + answer pairs). Without those, the AI defaults to generic interview coaching — useful for nobody in particular."
+        "explanation": "Option A has context and a reasonable task, but no count, no format, and no tone guidance. The AI will give you 10+ questions in corporate HR language. Option B specifies 5 questions, short answers, and a conversational tone — so the output is actually usable."
       },
       {
         "section_id": "sec-check-ms-format",
@@ -4071,7 +4071,7 @@
           "Format — the output structure wasn't specified anywhere"
         ],
         "correct_answer": 0,
-        "explanation": "This prompt has a task (write a summary), constraints (200 words), and format (bullet points) — but nothing about who's asking. Without context, the AI doesn't know if this is for a middle schooler's homework, a college essay, or a debate prep. Context is what calibrates depth and vocabulary."
+        "explanation": "This prompt has a task, a constraint (200 words), and a format (bullet points) — but nothing about who's asking. Context is what tells the AI how to calibrate depth and vocabulary."
       },
       {
         "section_id": "sec-check-pi-constraints-format",
@@ -4125,14 +4125,25 @@
       },
       {
         "section_id": "sec-gp-step1",
-        "type": "guided_practice",
-        "title": "Context + Task Added — Now Add Precision",
-        "duration_minutes": 1,
+        "type": "check",
+        "check_type": "prediction",
+        "title": "Predict: Context + Task Added",
+        "duration_minutes": 2,
         "learning_objective_refs": [
           "obj-2",
           "obj-3"
         ],
-        "body": "## Context + Task Added ✓\n\nHere's the prompt so far:\n\n> \"I'm a 10th grade student reviewing for a chemistry unit test on periodic trends tomorrow. I keep confusing ionization energy and electron affinity. Create a study guide focused on only those two concepts.\"\n\nThe AI now produces a focused guide on those two concepts instead of generic study tips.\n\nBut it's still a wall of text — because there are no constraints on length or structure.\n\n**Next:** Add constraints (limit the scope) and a format (make it scannable)."
+        "question": "Context and task have been added to the prompt. What will the AI most likely produce now?",
+        "setup": "I'm a 10th grade student reviewing for a chemistry unit test on periodic trends tomorrow. I keep confusing ionization energy and electron affinity. Create a study guide focused on only those two concepts.",
+        "options": [
+          "A focused guide covering only those two concepts, not the other periodic trends",
+          "The same generic study tips as before, since the subject was already mentioned",
+          "A broad overview of all periodic trends, with those two concepts partway through",
+          "A request to clarify which test or teacher this is for before producing anything"
+        ],
+        "correct_answer": 0,
+        "reveal": "The AI produces a focused response on exactly those two concepts. But without constraints or format, it's still a wall of unstructured text — useful, but not scannable. That's what we fix next.",
+        "explanation": "Context + task gave the AI a real direction. The generic tips are gone — but without constraints and format, the output is still harder to use than it needs to be."
       },
       {
         "section_id": "sec-gp-pi-2",
@@ -4156,14 +4167,24 @@
       },
       {
         "section_id": "sec-gp-final",
-        "type": "guided_practice",
-        "title": "The Complete Built Prompt",
+        "type": "check",
+        "check_type": "multiple_choice",
+        "title": "Classify: Find the Format Instruction",
         "duration_minutes": 2,
         "learning_objective_refs": [
           "obj-2",
           "obj-3"
         ],
-        "body": "## The Complete Built Prompt\n\nHere's the final version:\n\n> \"I'm a 10th grade student reviewing for a chemistry unit test on periodic trends tomorrow. I understand electronegativity and atomic radius but keep confusing ionization energy and electron affinity. Create a study guide that addresses only those two concepts — keep it under 200 words. Use a side-by-side comparison table: each row shows definition, which direction it increases across a period, and one example. Add 3 short-answer practice questions with answers at the bottom.\"\n\nEvery part does a job:\n- **Context:** 10th grade student, unit test tomorrow, knows two concepts already\n- **Task:** Create a focused study guide on two specific concepts\n- **Constraints:** Under 200 words, only those two topics\n- **Format:** Side-by-side table with defined columns + Q&A at the end\n\nCompare that to \"Help me study for a test.\" The AI didn't get smarter — you gave it better instructions."
+        "question": "Read the complete built prompt. Which part is the FORMAT instruction?",
+        "setup": "\"I'm a 10th grade student reviewing for a chemistry unit test on periodic trends tomorrow. I understand electronegativity and atomic radius but keep confusing ionization energy and electron affinity. Create a study guide that addresses only those two concepts — keep it under 200 words. Use a side-by-side comparison table: each row shows definition, which direction it increases across a period, and one example. Add 3 short-answer practice questions with answers at the bottom.\"",
+        "options": [
+          "I'm a 10th grade student reviewing for a chemistry test on periodic trends tomorrow, confused about two specific concepts.",
+          "Create a targeted study guide that addresses only those two specific concepts and nothing else.",
+          "Keep it focused and under 200 words total, covering only ionization energy and electron affinity.",
+          "Use a side-by-side comparison table where each row shows definition, direction it increases, and one example."
+        ],
+        "correct_answer": 3,
+        "explanation": "The table instruction defines structure — that's format. \"I'm a 10th grade student…\" is context. \"Create a study guide…\" is the task. \"Under 200 words\" is a constraint."
       },
       {
         "section_id": "sec-check-predict-final",
@@ -4200,10 +4221,10 @@
         "question": "A student needs content for a 5-minute class presentation on the Civil War. Which prompt gets a more usable result?",
         "label_a": "Option A",
         "label_b": "Option B",
-        "prompt_a": "Tell me about the causes of the Civil War. Include everything.",
+        "prompt_a": "I need to cover the main causes of the Civil War for a class history presentation. Explain the most important ones and why they mattered.",
         "prompt_b": "I'm a 10th grader giving a 5-minute class presentation. Summarize the 4 main causes of the Civil War in bullet points, under 200 words. Bold each cause name. Simple language.",
         "better": "b",
-        "explanation": "Option A asks the AI to 'include everything' — the exact opposite of a 5-minute presentation. Option B specifies context (10th grader, 5-minute presentation), task (summarize 4 causes), constraints (under 200 words, simple language), and format (bullet points, bolded names). Every element prevents a wrong guess."
+        "explanation": "Option A has context and a task but no count, length, or format. The AI will produce more than fits a 5-minute slot. Option B constrains it to exactly 4 causes, under 200 words, in bullet format — all of which prevent the AI from guessing wrong."
       },
       {
         "section_id": "sec-common-mistakes",
@@ -4232,7 +4253,7 @@
           "What is photosynthesis and why does it matter for living things?"
         ],
         "correct_answer": 0,
-        "explanation": "Option A is all amplification — \"clearly, in detail, very thoroughly, so I truly understand it completely\" are all the same instruction repeated. None of them tell the AI who is asking, what to produce, or how to structure it. Options B and C give the AI real constraints and context. Option D is vague but at least short."
+        "explanation": "Option A repeats the same instruction four different ways but gives the AI nothing new — no audience, no output type, no scope. More words ≠ more information."
       },
       {
         "section_id": "sec-check-ms-cover-letter",
@@ -4256,7 +4277,49 @@
           2,
           3
         ],
-        "explanation": "The task is present (write a cover letter). Politeness has zero effect on output quality. But context (who, what job), constraints (length, tone), and format (structure) are all missing — so the AI will produce a generic corporate template full of placeholder text that probably doesn't fit this student or this job at all."
+        "explanation": "The task is present (write a cover letter), but context (who, what job), constraints (length, tone), and format (structure) are all missing — so the AI produces a generic corporate template that won't fit this student or this job."
+      },
+      {
+        "section_id": "sec-build-task",
+        "type": "check",
+        "check_type": "prompt_improve",
+        "title": "Build: Write a Full 4-Part Prompt",
+        "duration_minutes": 4,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3"
+        ],
+        "question": "You're starting your first part-time job and want AI help tracking your spending for the first month. Write a complete prompt using all four framework elements: context, task, constraints, and format.",
+        "weak_prompt": "Help me track my spending.",
+        "criteria": [
+          "context",
+          "task",
+          "constraints",
+          "format"
+        ],
+        "min_length": 60,
+        "improved_output": "Example full-framework prompt:\n\n\"I'm a 16-year-old starting my first job and earning about $300/month. I want to track my spending habits for the next 30 days to avoid overspending. Create a simple weekly spending tracker I can fill in manually. Limit it to 5 spending categories. Format it as a table: one row per week, columns for each category and a weekly total.\"\n\nContext: 16-year-old, first job, $300/month. Task: create a spending tracker. Constraints: 30 days, 5 categories only. Format: table with defined columns.",
+        "explanation": "All four elements do specific work here. Without context the AI doesn't know your situation. Without format you get a wall of text, not a table you can actually fill in."
+      },
+      {
+        "section_id": "sec-classify-output",
+        "type": "check",
+        "check_type": "multiple_choice",
+        "title": "Classify: Which Response Came From the Best Prompt?",
+        "duration_minutes": 2,
+        "learning_objective_refs": [
+          "obj-2",
+          "obj-3"
+        ],
+        "question": "Three students asked AI to help with a WWI history presentation. Which response was generated by the best-crafted prompt?",
+        "options": [
+          "A brief 2-sentence summary: \"WWI was caused by militarism, alliances, imperialism, and nationalism — factors that combined to drag European nations into a global conflict in 1914.\"",
+          "A structured slide outline with 4 cause headers, one talking point each, formatted for a 5-minute presentation.",
+          "A 6-paragraph essay tracing WWI causes from 1871 to 1914, with citations and academic analysis of underlying political tensions.",
+          "Four bullet points — one per cause — each with the cause name and a single definition sentence."
+        ],
+        "correct_answer": 1,
+        "explanation": "Response B reflects a prompt that specified the use case (presentation), format (slide outline), timing (5 min, 1 min per point), and task precisely. Response A came from a vague prompt. Response C came from \"write me an essay.\" Response D came from a moderately specific prompt but without presentation context."
       },
       {
         "section_id": "sec-misconception-longer",
@@ -4350,7 +4413,14 @@
         ],
         "simulation_id": "sim-prompt-improvement-001",
         "component": "PromptImprovementSimulation",
-        "scenario_id": null
+        "scenario_id": null,
+        "_audit": "NEEDS_AUDIT",
+        "_audit_todos": [
+          "Verify multiple distinct interaction types are present (not all MCQ)",
+          "Verify feedback is meaningful and non-repetitive",
+          "Verify at least one write/improve interaction",
+          "Verify completion state fires correctly"
+        ]
       },
       {
         "section_id": "sec-reflection",
