@@ -9,7 +9,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import ReactMarkdown from "react-markdown";
 import {
   ArrowLeft, ArrowRight, CheckCircle, XCircle, Zap, Trophy, Clock,
@@ -17,10 +17,10 @@ import {
   ChevronDown, ChevronUp, Lightbulb, Play,
 } from "lucide-react";
 import { toast } from "sonner";
-import LevelUpModal from "@/components/LevelUpModal";
-import ChallengeCompleteModal from "@/components/ChallengeCompleteModal";
-import { useChallengeCheck } from "@/components/useChallengeCheck";
-import { trackEvent } from "@/lib/activityTracker";
+import LevelUpModal from "@/components/shared/LevelUpModal";
+import ChallengeCompleteModal from "@/components/shared/ChallengeCompleteModal";
+import { useChallengeCheck } from "@/hooks/useChallengeCheck";
+import { trackEvent } from "@/services/activity";
 
 // ─── Color tokens (unchanged from before) ──────────────────────
 const C = {
@@ -782,12 +782,12 @@ function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
     async function load() {
       try {
         let m;
-        if (componentName === "BudgetWalkthrough") m = await import("@/components/BudgetWalkthrough");
-        else if (componentName === "ScenarioBudgetSimulation") m = await import("@/components/ScenarioBudgetSimulation");
-        else if (componentName === "InterestCalculator") m = await import("@/components/InterestCalculator");
-        else if (componentName === "CreditCardStatement") m = await import("@/components/CreditCardStatement");
-        else if (componentName === "PaycheckStatement") m = await import("@/components/PaycheckStatement");
-        else if (componentName === "PromptImprovementSimulation") m = await import("@/components/PromptImprovementSimulation");
+        if (componentName === "BudgetWalkthrough") m = await import("@/features/finance/BudgetWalkthrough");
+        else if (componentName === "ScenarioBudgetSimulation") m = await import("@/features/finance/ScenarioBudgetSimulation");
+        else if (componentName === "InterestCalculator") m = await import("@/features/finance/InterestCalculator");
+        else if (componentName === "CreditCardStatement") m = await import("@/features/finance/CreditCardStatement");
+        else if (componentName === "PaycheckStatement") m = await import("@/features/finance/PaycheckStatement");
+        else if (componentName === "PromptImprovementSimulation") m = await import("@/features/ai-literacy/PromptImprovementSimulation");
         if (m) setComp(() => m.default);
       } catch (e) {
         console.error("SimulationEmbed: failed to load", componentName, e);

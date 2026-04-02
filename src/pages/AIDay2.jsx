@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { ArrowLeft, ChevronRight, Database, Target, Brain } from "lucide-react";
-import InteractiveQuiz from "@/components/InteractiveQuiz";
-import MLTrainingSimulator from "@/components/MLTrainingSimulator";
+import InteractiveQuiz from "@/components/shared/InteractiveQuiz";
+import MLTrainingSimulator from "@/features/ai-literacy/MLTrainingSimulator";
 
-import { getCurrentUserSafe, getAIDayProgress, upsertAIDayProgress } from "@/lib/appClient";
+import { getCurrentUserSafe, getAIDayProgress, upsertAIDayProgress } from "@/services/auth";
 
 const C = {
  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",

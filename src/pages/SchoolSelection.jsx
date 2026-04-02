@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

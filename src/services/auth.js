@@ -2,7 +2,7 @@
 // Replacement for Base44 auth + entities using Supabase.
 // Keeps pages clean and minimizes migration changes.
 
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/services/supabase";
 
 /**
  * Update these if your Supabase table names differ

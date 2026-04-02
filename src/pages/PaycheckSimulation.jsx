@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { createPageUrl } from "@/utils";
-import PaycheckLesson1 from "@/components/PaycheckLesson1";
-import PaycheckLesson2 from "@/components/PaycheckLesson2";
-import { trackSimulationStart, trackSimulationComplete } from "@/lib/activityTracker";
+import { createPageUrl } from "@/config/routes";
+import PaycheckLesson1 from "@/features/finance/PaycheckLesson1";
+import PaycheckLesson2 from "@/features/finance/PaycheckLesson2";
+import { trackSimulationStart, trackSimulationComplete } from "@/services/activity";
 
 /**
  * NOTE: Base44 removed.

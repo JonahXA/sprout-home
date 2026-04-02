@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, X, Zap, Sparkles, Star } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function ChallengeCompleteModal({ challenge, onClose }) {
  useEffect(() => {

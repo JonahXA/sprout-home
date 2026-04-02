@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, School, GraduationCap, LogOut, Edit, Check, Shield, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
-import { useAuth } from "@/lib/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 // Capitalizes each word: "jonah alsfasser" -> "Jonah Alsfasser"
 const capitalizeName = (name) =>

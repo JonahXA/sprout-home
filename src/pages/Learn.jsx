@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Search, TrendingUp, PiggyBank, CreditCard, Shield, Brain, Briefcase, GraduationCap, Award, Clock, Target } from "lucide-react";
 
 const C = {

@@ -5,16 +5,16 @@ import { HashRouter as Router, Route, Routes, Navigate, useLocation } from "reac
 import { QueryClientProvider } from "@tanstack/react-query";
 
 import { Toaster } from "@/components/ui/toaster";
-import UserNotRegisteredError from "@/components/UserNotRegisteredError";
+import UserNotRegisteredError from "@/components/shared/UserNotRegisteredError";
 
-import { queryClientInstance } from "@/lib/query-client";
-import VisualEditAgent from "@/lib/VisualEditAgent";
-import NavigationTracker from "@/lib/NavigationTracker";
-import PageNotFound from "@/lib/PageNotFound";
-import { AuthProvider, useAuth } from "@/lib/AuthContext";
+import { queryClientInstance } from "@/lib/queryClient";
+import VisualEditAgent from "@/components/shared/VisualEditAgent";
+import NavigationTracker from "@/components/shared/NavigationTracker";
+import PageNotFound from "@/components/shared/PageNotFound";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
 
-import { pagesConfig } from "./pages.config";
-import { createPageUrl } from "@/utils";
+import { pagesConfig } from "../config/pages.config";
+import { createPageUrl } from "@/config/routes";
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const firstPageKey = Object.keys(Pages || {})[0];

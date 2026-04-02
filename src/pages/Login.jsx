@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Mail, Lock } from "lucide-react";
-import { useAuth } from "@/lib/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import logoImg from "../assets/logo.png";
 
 const safeParse = (raw, fallback) => {

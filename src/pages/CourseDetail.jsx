@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import {
  ArrowLeft, Play, CheckCircle, Lock, Clock, Zap, BookOpen, Award, TrendingUp, Calculator,
 } from "lucide-react";

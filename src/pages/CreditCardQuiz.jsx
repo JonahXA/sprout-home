@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { ArrowLeft, CreditCard } from "lucide-react";
-import InteractiveQuiz from "@/components/InteractiveQuiz";
+import InteractiveQuiz from "@/components/shared/InteractiveQuiz";
 
 const C = {
  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",

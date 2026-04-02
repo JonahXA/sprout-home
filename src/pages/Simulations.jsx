@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Calculator, TrendingUp, Briefcase, Users, Home, GraduationCap, Wallet, Award } from "lucide-react";
-import InterestCalculator from "@/components/InterestCalculator";
-import PaperTradingSimulator from "@/components/PaperTradingSimulator";
-import BuildYourBudget from "@/components/BuildYourBudget";
-import ScenarioBudgetSimulation from "@/components/ScenarioBudgetSimulation";
-import NewGraduateBudgetSimulation from "@/components/NewGraduateBudgetSimulation";
-import CollegeStudentBudget from "@/components/CollegeStudentBudget";
+import InterestCalculator from "@/features/finance/InterestCalculator";
+import PaperTradingSimulator from "@/features/finance/PaperTradingSimulator";
+import BuildYourBudget from "@/features/finance/BuildYourBudget";
+import ScenarioBudgetSimulation from "@/features/finance/ScenarioBudgetSimulation";
+import NewGraduateBudgetSimulation from "@/features/finance/NewGraduateBudgetSimulation";
+import CollegeStudentBudget from "@/features/finance/CollegeStudentBudget";
 
 const safeParse = (raw, fallback) => { try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } };
 const getLocalUser = () => safeParse(localStorage.getItem("sprout_user"), null);

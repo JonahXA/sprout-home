@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import {
  Trophy, Sparkles, AlertCircle, CheckCircle, Zap,
  ArrowLeft, BookOpen, TrendingUp, Award
 } from "lucide-react";
 import { toast } from "sonner";
-import CourseCertificate from "../components/CourseCertificate";
+import CourseCertificate from "@/components/shared/CourseCertificate";
 
 const C = {
  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",

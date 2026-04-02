@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { ArrowLeft, TrendingUp, PiggyBank, Target } from "lucide-react";
-import BudgetWalkthrough from "@/components/BudgetWalkthrough";
+import BudgetWalkthrough from "@/features/finance/BudgetWalkthrough";
 
 const C = {
  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",

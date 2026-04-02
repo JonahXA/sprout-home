@@ -1,5 +1,5 @@
 import React from "react";
-import InterestCalculator from "../components/InterestCalculator";
+import InterestCalculator from "@/features/finance/InterestCalculator";
 
 export default function InvestmentCalculator() {
  return (

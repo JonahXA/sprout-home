@@ -1,5 +1,5 @@
 // src/lib/schoolsData.js
-import { getJSON, setJSON } from "@/lib/sproutStorage";
+import { getJSON, setJSON } from "@/services/storage";
 import { createClient } from "@supabase/supabase-js";
 
 const STORAGE_KEY = "sprout_schools";

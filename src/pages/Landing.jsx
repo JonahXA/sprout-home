@@ -3,7 +3,7 @@
 // Always shown on first load — no auth redirect.
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import {
  Sprout, ArrowRight, BookOpen, TrendingUp, Shield,
  Zap, Star, BarChart2, Target, CheckCircle, Calculator,

@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
-import { createPageUrl } from "@/utils";
-import { useAuth } from "@/lib/AuthContext";
+import { createPageUrl } from "@/config/routes";
+import { useAuth } from "@/context/AuthContext";
 import {
  Flame, BookOpen, ArrowRight,
  TrendingUp, Award, ChevronRight, Sparkles, Calculator,

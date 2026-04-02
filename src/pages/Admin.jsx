@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +17,7 @@ import {
  listAllUserBadges,
  listSchools,
  listAllAIDayProgress,
-} from "@/lib/appClient";
+} from "@/services/auth";
 
 export default function Admin() {
  const navigate = useNavigate();

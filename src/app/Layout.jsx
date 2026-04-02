@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
-import { useAuth } from "@/lib/AuthContext";
+import { createPageUrl } from "@/config/routes";
+import { useAuth } from "@/context/AuthContext";
 import { ChevronUp, User, Settings, BarChart2, Users, LogOut } from "lucide-react";
 import { toast } from "sonner";
-import logoImg from "./assets/logo.png";
+import logoImg from "../assets/logo.png";
 
 const C = {
  navy:"#1B2B5E", navyMid:"#141E43", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",

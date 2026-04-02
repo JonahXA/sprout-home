@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getCurrentUserSafe, upsertAIDayProgress, getAIDayProgress } from "@/lib/appClient";
+import { getCurrentUserSafe, upsertAIDayProgress, getAIDayProgress } from "@/services/auth";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { ArrowLeft, ChevronRight, Briefcase, TrendingUp, Brain, Lightbulb } from "lucide-react";
-import InteractiveQuiz from "@/components/InteractiveQuiz";
+import InteractiveQuiz from "@/components/shared/InteractiveQuiz";
 
 const C = {
  navy:"#1B2B5E", navyLight:"#243570", navyGlow:"rgba(27,43,94,0.12)",

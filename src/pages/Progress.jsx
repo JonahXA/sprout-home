@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress as ProgressBar } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";

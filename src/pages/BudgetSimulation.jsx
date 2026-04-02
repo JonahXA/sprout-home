@@ -3,10 +3,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { createPageUrl } from "@/utils";
-import BudgetWalkthrough from "@/components/BudgetWalkthrough";
-import ScenarioBudgetSimulation from "@/components/ScenarioBudgetSimulation";
-import { trackEvent, trackSimulationStart, trackSimulationComplete } from "@/lib/activityTracker";
+import { createPageUrl } from "@/config/routes";
+import BudgetWalkthrough from "@/features/finance/BudgetWalkthrough";
+import ScenarioBudgetSimulation from "@/features/finance/ScenarioBudgetSimulation";
+import { trackEvent, trackSimulationStart, trackSimulationComplete } from "@/services/activity";
 
 // NOTE: Base44 removed in migration pass.
 // TODO (later phase): replace these stubs with your real API/client layer.

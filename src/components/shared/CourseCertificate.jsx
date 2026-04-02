@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Download, Trophy, Award, Sparkles, Sprout } from "lucide-react";
 import { format } from "date-fns";
 

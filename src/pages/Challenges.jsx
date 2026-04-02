@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -10,7 +10,7 @@ import {
  Target, Flame, Zap, BookOpen, Trophy, CheckCircle,
  Calendar, Star, TrendingUp, Award, Lightbulb, Crown, Medal
 } from "lucide-react";
-import ChallengeCompleteModal from "@/components/ChallengeCompleteModal";
+import ChallengeCompleteModal from "@/components/shared/ChallengeCompleteModal";
 
 const safeParse = (raw, fallback) => { try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } };
 const getLocalUser = () => safeParse(localStorage.getItem("sprout_user"), null);

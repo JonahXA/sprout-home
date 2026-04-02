@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Card, CardContent } from "./ui/card";
-import { Button } from "./ui/button";
-import { Progress } from "./ui/progress";
-import { Badge } from "./ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, CheckCircle, XCircle, Trophy, Zap, Target, Lightbulb } from "lucide-react";
 

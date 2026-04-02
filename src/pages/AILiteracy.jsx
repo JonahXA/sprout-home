@@ -1,9 +1,9 @@
 // src/pages/AILiteracy.jsx
 import React, { useState, useEffect } from "react";
-import { getCurrentUserSafe, getAllAIDayProgressForUser } from "@/lib/appClient";
+import { getCurrentUserSafe, getAllAIDayProgressForUser } from "@/services/auth";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/utils";
+import { createPageUrl } from "@/config/routes";
 import { Lock, CheckCircle, Brain, ChevronRight, Trophy, Calendar, Clock, Zap, Target, BookOpen, LogIn } from "lucide-react";
 
 const C = {

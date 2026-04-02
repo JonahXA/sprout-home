@@ -6,7 +6,7 @@
 // Usage examples in README.md
 // ============================================================
 
-import { supabase } from "./supabaseClient";
+import { supabase } from "./supabase";
 
 let _lastSeenAt = 0;
 
