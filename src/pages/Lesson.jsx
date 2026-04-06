@@ -14,7 +14,7 @@ import ReactMarkdown from "react-markdown";
 import {
   ArrowLeft, ArrowRight, CheckCircle, XCircle, Zap, Trophy, Clock,
   Sparkles, BookOpen, Star, Target, TrendingUp, AlertCircle,
-  ChevronDown, ChevronUp, Lightbulb, Play,
+  ChevronDown, ChevronUp, Lightbulb, Play, Lock,
 } from "lucide-react";
 import { toast } from "sonner";
 import LevelUpModal from "@/components/shared/LevelUpModal";
@@ -156,6 +156,10 @@ function normalizeToSections(lesson) {
 // ─── Section type label (shown in step indicator) ───────────────
 const SECTION_LABELS = {
   hook:            "Hook",
+  concept:         "Concept",
+  walkthrough:     "Walkthrough",
+  application:     "Apply It",
+  takeaways:       "Takeaways",
   instruction:     "Learn",
   guided_practice: "Practice",
   check:           "Check",
@@ -832,11 +836,15 @@ function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
 function renderSection(section, { onContinue, lesson, misconceptions }) {
   switch (section.type) {
     case "hook":
+    case "concept":
+    case "walkthrough":
+    case "application":
+    case "takeaways":
     case "instruction":
     case "guided_practice":
       return (
         <div className="lesson-prose">
-          <ReactMarkdown>{section.body || ""}</ReactMarkdown>
+          <ReactMarkdown>{section.content || section.body || ""}</ReactMarkdown>
         </div>
       );
 
@@ -869,10 +877,10 @@ function renderSection(section, { onContinue, lesson, misconceptions }) {
       return <ReflectionCard prompt={section.prompt} onContinue={onContinue} />;
 
     default:
-      // Unknown type — fall back to markdown body so future types don't break
+      // Unknown type — fall back to markdown so future types don't break
       return (
         <div className="lesson-prose">
-          <ReactMarkdown>{section.body || ""}</ReactMarkdown>
+          <ReactMarkdown>{section.content || section.body || ""}</ReactMarkdown>
         </div>
       );
   }
@@ -914,15 +922,26 @@ export default function Lesson() {
   const { data: lesson } = useQuery({
     queryKey: ["lesson", lessonId],
     queryFn: async () => {
+      // Try v2 lesson JSON first
+      try {
+        const base = import.meta.env.BASE_URL || "/";
+        const res = await fetch(`${base}data/lessons_v2/${lessonId}.json`, { cache: "no-store" });
+        if (res.ok) {
+          const v2 = await res.json();
+          // Attach _v2 flag and alias module as course_id so completion logic works
+          return { ...v2, _v2: true, course_id: v2.module || "v2" };
+        }
+      } catch {}
+      // Fall back to v1
       const lessons = await data.listLessons();
       return lessons.find((l) => String(l.id) === String(lessonId)) || null;
     },
     enabled: !!lessonId,
   });
 
-  // Legacy special-page redirect — unchanged
+  // Legacy special-page redirect — v1 only
   useEffect(() => {
-    if (!lesson) return;
+    if (!lesson || lesson._v2) return;
     const sp = detectSpecialLessonPage(lesson);
     if (sp) navigate(createPageUrl(sp), { replace: true });
   }, [lesson, navigate]);
@@ -1058,7 +1077,7 @@ export default function Lesson() {
     );
   }
 
-  if (!lesson || !course) {
+  if (!lesson || (!lesson._v2 && !course)) {
     return (
       <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center" }}>
         <div style={{ textAlign:"center" }}>
@@ -1069,7 +1088,36 @@ export default function Lesson() {
     );
   }
 
-  const specialPage = detectSpecialLessonPage(lesson);
+  // Locked lesson gate — show coming soon screen
+  if (lesson.locked) {
+    return (
+      <>
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+        <div style={{ minHeight:"100vh", background:C.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:24, fontFamily:"'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+          <div style={{ maxWidth:420, width:"100%", borderRadius:24, border:`1px solid ${C.border}`, padding:"48px 40px", background:C.bg, boxShadow:"0 4px 32px rgba(0,0,0,0.07)", textAlign:"center" }}>
+            <div style={{ width:64, height:64, borderRadius:"50%", background:C.bgMid, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 20px" }}>
+              <Lock size={28} color={C.textMuted} />
+            </div>
+            <h2 style={{ fontSize:22, fontWeight:800, color:C.text, marginBottom:8 }}>Coming Soon</h2>
+            <p style={{ fontSize:15, color:C.textSub, lineHeight:1.6, marginBottom:6 }}>
+              <strong style={{ color:C.text }}>{lesson.title}</strong>
+            </p>
+            <p style={{ fontSize:14, color:C.textMuted, lineHeight:1.6, marginBottom:28 }}>
+              This lesson is under development. Complete earlier lessons to unlock it.
+            </p>
+            <button
+              onClick={() => navigate(createPageUrl("Dashboard"))}
+              style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
+            >
+              <ArrowLeft size={16} />Back to Dashboard
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  const specialPage = !lesson._v2 && detectSpecialLessonPage(lesson);
   if (specialPage) {
     return (
       <div style={{ minHeight:"100vh", display:"flex", alignItems:"center", justifyContent:"center" }}>
@@ -1110,7 +1158,7 @@ export default function Lesson() {
   if (t.includes("credit") || t.includes("debt")) lessonImage = lessonImages.credit;
   if (t.includes("career")) lessonImage = lessonImages.career;
 
-  const hasLessonContent = hasSubstantialContent(lesson.content) || sections.some((s) => s.body?.length > 50);
+  const hasLessonContent = lesson._v2 || hasSubstantialContent(lesson.content) || sections.some((s) => (s.body?.length > 50) || (s.content?.length > 50));
 
   // ── Render ────────────────────────────────────────────────────
   return (
@@ -1137,10 +1185,12 @@ export default function Lesson() {
           {/* ── Header row (unchanged) ── */}
           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:12 }}>
             <button
-              onClick={() => navigate(createPageUrl(`CourseDetail?id=${lesson.course_id}`))}
+              onClick={() => lesson._v2
+                ? navigate(createPageUrl("Dashboard"))
+                : navigate(createPageUrl(`CourseDetail?id=${lesson.course_id}`))}
               style={{ display:"inline-flex", alignItems:"center", gap:6, padding:"8px 18px", borderRadius:999, border:`1px solid ${C.border}`, background:C.bg, color:C.textSub, fontSize:14, fontWeight:500, cursor:"pointer" }}
             >
-              <ArrowLeft size={16} />Back to Course
+              <ArrowLeft size={16} />{lesson._v2 ? "Dashboard" : "Back to Course"}
             </button>
             <div style={{ display:"flex", alignItems:"center", gap:10 }}>
               <span style={{ fontSize:12, fontWeight:700, color:C.accent, background:C.accentSoft, padding:"4px 12px", borderRadius:999 }}>
@@ -1154,15 +1204,19 @@ export default function Lesson() {
             </div>
           </div>
 
-          {/* ── Course progress bar (unchanged) ── */}
-          <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, borderRadius:16, padding:"16px 24px", color:"#fff", display:"flex", alignItems:"center", justifyContent:"space-between", gap:16 }}>
-            <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:14, fontWeight:600 }}>
-              <Target size={16} />{course.name}
+          {/* ── Course progress bar (v1 only; v2 uses module name) ── */}
+          {(course || lesson._v2) && (
+            <div style={{ background:`linear-gradient(135deg,${C.navy},${C.navyLight})`, borderRadius:16, padding:"16px 24px", color:"#fff", display:"flex", alignItems:"center", justifyContent:"space-between", gap:16 }}>
+              <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:14, fontWeight:600 }}>
+                <Target size={16} />{course?.name || lesson.title}
+              </div>
+              {!lesson._v2 && (
+                <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:14, fontWeight:700 }}>
+                  <Trophy size={16} />{Math.round(progressPercent)}%
+                </div>
+              )}
             </div>
-            <div style={{ display:"flex", alignItems:"center", gap:8, fontSize:14, fontWeight:700 }}>
-              <Trophy size={16} />{Math.round(progressPercent)}%
-            </div>
-          </div>
+          )}
 
           {/* ── Lesson content / quiz ── */}
           {!showQuiz ? (
@@ -1174,9 +1228,11 @@ export default function Lesson() {
                   <img src={lessonImage} alt={lesson.title} style={{ width:"100%", height:"100%", objectFit:"cover" }} />
                   <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top,rgba(0,0,0,0.65),transparent)" }} />
                   <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:24, color:"#fff" }}>
-                    <span style={{ display:"inline-block", fontSize:11, fontWeight:700, background:"rgba(255,255,255,0.2)", backdropFilter:"blur(4px)", padding:"3px 10px", borderRadius:999, marginBottom:8, border:"1px solid rgba(255,255,255,0.3)" }}>
-                      {course.category}
-                    </span>
+                    {(course?.category) && (
+                      <span style={{ display:"inline-block", fontSize:11, fontWeight:700, background:"rgba(255,255,255,0.2)", backdropFilter:"blur(4px)", padding:"3px 10px", borderRadius:999, marginBottom:8, border:"1px solid rgba(255,255,255,0.3)" }}>
+                        {course.category}
+                      </span>
+                    )}
                     <h1 style={{ fontSize:26, fontWeight:900, margin:0, letterSpacing:"-0.5px" }}>{lesson.title}</h1>
                   </div>
                 </div>
@@ -1281,13 +1337,16 @@ export default function Lesson() {
                         ) : (
                           <button
                             onClick={() => {
-                              if (!terminalQuestions.length) { toast.error("This lesson is missing a quiz."); return; }
+                              if (!terminalQuestions.length) {
+                                if (lesson._v2) { completeMutation.mutate({ quizScore: 100 }); return; }
+                                toast.error("This lesson is missing a quiz."); return;
+                              }
                               setShowQuiz(true);
                               window.scrollTo({ top: 0, behavior: "smooth" });
                             }}
                             style={{ marginLeft:"auto", display:"inline-flex", alignItems:"center", gap:8, padding:"12px 28px", borderRadius:999, background:C.navy, color:"#fff", border:"none", fontWeight:700, fontSize:14, cursor:"pointer", boxShadow:`0 4px 16px ${C.navyGlow}` }}
                           >
-                            <Sparkles size={16} />Take Quiz
+                            <Sparkles size={16} />{lesson._v2 ? "Complete Lesson" : "Take Quiz"}
                           </button>
                         )
                       )}

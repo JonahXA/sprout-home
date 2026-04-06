@@ -1,0 +1,66 @@
+{
+  "version": 2,
+  "modules": [
+    {
+      "id": "module-mf",
+      "title": "Money Foundations",
+      "description": "Understand how money flows in and out of your life.",
+      "color": "#2D9B6F",
+      "lessons": [
+        { "id": "lesson-mf-001", "title": "How Your Paycheck Works",       "duration_minutes": 25, "locked": false },
+        { "id": "lesson-mf-002", "title": "Banking & Where Your Money Lives", "duration_minutes": 20, "locked": true  },
+        { "id": "lesson-mf-003", "title": "Spending & Financial Behavior",  "duration_minutes": 20, "locked": true  },
+        { "id": "lesson-mf-004", "title": "Setting Financial Goals",        "duration_minutes": 18, "locked": true  }
+      ]
+    },
+    {
+      "id": "module-bc",
+      "title": "Budgeting & Cash Flow",
+      "description": "Build a budget that actually works for your real life.",
+      "color": "#3B82F6",
+      "lessons": [
+        { "id": "lesson-bc-001", "title": "How to Build a Budget",              "duration_minutes": 25, "locked": true },
+        { "id": "lesson-bc-002", "title": "Tracking & Adjusting Your Budget",   "duration_minutes": 20, "locked": true },
+        { "id": "lesson-bc-003", "title": "Budgeting with Irregular Income",    "duration_minutes": 20, "locked": true }
+      ]
+    },
+    {
+      "id": "module-sf",
+      "title": "Saving & Financial Stability",
+      "description": "Build a foundation that protects you and compounds over time.",
+      "color": "#F59E0B",
+      "lessons": [
+        { "id": "lesson-sf-001", "title": "Emergency Funds",                                "duration_minutes": 18, "locked": true },
+        { "id": "lesson-sf-002", "title": "Automating Your Money",                          "duration_minutes": 15, "locked": true },
+        { "id": "lesson-sf-003", "title": "The Power of Compound Interest",                 "duration_minutes": 20, "locked": true },
+        { "id": "lesson-sf-004", "title": "Saving for Short, Medium, and Long-Term Goals", "duration_minutes": 20, "locked": true }
+      ]
+    },
+    {
+      "id": "module-cd",
+      "title": "Credit, Debt & Risk",
+      "description": "Understand how credit and debt work — and how to stay in control.",
+      "color": "#EF4444",
+      "lessons": [
+        { "id": "lesson-cd-001", "title": "How Credit Cards Actually Work",      "duration_minutes": 20, "locked": true },
+        { "id": "lesson-cd-002", "title": "Your Credit Score Explained",         "duration_minutes": 20, "locked": true },
+        { "id": "lesson-cd-003", "title": "Good Debt vs Bad Debt",               "duration_minutes": 18, "locked": true },
+        { "id": "lesson-cd-004", "title": "Interest & The True Cost of Debt",   "duration_minutes": 20, "locked": true },
+        { "id": "lesson-cd-005", "title": "Debt Repayment Strategies",           "duration_minutes": 18, "locked": true }
+      ]
+    },
+    {
+      "id": "module-inv",
+      "title": "Investing & Wealth Building",
+      "description": "Put your money to work so it grows while you sleep.",
+      "color": "#7C3AED",
+      "lessons": [
+        { "id": "lesson-inv-001", "title": "Why Investing Matters",                    "duration_minutes": 18, "locked": true },
+        { "id": "lesson-inv-002", "title": "What to Invest In",                        "duration_minutes": 22, "locked": true },
+        { "id": "lesson-inv-003", "title": "Risk, Time Horizon & Investing Behavior",  "duration_minutes": 20, "locked": true },
+        { "id": "lesson-inv-004", "title": "How to Start Investing",                   "duration_minutes": 20, "locked": true },
+        { "id": "lesson-inv-005", "title": "Retirement Accounts",                      "duration_minutes": 22, "locked": true }
+      ]
+    }
+  ]
+}

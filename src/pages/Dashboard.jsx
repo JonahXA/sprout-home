@@ -6,7 +6,8 @@ import { useAuth } from "@/context/AuthContext";
 import {
  Flame, BookOpen, ArrowRight,
  TrendingUp, Award, ChevronRight, Sparkles, Calculator,
- Play, CreditCard, Shield, Cpu, PieChart, Book, GraduationCap, Layers
+ Play, CreditCard, Shield, Cpu, PieChart, Book, GraduationCap, Layers,
+ Lock, Clock, CheckCircle,
 } from "lucide-react";
 
 const C = {
@@ -26,6 +27,14 @@ const data = {
  async listCourses() { return []; },
  async listUserProgress() { return []; },
  async listUserBadges() { return []; },
+ async listV2Curriculum() {
+   try {
+     const base = import.meta.env.BASE_URL || "/";
+     const res = await fetch(`${base}data/lessons_v2/index.json`, { cache: "no-store" });
+     if (res.ok) return res.json();
+   } catch {}
+   return null;
+ },
 };
 
 const getFirstName = (n) => {
@@ -109,6 +118,70 @@ function FeaturedCard({ icon, name, description, niche, nicheSoftBg, nicheColor,
  );
 }
 
+function CurriculumSection({ curriculum, navigate }) {
+ if (!curriculum?.modules?.length) return null;
+ return (
+   <div style={{ marginBottom:36 }}>
+     <SectionHeader title="Financial Literacy Curriculum" sub="Your complete learning path — one lesson at a time." />
+     <div style={{ display:"flex", flexDirection:"column", gap:16 }}>
+       {curriculum.modules.map((mod) => (
+         <div key={mod.id} style={{ borderRadius:16, border:`1px solid ${C.border}`, overflow:"hidden", background:C.bg, boxShadow:"0 1px 4px rgba(0,0,0,0.05)" }}>
+           {/* Module header */}
+           <div style={{ padding:"14px 20px", background:C.bgSoft, borderBottom:`1px solid ${C.border}`, display:"flex", alignItems:"center", gap:12 }}>
+             <div style={{ width:10, height:10, borderRadius:"50%", background:mod.color, flexShrink:0 }} />
+             <div>
+               <div style={{ fontSize:15, fontWeight:800, color:C.text, lineHeight:1.2 }}>{mod.title}</div>
+               {mod.description && <div style={{ fontSize:12, color:C.textMuted, marginTop:2 }}>{mod.description}</div>}
+             </div>
+             <div style={{ marginLeft:"auto", fontSize:12, color:C.textMuted, fontWeight:600 }}>
+               {mod.lessons.filter(l => !l.locked).length}/{mod.lessons.length} unlocked
+             </div>
+           </div>
+           {/* Lesson rows */}
+           <div>
+             {mod.lessons.map((lesson, idx) => {
+               const isLast = idx === mod.lessons.length - 1;
+               return (
+                 <div
+                   key={lesson.id}
+                   onClick={() => !lesson.locked && navigate(createPageUrl(`Lesson?id=${lesson.id}`))}
+                   style={{
+                     display:"flex", alignItems:"center", gap:14, padding:"13px 20px",
+                     borderBottom: isLast ? "none" : `1px solid ${C.border}`,
+                     cursor: lesson.locked ? "default" : "pointer",
+                     opacity: lesson.locked ? 0.65 : 1,
+                     transition:"background 0.15s",
+                     background: lesson.locked ? "transparent" : C.bg,
+                   }}
+                   onMouseEnter={(e) => { if (!lesson.locked) e.currentTarget.style.background = C.bgSoft; }}
+                   onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                 >
+                   {/* Status icon */}
+                   <div style={{ width:32, height:32, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, background: lesson.locked ? C.bgMid : C.greenSoft }}>
+                     {lesson.locked
+                       ? <Lock size={14} color={C.textMuted} />
+                       : <CheckCircle size={14} color={C.green} />}
+                   </div>
+                   {/* Title + duration */}
+                   <div style={{ flex:1, minWidth:0 }}>
+                     <div style={{ fontSize:14, fontWeight:700, color: lesson.locked ? C.textMuted : C.text, lineHeight:1.3 }}>{lesson.title}</div>
+                   </div>
+                   <div style={{ display:"flex", alignItems:"center", gap:4, fontSize:12, color:C.textMuted, flexShrink:0 }}>
+                     <Clock size={12} />{lesson.duration_minutes} min
+                   </div>
+                   {/* Arrow for unlocked */}
+                   {!lesson.locked && <ChevronRight size={16} color={C.textMuted} style={{ flexShrink:0 }} />}
+                 </div>
+               );
+             })}
+           </div>
+         </div>
+       ))}
+     </div>
+   </div>
+ );
+}
+
 export default function Dashboard() {
  const navigate = useNavigate();
  const { user } = useAuth();
@@ -116,6 +189,7 @@ export default function Dashboard() {
  const { data: courses = [] } = useQuery({ queryKey:["courses"], queryFn:() => data.listCourses() });
  const { data: userProgress = [] } = useQuery({ queryKey:["userProgress", user?.email], queryFn:() => data.listUserProgress(user?.email), enabled:!!user });
  const { data: userBadges = [] } = useQuery({ queryKey:["userBadges", user?.email], queryFn:() => data.listUserBadges(user?.email), enabled:!!user });
+ const { data: curriculum } = useQuery({ queryKey:["v2curriculum"], queryFn:() => data.listV2Curriculum() });
 
  const completedLessons = userProgress.filter((p) => p.completed).length;
  const currentStreak = user?.current_streak || 0;
@@ -224,6 +298,9 @@ export default function Dashboard() {
  </div>
  </div>
  </div>
+
+ {/* V2 CURRICULUM */}
+ <CurriculumSection curriculum={curriculum} navigate={navigate} />
 
  {/* FEATURED COURSES */}
  <div style={{ marginBottom:36 }}>
