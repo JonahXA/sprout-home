@@ -299,9 +299,6 @@ export default function Dashboard() {
  </div>
  </div>
 
- {/* V2 CURRICULUM */}
- <CurriculumSection curriculum={curriculum} navigate={navigate} />
-
  {/* FEATURED COURSES */}
  <div style={{ marginBottom:36 }}>
  <SectionHeader title="Featured Courses" sub="Curated lessons to build real-world skills." linkTo={createPageUrl("Learn")} linkLabel="View all" />
