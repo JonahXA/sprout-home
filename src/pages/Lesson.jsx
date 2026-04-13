@@ -21,6 +21,7 @@ import LevelUpModal from "@/components/shared/LevelUpModal";
 import ChallengeCompleteModal from "@/components/shared/ChallengeCompleteModal";
 import { useChallengeCheck } from "@/hooks/useChallengeCheck";
 import { trackEvent } from "@/services/activity";
+import StepLesson from "@/components/lessons/StepLesson";
 
 // ─── Color tokens (unchanged from before) ──────────────────────
 const C = {
@@ -1126,6 +1127,46 @@ export default function Lesson() {
           <p style={{ color:C.textSub }}>Loading interactive lesson...</p>
         </div>
       </div>
+    );
+  }
+
+  // ── Step-based lessons (v2 interactive format) ───────────────
+  if (lesson.steps?.length > 0) {
+    return (
+      <>
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+        {showLevelUp && newLevel && <LevelUpModal level={newLevel} onClose={() => setShowLevelUp(false)} />}
+        {completedChallenge && <ChallengeCompleteModal challenge={completedChallenge} onClose={clearCompletedChallenge} />}
+        <div style={{ minHeight: "100vh", background: "#F8FAFC", padding: "32px 16px", fontFamily: "'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif" }}>
+          <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
+            {/* Header */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <button
+                onClick={() => navigate(createPageUrl("Dashboard"))}
+                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "8px 18px", borderRadius: 999, border: `1px solid #E5E7EB`, background: "#fff", color: "#475569", fontSize: 14, fontWeight: 500, cursor: "pointer" }}
+              >
+                <ArrowLeft size={16} />Dashboard
+              </button>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#94A3B8", fontWeight: 600 }}>
+                <Clock size={13} />{lesson.duration_minutes} min
+              </div>
+            </div>
+            {/* Title */}
+            <div>
+              <h1 style={{ fontSize: 24, fontWeight: 900, color: "#0F172A", margin: "0 0 4px", letterSpacing: "-0.5px" }}>{lesson.title}</h1>
+              <p style={{ fontSize: 13, color: "#94A3B8", margin: 0, fontWeight: 500 }}>Interactive Lesson</p>
+            </div>
+            {/* Step renderer */}
+            <StepLesson
+              lesson={lesson}
+              onComplete={(score) => {
+                completeMutation.mutate({ quizScore: score });
+                navigate(createPageUrl("Dashboard"));
+              }}
+            />
+          </div>
+        </div>
+      </>
     );
   }
 
