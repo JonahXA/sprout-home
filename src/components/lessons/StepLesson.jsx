@@ -123,6 +123,7 @@ function MultipleChoice({ question, prompt, options, correct_answer, onResult })
     if (revealed) return;
     setSelected(i);
     setRevealed(true);
+    onResult(i === correct_answer);
   };
 
   return (
@@ -144,32 +145,13 @@ function MultipleChoice({ question, prompt, options, correct_answer, onResult })
               style={{ width: "100%", textAlign: "left", padding: "13px 16px", borderRadius: 10, border: `2px solid ${border2}`, background: bg, color, fontWeight: 600, fontSize: 14, cursor, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 10 }}
             >
               <span style={{ width: 26, height: 26, borderRadius: "50%", border: "2px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>
-                {revealed && i === correct_answer ? "✓" : revealed && i === selected && !isCorrect ? "✗" : String.fromCharCode(65 + i)}
+                {revealed && i === correct_answer ? "✓" : revealed && i === selected && i !== correct_answer ? "✗" : String.fromCharCode(65 + i)}
               </span>
               {opt}
             </button>
           );
         })}
       </div>
-      {revealed && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {/* Feedback strip shown inline — Continue button rendered by parent */}
-          <div style={{
-            borderRadius: 12, padding: "12px 16px",
-            background: isCorrect ? C.greenSoft : C.redSoft,
-            border: `1.5px solid ${isCorrect ? C.green : C.red}`,
-            display: "flex", alignItems: "flex-start", gap: 10,
-          }}>
-            {isCorrect
-              ? <CheckCircle size={16} color={C.green} style={{ flexShrink: 0, marginTop: 2 }} />
-              : <XCircle size={16} color={C.red} style={{ flexShrink: 0, marginTop: 2 }} />}
-            <p style={{ fontSize: 13, color: isCorrect ? "#14532D" : "#7F1D1D", margin: 0, lineHeight: 1.5 }}>
-              {/* feedback text comes from parent via onResult */}
-            </p>
-          </div>
-        </div>
-      )}
-      {revealed && <span style={{ display: "none" }}>{onResult(isCorrect)}</span>}
     </div>
   );
 }
