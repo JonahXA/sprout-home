@@ -10,7 +10,7 @@
 //   - Final evaluation follows same logic; score counts only first-try correctness.
 
 import React, { useState, useCallback, useRef } from "react";
-import { ArrowRight, CheckCircle, XCircle, Lightbulb, Trophy, Star } from "lucide-react";
+import { ArrowRight, CheckCircle, XCircle, Lightbulb, Trophy, Star, BookOpen } from "lucide-react";
 
 const C = {
   navy: "#1B2B5E", navyLight: "#243570", navyGlow: "rgba(27,43,94,0.12)",
@@ -54,6 +54,30 @@ function FeedbackStrip({ correct, text }) {
           {correct ? "Correct!" : "Not quite"}
         </p>
         <p style={{ fontSize: 13, color: correct ? "#14532D" : "#7F1D1D", margin: 0, lineHeight: 1.5 }}>{text}</p>
+      </div>
+    </div>
+  );
+}
+
+// ─── LearnBlock — passive teaching step ──────────────────────────
+function LearnBlock({ step, onContinue }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: C.accentSoft, border: `1px solid ${C.accentMid}`, borderRadius: 8, padding: "6px 14px", alignSelf: "flex-start" }}>
+        <BookOpen size={13} color={C.accent} />
+        <span style={{ fontSize: 12, fontWeight: 700, color: C.accent, textTransform: "uppercase", letterSpacing: "0.06em" }}>Learn</span>
+      </div>
+      {step.heading && (
+        <h3 style={{ fontSize: 20, fontWeight: 800, color: C.text, margin: 0, letterSpacing: "-0.3px", lineHeight: 1.25 }}>{step.heading}</h3>
+      )}
+      <p style={{ fontSize: 16, color: C.textSub, margin: 0, lineHeight: 1.75 }}>{step.body}</p>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <button
+          onClick={onContinue}
+          style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 26px", borderRadius: 999, background: C.navy, color: "#fff", border: "none", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: `0 4px 16px ${C.navyGlow}` }}
+        >
+          Got it <ArrowRight size={15} />
+        </button>
       </div>
     </div>
   );
@@ -500,6 +524,9 @@ export default function StepLesson({ lesson, onComplete }) {
   const steps = lesson.steps || [];
   const evalQs = lesson.final_evaluation || [];
 
+  // Interactive steps only — learn steps don't count toward progress
+  const interactiveSteps = steps.filter((s) => s.type !== "learn");
+
   // phase: "steps" | "eval_intro" | "eval" | "score"
   const [phase, setPhase] = useState("steps");
   const [stepIdx, setStepIdx] = useState(0);
@@ -508,9 +535,7 @@ export default function StepLesson({ lesson, onComplete }) {
   const [evalIdx, setEvalIdx] = useState(0);
   const [evalCorrectCount, setEvalCorrectCount] = useState(0);
 
-  // ── steps phase ─────────────────────────────────────────────────
-  const handleStepMastered = useCallback((wasCorrect) => {
-    if (wasCorrect) setStepCorrectCount((n) => n + 1);
+  const advanceStep = useCallback(() => {
     const next = stepIdx + 1;
     if (next >= steps.length) {
       setPhase(evalQs.length > 0 ? "eval_intro" : "score");
@@ -519,6 +544,12 @@ export default function StepLesson({ lesson, onComplete }) {
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [stepIdx, steps.length, evalQs.length]);
+
+  // ── steps phase ─────────────────────────────────────────────────
+  const handleStepMastered = useCallback((wasCorrect) => {
+    if (wasCorrect) setStepCorrectCount((n) => n + 1);
+    advanceStep();
+  }, [advanceStep]);
 
   // ── eval phase ──────────────────────────────────────────────────
   const handleEvalMastered = useCallback((wasCorrect) => {
@@ -534,15 +565,23 @@ export default function StepLesson({ lesson, onComplete }) {
 
   // ── steps ────────────────────────────────────────────────────────
   if (phase === "steps") {
+    const currentStep = steps[stepIdx];
+    const isLearn = currentStep?.type === "learn";
+
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <ProgressBar correct={stepCorrectCount} total={steps.length} color={C.accent} />
-        <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "28px 32px", background: C.bg, minHeight: 280 }}>
-          <StepDriver
-            key={`step-${stepIdx}`}
-            step={steps[stepIdx]}
-            onMastered={handleStepMastered}
-          />
+        {/* Progress bar counts only interactive steps */}
+        <ProgressBar correct={stepCorrectCount} total={interactiveSteps.length} color={C.accent} />
+        <div style={{ borderRadius: 16, border: `1px solid ${isLearn ? C.accentMid : C.border}`, padding: "28px 32px", background: isLearn ? C.accentSoft : C.bg, minHeight: 280 }}>
+          {isLearn ? (
+            <LearnBlock key={currentStep.id} step={currentStep} onContinue={advanceStep} />
+          ) : (
+            <StepDriver
+              key={`step-${stepIdx}`}
+              step={currentStep}
+              onMastered={handleStepMastered}
+            />
+          )}
         </div>
       </div>
     );
