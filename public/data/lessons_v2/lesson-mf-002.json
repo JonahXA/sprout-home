@@ -132,39 +132,39 @@
     {
       "id": "s4",
       "type": "multiple_choice",
-      "prompt": "Sofia starts her first job and has three goals: pay her phone bill automatically, have cash ready for daily expenses, and save $200/month toward a vacation. Which setup is best?",
+      "prompt": "Tyler opened only a checking account for his first paycheck. He mentally reserved '$400 for emergencies' and planned to spend the rest carefully. Six weeks later, his balance is $22. The $400 never made it. What structural problem most likely caused this?",
       "options": [
-        "One savings account — keeps everything earning interest",
-        "One checking account — simplest to manage everything in one place",
-        "A checking account for bill pay and daily spending, a savings account for the vacation fund",
-        "Two checking accounts — one for bills, one for spending"
+        "His bank must have charged hidden fees that drained the account",
+        "Without a separate savings account, his 'mental savings' had no physical barrier — daily spending and savings competed for the same balance, and spending won",
+        "Checking accounts automatically deduct a savings allocation and send it to the bank",
+        "He should have kept everything in savings instead of checking"
       ],
-      "correct_answer": 2,
+      "correct_answer": 1,
       "feedback": {
-        "correct": "Correct. Checking handles what requires a debit card or automatic payments. Savings holds money that shouldn't be spent casually. Keeping them separate makes the budget clear and creates a real barrier between 'spending money' and 'saving money.'",
-        "incorrect": "One account feels simpler, but it eliminates the boundary between spending and saving — making it easy to dip into savings without realizing it. Checking covers autopay and daily purchases; savings protects the vacation fund and earns a little interest while she waits."
+        "correct": "Exactly. Keeping all your money in one account means 'saving' is just a number in your head — easy to ignore when rent, groceries, and impulse purchases are all pulling from the same balance. A separate savings account with no debit card creates a physical barrier that a mental note cannot.",
+        "incorrect": "Hidden fees exist but rarely drain hundreds of dollars in six weeks. The structural failure is subtler: a checking account has no boundaries — every dollar is equally spendable, regardless of how you've mentally labeled it. Without a savings account acting as a barrier, daily expenses gradually consume whatever was 'mentally reserved.' The solution isn't willpower — it's separating the money so spending from savings requires a deliberate transfer, not just a swipe."
       },
-      "hint": "Different goals need different account types — one for spending now, one for saving later.",
+      "hint": "Ask: what stops Tyler from accidentally spending his '$400 emergency fund' if it's sitting in the same account as his grocery money?",
       "retry_variants": [
         {
-          "prompt": "What is the main reason financial advisors suggest keeping a separate savings account instead of using one checking account for everything?",
+          "prompt": "What makes a separate savings account more effective than 'trying not to touch' a portion of your checking balance?",
           "options": [
-            "Banks require at least two accounts to activate FDIC protection",
-            "Separating accounts creates a barrier that makes it harder to accidentally spend your savings",
-            "Interest rates are only available to people with multiple accounts",
-            "Checking accounts are not insured by the FDIC"
+            "Savings earns enough interest to rebuild whatever you accidentally spend",
+            "A savings account has no debit card — creating a real physical barrier instead of a mental one",
+            "Banks automatically prevent all withdrawals from savings accounts",
+            "Checking accounts have lower FDIC protection than savings accounts"
           ],
           "correct_answer": 1
         },
         {
-          "prompt": "Which account type should receive your direct deposit paycheck — and why?",
+          "prompt": "A coworker keeps her full paycheck in one checking account and transfers to savings 'when she has extra at the end of the month.' She never has extra. What system would actually work?",
           "options": [
-            "Savings — it earns more interest when funds first arrive",
-            "Checking — your paycheck covers immediate expenses like rent and groceries that require debit card access",
-            "Both equally — split the deposit 50/50 automatically",
-            "Neither — always cash a physical check first"
+            "Open a separate savings account and set up an automatic transfer on payday — before daily spending begins",
+            "Ask her employer to reduce her paycheck by her savings goal amount",
+            "Use two checking accounts and transfer manually each week",
+            "Set a calendar reminder to save at the end of each month"
           ],
-          "correct_answer": 1
+          "correct_answer": 0
         }
       ]
     },
@@ -276,20 +276,16 @@
     },
     {
       "id": "s8",
-      "type": "multiple_choice",
-      "prompt": "Your checking account has $80. A $110 monthly subscription auto-charges. Your bank has overdraft protection enabled, which lets the charge go through but adds a $35 fee. What is your account balance after both?",
-      "options": [
-        "−$30 — only the overdraft amount; the fee is added next cycle",
-        "−$65 — the subscription went through and the $35 fee was added immediately",
-        "$80 — the charge was blocked automatically",
-        "−$110 — the fee is waived on the first overdraft"
-      ],
-      "correct_answer": 1,
+      "type": "numeric_input",
+      "prompt": "Your checking account has $80. A $110 monthly subscription auto-charges overnight. Your bank's overdraft protection lets it go through — and adds a $35 fee. By how much is your account overdrawn after both charges?",
+      "unit": "$",
+      "correct_answer": "65",
+      "tolerance": 0.5,
       "feedback": {
-        "correct": "Correct. $80 − $110 = −$30 overdraft. Then −$30 − $35 fee = −$65. A single forgotten subscription just cost $35 extra on top of the shortfall.",
-        "incorrect": "When overdraft protection allows the charge to go through, the bank charges a fee on top of the resulting deficit — both happen simultaneously. $80 − $110 = −$30. Then the $35 fee brings it to −$65. You now owe the bank $65, even though you started with $80."
+        "correct": "Right. $110 − $80 = $30 shortfall. Then the bank adds a $35 fee on top: $30 + $35 = $65 overdrawn. A single forgotten subscription cost $35 extra — and you still owe the bank $65 before your next deposit arrives.",
+        "incorrect": "Two charges hit your account: the $110 subscription and the $35 overdraft fee. Step 1: $80 − $110 = overdrawn by $30. Step 2: add the fee — $30 + $35 = overdrawn by $65. If you answered $30, you calculated the shortfall but forgot the fee. Banks charge the fee on top of the deficit, not instead of it."
       },
-      "hint": "Overdraft = bank covers the gap, then charges you for doing so.",
+      "hint": "First find how short you are after the subscription. Then add the overdraft fee on top.",
       "retry_variants": [
         {
           "prompt": "Your account has $30. Two subscriptions auto-pay on the same day: $50 and $45. Your bank charges $35 per overdraft transaction. How many overdraft fees will you most likely incur?",
@@ -305,7 +301,7 @@
           "prompt": "What is the most reliable way to avoid overdraft fees?",
           "options": [
             "Keep overdraft protection on so charges always go through",
-            "Monitor your available balance and set low-balance alerts before spending",
+            "Monitor your available balance and upcoming auto-payments before spending",
             "Only use your account for direct deposits, not purchases",
             "Keep $5 in savings as an overdraft backup"
           ],
@@ -493,31 +489,30 @@
     },
     {
       "id": "s14",
-      "type": "matching",
-      "prompt": "Match each bank fee to what causes it.",
-      "pairs": [
-        { "term": "Overdraft fee", "match": "A charge posts when your balance is below $0" },
-        { "term": "Out-of-network ATM fee", "match": "Withdrawing cash from a competitor bank's ATM" },
-        { "term": "Monthly maintenance fee", "match": "Not meeting the bank's minimum deposit or balance" },
-        { "term": "Foreign transaction fee", "match": "Using your debit card outside the United States" }
-      ],
+      "type": "numeric_input",
+      "prompt": "Your end-of-month bank statement shows three fee lines: Maintenance fee $12 | Out-of-network ATM (4 uses × $2.50) | Overdraft fee $35. What are your total bank fees this month?",
+      "unit": "$",
+      "correct_answer": "57",
+      "tolerance": 0.5,
       "feedback": {
-        "correct": "Correct. Each fee has a specific trigger — knowing what causes them is the first step to avoiding them.",
-        "incorrect": "Review the triggers: overdraft = spending beyond your balance; out-of-network ATM = using a machine your bank doesn't own; maintenance = not meeting the deposit or balance waiver condition; foreign transaction = using your card abroad. All four are avoidable once you know what sets them off."
+        "correct": "Right — $12 + $10 + $35 = $57. Here's what's worth noticing: the maintenance fee ($12) disappears if you meet the deposit minimum. The ATM fees ($10) go to zero if you use your bank's own machines. The overdraft ($35) is avoidable with balance monitoring. All $57 could have been prevented — none of these are fees you're stuck with.",
+        "incorrect": "Add each line: Maintenance $12 + ATM fees (4 × $2.50 = $10) + Overdraft $35 = $57. If your ATM total was $2.50, you used the per-use cost instead of multiplying by the number of uses. Each ATM visit is a separate charge."
       },
-      "hint": "Think about what the account holder did — or failed to do — that caused each fee.",
+      "hint": "Calculate ATM fees first (uses × cost per use), then add the two flat fees.",
       "retry_variants": [
         {
-          "type": "multiple_choice",
-          "prompt": "You use a Wells Fargo ATM but your bank is Chase. What fee are you most likely charged?",
-          "options": ["Overdraft fee", "Monthly maintenance fee", "Out-of-network ATM fee", "Foreign transaction fee"],
-          "correct_answer": 2
+          "type": "numeric_input",
+          "prompt": "Statement: Maintenance $9 | Out-of-network ATM (3 uses × $3) | Overdraft $35. Total fees this month?",
+          "unit": "$",
+          "correct_answer": "53",
+          "tolerance": 0.5
         },
         {
-          "type": "multiple_choice",
-          "prompt": "Your account drops to $15 and a $60 auto-payment posts. The bank covers it and charges $35. What is this fee called?",
-          "options": ["Foreign transaction fee", "Monthly maintenance fee", "Out-of-network ATM fee", "Overdraft fee"],
-          "correct_answer": 3
+          "type": "numeric_input",
+          "prompt": "Your bank waives the $12 maintenance fee if you deposit $500+. You deposited $530 this month. Out-of-network ATM: 2 uses × $3.50. No overdraft. What are your total fees?",
+          "unit": "$",
+          "correct_answer": "7",
+          "tolerance": 0.25
         }
       ]
     }
@@ -574,28 +569,28 @@
     {
       "id": "fe3",
       "type": "multiple_choice",
-      "question": "You have $18,000 in a savings account at a bank that suddenly goes bankrupt. How much will you receive from FDIC insurance?",
+      "question": "Maya has $380 in checking. Two things are pending: a $300 rent auto-payment scheduled for 6 AM tomorrow, and a $75 gas station authorization hold from this afternoon that hasn't released yet. Tonight she wants to buy a $60 birthday present online. What is her available balance right now — and what happens if she tries to buy it?",
       "options": [
-        "$0 — FDIC only covers checking accounts",
-        "$18,000 — your full balance, since it's under the $250,000 limit",
-        "$10,000 — FDIC caps coverage at $10,000 per account",
-        "$18,000, but only after a 6–12 month claims process"
+        "Available: $380 — the pending rent and the hold don't reduce her balance until they officially post",
+        "Available: $80 — only the pending rent reduces her balance; holds don't count yet",
+        "Available: $5 — both the pending rent ($300) and the gas hold ($75) reduce her available balance now; the $60 purchase will be declined or overdraft",
+        "Available: $305 — only the gas hold reduces her balance; rent posts after midnight and doesn't count yet"
       ],
-      "correct_answer": 1,
+      "correct_answer": 2,
       "feedback": {
-        "correct": "Correct. FDIC covers both checking and savings accounts up to $250,000 per depositor per institution. Your $18,000 is fully covered — and the reimbursement process is typically fast, not a year-long wait.",
-        "incorrect": "FDIC protects both checking and savings accounts — not just one type. The limit is $250,000 per depositor per account type, and your $18,000 is well under that. The FDIC also moves quickly when a bank fails — often within days, not months."
+        "correct": "Exactly. Both the pending rent ($300) and the gas hold ($75) reduce available balance the moment they're placed — not when they 'officially post.' $380 − $300 − $75 = $5 available. The $60 purchase exceeds that and will fail.",
+        "incorrect": "This is one of the most common and expensive misconceptions about debit accounts. Both pending items — the scheduled autopay AND the authorization hold — reduce your available balance immediately. The 'balance' your bank displays may still show $380, but available balance is what governs spending. $380 − $300 (pending rent) − $75 (gas hold) = $5 available. The $60 purchase fails."
       },
       "retry_variants": [
         {
-          "prompt": "Which accounts does FDIC insurance cover?",
+          "prompt": "Alex has $600 in checking. He has a $400 electric bill auto-paying tonight and a $90 hotel hold from this weekend that hasn't released. Can he safely spend $130 on new shoes right now?",
           "options": [
-            "Only checking accounts",
-            "Only accounts over $10,000",
-            "Both checking and savings accounts, up to $250,000 per depositor per institution",
-            "Only accounts at federally owned banks"
+            "Yes — $600 is more than enough for $130",
+            "No — available balance is $600 − $400 − $90 = $110, which is less than $130",
+            "Yes — hotel holds don't reduce available balance until checkout",
+            "Yes — auto-payments don't affect available balance until they actually post"
           ],
-          "correct_answer": 2
+          "correct_answer": 1
         }
       ]
     },
