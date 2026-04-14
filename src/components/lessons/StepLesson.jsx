@@ -1,11 +1,16 @@
 // src/components/lessons/StepLesson.jsx
 //
-// Renders lessons that use the steps + final_evaluation schema.
-// Interaction types: multiple_choice, true_false, numeric_input,
-//                    paycheck_read, matching.
+// Mastery-based interactive lesson renderer.
+//
+// Progression rules:
+//   - Progress bar only advances on a CORRECT answer.
+//   - Wrong answer → show corrective feedback → load a retry_variant.
+//   - After 2 wrong attempts, show the hint before the next retry.
+//   - Max 3 retries per step; after that, accept and move on (no progress increment).
+//   - Final evaluation follows same logic; score counts only first-try correctness.
 
-import React, { useState, useCallback } from "react";
-import { ArrowRight, CheckCircle, XCircle, Lock, Trophy, Star } from "lucide-react";
+import React, { useState, useCallback, useRef } from "react";
+import { ArrowRight, CheckCircle, XCircle, Lightbulb, Trophy, Star } from "lucide-react";
 
 const C = {
   navy: "#1B2B5E", navyLight: "#243570", navyGlow: "rgba(27,43,94,0.12)",
@@ -18,9 +23,11 @@ const C = {
   text: "#0F172A", textSub: "#475569", textMuted: "#94A3B8",
 };
 
-// ─── Numeric answer comparison ──────────────────────────────────
+const MAX_RETRIES = 3;
+
+// ─── helpers ─────────────────────────────────────────────────────
 function parseNum(raw) {
-  if (raw === null || raw === undefined) return NaN;
+  if (raw == null) return NaN;
   return parseFloat(String(raw).replace(/[$,%\s]/g, ""));
 }
 function numCorrect(input, answer, tolerance = 0.5) {
@@ -30,43 +37,63 @@ function numCorrect(input, answer, tolerance = 0.5) {
   return Math.abs(a - b) <= tolerance;
 }
 
-// ─── Feedback banner ────────────────────────────────────────────
-function Feedback({ correct, text, onContinue, continueLabel = "Continue" }) {
+// ─── Feedback strip ───────────────────────────────────────────────
+function FeedbackStrip({ correct, text }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{
-        borderRadius: 12, padding: "14px 18px",
-        background: correct ? C.greenSoft : C.redSoft,
-        border: `1px solid ${correct ? C.green : C.red}`,
-        display: "flex", alignItems: "flex-start", gap: 10,
-      }}>
-        {correct
-          ? <CheckCircle size={18} color={C.green} style={{ flexShrink: 0, marginTop: 1 }} />
-          : <XCircle size={18} color={C.red} style={{ flexShrink: 0, marginTop: 1 }} />}
-        <div>
-          <p style={{ fontSize: 13, fontWeight: 700, color: correct ? C.green : C.red, margin: "0 0 2px" }}>
-            {correct ? "Correct!" : "Not quite"}
-          </p>
-          <p style={{ fontSize: 13, color: correct ? "#14532D" : "#7F1D1D", margin: 0, lineHeight: 1.5 }}>{text}</p>
-        </div>
-      </div>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button
-          onClick={onContinue}
-          style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 26px", borderRadius: 999, background: C.navy, color: "#fff", border: "none", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: `0 4px 16px ${C.navyGlow}` }}
-        >
-          {continueLabel} <ArrowRight size={15} />
-        </button>
+    <div style={{
+      borderRadius: 12, padding: "14px 18px",
+      background: correct ? C.greenSoft : C.redSoft,
+      border: `1.5px solid ${correct ? C.green : C.red}`,
+      display: "flex", alignItems: "flex-start", gap: 10,
+    }}>
+      {correct
+        ? <CheckCircle size={18} color={C.green} style={{ flexShrink: 0, marginTop: 1 }} />
+        : <XCircle size={18} color={C.red} style={{ flexShrink: 0, marginTop: 1 }} />}
+      <div>
+        <p style={{ fontSize: 13, fontWeight: 700, color: correct ? C.green : C.red, margin: "0 0 2px" }}>
+          {correct ? "Correct!" : "Not quite"}
+        </p>
+        <p style={{ fontSize: 13, color: correct ? "#14532D" : "#7F1D1D", margin: 0, lineHeight: 1.5 }}>{text}</p>
       </div>
     </div>
   );
 }
 
-// ─── MultipleChoice (also handles true_false) ────────────────────
-function MultipleChoice({ step, onPass }) {
+// ─── Hint strip ───────────────────────────────────────────────────
+function HintStrip({ text }) {
+  return (
+    <div style={{
+      borderRadius: 12, padding: "12px 16px",
+      background: C.amberSoft, border: `1.5px solid ${C.amber}`,
+      display: "flex", alignItems: "flex-start", gap: 10,
+    }}>
+      <Lightbulb size={16} color={C.amber} style={{ flexShrink: 0, marginTop: 1 }} />
+      <p style={{ fontSize: 13, color: "#92400E", margin: 0, lineHeight: 1.5 }}>
+        <strong>Hint:</strong> {text}
+      </p>
+    </div>
+  );
+}
+
+// ─── Continue button ──────────────────────────────────────────────
+function ContinueBtn({ label = "Continue", onClick }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+      <button
+        onClick={onClick}
+        style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "11px 26px", borderRadius: 999, background: C.navy, color: "#fff", border: "none", fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: `0 4px 16px ${C.navyGlow}` }}
+      >
+        {label} <ArrowRight size={15} />
+      </button>
+    </div>
+  );
+}
+
+// ─── MultipleChoice (handles true_false too) ──────────────────────
+function MultipleChoice({ question, prompt, options, correct_answer, onResult }) {
   const [selected, setSelected] = useState(null);
   const [revealed, setRevealed] = useState(false);
-  const isCorrect = selected === step.correct_answer;
+  const isCorrect = selected === correct_answer;
 
   const choose = (i) => {
     if (revealed) return;
@@ -77,24 +104,23 @@ function MultipleChoice({ step, onPass }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <p style={{ fontSize: 17, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1.5 }}>
-        {step.prompt || step.question}
+        {prompt || question}
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {(step.options || []).map((opt, i) => {
+        {(options || []).map((opt, i) => {
           let bg = C.bg, border2 = C.borderMid, color = C.text, cursor = "pointer";
           if (revealed) {
-            if (i === step.correct_answer) { bg = C.greenSoft; border2 = C.green; color = C.green; }
+            if (i === correct_answer) { bg = C.greenSoft; border2 = C.green; color = C.green; }
             else if (i === selected) { bg = C.redSoft; border2 = C.red; color = C.red; }
             else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
             cursor = "default";
           }
           return (
-            <button
-              key={i} onClick={() => choose(i)} disabled={revealed}
+            <button key={i} onClick={() => choose(i)} disabled={revealed}
               style={{ width: "100%", textAlign: "left", padding: "13px 16px", borderRadius: 10, border: `2px solid ${border2}`, background: bg, color, fontWeight: 600, fontSize: 14, cursor, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 10 }}
             >
-              <span style={{ width: 26, height: 26, borderRadius: "50%", border: `2px solid currentColor`, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>
-                {revealed && i === step.correct_answer ? "✓" : revealed && i === selected && !isCorrect ? "✗" : String.fromCharCode(65 + i)}
+              <span style={{ width: 26, height: 26, borderRadius: "50%", border: "2px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>
+                {revealed && i === correct_answer ? "✓" : revealed && i === selected && !isCorrect ? "✗" : String.fromCharCode(65 + i)}
               </span>
               {opt}
             </button>
@@ -102,196 +128,167 @@ function MultipleChoice({ step, onPass }) {
         })}
       </div>
       {revealed && (
-        <Feedback
-          correct={isCorrect}
-          text={isCorrect ? step.feedback.correct : step.feedback.incorrect}
-          onContinue={onPass}
-        />
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {/* Feedback strip shown inline — Continue button rendered by parent */}
+          <div style={{
+            borderRadius: 12, padding: "12px 16px",
+            background: isCorrect ? C.greenSoft : C.redSoft,
+            border: `1.5px solid ${isCorrect ? C.green : C.red}`,
+            display: "flex", alignItems: "flex-start", gap: 10,
+          }}>
+            {isCorrect
+              ? <CheckCircle size={16} color={C.green} style={{ flexShrink: 0, marginTop: 2 }} />
+              : <XCircle size={16} color={C.red} style={{ flexShrink: 0, marginTop: 2 }} />}
+            <p style={{ fontSize: 13, color: isCorrect ? "#14532D" : "#7F1D1D", margin: 0, lineHeight: 1.5 }}>
+              {/* feedback text comes from parent via onResult */}
+            </p>
+          </div>
+        </div>
       )}
+      {revealed && <span style={{ display: "none" }}>{onResult(isCorrect)}</span>}
     </div>
   );
 }
 
-// ─── NumericInput ────────────────────────────────────────────────
-function NumericInput({ step, onPass }) {
+// ─── NumericInput ─────────────────────────────────────────────────
+function NumericInput({ question, prompt, unit, correct_answer, tolerance, onResult }) {
   const [value, setValue] = useState("");
   const [revealed, setRevealed] = useState(false);
   const [correct, setCorrect] = useState(false);
 
   const submit = () => {
-    if (!value.trim()) return;
-    const ok = numCorrect(value, step.correct_answer, step.tolerance ?? 0.5);
+    if (!value.trim() || revealed) return;
+    const ok = numCorrect(value, correct_answer, tolerance ?? 0.5);
     setCorrect(ok);
     setRevealed(true);
+    onResult(ok);
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <p style={{ fontSize: 17, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1.5 }}>
-        {step.prompt || step.question}
+        {prompt || question}
       </p>
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-        {step.unit && (
-          <span style={{ fontSize: 18, fontWeight: 700, color: C.textSub }}>{step.unit}</span>
-        )}
+        {unit && <span style={{ fontSize: 18, fontWeight: 700, color: C.textSub }}>{unit}</span>}
         <input
-          type="number"
-          value={value}
+          type="number" value={value}
           onChange={(e) => setValue(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter" && !revealed) submit(); }}
+          onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
           disabled={revealed}
           placeholder="Enter your answer"
           style={{ flex: 1, height: 48, padding: "0 14px", borderRadius: 10, border: `2px solid ${revealed ? (correct ? C.green : C.red) : (value ? C.navy : C.border)}`, fontSize: 16, fontWeight: 600, color: C.text, outline: "none", background: C.bg, transition: "border-color 0.15s" }}
         />
         {!revealed && (
-          <button
-            onClick={submit} disabled={!value.trim()}
-            style={{ padding: "0 22px", height: 48, borderRadius: 10, background: value.trim() ? C.navy : C.bgMid, color: value.trim() ? "#fff" : C.textMuted, border: "none", fontWeight: 700, fontSize: 14, cursor: value.trim() ? "pointer" : "not-allowed" }}
-          >
+          <button onClick={submit} disabled={!value.trim()}
+            style={{ padding: "0 22px", height: 48, borderRadius: 10, background: value.trim() ? C.navy : C.bgMid, color: value.trim() ? "#fff" : C.textMuted, border: "none", fontWeight: 700, fontSize: 14, cursor: value.trim() ? "pointer" : "not-allowed" }}>
             Check
           </button>
         )}
       </div>
-      {revealed && (
-        <Feedback
-          correct={correct}
-          text={correct ? step.feedback.correct : step.feedback.incorrect}
-          onContinue={onPass}
-        />
-      )}
     </div>
   );
 }
 
-// ─── PaycheckRead ────────────────────────────────────────────────
-function PaycheckRead({ step, onPass }) {
+// ─── PaycheckRead ─────────────────────────────────────────────────
+function PaycheckRead({ step, onResult }) {
   const { paycheck } = step;
-  const totalDeductions = (paycheck.deductions || []).reduce((s, d) => s + d.amount, 0);
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <p style={{ fontSize: 17, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1.5 }}>{step.prompt}</p>
-
-      {/* Paycheck stub */}
-      <div style={{ borderRadius: 12, border: `1px solid ${C.border}`, overflow: "hidden", fontFamily: "monospace" }}>
-        {/* Header */}
+      <div style={{ borderRadius: 12, border: `1px solid ${C.border}`, overflow: "hidden" }}>
         <div style={{ background: C.navy, padding: "14px 20px", color: "#fff" }}>
           <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.07em", opacity: 0.7, marginBottom: 2 }}>Pay Stub</div>
           <div style={{ fontSize: 15, fontWeight: 700 }}>{paycheck.name}</div>
           <div style={{ fontSize: 12, opacity: 0.75, marginTop: 2 }}>Pay Period: {paycheck.period}</div>
         </div>
-
-        {/* Gross row */}
         <div style={{ display: "flex", justifyContent: "space-between", padding: "10px 20px", background: C.bgSoft, borderBottom: `1px solid ${C.border}` }}>
           <span style={{ fontSize: 13, fontWeight: 700, color: C.text }}>Gross Pay</span>
           <span style={{ fontSize: 13, fontWeight: 800, color: C.green }}>${paycheck.gross_pay.toFixed(2)}</span>
         </div>
-
-        {/* Deductions */}
-        <div style={{ padding: "4px 0" }}>
-          {(paycheck.deductions || []).map((d, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 20px", borderBottom: `1px solid ${C.border}` }}>
-              <span style={{ fontSize: 12, color: C.textSub }}>{d.label}</span>
-              <span style={{ fontSize: 12, fontWeight: 600, color: C.red }}>−${d.amount.toFixed(2)}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Net pay — hidden with "???" */}
+        {(paycheck.deductions || []).map((d, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 20px", borderBottom: `1px solid ${C.border}` }}>
+            <span style={{ fontSize: 12, color: C.textSub }}>{d.label}</span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: C.red }}>−${d.amount.toFixed(2)}</span>
+          </div>
+        ))}
         <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 20px", background: C.bgMid, borderTop: `2px solid ${C.navy}` }}>
           <span style={{ fontSize: 14, fontWeight: 800, color: C.text }}>Net Pay</span>
           <span style={{ fontSize: 14, fontWeight: 800, color: C.navy, letterSpacing: "0.05em" }}>???</span>
         </div>
       </div>
-
-      <NumericInput step={step} onPass={onPass} />
+      <NumericInput
+        prompt="Calculate and enter the net pay:"
+        unit={step.unit}
+        correct_answer={step.correct_answer}
+        tolerance={step.tolerance}
+        onResult={onResult}
+      />
     </div>
   );
 }
 
-// ─── Matching ────────────────────────────────────────────────────
-function Matching({ step, onPass }) {
+// ─── Matching ─────────────────────────────────────────────────────
+function Matching({ step, onResult }) {
   const pairs = step.pairs || [];
-  const shuffledMatches = [...pairs.map((p) => p.match)].sort(() => Math.random() - 0.5);
-  const [matches] = useState(shuffledMatches);
-  const [selected, setSelected] = useState(null); // { side: "term"|"match", index }
-  const [connections, setConnections] = useState({}); // termIdx → matchIdx
+  const [shuffled] = useState(() => [...pairs.map((p) => p.match)].sort(() => Math.random() - 0.5));
+  const [selected, setSelected] = useState(null);
+  const [connections, setConnections] = useState({});
   const [revealed, setRevealed] = useState(false);
 
   const handleTerm = (i) => {
     if (revealed) return;
-    if (selected?.side === "term" && selected.index === i) { setSelected(null); return; }
-    setSelected({ side: "term", index: i });
+    setSelected((s) => (s?.side === "term" && s.index === i ? null : { side: "term", index: i }));
   };
-
   const handleMatch = (i) => {
     if (revealed) return;
     if (selected?.side === "term") {
       setConnections((prev) => ({ ...prev, [selected.index]: i }));
       setSelected(null);
-    } else {
-      setSelected({ side: "match", index: i });
     }
   };
 
   const allPaired = Object.keys(connections).length === pairs.length;
+  const termCorrect = (ti) => connections[ti] !== undefined && shuffled[connections[ti]] === pairs[ti].match;
+  const allCorrect = pairs.every((_, ti) => termCorrect(ti));
 
-  const checkAnswers = () => {
-    setRevealed(true);
-  };
-
-  const allCorrect = pairs.every((pair, termIdx) => {
-    const matchIdx = connections[termIdx];
-    return matchIdx !== undefined && matches[matchIdx] === pair.match;
-  });
-
-  const termIsCorrect = (termIdx) => {
-    const matchIdx = connections[termIdx];
-    return matchIdx !== undefined && matches[matchIdx] === pairs[termIdx].match;
-  };
+  const check = () => { setRevealed(true); onResult(allCorrect); };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <p style={{ fontSize: 17, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1.5 }}>{step.prompt}</p>
       <p style={{ fontSize: 12, color: C.textMuted, margin: 0 }}>Click a term, then click its match.</p>
-
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-        {/* Terms column */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>Deduction</div>
+          <div style={{ fontSize: 11, fontWeight: 700, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em" }}>Deduction</div>
           {pairs.map((pair, i) => {
-            const isSelected = selected?.side === "term" && selected.index === i;
+            const isSel = selected?.side === "term" && selected.index === i;
             const isPaired = connections[i] !== undefined;
-            const isCorrectPair = revealed && termIsCorrect(i);
-            const isWrongPair = revealed && isPaired && !termIsCorrect(i);
+            const ok = revealed && termCorrect(i);
+            const bad = revealed && isPaired && !termCorrect(i);
             let bg = C.bg, border2 = C.border, color = C.text;
-            if (isSelected) { bg = C.accentSoft; border2 = C.accent; }
-            else if (isCorrectPair) { bg = C.greenSoft; border2 = C.green; color = C.green; }
-            else if (isWrongPair) { bg = C.redSoft; border2 = C.red; color = C.red; }
+            if (isSel) { bg = C.accentSoft; border2 = C.accent; }
+            else if (ok) { bg = C.greenSoft; border2 = C.green; color = C.green; }
+            else if (bad) { bg = C.redSoft; border2 = C.red; color = C.red; }
             else if (isPaired) { bg = C.bgMid; border2 = C.borderMid; }
             return (
               <button key={i} onClick={() => handleTerm(i)} disabled={revealed}
                 style={{ padding: "10px 14px", borderRadius: 8, border: `2px solid ${border2}`, background: bg, color, fontWeight: 600, fontSize: 13, textAlign: "left", cursor: revealed ? "default" : "pointer", transition: "all 0.15s" }}>
-                {pair.term}
-                {isPaired && !revealed && <span style={{ fontSize: 10, color: C.textMuted, marginLeft: 6 }}>✓</span>}
+                {pair.term}{isPaired && !revealed && <span style={{ fontSize: 10, color: C.textMuted, marginLeft: 6 }}>✓</span>}
               </button>
             );
           })}
         </div>
-
-        {/* Matches column */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>Funds</div>
-          {matches.map((match, i) => {
-            const isSelected = selected?.side === "match" && selected.index === i;
-            const usedByTerm = Object.entries(connections).find(([, mi]) => mi === i)?.[0];
-            const isPaired = usedByTerm !== undefined;
-            const isCorrectPair = revealed && isPaired && matches[i] === pairs[Number(usedByTerm)].match;
-            const isWrongPair = revealed && isPaired && !isCorrectPair;
+          <div style={{ fontSize: 11, fontWeight: 700, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em" }}>Funds</div>
+          {shuffled.map((match, i) => {
+            const usedBy = Object.entries(connections).find(([, mi]) => mi === i)?.[0];
+            const isPaired = usedBy !== undefined;
+            const ok = revealed && isPaired && shuffled[i] === pairs[Number(usedBy)].match;
+            const bad = revealed && isPaired && !ok;
             let bg = C.bg, border2 = C.border, color = C.text;
-            if (isSelected) { bg = C.accentSoft; border2 = C.accent; }
-            else if (isCorrectPair) { bg = C.greenSoft; border2 = C.green; color = C.green; }
-            else if (isWrongPair) { bg = C.redSoft; border2 = C.red; color = C.red; }
+            if (ok) { bg = C.greenSoft; border2 = C.green; color = C.green; }
+            else if (bad) { bg = C.redSoft; border2 = C.red; color = C.red; }
             else if (isPaired) { bg = C.bgMid; border2 = C.borderMid; }
             return (
               <button key={i} onClick={() => handleMatch(i)} disabled={revealed}
@@ -302,65 +299,178 @@ function Matching({ step, onPass }) {
           })}
         </div>
       </div>
-
       {!revealed && (
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <button onClick={checkAnswers} disabled={!allPaired}
+          <button onClick={check} disabled={!allPaired}
             style={{ padding: "10px 22px", borderRadius: 999, background: allPaired ? C.navy : C.bgMid, color: allPaired ? "#fff" : C.textMuted, border: "none", fontWeight: 700, fontSize: 14, cursor: allPaired ? "pointer" : "not-allowed" }}>
             Check Matches
           </button>
         </div>
       )}
+    </div>
+  );
+}
 
-      {revealed && (
-        <Feedback
-          correct={allCorrect}
-          text={allCorrect ? step.feedback.correct : step.feedback.incorrect}
-          onContinue={onPass}
-        />
+// ─── MasteryStep — wraps a question with retry logic ─────────────
+//
+// Props:
+//   step         — the current step or variant object
+//   originalStep — the root step (for feedback + hint)
+//   retryCount   — how many times we've retried so far
+//   onCorrect    — called when user answers correctly
+//   onExhausted  — called when max retries reached without correct answer
+//
+function MasteryStep({ step, originalStep, retryCount, onCorrect, onExhausted }) {
+  const [result, setResult] = useState(null); // null | true | false
+  const resultFired = useRef(false);
+
+  const handleResult = useCallback((correct) => {
+    if (resultFired.current) return;
+    resultFired.current = true;
+    setResult(correct);
+  }, []);
+
+  const showHint = !result && retryCount >= 2 && originalStep.hint;
+
+  const feedbackText = result === true
+    ? originalStep.feedback.correct
+    : result === false
+      ? originalStep.feedback.incorrect
+      : null;
+
+  // Determine continue label
+  const continueLabel = result === true
+    ? "Continue"
+    : retryCount >= MAX_RETRIES - 1
+      ? "Move On"
+      : "Try Again";
+
+  const handleContinue = () => {
+    if (result === true) onCorrect();
+    else if (retryCount >= MAX_RETRIES - 1) onExhausted();
+    else onExhausted(); // will load next variant
+  };
+
+  // The actual interactive question — key ensures remount on variant change
+  const renderQuestion = () => {
+    const type = step.type || originalStep.type;
+    const props = { ...originalStep, ...step }; // merge — variant overrides prompt/options/correct_answer
+
+    switch (type) {
+      case "true_false":
+      case "multiple_choice":
+        return (
+          <MultipleChoice
+            key={step.id || step.prompt}
+            prompt={props.prompt || props.question}
+            options={props.options}
+            correct_answer={props.correct_answer}
+            onResult={handleResult}
+          />
+        );
+      case "numeric_input":
+        return (
+          <NumericInput
+            key={step.id || step.prompt}
+            prompt={props.prompt || props.question}
+            unit={props.unit || originalStep.unit}
+            correct_answer={props.correct_answer}
+            tolerance={props.tolerance ?? originalStep.tolerance}
+            onResult={handleResult}
+          />
+        );
+      case "paycheck_read":
+        return <PaycheckRead key={step.id} step={props} onResult={handleResult} />;
+      case "matching":
+        return <Matching key={step.id} step={props} onResult={handleResult} />;
+      default:
+        return (
+          <MultipleChoice
+            key={step.id || step.prompt}
+            prompt={props.prompt || props.question}
+            options={props.options}
+            correct_answer={props.correct_answer}
+            onResult={handleResult}
+          />
+        );
+    }
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {showHint && <HintStrip text={originalStep.hint} />}
+      {renderQuestion()}
+      {result !== null && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <FeedbackStrip correct={result} text={feedbackText} />
+          <ContinueBtn label={continueLabel} onClick={handleContinue} />
+        </div>
       )}
     </div>
   );
 }
 
-// ─── Step dispatcher ─────────────────────────────────────────────
-function StepContent({ step, onPass }) {
-  switch (step.type) {
-    case "true_false":
-    case "multiple_choice":
-      return <MultipleChoice step={step} onPass={onPass} />;
-    case "numeric_input":
-      return <NumericInput step={step} onPass={onPass} />;
-    case "paycheck_read":
-      return <PaycheckRead step={step} onPass={onPass} />;
-    case "matching":
-      return <Matching step={step} onPass={onPass} />;
-    default:
-      return <MultipleChoice step={step} onPass={onPass} />;
-  }
+// ─── StepDriver — manages retry cycle for a single step ──────────
+//
+// Chooses which question to show (original or a retry_variant).
+// Calls onMastered(true) if answered correctly, onMastered(false) if exhausted.
+//
+function StepDriver({ step, onMastered }) {
+  const [retryCount, setRetryCount] = useState(0);
+  const [variantIndex, setVariantIndex] = useState(-1); // -1 = show original
+
+  const variants = step.retry_variants || [];
+  const currentQuestion = variantIndex === -1 ? step : (variants[variantIndex] || step);
+
+  const handleCorrect = () => onMastered(true);
+
+  const handleExhausted = () => {
+    const nextVariant = variantIndex + 1;
+    const newRetryCount = retryCount + 1;
+
+    if (newRetryCount >= MAX_RETRIES || nextVariant >= variants.length) {
+      // Out of retries — move on without credit
+      onMastered(false);
+    } else {
+      setRetryCount(newRetryCount);
+      setVariantIndex(nextVariant);
+    }
+  };
+
+  return (
+    <MasteryStep
+      key={`${step.id}-retry${retryCount}`}
+      step={{ ...currentQuestion, type: currentQuestion.type || step.type }}
+      originalStep={step}
+      retryCount={retryCount}
+      onCorrect={handleCorrect}
+      onExhausted={handleExhausted}
+    />
+  );
 }
 
 // ─── Progress bar ─────────────────────────────────────────────────
-function ProgressBar({ current, total, color = C.accent }) {
+function ProgressBar({ correct, total, color = C.accent }) {
+  const pct = total === 0 ? 0 : Math.round((correct / total) * 100);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, fontWeight: 600 }}>
-        <span style={{ color: C.textMuted }}>{current} / {total}</span>
-        <span style={{ color }}>{Math.round((current / total) * 100)}%</span>
+        <span style={{ color: C.textMuted }}>{correct} / {total} correct</span>
+        <span style={{ color }}>{pct}%</span>
       </div>
-      <div style={{ height: 6, borderRadius: 999, background: C.bgMid, overflow: "hidden" }}>
-        <div style={{ height: "100%", width: `${(current / total) * 100}%`, borderRadius: 999, background: color, transition: "width 0.35s ease" }} />
+      <div style={{ height: 8, borderRadius: 999, background: C.bgMid, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${pct}%`, borderRadius: 999, background: color, transition: "width 0.4s ease" }} />
       </div>
     </div>
   );
 }
 
-// ─── Final score screen ──────────────────────────────────────────
+// ─── Score screen ─────────────────────────────────────────────────
 function ScoreScreen({ score, total, onComplete }) {
-  const pct = Math.round((score / total) * 100);
+  const pct = total === 0 ? 100 : Math.round((score / total) * 100);
   const passed = pct >= 70;
   return (
-    <div style={{ textAlign: "center", padding: "40px 0" }}>
+    <div style={{ textAlign: "center", padding: "48px 0" }}>
       <div style={{ width: 80, height: 80, borderRadius: "50%", background: passed ? C.greenSoft : C.amberSoft, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
         {passed ? <Trophy size={36} color={C.green} /> : <Star size={36} color={C.amber} />}
       </div>
@@ -368,87 +478,88 @@ function ScoreScreen({ score, total, onComplete }) {
         {passed ? "Lesson Complete!" : "Good effort!"}
       </h2>
       <p style={{ fontSize: 15, color: C.textSub, margin: "0 0 4px" }}>
-        You got <strong>{score} of {total}</strong> correct — <strong>{pct}%</strong>
+        You got <strong>{score} of {total}</strong> right on the first try — <strong>{pct}%</strong>
       </p>
-      <p style={{ fontSize: 13, color: C.textMuted, margin: "0 0 28px" }}>
-        {passed ? "You've mastered this lesson." : "Review the concepts and try again anytime."}
+      <p style={{ fontSize: 13, color: C.textMuted, margin: "0 0 28px", lineHeight: 1.5 }}>
+        {passed
+          ? "You've demonstrated mastery of this topic."
+          : "You worked through the material. Review anytime to sharpen your knowledge."}
       </p>
       <button
         onClick={() => onComplete(pct)}
         style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 32px", borderRadius: 999, background: C.navy, color: "#fff", border: "none", fontWeight: 800, fontSize: 15, cursor: "pointer", boxShadow: `0 4px 20px ${C.navyGlow}` }}
       >
-        {passed ? "Continue" : "Back to Dashboard"} <ArrowRight size={16} />
+        Finish <ArrowRight size={16} />
       </button>
     </div>
   );
 }
 
-// ─── Main export ─────────────────────────────────────────────────
+// ─── Main export ──────────────────────────────────────────────────
 export default function StepLesson({ lesson, onComplete }) {
   const steps = lesson.steps || [];
   const evalQs = lesson.final_evaluation || [];
-  const totalSteps = steps.length;
-  const totalEval = evalQs.length;
 
-  const [phase, setPhase] = useState("steps"); // "steps" | "eval_intro" | "eval" | "score"
+  // phase: "steps" | "eval_intro" | "eval" | "score"
+  const [phase, setPhase] = useState("steps");
   const [stepIdx, setStepIdx] = useState(0);
+  const [stepCorrectCount, setStepCorrectCount] = useState(0);
+
   const [evalIdx, setEvalIdx] = useState(0);
-  const [evalScore, setEvalScore] = useState(0);
+  const [evalCorrectCount, setEvalCorrectCount] = useState(0);
 
-  const advanceStep = useCallback(() => {
-    if (stepIdx < totalSteps - 1) {
-      setStepIdx((i) => i + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  // ── steps phase ─────────────────────────────────────────────────
+  const handleStepMastered = useCallback((wasCorrect) => {
+    if (wasCorrect) setStepCorrectCount((n) => n + 1);
+    const next = stepIdx + 1;
+    if (next >= steps.length) {
+      setPhase(evalQs.length > 0 ? "eval_intro" : "score");
     } else {
-      setPhase("eval_intro");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      setStepIdx(next);
     }
-  }, [stepIdx, totalSteps]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [stepIdx, steps.length, evalQs.length]);
 
-  const advanceEval = useCallback((wasCorrect) => {
-    if (wasCorrect) setEvalScore((s) => s + 1);
-    if (evalIdx < totalEval - 1) {
-      setEvalIdx((i) => i + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
+  // ── eval phase ──────────────────────────────────────────────────
+  const handleEvalMastered = useCallback((wasCorrect) => {
+    if (wasCorrect) setEvalCorrectCount((n) => n + 1);
+    const next = evalIdx + 1;
+    if (next >= evalQs.length) {
       setPhase("score");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setEvalIdx(next);
     }
-  }, [evalIdx, totalEval]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [evalIdx, evalQs.length]);
 
-  // ── Phase: steps ─────────────────────────────────────────────
+  // ── steps ────────────────────────────────────────────────────────
   if (phase === "steps") {
-    const step = steps[stepIdx];
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <ProgressBar current={stepIdx + 1} total={totalSteps} color={C.accent} />
-        <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "28px 32px", background: C.bg, minHeight: 300 }}>
-          <StepContent
-            key={step.id}
-            step={step}
-            onPass={advanceStep}
+        <ProgressBar correct={stepCorrectCount} total={steps.length} color={C.accent} />
+        <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "28px 32px", background: C.bg, minHeight: 280 }}>
+          <StepDriver
+            key={`step-${stepIdx}`}
+            step={steps[stepIdx]}
+            onMastered={handleStepMastered}
           />
         </div>
       </div>
     );
   }
 
-  // ── Phase: eval intro ────────────────────────────────────────
+  // ── eval intro ───────────────────────────────────────────────────
   if (phase === "eval_intro") {
     return (
       <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "40px 32px", background: C.bg, textAlign: "center" }}>
         <div style={{ width: 60, height: 60, borderRadius: "50%", background: `linear-gradient(135deg,${C.navy},${C.navyLight})`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <Trophy size={26} color="#fff" />
         </div>
-        <h2 style={{ fontSize: 22, fontWeight: 900, color: C.text, margin: "0 0 10px", letterSpacing: "-0.5px" }}>
-          Final Evaluation
-        </h2>
+        <h2 style={{ fontSize: 22, fontWeight: 900, color: C.text, margin: "0 0 10px" }}>Final Evaluation</h2>
         <p style={{ fontSize: 15, color: C.textSub, margin: "0 0 6px", lineHeight: 1.6 }}>
-          {totalEval} questions covering everything you just learned.
+          {evalQs.length} questions. Same rules — answer correctly to advance.
         </p>
-        <p style={{ fontSize: 13, color: C.textMuted, margin: "0 0 28px" }}>
-          Can you actually apply it?
-        </p>
+        <p style={{ fontSize: 13, color: C.textMuted, margin: "0 0 28px" }}>Can you apply what you just learned?</p>
         <button
           onClick={() => setPhase("eval")}
           style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 32px", borderRadius: 999, background: C.navy, color: "#fff", border: "none", fontWeight: 800, fontSize: 15, cursor: "pointer", boxShadow: `0 4px 20px ${C.navyGlow}` }}
@@ -459,100 +570,35 @@ export default function StepLesson({ lesson, onComplete }) {
     );
   }
 
-  // ── Phase: eval ──────────────────────────────────────────────
+  // ── eval ─────────────────────────────────────────────────────────
   if (phase === "eval") {
-    const q = evalQs[evalIdx];
-
-    // Wrap each eval question type so we can capture correct/incorrect
-    const EvalStep = ({ question, onDone }) => {
-      const wrappedStep = { ...question, prompt: question.question };
-
-      if (question.type === "numeric_input") {
-        const [value, setValue] = useState("");
-        const [revealed, setRevealed] = useState(false);
-        const [correct, setCorrect] = useState(false);
-        const submit = () => {
-          if (!value.trim()) return;
-          const ok = numCorrect(value, question.correct_answer, question.tolerance ?? 0.5);
-          setCorrect(ok);
-          setRevealed(true);
-        };
-        return (
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <p style={{ fontSize: 17, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1.5 }}>{question.question}</p>
-            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-              {question.unit && <span style={{ fontSize: 18, fontWeight: 700, color: C.textSub }}>{question.unit}</span>}
-              <input type="number" value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && !revealed) submit(); }} disabled={revealed}
-                placeholder="Enter your answer"
-                style={{ flex: 1, height: 48, padding: "0 14px", borderRadius: 10, border: `2px solid ${revealed ? (correct ? C.green : C.red) : (value ? C.navy : C.border)}`, fontSize: 16, fontWeight: 600, color: C.text, outline: "none", background: C.bg, transition: "border-color 0.15s" }} />
-              {!revealed && (
-                <button onClick={submit} disabled={!value.trim()}
-                  style={{ padding: "0 22px", height: 48, borderRadius: 10, background: value.trim() ? C.navy : C.bgMid, color: value.trim() ? "#fff" : C.textMuted, border: "none", fontWeight: 700, fontSize: 14, cursor: value.trim() ? "pointer" : "not-allowed" }}>
-                  Check
-                </button>
-              )}
-            </div>
-            {revealed && <Feedback correct={correct} text={correct ? question.feedback.correct : question.feedback.incorrect} onContinue={() => onDone(correct)} continueLabel={evalIdx < totalEval - 1 ? "Next Question" : "See Results"} />}
-          </div>
-        );
-      }
-
-      // multiple_choice / true_false
-      const [selected, setSelected] = useState(null);
-      const [revealed, setRevealed] = useState(false);
-      const isCorrect = selected === question.correct_answer;
-      const choose = (i) => { if (revealed) return; setSelected(i); setRevealed(true); };
-      return (
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <p style={{ fontSize: 17, fontWeight: 700, color: C.text, margin: 0, lineHeight: 1.5 }}>{question.question}</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {(question.options || []).map((opt, i) => {
-              let bg = C.bg, border2 = C.borderMid, color = C.text, cursor = "pointer";
-              if (revealed) {
-                if (i === question.correct_answer) { bg = C.greenSoft; border2 = C.green; color = C.green; }
-                else if (i === selected) { bg = C.redSoft; border2 = C.red; color = C.red; }
-                else { bg = C.bgMid; border2 = C.border; color = C.textMuted; }
-                cursor = "default";
-              }
-              return (
-                <button key={i} onClick={() => choose(i)} disabled={revealed}
-                  style={{ width: "100%", textAlign: "left", padding: "13px 16px", borderRadius: 10, border: `2px solid ${border2}`, background: bg, color, fontWeight: 600, fontSize: 14, cursor, transition: "all 0.15s", display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ width: 26, height: 26, borderRadius: "50%", border: "2px solid currentColor", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>
-                    {revealed && i === question.correct_answer ? "✓" : revealed && i === selected && !isCorrect ? "✗" : String.fromCharCode(65 + i)}
-                  </span>
-                  {opt}
-                </button>
-              );
-            })}
-          </div>
-          {revealed && <Feedback correct={isCorrect} text={isCorrect ? question.feedback.correct : question.feedback.incorrect} onContinue={() => onDone(isCorrect)} continueLabel={evalIdx < totalEval - 1 ? "Next Question" : "See Results"} />}
-        </div>
-      );
-    };
-
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 13, fontWeight: 700, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em" }}>
-            Final Evaluation
-          </span>
-          <span style={{ fontSize: 13, fontWeight: 700, color: C.accent }}>
-            {evalIdx + 1} / {totalEval}
-          </span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.06em" }}>Final Evaluation</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: C.green }}>{evalIdx + 1} / {evalQs.length}</span>
         </div>
-        <ProgressBar current={evalIdx + 1} total={totalEval} color={C.green} />
-        <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "28px 32px", background: C.bg, minHeight: 300 }}>
-          <EvalStep key={q.id} question={q} onDone={advanceEval} />
+        <ProgressBar correct={evalCorrectCount} total={evalQs.length} color={C.green} />
+        <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "28px 32px", background: C.bg, minHeight: 280 }}>
+          <StepDriver
+            key={`eval-${evalIdx}`}
+            step={{ ...evalQs[evalIdx], prompt: evalQs[evalIdx].question }}
+            onMastered={handleEvalMastered}
+          />
         </div>
       </div>
     );
   }
 
-  // ── Phase: score ─────────────────────────────────────────────
+  // ── score ────────────────────────────────────────────────────────
   if (phase === "score") {
     return (
       <div style={{ borderRadius: 16, border: `1px solid ${C.border}`, padding: "28px 32px", background: C.bg }}>
-        <ScoreScreen score={evalScore} total={totalEval} onComplete={onComplete} />
+        <ScoreScreen
+          score={evalCorrectCount}
+          total={evalQs.length}
+          onComplete={onComplete}
+        />
       </div>
     );
   }

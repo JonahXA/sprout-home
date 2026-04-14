@@ -14,7 +14,20 @@
       "feedback": {
         "correct": "Exactly. Taxes and deductions are taken out before you ever see the money.",
         "incorrect": "Nope — the difference is taxes and deductions. You never see that money hit your account."
-      }
+      },
+      "hint": "Think about what governments and employers take out of every paycheck automatically.",
+      "retry_variants": [
+        {
+          "prompt": "A friend earns $800/week but only receives $596. The missing $204 most likely went to:",
+          "options": ["A savings account they set up", "Taxes and paycheck deductions", "A fee from their employer", "Their health insurance company only"],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Someone accepts a job paying $3,000/month but their first deposit is $2,190. What explains the gap?",
+          "options": ["Direct deposit takes 2–3 days to clear", "Taxes and deductions reduced the amount", "The employer underpaid them", "They were paid for only part of the month"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "s2",
@@ -25,7 +38,20 @@
       "feedback": {
         "correct": "True. Deductions always reduce gross pay down to a lower net amount.",
         "incorrect": "Actually true — deductions always bring net pay below gross pay."
-      }
+      },
+      "hint": "Deductions only subtract from your pay — they never add to it.",
+      "retry_variants": [
+        {
+          "prompt": "If your gross pay is $1,000 and deductions total $220, is your net pay less than $1,000?",
+          "options": ["True", "False"],
+          "correct_answer": 0
+        },
+        {
+          "prompt": "True or false: your take-home pay (net) can ever be larger than your gross pay.",
+          "options": ["True", "False"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "s3",
@@ -37,7 +63,22 @@
       "feedback": {
         "correct": "Correct! $800 − $160 = $640 take-home.",
         "incorrect": "Subtract deductions from gross: $800 − $160 = $640."
-      }
+      },
+      "hint": "Net pay = Gross pay − Total deductions.",
+      "retry_variants": [
+        {
+          "prompt": "Jordan earns $950 this week. Deductions total $190. What is Jordan's net pay?",
+          "unit": "$",
+          "correct_answer": "760",
+          "tolerance": 0.5
+        },
+        {
+          "prompt": "Sam's gross pay is $1,200. After $288 in deductions, what does Sam take home?",
+          "unit": "$",
+          "correct_answer": "912",
+          "tolerance": 0.5
+        }
+      ]
     },
     {
       "id": "s4",
@@ -48,7 +89,20 @@
       "feedback": {
         "correct": "Right. Federal income tax is withheld automatically from every paycheck.",
         "incorrect": "Bonuses and commissions are additions to your pay. Federal tax is mandatory."
-      }
+      },
+      "hint": "Mandatory means the government requires it — you have no choice.",
+      "retry_variants": [
+        {
+          "prompt": "Which deduction do ALL U.S. employees have taken from their paycheck automatically?",
+          "options": ["401(k) contribution", "Health insurance premium", "Federal income tax", "Union dues"],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "Your coworker says one of these deductions is optional. Which one is actually required by law?",
+          "options": ["Life insurance premium", "State income tax (in states that have it)", "Gym membership subsidy", "401(k) match"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "s5",
@@ -59,7 +113,20 @@
       "feedback": {
         "correct": "Correct — that's false. The U.S. uses progressive brackets: higher income = higher rate.",
         "incorrect": "False. Federal tax uses progressive brackets — higher earners pay a higher percentage."
-      }
+      },
+      "hint": "The U.S. tax system is 'progressive' — it scales with how much you earn.",
+      "retry_variants": [
+        {
+          "prompt": "True or false: A person earning $200,000/year pays a higher federal tax rate than someone earning $30,000/year.",
+          "options": ["True", "False"],
+          "correct_answer": 0
+        },
+        {
+          "prompt": "In the U.S. tax system, does earning more money generally mean paying a higher percentage in federal income tax?",
+          "options": ["True", "False"],
+          "correct_answer": 0
+        }
+      ]
     },
     {
       "id": "s6",
@@ -70,7 +137,20 @@
       "feedback": {
         "correct": "Exactly. Most states have income tax, but some don't. Some cities also add local tax.",
         "incorrect": "It depends on where you live. Most workers pay federal + state, but some states have no income tax."
-      }
+      },
+      "hint": "Some states like Texas and Florida have no state income tax at all.",
+      "retry_variants": [
+        {
+          "prompt": "A worker in Texas sees only federal tax on their stub. A worker in California sees federal AND state. Why the difference?",
+          "options": ["Texas workers earn less", "Texas has no state income tax", "California employers charge extra", "Federal tax covers both in California"],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which statement about income tax layers is correct?",
+          "options": ["Every paycheck has exactly 2 tax lines", "State income tax exists in all 50 states", "The number of tax lines depends on where you work and live", "Local tax is always required"],
+          "correct_answer": 2
+        }
+      ]
     },
     {
       "id": "s7",
@@ -81,7 +161,20 @@
       "feedback": {
         "correct": "Correct. FICA funds Social Security (retirement/disability) and Medicare (healthcare for seniors).",
         "incorrect": "FICA specifically funds Social Security and Medicare — not Medicaid or unemployment."
-      }
+      },
+      "hint": "One program funds retirement, the other funds healthcare for people 65+.",
+      "retry_variants": [
+        {
+          "prompt": "You see two lines on your pay stub under FICA: one for retirement benefits and one for senior healthcare. What are they?",
+          "options": ["Medicaid and Medicare", "Social Security and Medicare", "401(k) and Health Insurance", "Federal Tax and State Tax"],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "FICA deductions fund programs that support Americans when they're older or disabled. Which two?",
+          "options": ["Unemployment and food assistance", "Social Security and Medicare", "Veterans benefits and Medicaid", "College aid and disability grants"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "s8",
@@ -93,7 +186,22 @@
       "feedback": {
         "correct": "Right! $500 × 6.2% = $31.00.",
         "incorrect": "Multiply: $500 × 0.062 = $31.00."
-      }
+      },
+      "hint": "Multiply your gross pay by 0.062 (which is 6.2%).",
+      "retry_variants": [
+        {
+          "prompt": "Social Security takes 6.2%. You earn $800. How much is your Social Security deduction?",
+          "unit": "$",
+          "correct_answer": "49.60",
+          "tolerance": 0.05
+        },
+        {
+          "prompt": "Your gross paycheck is $1,000. Social Security is 6.2%. How much goes to Social Security?",
+          "unit": "$",
+          "correct_answer": "62",
+          "tolerance": 0.05
+        }
+      ]
     },
     {
       "id": "s9",
@@ -104,7 +212,20 @@
       "feedback": {
         "correct": "Correct! 6.2% (Social Security) + 1.45% (Medicare) = 7.65%.",
         "incorrect": "Add them: 6.2% + 1.45% = 7.65% total FICA."
-      }
+      },
+      "hint": "Add the Social Security rate (6.2%) and the Medicare rate (1.45%).",
+      "retry_variants": [
+        {
+          "prompt": "Social Security = 6.2%, Medicare = 1.45%. What percentage of your gross pay goes to FICA total?",
+          "options": ["6.20%", "7.45%", "7.65%", "8.00%"],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "If your gross pay is $1,000, how much is deducted for total FICA (Social Security + Medicare combined)?",
+          "options": ["$62.00", "$74.50", "$76.50", "$100.00"],
+          "correct_answer": 2
+        }
+      ]
     },
     {
       "id": "s10",
@@ -127,7 +248,22 @@
       "feedback": {
         "correct": "Yes! $1,200 − $84 − $42 − $74.40 − $17.40 = $982.20.",
         "incorrect": "Total deductions = $84 + $42 + $74.40 + $17.40 = $217.80. Net = $1,200 − $217.80 = $982.20."
-      }
+      },
+      "hint": "Add up all the deductions first, then subtract from gross pay.",
+      "retry_variants": [
+        {
+          "prompt": "Sam's gross pay is $900. Deductions: Federal $63, State $31.50, Social Security $55.80, Medicare $13.05. What is Sam's net pay?",
+          "unit": "$",
+          "correct_answer": "736.65",
+          "tolerance": 0.5
+        },
+        {
+          "prompt": "Gross pay: $1,500. Deductions: $105 federal, $52.50 state, $93 SS, $21.75 Medicare. What is net pay?",
+          "unit": "$",
+          "correct_answer": "1227.75",
+          "tolerance": 0.5
+        }
+      ]
     },
     {
       "id": "s11",
@@ -138,7 +274,20 @@
       "feedback": {
         "correct": "True! Pre-tax deductions reduce your taxable income, so you pay less in taxes.",
         "incorrect": "Actually true — pre-tax deductions come out before taxes are calculated, lowering your tax bill."
-      }
+      },
+      "hint": "Pre-tax means it's subtracted before the government calculates what you owe.",
+      "retry_variants": [
+        {
+          "prompt": "If you contribute $100 to a pre-tax 401(k), does that $100 get taxed as income this year?",
+          "options": ["True — it's still counted as income", "False — it reduces your taxable income"],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "True or false: putting money in a pre-tax account means you pay less in income taxes this year.",
+          "options": ["True", "False"],
+          "correct_answer": 0
+        }
+      ]
     },
     {
       "id": "s12",
@@ -150,7 +299,22 @@
       "feedback": {
         "correct": "Correct! Gross = $15 × 40 = $600. Net = $600 × (1 − 0.28) = $432.",
         "incorrect": "Gross = $15 × 40 = $600. Subtract 28%: $600 × 0.72 = $432."
-      }
+      },
+      "hint": "Step 1: calculate gross pay (hours × rate). Step 2: multiply by (1 − deduction rate).",
+      "retry_variants": [
+        {
+          "prompt": "Jamie earns $20/hr and works 35 hours. Deductions are 25%. What is Jamie's net pay?",
+          "unit": "$",
+          "correct_answer": "525",
+          "tolerance": 0.5
+        },
+        {
+          "prompt": "Taylor earns $12/hr, works 40 hours, and has 30% in deductions. What is Taylor's net pay?",
+          "unit": "$",
+          "correct_answer": "336",
+          "tolerance": 0.5
+        }
+      ]
     },
     {
       "id": "s13",
@@ -161,7 +325,20 @@
       "feedback": {
         "correct": "Smart. A $45K salary nets roughly $32–34K after taxes. Always budget from net, not gross.",
         "incorrect": "Budget on net pay, not gross. A $45K salary typically nets around $32–34K after taxes."
-      }
+      },
+      "hint": "Rent and bills are paid from what you actually receive, not what your contract says.",
+      "retry_variants": [
+        {
+          "prompt": "You're planning your monthly expenses. You earn $60,000/year. Which number is most useful for budgeting?",
+          "options": ["$60,000 ÷ 12 = $5,000/month gross", "Your estimated monthly net pay (~$3,600–$3,900)", "$60,000 — your total annual salary", "The number before your last raise"],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Your salary is $50,000. A friend says 'just divide by 12 for your monthly budget.' What's wrong with that advice?",
+          "options": ["Nothing — that's exactly right", "Dividing by 12 gives gross, not net — taxes haven't been subtracted yet", "You should divide by 26 instead", "Salaries are always paid weekly"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "s14",
@@ -176,7 +353,20 @@
       "feedback": {
         "correct": "Perfect. Each deduction funds a specific program or level of government.",
         "incorrect": "Review: Social Security → retirement; Medicare → senior healthcare; Federal → public services; State → local programs."
-      }
+      },
+      "hint": "Think about who benefits from each program: retirees, senior healthcare, national services, local services.",
+      "retry_variants": [
+        {
+          "prompt": "Which deduction funds retirement income for Americans when they stop working?",
+          "options": ["Medicare", "Federal Income Tax", "Social Security", "State Income Tax"],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "Which deduction pays for healthcare for Americans who are 65 or older?",
+          "options": ["Social Security", "Medicare", "State Income Tax", "Federal Income Tax"],
+          "correct_answer": 1
+        }
+      ]
     }
   ],
   "final_evaluation": [
@@ -190,7 +380,15 @@
       "feedback": {
         "correct": "Correct! $1,000 − $100 − $40 − $76.50 = $783.50.",
         "incorrect": "$100 federal + $40 state + $76.50 FICA = $216.50 total deductions. Net = $1,000 − $216.50 = $783.50."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "You earn $800 gross. Federal tax: 10%, state tax: 4%, FICA: 7.65%. What is your net pay?",
+          "unit": "$",
+          "correct_answer": "626.80",
+          "tolerance": 1.0
+        }
+      ]
     },
     {
       "id": "fe2",
@@ -201,7 +399,14 @@
       "feedback": {
         "correct": "Right — Social Security and Medicare.",
         "incorrect": "FICA funds Social Security (retirement/disability) and Medicare (senior healthcare)."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "FICA deductions on your paycheck go toward which two federal programs?",
+          "options": ["Medicaid and food stamps", "Social Security and Medicare", "Unemployment insurance and disability", "Veterans benefits and Medicaid"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "fe3",
@@ -212,7 +417,14 @@
       "feedback": {
         "correct": "Correct. Deductions always reduce gross pay to a lower net amount.",
         "incorrect": "This is true. Deductions always pull net pay below gross pay."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "Is it possible for your take-home pay to equal your gross pay?",
+          "options": ["True — if you have no deductions", "False — net is always lower"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "fe4",
@@ -223,7 +435,14 @@
       "feedback": {
         "correct": "Right! $800 − $576 = $224 deducted. $224 ÷ $800 = 28%.",
         "incorrect": "Deducted: $800 − $576 = $224. Rate: $224 ÷ $800 = 28%."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "Chris earns $500/week and takes home $375. What percentage is being deducted?",
+          "options": ["20%", "25%", "30%", "35%"],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "fe5",
@@ -234,7 +453,14 @@
       "feedback": {
         "correct": "Correct. Social Security provides retirement income and disability benefits.",
         "incorrect": "Social Security funds retirement income and disability benefits for eligible Americans."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "When you retire, which paycheck deduction will help fund your monthly government benefit check?",
+          "options": ["Medicare", "Federal Income Tax", "Social Security", "State Income Tax"],
+          "correct_answer": 2
+        }
+      ]
     },
     {
       "id": "fe6",
@@ -246,7 +472,15 @@
       "feedback": {
         "correct": "Correct! $400 × 0.062 = $24.80.",
         "incorrect": "Multiply: $400 × 6.2% = $400 × 0.062 = $24.80."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "Social Security is 6.2%. How much is deducted from a $600 paycheck?",
+          "unit": "$",
+          "correct_answer": "37.20",
+          "tolerance": 0.05
+        }
+      ]
     },
     {
       "id": "fe7",
@@ -257,7 +491,14 @@
       "feedback": {
         "correct": "Right. $4,500 × 12 = $54,000 — your friend earns more gross.",
         "incorrect": "$4,500/month × 12 months = $54,000/year. Your friend earns more on gross."
-      }
+      },
+      "retry_variants": [
+        {
+          "prompt": "You earn $40,000/year. Your coworker earns $3,600/month. Who has the higher annual gross salary?",
+          "options": ["You — $40,000/year", "Your coworker — $43,200/year", "You're equal", "Impossible to compare"],
+          "correct_answer": 1
+        }
+      ]
     }
   ]
 }
