@@ -3,6 +3,680 @@
   "title": "Banking & Where Your Money Lives",
   "module": "module-mf",
   "duration_minutes": 20,
-  "locked": true,
-  "sections": []
+  "locked": false,
+  "steps": [
+    {
+      "id": "learn-1",
+      "type": "learn",
+      "heading": "What a Bank Does",
+      "body": "A bank is a federally regulated institution that holds your money, processes payments, and lends money to other customers and businesses. When you deposit cash, it doesn't sit in a vault — banks lend most deposits out as mortgages, car loans, and business loans, which is how they generate revenue and afford to pay savings interest. Your deposits are protected up to $250,000 per account type by the FDIC (Federal Deposit Insurance Corporation), a government agency that guarantees your money even if the bank fails. This protection is automatic — you don't need to sign up or do anything to activate it."
+    },
+    {
+      "id": "s1",
+      "type": "multiple_choice",
+      "prompt": "The bank where you keep your $6,000 emergency fund suddenly closes due to financial failure. What happens to your money?",
+      "options": [
+        "It's lost — banks aren't liable for deposits if they become insolvent",
+        "The FDIC reimburses up to $250,000, so your $6,000 is fully protected",
+        "The government loans you the equivalent amount temporarily",
+        "You're only protected if you had the account for more than one year"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. FDIC insurance covers up to $250,000 per depositor per account type — your $6,000 is well within that limit and fully protected regardless of what happens to the bank.",
+        "incorrect": "Bank failures do happen — but that's exactly why FDIC insurance was created. After widespread bank collapses during the Great Depression, the government established the FDIC to guarantee deposits. Your $6,000 is fully covered since it's under the $250,000 per-account limit. This protection is automatic and requires no action from you."
+      },
+      "hint": "The U.S. government created a deposit protection system after banks failed widely in the 1930s.",
+      "retry_variants": [
+        {
+          "prompt": "A friend says she doesn't trust banks because 'if they fail, you lose everything.' What would you tell her?",
+          "options": [
+            "She's right — banks aren't required to protect deposits",
+            "FDIC insurance protects deposits up to $250,000, so her money is safe even if the bank fails",
+            "She's right, unless she has less than $1,000 in the account",
+            "Banks are safe because the government owns them"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which government agency protects your bank deposits if a U.S. bank fails?",
+          "options": ["The IRS", "The Federal Reserve", "The FDIC", "The SEC"],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "type": "multiple_choice",
+      "prompt": "Your friend says banks are basically just vaults that hold your money until you need it. What's actually true about what banks do with your deposits?",
+      "options": [
+        "Your friend is right — each dollar you deposit is stored and waiting for you",
+        "Banks lend most deposits to other customers as loans, earning interest in the process",
+        "Banks invest all deposits in government bonds on your behalf",
+        "Banks pool all deposits and share the interest equally among account holders"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. Banks lend out most of what you deposit — that's their core business. They earn interest on loans, pay a portion of it back to depositors as savings interest, and keep the difference as profit. Your money is always accessible because of FDIC regulation, not because it's sitting in a vault.",
+        "incorrect": "The 'bank as vault' model is intuitive but wrong. Banks are primarily in the lending business — they take your deposit, lend most of it to someone buying a car or house, and earn interest on that loan. This is how they afford ATM networks, staff, and the interest they pay on savings accounts. Your access to your money is guaranteed by regulation, not by physical storage."
+      },
+      "hint": "Banks need to generate revenue somehow — deposits are the raw material they use to do it.",
+      "retry_variants": [
+        {
+          "prompt": "How do banks primarily earn money?",
+          "options": [
+            "By charging monthly account maintenance fees",
+            "By charging interest on loans funded by customer deposits",
+            "By investing deposits directly in the stock market",
+            "By selling customer transaction data to other companies"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Why can a bank afford to pay you 3% interest on your savings account?",
+          "options": [
+            "The government subsidizes savings account interest rates",
+            "Banks charge 0% on loans to balance what they pay depositors",
+            "The bank lends your deposits at a higher rate and shares a portion with you",
+            "Banks only pay savings interest when they have surplus cash from ATM fees"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "learn-2",
+      "type": "learn",
+      "heading": "Checking vs. Savings",
+      "body": "A checking account is built for daily use: receiving your paycheck, paying bills, buying groceries. It's linked to a debit card, allows unlimited withdrawals, and typically earns no interest. A savings account is built for money you don't need immediately — it earns interest (expressed as APY, Annual Percentage Yield) and is intentionally harder to spend from, since it's not connected to a debit card. Keeping spending money and saving money in separate accounts makes your budget visible at a glance and makes it much harder to accidentally spend what you're trying to keep."
+    },
+    {
+      "id": "s3",
+      "type": "multiple_choice",
+      "prompt": "Marcus just got paid $2,200. He needs $850 for rent due in three days, $300 for groceries and gas this week, and wants to save the rest for a car repair next month. Where should each portion go?",
+      "options": [
+        "All in checking — one account is easier to manage",
+        "$1,150 in checking (rent + weekly expenses) and $1,050 in savings for the car repair",
+        "All in savings to earn interest while waiting to spend it",
+        "$850 in checking for rent only, $1,350 in savings"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. Money needed this week belongs in checking — accessible via debit card for rent and daily purchases. Money not needed for a month earns interest in savings and is less likely to get spent accidentally.",
+        "incorrect": "The key question is timing: when do you need each dollar? Rent ($850) and weekly expenses ($300) are due immediately — they need to be in checking where a debit card can reach them. The car repair ($1,050) isn't needed for a month, so it earns interest in savings and stays out of reach of impulse spending. Savings accounts generally don't have debit cards, so putting money there and expecting to buy groceries with it won't work."
+      },
+      "hint": "Ask: which money do I need access to this week? That belongs in checking.",
+      "retry_variants": [
+        {
+          "prompt": "Which of these should generally be kept in a checking account rather than savings?",
+          "options": [
+            "An emergency fund you hope never to touch",
+            "Money for a vacation happening in 8 months",
+            "Funds for bills due within the next two weeks",
+            "A down payment you're saving over 2 years"
+          ],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "Your friend puts all her money in a savings account to earn interest, then uses a debit card for daily purchases. What problem will she likely run into?",
+          "options": [
+            "No problem — savings accounts are automatically connected to debit cards",
+            "Savings accounts are generally not linked to debit cards, so she can't use one for daily purchases",
+            "Her interest will be taxed at a higher rate if she uses the account for spending",
+            "She'll earn too much interest and the bank will close the account"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "type": "multiple_choice",
+      "prompt": "Sofia starts her first job and has three goals: pay her phone bill automatically, have cash ready for daily expenses, and save $200/month toward a vacation. Which setup is best?",
+      "options": [
+        "One savings account — keeps everything earning interest",
+        "One checking account — simplest to manage everything in one place",
+        "A checking account for bill pay and daily spending, a savings account for the vacation fund",
+        "Two checking accounts — one for bills, one for spending"
+      ],
+      "correct_answer": 2,
+      "feedback": {
+        "correct": "Correct. Checking handles what requires a debit card or automatic payments. Savings holds money that shouldn't be spent casually. Keeping them separate makes the budget clear and creates a real barrier between 'spending money' and 'saving money.'",
+        "incorrect": "One account feels simpler, but it eliminates the boundary between spending and saving — making it easy to dip into savings without realizing it. Checking covers autopay and daily purchases; savings protects the vacation fund and earns a little interest while she waits."
+      },
+      "hint": "Different goals need different account types — one for spending now, one for saving later.",
+      "retry_variants": [
+        {
+          "prompt": "What is the main reason financial advisors suggest keeping a separate savings account instead of using one checking account for everything?",
+          "options": [
+            "Banks require at least two accounts to activate FDIC protection",
+            "Separating accounts creates a barrier that makes it harder to accidentally spend your savings",
+            "Interest rates are only available to people with multiple accounts",
+            "Checking accounts are not insured by the FDIC"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which account type should receive your direct deposit paycheck — and why?",
+          "options": [
+            "Savings — it earns more interest when funds first arrive",
+            "Checking — your paycheck covers immediate expenses like rent and groceries that require debit card access",
+            "Both equally — split the deposit 50/50 automatically",
+            "Neither — always cash a physical check first"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "type": "numeric_input",
+      "prompt": "You deposit $2,000 into a savings account with a 3% APY. How much interest do you earn after one year?",
+      "unit": "$",
+      "correct_answer": "60",
+      "tolerance": 0.5,
+      "feedback": {
+        "correct": "Correct! $2,000 × 0.03 = $60 in interest for the year.",
+        "incorrect": "APY means Annual Percentage Yield — the percentage earned over one full year. Convert the rate to a decimal and multiply by the balance: $2,000 × 0.03 = $60. If you got a much larger number, you may have used 3 instead of 0.03. If you got a much smaller number, check that you multiplied by the full balance."
+      },
+      "hint": "APY = annual rate. Convert 3% to 0.03, then multiply by the balance.",
+      "retry_variants": [
+        {
+          "prompt": "You have $5,000 in a savings account with a 2% APY. How much interest do you earn after one year?",
+          "unit": "$",
+          "correct_answer": "100",
+          "tolerance": 0.5
+        },
+        {
+          "prompt": "A savings account earns 4% APY. You deposit $1,500. How much interest accrues in one year?",
+          "unit": "$",
+          "correct_answer": "60",
+          "tolerance": 0.5
+        }
+      ]
+    },
+    {
+      "id": "learn-3",
+      "type": "learn",
+      "heading": "How Money Moves",
+      "body": "When you swipe a debit card, money leaves your checking account almost immediately — you can only spend what's actually there. Direct deposits and bill payments use ACH (Automated Clearing House), a system that typically takes 1–3 business days to fully settle. Peer-to-peer apps like Venmo and Zelle move money quickly, but funds still come from wherever your bank account or debit card is linked — usually checking. One critical detail: merchants like gas stations often place a temporary authorization hold — sometimes up to $100 or $150 — that reduces your available balance before the real charge posts. This hold can cause other purchases to fail even when your actual spending was much lower."
+    },
+    {
+      "id": "s6",
+      "type": "multiple_choice",
+      "prompt": "You have $310 in your checking account. You buy $180 of groceries with your debit card. Before that transaction fully posts, you try to pay a $150 electric bill online. What most likely happens?",
+      "options": [
+        "Both go through — banks allow transactions that overlap in timing",
+        "The grocery purchase reduces available balance to $130 — the $150 bill is declined or triggers an overdraft",
+        "The electric bill takes priority because it was scheduled in advance",
+        "Both are held pending and neither posts until the next business day"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. Debit purchases reduce your available balance within seconds of the swipe. $310 − $180 = $130 remaining. Attempting a $150 payment with $130 available results in a declined transaction or an overdraft fee.",
+        "incorrect": "Debit card purchases reduce your available balance almost instantly — the grocery transaction comes out of the $310 right away. That leaves $130, which isn't enough for the $150 bill. The payment will be declined, or if you have overdraft protection enabled, it goes through with a $35 fee on top."
+      },
+      "hint": "Your debit card spends from what's actually available — not what you think you have.",
+      "retry_variants": [
+        {
+          "prompt": "Your account shows $500. You made a $340 purchase yesterday that hasn't posted yet. Your available balance shows $160. A friend asks you to send $200 via Venmo. Should you?",
+          "options": [
+            "Yes — your account shows $500 so you have plenty",
+            "No — your available balance is $160, meaning the $340 is already reserved even if it hasn't fully posted",
+            "Yes — Venmo payments don't affect checking account balances",
+            "It depends on whether you have overdraft protection"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "How long do ACH transfers (like direct deposits and bill payments) typically take to fully settle?",
+          "options": ["Instantly — same as a debit card swipe", "1–3 business days", "5–7 business days", "Exactly 24 hours"],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "type": "multiple_choice",
+      "prompt": "You have $95 in your checking account. You buy $40 of gas and swipe your debit card. The gas station places a $100 authorization hold while the real charge processes. You immediately try to buy $30 of groceries at the next store. Why might the grocery purchase be declined even though your gas only cost $40?",
+      "options": [
+        "Banks automatically flag two transactions at different merchants in quick succession as fraud",
+        "The $100 hold reduced your available balance to −$5 — holds consume your available balance even before the real charge posts",
+        "Debit cards have a $70 daily transaction limit at gas stations",
+        "Gas purchases lock your account for 24 hours after the transaction"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Exactly — and this catches people off guard constantly. The hold ($100) is larger than the actual charge ($40). Until the real $40 charge settles and the hold releases — sometimes hours, sometimes days — your available balance reflects the hold. $95 − $100 = −$5 available. The $30 grocery purchase can't go through.",
+        "incorrect": "This is one of the most common and frustrating banking surprises. Gas stations place a hold larger than the actual charge to protect against filling a full tank. That $100 hold immediately reduces your available balance — even though you only spent $40. Your available balance becomes $95 − $100 = −$5, so the $30 grocery purchase fails. The hold releases when the real charge settles, which can take hours."
+      },
+      "hint": "Your bank sees the hold amount, not the actual purchase amount — until the transaction fully clears.",
+      "retry_variants": [
+        {
+          "prompt": "You check your balance: $250 available. You made a $220 hotel reservation two days ago, but it hasn't posted. Why is buying a $60 dinner risky right now?",
+          "options": [
+            "No risk — the balance already reflects the hotel charge",
+            "The hotel hold may still be active, leaving less available than $250 shows — the dinner could trigger an overdraft",
+            "Hotels never place holds on debit cards",
+            "Restaurants place holds of up to $200 on every card"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "What is the key difference between your account 'balance' and your 'available balance'?",
+          "options": [
+            "They are always the same number",
+            "Available balance subtracts pending holds and unposted charges — it's what you can actually spend right now",
+            "Balance includes savings; available balance shows only checking",
+            "Available balance only updates once per business day at midnight"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "type": "multiple_choice",
+      "prompt": "Your checking account has $80. A $110 monthly subscription auto-charges. Your bank has overdraft protection enabled, which lets the charge go through but adds a $35 fee. What is your account balance after both?",
+      "options": [
+        "−$30 — only the overdraft amount; the fee is added next cycle",
+        "−$65 — the subscription went through and the $35 fee was added immediately",
+        "$80 — the charge was blocked automatically",
+        "−$110 — the fee is waived on the first overdraft"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. $80 − $110 = −$30 overdraft. Then −$30 − $35 fee = −$65. A single forgotten subscription just cost $35 extra on top of the shortfall.",
+        "incorrect": "When overdraft protection allows the charge to go through, the bank charges a fee on top of the resulting deficit — both happen simultaneously. $80 − $110 = −$30. Then the $35 fee brings it to −$65. You now owe the bank $65, even though you started with $80."
+      },
+      "hint": "Overdraft = bank covers the gap, then charges you for doing so.",
+      "retry_variants": [
+        {
+          "prompt": "Your account has $30. Two subscriptions auto-pay on the same day: $50 and $45. Your bank charges $35 per overdraft transaction. How many overdraft fees will you most likely incur?",
+          "options": [
+            "Zero — the bank blocks both transactions",
+            "One — the first goes through, the second is declined with no fee",
+            "Two — each transaction that overdraws the account triggers its own fee",
+            "One combined fee for the total overdraft amount"
+          ],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "What is the most reliable way to avoid overdraft fees?",
+          "options": [
+            "Keep overdraft protection on so charges always go through",
+            "Monitor your available balance and set low-balance alerts before spending",
+            "Only use your account for direct deposits, not purchases",
+            "Keep $5 in savings as an overdraft backup"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s9",
+      "type": "numeric_input",
+      "prompt": "Your checking account has $420. An auto-payment of $500 processes overnight. Your bank charges a $35 overdraft fee. By how much is your account overdrawn when you wake up?",
+      "unit": "$",
+      "correct_answer": "115",
+      "tolerance": 0.5,
+      "feedback": {
+        "correct": "Right. $420 − $500 = overdrawn by $80. Then $80 + $35 fee = overdrawn by $115. You owe the bank $115 before you make a single purchase that morning.",
+        "incorrect": "Two charges hit your account: the $500 payment and the $35 overdraft fee. $420 − $500 = overdrawn by $80. Then $80 + $35 fee = overdrawn by $115. The most common mistake is forgetting to add the fee — banks charge it on top of the deficit, not instead of it."
+      },
+      "hint": "Calculate how much you're short after the payment, then add the overdraft fee on top.",
+      "retry_variants": [
+        {
+          "prompt": "Account balance: $60. A $120 bill posts with overdraft protection. The overdraft fee is $35. By how much is the account overdrawn?",
+          "unit": "$",
+          "correct_answer": "95",
+          "tolerance": 0.5
+        },
+        {
+          "prompt": "You had $200. A $280 charge processes. The bank charges a $30 overdraft fee. By how much is your account overdrawn?",
+          "unit": "$",
+          "correct_answer": "110",
+          "tolerance": 0.5
+        }
+      ]
+    },
+    {
+      "id": "learn-4",
+      "type": "learn",
+      "heading": "Fraud and Account Protection",
+      "body": "Debit card fraud happens when someone obtains your card number — through skimming devices at ATMs, phishing texts or emails pretending to be your bank, or data breaches at companies you've used. Unlike credit card fraud, debit fraud pulls real money directly out of your account during the dispute process, which can leave you temporarily short on rent and bills. Most banks offer zero-liability protection, but you must report unauthorized charges promptly — typically within 60 days of the statement. Checking your account every few days, not just when you're running low, is the single most effective habit for catching fraud before it accumulates."
+    },
+    {
+      "id": "s10",
+      "type": "multiple_choice",
+      "prompt": "You get a text: 'URGENT: Your bank account has been locked due to suspicious activity. Tap here to verify your identity and restore access.' What should you do?",
+      "options": [
+        "Tap the link — banks send legitimate security alerts this way",
+        "Reply STOP to unsubscribe from the messages",
+        "Do not click anything. Call your bank directly using the number on the back of your card or their official website",
+        "Forward the message to your bank's customer service email"
+      ],
+      "correct_answer": 2,
+      "feedback": {
+        "correct": "Right. Any link in an unsolicited text could lead to a fake login page designed to steal your credentials. The safe move is always to contact your bank through a channel you initiate yourself — the number on your card, or the URL you type directly.",
+        "incorrect": "This is a phishing text — a scam that impersonates your bank to steal your login info or card number. Real banks will never ask you to verify account details through an unsolicited text link. Replying 'STOP' tells the scammer your number is active. Forwarding to email accomplishes nothing. The only correct response: ignore the link and contact your bank independently using the number on your card."
+      },
+      "hint": "Never click a link in an unsolicited message. Contact your bank through a channel you initiate.",
+      "retry_variants": [
+        {
+          "prompt": "An email from 'support@bankofamerica-secure.com' says your account needs immediate verification and looks official. What should you do first?",
+          "options": [
+            "Click the link and log in — the email domain looks legitimate",
+            "Notice that 'bankofamerica-secure.com' is not an official Bank of America domain. Navigate to bankofamerica.com yourself instead",
+            "Reply to the email asking them to confirm it's real",
+            "Forward it to friends to see if they received the same message"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which is the safest way to access your bank account online?",
+          "options": [
+            "Click the link in a security email your bank sent",
+            "Search for your bank on Google and click the top result",
+            "Type your bank's official URL directly into your browser, or use the official app you downloaded from the App Store",
+            "Ask a trusted friend to log in for you on their device"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "type": "multiple_choice",
+      "prompt": "You're reviewing your account and notice a $45 charge from a merchant you don't recognize, posted three days ago. What's the right first move?",
+      "options": [
+        "Wait two weeks — it might be a delayed charge from something you forgot",
+        "Immediately drain your account to prevent further fraud",
+        "Call your bank's fraud line, report the charge, and freeze your card",
+        "File a police report before contacting your bank"
+      ],
+      "correct_answer": 2,
+      "feedback": {
+        "correct": "Correct. Report it and freeze the card immediately. The sooner you act, the sooner the dispute begins — and freezing prevents more charges from posting while you investigate.",
+        "incorrect": "Waiting is the costliest mistake in fraud response. The card may still be active, meaning more charges can post every hour. Banks also have dispute filing windows — waiting could cost you the right to recover earlier charges. Draining your account doesn't stop new charges on the compromised card. The right move: freeze the card and call fraud support now."
+      },
+      "hint": "Speed matters with fraud. Every hour the card stays active is a potential new charge.",
+      "retry_variants": [
+        {
+          "prompt": "Why is debit card fraud more immediately disruptive than credit card fraud?",
+          "options": [
+            "Credit cards have lower spending limits, so fraud does less damage",
+            "Debit fraud withdraws real money from your account during the dispute — you may be short on actual cash while it's resolved",
+            "Debit card fraud is never covered by bank protection policies",
+            "Credit card disputes are always resolved within 24 hours; debit disputes are not"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "How often should you review your bank account to catch fraud early?",
+          "options": [
+            "Once a year when you file taxes",
+            "Only when your balance seems low",
+            "Every few days — fraud can accumulate quickly if left undetected",
+            "Monthly, when your statement arrives"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "learn-5",
+      "type": "learn",
+      "heading": "Fees and Common Mistakes",
+      "body": "Banks charge fees that can quietly drain your account: monthly maintenance fees ($5–$15), overdraft fees ($25–$35 per transaction), out-of-network ATM fees ($2–$5), and foreign transaction fees (1–3%) if you use your card abroad. Most are avoidable — banks often waive maintenance fees if you meet a monthly direct deposit minimum or maintain a minimum balance. The most common first-year mistakes are forgetting about auto-payments that overdraw the account, budgeting from your gross salary instead of actual take-home pay, and leaving money that won't be spent for months sitting in a zero-interest checking account instead of moving it to savings."
+    },
+    {
+      "id": "s12",
+      "type": "numeric_input",
+      "prompt": "Your bank charges: $10/month maintenance fee, $3 per out-of-network ATM use. This month you used an out-of-network ATM 4 times. What are your total bank fees for the month?",
+      "unit": "$",
+      "correct_answer": "22",
+      "tolerance": 0.5,
+      "feedback": {
+        "correct": "Correct. $10 maintenance + (4 × $3 ATM) = $10 + $12 = $22 this month.",
+        "incorrect": "Add each fee type separately. Maintenance fee: $10 flat. ATM fees: 4 uses × $3 = $12. Total: $10 + $12 = $22. These look small individually, but $22/month is $264/year — money that could be avoided by using in-network ATMs and meeting the maintenance waiver condition."
+      },
+      "hint": "Flat monthly fee + (number of transactions × per-transaction fee).",
+      "retry_variants": [
+        {
+          "prompt": "Your account has an $8/month maintenance fee and a $2.50 out-of-network ATM fee. You used an out-of-network ATM 6 times this month. What are your total fees?",
+          "unit": "$",
+          "correct_answer": "23",
+          "tolerance": 0.5
+        },
+        {
+          "prompt": "Your bank waives the $12/month maintenance fee if you deposit at least $500/month. This month you deposited $600 and used an out-of-network ATM twice at $3 each. What are your total fees?",
+          "unit": "$",
+          "correct_answer": "6",
+          "tolerance": 0.5
+        }
+      ]
+    },
+    {
+      "id": "s13",
+      "type": "multiple_choice",
+      "prompt": "Leila just received her first paycheck: $1,800. She needs: $750 for rent due in 4 days, $350 for groceries and gas this month, $300 as an emergency buffer she won't touch, and $400 for a laptop she's buying in 6 weeks. Her bank offers free checking (no interest) and a savings account at 2.5% APY (no debit card). What's the smartest allocation?",
+      "options": [
+        "All $1,800 in checking — she needs fast access to everything",
+        "$1,100 in checking (rent + monthly expenses), $700 in savings (laptop fund + emergency buffer)",
+        "$750 in checking for rent only, $1,050 in savings for everything else",
+        "All $1,800 in savings to earn as much interest as possible"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. Rent ($750) and monthly expenses ($350) must be in checking — she'll spend them immediately via debit card. The laptop ($400) and emergency buffer ($300) aren't needed for weeks — they earn 2.5% APY in savings and are protected from casual spending. The allocation reflects when she needs each dollar.",
+        "incorrect": "The savings account has no debit card — Leila can't pay rent or buy groceries directly from it. Everything she needs this week must be in checking. The $700 she won't touch for weeks earns 2.5% APY in savings while it waits. Putting everything in checking leaves $700 earning nothing; putting everything in savings means she can't reach rent money with her debit card."
+      },
+      "hint": "Checking = money you spend this week. Savings = money you can wait on. Which dollars fit which category?",
+      "retry_variants": [
+        {
+          "prompt": "You have $3,000. You need $1,200 for bills this month, want $500 immediately accessible as a buffer, and plan to save $1,300 for a trip in four months. Where should each amount go?",
+          "options": [
+            "All in savings to earn the most interest",
+            "$1,700 in checking (bills + buffer), $1,300 in savings (trip fund)",
+            "$1,200 in checking (bills only), $1,800 in savings",
+            "All in checking to keep everything available"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Your friend says 'savings accounts are barely worth it.' Assuming a $4,000 balance at 3% APY, how much does he miss out on annually by keeping it all in checking?",
+          "options": ["$4 — barely noticeable", "$40 — small but real", "$120 — meaningful over time", "$400 — significant"],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "type": "matching",
+      "prompt": "Match each bank fee to what causes it.",
+      "pairs": [
+        { "term": "Overdraft fee", "match": "A charge posts when your balance is below $0" },
+        { "term": "Out-of-network ATM fee", "match": "Withdrawing cash from a competitor bank's ATM" },
+        { "term": "Monthly maintenance fee", "match": "Not meeting the bank's minimum deposit or balance" },
+        { "term": "Foreign transaction fee", "match": "Using your debit card outside the United States" }
+      ],
+      "feedback": {
+        "correct": "Correct. Each fee has a specific trigger — knowing what causes them is the first step to avoiding them.",
+        "incorrect": "Review the triggers: overdraft = spending beyond your balance; out-of-network ATM = using a machine your bank doesn't own; maintenance = not meeting the deposit or balance waiver condition; foreign transaction = using your card abroad. All four are avoidable once you know what sets them off."
+      },
+      "hint": "Think about what the account holder did — or failed to do — that caused each fee.",
+      "retry_variants": [
+        {
+          "type": "multiple_choice",
+          "prompt": "You use a Wells Fargo ATM but your bank is Chase. What fee are you most likely charged?",
+          "options": ["Overdraft fee", "Monthly maintenance fee", "Out-of-network ATM fee", "Foreign transaction fee"],
+          "correct_answer": 2
+        },
+        {
+          "type": "multiple_choice",
+          "prompt": "Your account drops to $15 and a $60 auto-payment posts. The bank covers it and charges $35. What is this fee called?",
+          "options": ["Foreign transaction fee", "Monthly maintenance fee", "Out-of-network ATM fee", "Overdraft fee"],
+          "correct_answer": 3
+        }
+      ]
+    }
+  ],
+  "final_evaluation": [
+    {
+      "id": "fe1",
+      "type": "numeric_input",
+      "question": "Your bank charges a $9/month maintenance fee (waived if you deposit $400+/month) and $2.50 per out-of-network ATM use. This month you deposited $450 and used an out-of-network ATM 3 times. What are your total bank fees?",
+      "unit": "$",
+      "correct_answer": "7.50",
+      "tolerance": 0.25,
+      "feedback": {
+        "correct": "Right. You deposited $450 — above the $400 threshold — so the maintenance fee is waived. Fees = 3 × $2.50 = $7.50.",
+        "incorrect": "Check the waiver condition first: you deposited $450, which exceeds $400, so the $9 maintenance fee is waived. The only fees are ATM charges: 3 × $2.50 = $7.50. The most common mistake is adding the maintenance fee without checking whether the waiver applies."
+      },
+      "retry_variants": [
+        {
+          "prompt": "Same bank and fee structure. This month you deposited $380 and used an out-of-network ATM twice. What are your total fees?",
+          "unit": "$",
+          "correct_answer": "14",
+          "tolerance": 0.25
+        }
+      ]
+    },
+    {
+      "id": "fe2",
+      "type": "multiple_choice",
+      "question": "Jaylen earns $2,400/month. He has $900 in fixed monthly bills, keeps $400 as a standing emergency buffer, saves $500/month toward a car, and uses the remaining $600 for food and day-to-day spending. Which account setup best matches his situation?",
+      "options": [
+        "All in one checking account — simplest to manage",
+        "Checking for bills and daily spending ($1,500/month flow), savings for the car fund ($500/month) and emergency buffer ($400)",
+        "Savings account only — earns interest on everything",
+        "Split 50/50 between two checking accounts"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Exactly. His checking account handles everything that actively moves — bills and food. Savings holds the car fund (earning interest for months until he buys) and the emergency buffer (protected from casual spending).",
+        "incorrect": "One account mixes spending money with savings — making it easy to spend the car fund without noticing. Savings earns interest and creates a deliberate barrier. Checking handles what flows in and out regularly; savings holds what stays put and grows."
+      },
+      "retry_variants": [
+        {
+          "prompt": "Which of the following funds belongs in a savings account rather than checking?",
+          "options": [
+            "Money for groceries this week",
+            "Rent due in five days",
+            "A 6-month emergency fund you hope never to touch",
+            "The balance needed to pay your phone bill tomorrow"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "fe3",
+      "type": "multiple_choice",
+      "question": "You have $18,000 in a savings account at a bank that suddenly goes bankrupt. How much will you receive from FDIC insurance?",
+      "options": [
+        "$0 — FDIC only covers checking accounts",
+        "$18,000 — your full balance, since it's under the $250,000 limit",
+        "$10,000 — FDIC caps coverage at $10,000 per account",
+        "$18,000, but only after a 6–12 month claims process"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. FDIC covers both checking and savings accounts up to $250,000 per depositor per institution. Your $18,000 is fully covered — and the reimbursement process is typically fast, not a year-long wait.",
+        "incorrect": "FDIC protects both checking and savings accounts — not just one type. The limit is $250,000 per depositor per account type, and your $18,000 is well under that. The FDIC also moves quickly when a bank fails — often within days, not months."
+      },
+      "retry_variants": [
+        {
+          "prompt": "Which accounts does FDIC insurance cover?",
+          "options": [
+            "Only checking accounts",
+            "Only accounts over $10,000",
+            "Both checking and savings accounts, up to $250,000 per depositor per institution",
+            "Only accounts at federally owned banks"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "fe4",
+      "type": "multiple_choice",
+      "question": "You check your account and find three charges you didn't make totaling $340, posted over the last five days. What should you do — and why does timing matter?",
+      "options": [
+        "Wait until the end of the month when your statement arrives to dispute them all at once",
+        "Contact your bank immediately to report fraud, freeze the card, and open a dispute — delays allow more charges and may affect your protection window",
+        "Move your remaining balance to savings to protect it from further charges",
+        "Change your PIN online and wait 48 hours to see if the charges stop"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. Speed is critical: the card may still be active, meaning more charges can post every hour. Banks also have reporting windows for fraud disputes — waiting risks losing your right to recover some charges.",
+        "incorrect": "Every hour the card stays active is another potential charge. Banks set deadlines for dispute filing — waiting until your statement arrives could mean missing the window for the earliest charges. Moving money to savings doesn't stop new charges on the compromised card number. The only effective response: freeze the card and report the fraud immediately."
+      },
+      "retry_variants": [
+        {
+          "prompt": "Why is debit card fraud more immediately disruptive than credit card fraud?",
+          "options": [
+            "Debit card limits are lower, so fraud does less total damage",
+            "Debit fraud withdraws real money from your account during the dispute — you may be short on actual cash for rent and bills while it's resolved",
+            "Credit card fraud is covered by the FDIC; debit fraud is not",
+            "Banks process debit disputes faster than credit disputes"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "fe5",
+      "type": "multiple_choice",
+      "question": "Jordan has $180 in checking. He just swiped his debit card for $30 of lunch. He forgot that his $200 gym membership auto-pays tomorrow. His bank charges a $35 overdraft fee. What will most likely happen — and what should Jordan do right now?",
+      "options": [
+        "Both charges will go through fine — banks automatically cover the difference",
+        "The lunch posted, leaving $150. The $200 gym payment will trigger a $35 overdraft fee — Jordan should deposit money or contact the gym today before it processes",
+        "The gym payment will simply be declined with no fee",
+        "Jordan should call the gym to manually delay the payment by a week"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Exactly. $180 − $30 = $150 remaining. The $200 gym charge exceeds $150. With overdraft protection on, it goes through and adds a $35 fee, leaving Jordan at −$85. He has a small window to deposit $50+ or cancel the auto-payment before it processes.",
+        "incorrect": "Debit purchases reduce your balance immediately. $180 − $30 lunch = $150. The $200 gym charge hits $150 — leaving a $50 gap. With overdraft protection enabled, the payment goes through and the $35 fee is added (ending at −$85). Without overdraft protection, some banks still charge a non-sufficient-funds fee. Acting before the payment posts is the only way to avoid the fee."
+      },
+      "retry_variants": [
+        {
+          "prompt": "What's the single most effective habit to avoid overdrafts?",
+          "options": [
+            "Keep overdraft protection on so payments always clear",
+            "Check your available balance and upcoming auto-payments before spending",
+            "Only use cash so debit card overdrafts can't happen",
+            "Keep at least $1,000 in savings as a backup"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "fe6",
+      "type": "multiple_choice",
+      "question": "Anya just started her first job and opened her first bank account. She has $2,800: $1,200 for monthly bills, $600 for spending, and $1,000 she won't need for at least 3 months. Her bank offers free checking and a savings account at 2% APY. What's the best allocation?",
+      "options": [
+        "All in checking — she's new to banking and one account is simpler",
+        "$1,800 in checking (bills + spending), $1,000 in savings — the unused money earns interest and is harder to spend accidentally",
+        "$1,000 in checking, $1,800 in savings — as much as possible should earn interest",
+        "Split evenly at $1,400 in each account"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. $1,200 in bills and $600 in spending need to be in checking — they require debit card access this month. The $1,000 she won't touch for three months earns $20 in interest sitting in savings and is less likely to get spent accidentally.",
+        "incorrect": "The $1,200 in bills and $600 in spending need debit card access — they belong in checking. Putting the $1,000 she won't need for three months into savings earns 2% APY ($20/year) and creates a barrier that keeps it from disappearing into daily spending. Keeping all $2,800 in checking leaves $1,000 earning nothing; putting too much in savings risks not having enough in checking for bills and groceries."
+      },
+      "retry_variants": [
+        {
+          "prompt": "Your friend argues that savings interest is 'basically nothing.' At 2% APY, how much does $1,000 in savings earn per year?",
+          "options": ["$2", "$20", "$200", "$2,000"],
+          "correct_answer": 1
+        }
+      ]
+    }
+  ]
 }
