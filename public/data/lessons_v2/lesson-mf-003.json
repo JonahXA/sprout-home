@@ -3,6 +3,621 @@
   "title": "Spending & Financial Behavior",
   "module": "module-mf",
   "duration_minutes": 20,
-  "locked": true,
-  "sections": []
+  "locked": false,
+  "steps": [
+    {
+      "id": "learn-1",
+      "type": "learn",
+      "heading": "Needs vs. Wants — and the Gray Area",
+      "body": "A need is something required for basic survival and functioning: housing, food, utilities, transportation to work, health care. A want is something that improves your life but isn't strictly necessary: streaming subscriptions, restaurants, new clothes beyond what's essential, upgrading to a newer phone. In practice, the line isn't always clean. High-speed internet might feel optional, but if your job requires remote work or your kids need it for school, it functions as a need. The test isn't 'do I want this?' — everyone wants everything they buy. The test is: 'does my life break down if I cut this?' Expenses that would genuinely harm your work, health, or family if removed are needs. Everything else is a want — even if it's a very reasonable one. The distinction matters because needs get prioritized before wants when money is tight. Understanding which is which lets you make cuts in the right direction instead of eliminating necessities first."
+    },
+    {
+      "id": "s1",
+      "type": "multiple_choice",
+      "prompt": "Renata works remotely and her company requires her to be online during business hours. She's considering canceling her $60/month home internet to save money. Which category does home internet fall into for Renata?",
+      "options": [
+        "A want — internet is a luxury, not a basic necessity",
+        "A need — without it, she cannot perform her job and would lose her income",
+        "A want — she could use the library's WiFi instead",
+        "A need only if her employer pays for it"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. Context determines the category. Home internet is a functional requirement for Renata's income — cutting it would threaten her job, which makes it a need in her situation even though it isn't one universally.",
+        "incorrect": "The category depends on Renata's specific situation, not on the expense in the abstract. Internet is a luxury for someone without a remote-work requirement, but for Renata it's directly tied to her income. Canceling it risks her job. That makes it a need — even though the same expense would be a want for someone else."
+      },
+      "hint": "Ask: if she cuts this, does her ability to earn income break down?",
+      "retry_variants": [
+        {
+          "prompt": "Damien spends $14/month on a music streaming service. He listens during his commute every day. Which category is this?",
+          "options": [
+            "A need — he uses it daily",
+            "A want — he could listen to free radio or podcasts instead",
+            "A need — entertainment supports mental health",
+            "A need — $14 is too small to count as discretionary"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which of these is most likely a need rather than a want?",
+          "options": [
+            "A gym membership for stress relief",
+            "Monthly parking near your workplace where no transit exists",
+            "A coffee subscription that ships premium beans monthly",
+            "A new jacket for an upcoming vacation"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "type": "multiple_choice",
+      "prompt": "Priya earns $2,800/month take-home. She pays $900 rent, $200 utilities, $300 groceries, and $100 for a transit pass. The remaining $1,300 goes toward dining out, new clothes, streaming services, and weekend activities. Roughly how much of her income goes to wants?",
+      "options": [
+        "About 18% — most of her spending is essential",
+        "About 46% — just under half",
+        "About 32% — a moderate amount",
+        "About 60% — the majority of her take-home"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. $1,300 of $2,800 is 46%. Knowing your actual want-spending percentage is the first step to making informed trade-offs — you can't make intentional decisions about money you haven't categorized.",
+        "incorrect": "$900 + $200 + $300 + $100 = $1,500 in needs. $2,800 − $1,500 = $1,300 going to wants. $1,300 ÷ $2,800 ≈ 46%. Understanding your ratio of needs-to-wants spending is foundational — it tells you how much room you have to maneuver before a budget becomes impossible to cut."
+      },
+      "hint": "Add up the needs first, then see what's left.",
+      "retry_variants": [
+        {
+          "prompt": "Carlos earns $3,000/month take-home. He spends $1,200 on rent, $250 on groceries, $80 on bus fare, and $100 on his phone plan. Everything else goes to dining, clothing, and entertainment. What fraction of his income is want-spending?",
+          "options": [
+            "About 21%",
+            "About 45%",
+            "About 33%",
+            "About 60%"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "If your monthly take-home is $2,400 and your needs total $1,440, what percentage of your income is available for wants and savings?",
+          "options": ["30%", "40%", "50%", "60%"],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "learn-2",
+      "type": "learn",
+      "heading": "Why We Overspend",
+      "body": "Spending decisions aren't purely logical — they're driven by psychology. Three patterns cause most overspending: **Present bias** is the tendency to prefer immediate rewards over future ones. A $5 coffee now feels worth more than the $5 in your savings account next month, even if you logically know the savings matter more. This is why good intentions don't always translate into good spending behavior. **Social comparison** is spending influenced by what people around you have or do. When a coworker gets a new phone or your friend group goes on expensive trips, the pressure to match that standard creates real spending that isn't in your budget. You're not buying the phone — you're buying the feeling of belonging or status. **Rationalization** is the story we tell ourselves to justify a purchase we already want to make: 'I deserve it,' 'I've been so good lately,' 'it was on sale.' These stories aren't lies — they feel completely true. But they're constructed after the desire, not before it. Recognizing which pattern is active when you're about to spend is the first skill in behavioral finance."
+    },
+    {
+      "id": "s3",
+      "type": "multiple_choice",
+      "prompt": "Jasmine sees a $220 jacket online and doesn't buy it. Two days later she's still thinking about it, adds it to her cart, and notices a banner: 'Only 2 left in stock.' She buys it immediately. Which behavioral pattern is driving the final purchase?",
+      "options": [
+        "Social comparison — she wants to match peers who own similar clothes",
+        "Present bias combined with scarcity pressure — the urgency makes the immediate cost feel smaller than it is",
+        "Rationalization — she's telling herself she needs a jacket",
+        "None — scarcity information is rational and justifies the decision"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. She'd already resisted for two days, which means present bias alone wasn't enough. The 'only 2 left' banner created artificial urgency that made the future cost feel less real than the immediate risk of missing out. This is a common retail manipulation that converts hesitation into a purchase.",
+        "incorrect": "The scarcity banner is the key detail. It's a retail technique that converts indecision into urgency by making you feel that a future purchase will be impossible. Combined with the desire she'd already built over two days, it triggers present-biased decision-making: the fear of 'losing' the jacket now outweighs her two-day resistance. The information itself may be true, but the emotional response it creates isn't rational."
+      },
+      "hint": "She resisted for two days — what changed in the moment of purchase?",
+      "retry_variants": [
+        {
+          "prompt": "Why do 'limited-time offer' sales tactics work so effectively?",
+          "options": [
+            "They give shoppers accurate information that helps them make better decisions",
+            "They create urgency that makes the immediate purchase feel more important than saving the money",
+            "They only work on impulsive people, not careful budgeters",
+            "They lower the actual price, making the purchase genuinely rational"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Present bias best describes which spending behavior?",
+          "options": [
+            "Buying a premium phone because friends have the same model",
+            "Telling yourself you 'deserve' a vacation after working hard",
+            "Spending your savings now instead of letting them grow for a future goal",
+            "Comparing your wardrobe to a coworker's and feeling like yours is inadequate"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "type": "multiple_choice",
+      "prompt": "Daniel's budget has $80 left at the end of each month. His coworker just bought a $950 phone and shows it off at lunch. That evening Daniel orders the same model on his credit card, telling himself he'll pay it off 'over a couple months.' Which pattern is primarily driving his decision?",
+      "options": [
+        "Present bias — he's prioritizing the reward now over future financial health",
+        "Social comparison — he's spending to match a social standard he's observed",
+        "Rationalization — the installment plan makes him believe it's responsible",
+        "All three equally"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. The trigger was the coworker's purchase, not a pre-existing need for a phone. Social comparison created the desire; the installment story (rationalization) gave him permission. But the root cause was the social signal. Recognizing the trigger is what lets you pause before acting on it.",
+        "incorrect": "The trigger matters for diagnosis. Daniel didn't think about a new phone until his coworker showed one off at lunch. The decision was driven by wanting what someone else has — that's social comparison. The 'I'll pay it off in a couple months' story is rationalization that comes after the social trigger, not before. Both are present, but social comparison is what started the chain."
+      },
+      "hint": "What happened right before Daniel had the urge to buy?",
+      "retry_variants": [
+        {
+          "prompt": "Which of the following is the clearest example of social comparison spending?",
+          "options": [
+            "Buying concert tickets because you've been saving up for months",
+            "Upgrading your car because your new neighborhood has mostly luxury vehicles",
+            "Splurging on a restaurant because you had a stressful week",
+            "Buying a tool you need for a home repair project"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Tara tells herself 'I've been so responsible lately — I deserve this $300 spa day.' Which behavioral pattern does this describe?",
+          "options": [
+            "Present bias",
+            "Social comparison",
+            "Rationalization",
+            "Analysis paralysis"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "type": "multiple_choice",
+      "prompt": "A financial coach says: 'The biggest risk isn't big purchases — it's the small recurring ones you never notice.' Your manager disagrees: 'As long as you can pay your bills and feel good about your money, small spending doesn't matter.' Who is right, and why?",
+      "options": [
+        "The manager — if bills are paid and you feel financially stable, small purchases are irrelevant",
+        "The coach — small recurring purchases compound across months and years into amounts that match or exceed large purchases",
+        "Both equally — it depends entirely on your income level",
+        "The manager — the psychological benefit of small treats offsets the cost"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. A $14 streaming service + $8 music app + $12 gaming subscription + $6 news app = $40/month that most people couldn't name without checking their statements. Across a year that's $480. The coach's insight is that these subscriptions are invisible precisely because they're small — and that invisibility is what makes them dangerous, not the individual amounts.",
+        "incorrect": "The manager's logic sounds reasonable but has a flaw: 'feeling stable' doesn't mean you're actually measuring your spending. Small recurring costs are dangerous because they're below the attention threshold — no one carefully considers a $6 charge. Four of those is $24/month, $288/year, with no single decision that felt significant. The coach is identifying a real pattern: spending below the level of conscious attention."
+      },
+      "hint": "Think about what happens to $15/month across 12 months — and then multiply by the number of subscriptions most people carry.",
+      "retry_variants": [
+        {
+          "prompt": "You have 6 active subscriptions averaging $11/month each. You haven't reviewed them in 18 months. What is the most accurate financial concern here?",
+          "options": [
+            "None — $11 is below any threshold that matters",
+            "$66/month or $792/year may include services you no longer use or value",
+            "You should cancel all subscriptions since none are needs",
+            "The concern only matters if your income is below $40,000"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which scenario represents the 'small spending blindspot' the financial coach is describing?",
+          "options": [
+            "Buying a $1,200 laptop you budgeted for over three months",
+            "Paying $3 in ATM fees every week for a year ($156 total) without noticing",
+            "Spending $200 on groceries weekly, tracked in a budget spreadsheet",
+            "Making a $500 car repair you knew was coming"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "learn-3",
+      "type": "learn",
+      "heading": "Lifestyle Creep",
+      "body": "Lifestyle creep is what happens when your spending rises in proportion to your income, leaving your savings rate unchanged even as you earn more. You get a raise, and within a few months you're eating at nicer restaurants, paying more for rent, and buying things you would have skipped before. Nothing feels extravagant — each upgrade seems reasonable for your new income level. But the net result is that $500/month raise translates to $480/month in new spending and only $20 in new savings. This happens gradually and invisibly, which is what makes it so persistent. The mechanism is psychological: when income rises, your reference point for 'reasonable' spending shifts upward. A $15 lunch that seemed excessive at $35,000/year seems fine at $60,000/year, even though you're spending the exact same dollars. The antidote is to automate savings increases before lifestyle adjusts. If you automatically move $200 of a $500 raise into savings the first month, you adapt to living on $300 more instead of $500 more — and the savings gap is locked in before your spending baseline shifts."
+    },
+    {
+      "id": "s6",
+      "type": "numeric_input",
+      "prompt": "Aisha earned $3,200/month and saved $320/month (a 10% savings rate). She got a promotion that raised her take-home to $3,900/month. After six months, she tracks her spending and finds she's now saving $390/month. How many dollars did lifestyle creep absorb from her $700 raise?",
+      "correct_answer": 630,
+      "tolerance": 5,
+      "unit": "dollars",
+      "feedback": {
+        "correct": "Correct. Her savings went from $320 to $390 — an increase of $70. But her income went up by $700. That means $700 − $70 = $630 went to lifestyle expansion. Her savings rate is still 10%, which means the raise gave her more money but didn't improve her financial position relative to her income.",
+        "incorrect": "Her raise was $700/month ($3,900 − $3,200). Her savings went from $320 to $390 — up by $70. $700 raise − $70 more in savings = $630 absorbed by new spending. Despite earning significantly more, her savings rate stayed at exactly 10%. Lifestyle creep left her no closer to financial independence than before the promotion."
+      },
+      "hint": "Calculate the raise amount, then calculate how much more she's actually saving.",
+      "retry_variants": [
+        {
+          "type": "numeric_input",
+          "prompt": "Marcus earned $2,800/month and saved $280/month. After a raise, he earns $3,500/month and now saves $315/month. How many dollars did lifestyle creep absorb from his $700 raise?",
+          "correct_answer": 665,
+          "tolerance": 5,
+          "unit": "dollars"
+        },
+        {
+          "type": "numeric_input",
+          "prompt": "If someone gets a $600/month raise and their savings increase by $60/month, what percentage of their raise went to lifestyle expansion?",
+          "correct_answer": 90,
+          "tolerance": 1,
+          "unit": "percent"
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "type": "multiple_choice",
+      "prompt": "Kenji earned $38,000/year and ate lunch at work for $6 most days. After a promotion to $62,000/year, he now routinely spends $14 on lunch because 'he can afford it now.' After 2 years at the higher salary, he has the same amount in savings as when he was earning $38,000. What best describes what happened?",
+      "options": [
+        "Kenji made a series of deliberate spending upgrades that he budgeted for",
+        "Lifestyle creep — his spending reference point shifted with income, consuming the financial gains from the promotion",
+        "Normal behavior — higher income should produce higher spending",
+        "Social comparison — he changed his lunch to match coworkers at his level"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. Kenji's savings are identical despite $24,000/year more in income. His daily $8 extra on lunch is $2,000/year — and that's one of many small spending shifts that individually seemed reasonable. Together, they consumed an entire promotion's worth of financial progress. He's not saving more because his spending reference point rose with his income.",
+        "incorrect": "The diagnostic clue is that his savings haven't grown despite earning $24,000/year more. Each individual upgrade seemed reasonable — $14 for lunch is not extravagant at $62,000/year. But when every category shifts upward at the same time, the net result is that the raise never reached savings. This is the defining feature of lifestyle creep: it doesn't feel like overspending, because each decision is locally justified."
+      },
+      "hint": "Focus on what happened to his total savings, not whether any single spending decision was unreasonable.",
+      "retry_variants": [
+        {
+          "prompt": "Which of the following is the most reliable way to prevent lifestyle creep after a raise?",
+          "options": [
+            "Promise yourself to spend the raise 'wisely' without a specific plan",
+            "Automatically increase savings transfers on the day the new salary begins, before your spending adjusts",
+            "Wait six months and review what you spent, then make changes",
+            "Avoid any lifestyle upgrades for at least one year after the raise"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Someone earns more money every year but never increases their savings. What is the most likely explanation?",
+          "options": [
+            "They have high fixed costs that grow with inflation",
+            "They are deliberately investing instead of saving",
+            "Lifestyle creep is absorbing income increases before they reach savings",
+            "They don't have a bank account"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "type": "multiple_choice",
+      "prompt": "Your colleague says: 'I'm not worried about saving right now — once I'm making more money, I'll automatically save more.' What's wrong with this reasoning?",
+      "options": [
+        "Nothing — higher income does reliably produce higher savings",
+        "Income increases tend to be absorbed by rising spending before savings can capture them, so 'later' savings often don't materialize",
+        "It's only wrong if she has debt — otherwise, waiting makes sense",
+        "It's a smart strategy as long as she plans to increase income by at least 20%"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. 'I'll save more when I earn more' is one of the most common and most expensive financial misconceptions. People who earn $80,000 often save the same percentage as when they earned $45,000 — because spending adapts upward just as reliably as income grows. Without an explicit decision to capture savings first, lifestyle creep takes the difference.",
+        "incorrect": "The flaw is in the word 'automatically.' Saving more doesn't happen on its own when income rises — spending rises automatically. Studies consistently show that savings rates don't improve with income unless people deliberately redirect the increase before their lifestyle adjusts. 'Later' is a plan that lifestyle creep wins every time without a specific mechanism to intercept the raise."
+      },
+      "hint": "What does lifestyle creep research say about the relationship between income increases and savings?",
+      "retry_variants": [
+        {
+          "prompt": "Research on savings behavior shows that as people earn more, they tend to:",
+          "options": [
+            "Save a larger percentage of income because more is available",
+            "Save about the same percentage, with spending rising in proportion to income",
+            "Save less, because higher income leads to higher fixed costs",
+            "Save more only if they have a financial advisor"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "What is the most effective way to ensure a raise actually increases your savings?",
+          "options": [
+            "Set a mental intention to be more disciplined after the raise",
+            "Automate a savings increase to take effect on the first day the new paycheck arrives",
+            "Wait two months and review your bank statements to see what changed",
+            "Spend the raise fully for one month to 'test' what you actually need"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "learn-4",
+      "type": "learn",
+      "heading": "High-Impact vs. Low-Impact Spending",
+      "body": "Not all spending decisions are created equal. Housing, transportation, and food are the three largest expense categories for most households — they determine whether a budget is fundamentally workable or not. A $200/month saving on rent is worth more than eliminating every small discretionary purchase. This is called the 'big rocks' principle: if you optimize large fixed costs first, the rest of your budget has room to breathe. Small spending cuts — skipping a daily coffee, canceling one streaming service — make people feel virtuous but rarely move the needle enough to matter. Cutting $15/month from subscriptions saves $180/year. Negotiating a $150/month reduction in rent saves $1,800/year. Both require about the same cognitive effort, but the impact is 10× different. This doesn't mean small spending doesn't matter — it means the order of operations matters. Get the big rocks right first. Then the small decisions become genuine adjustments, not survival tactics."
+    },
+    {
+      "id": "s9",
+      "type": "multiple_choice",
+      "prompt": "Yusuf wants to save $2,400 more per year. He's considering: (A) canceling his $12/month streaming service, (B) reducing restaurant spending from $350/month to $200/month, (C) finding a roommate and splitting rent to save $300/month. Which option achieves his goal on its own?",
+      "options": [
+        "Option A — eliminating all streaming is the most disciplined choice",
+        "Option B — $150/month less in restaurants hits $1,800/year",
+        "Option C — saving $300/month on rent equals $3,600/year",
+        "None of the options reaches $2,400/year alone"
+      ],
+      "correct_answer": 2,
+      "feedback": {
+        "correct": "Correct. Option C is the only one that reaches — and exceeds — $2,400/year on its own. Option A saves $144/year. Option B saves $1,800/year. Housing is the single largest lever in most budgets. A $300/month savings on rent produces more in a year than canceling every subscription most people have.",
+        "incorrect": "Option A saves $12 × 12 = $144/year. Option B saves $150 × 12 = $1,800/year. Option C saves $300 × 12 = $3,600/year. Only Option C clears $2,400/year — the goal — and it's nearly 25× more effective than canceling a streaming service. The principle is that housing decisions have order-of-magnitude more impact than small discretionary cuts."
+      },
+      "hint": "Calculate the annual savings from each option, then compare to the $2,400 goal.",
+      "retry_variants": [
+        {
+          "prompt": "Which change would save the most money over one year?",
+          "options": [
+            "Canceling a $10/month gym membership",
+            "Reducing your daily coffee spend by $3/day (260 working days/year)",
+            "Moving closer to work and reducing a $280/month car payment to $130/month",
+            "Switching from name-brand to store-brand groceries (estimated $40/month savings)"
+          ],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "According to the 'big rocks' principle, what should you optimize first when trying to improve your financial position?",
+          "options": [
+            "Daily discretionary spending like coffee and lunch",
+            "Entertainment and subscription costs",
+            "Large fixed costs like housing and transportation",
+            "The cheapest items first, since they're easier to change"
+          ],
+          "correct_answer": 2
+        }
+      ]
+    },
+    {
+      "id": "s10",
+      "type": "numeric_input",
+      "prompt": "Simone buys a $4.50 coffee every weekday (250 working days/year) and a $9 lunch 4 days per week (200 days/year). She could make coffee at home for $0.50/cup and pack lunch for $3. How many dollars would she save per year by switching both?",
+      "correct_answer": 2200,
+      "tolerance": 50,
+      "unit": "dollars",
+      "feedback": {
+        "correct": "Correct. Coffee savings: ($4.50 − $0.50) × 250 = $1,000/year. Lunch savings: ($9 − $3) × 200 = $1,200/year. Total: $2,200/year. That's a real number — not a rounding error. Whether it's worth the trade-off is a personal decision, but the annual impact should be a conscious choice, not invisible.",
+        "incorrect": "Coffee savings: ($4.50 − $0.50) × 250 = $4.00 × 250 = $1,000/year. Lunch savings: ($9.00 − $3.00) × 200 = $6.00 × 200 = $1,200/year. Total: $2,200/year. The point isn't to eliminate enjoyable spending — it's to know what it costs annually before deciding it's worth it. $2,200 in conscious savings is very different from $2,200 spent without awareness."
+      },
+      "hint": "Calculate each separately: (cost difference) × (number of days). Then add them.",
+      "retry_variants": [
+        {
+          "type": "numeric_input",
+          "prompt": "Omar buys a $3.50 coffee 5 days a week for 50 weeks a year. If he switches to making it at home for $0.75/cup, how much does he save annually?",
+          "correct_answer": 138,
+          "tolerance": 5,
+          "unit": "dollars"
+        },
+        {
+          "type": "numeric_input",
+          "prompt": "You spend $180/month on dining out. You decide to cut this to $80/month. How much do you save in one year?",
+          "correct_answer": 1200,
+          "tolerance": 10,
+          "unit": "dollars"
+        }
+      ]
+    },
+    {
+      "id": "s11",
+      "type": "multiple_choice",
+      "prompt": "Brianna earns $4,000/month and has optimized her housing and transportation costs down to $1,700 combined. She spends $300/month on dining and entertainment she genuinely values. Nathan earns $4,200/month but lives in an apartment that costs $2,400 alone, and spends very little on discretionary items. At the end of each month, who likely saves more?",
+      "options": [
+        "Nathan — he earns more and avoids 'frivolous' spending",
+        "Brianna — her lower fixed costs leave more room regardless of her discretionary spending",
+        "They save the same — income differences cancel out spending differences",
+        "Nathan — rent is an investment in stability, which has financial value"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. Brianna's big rocks (housing + transport) are $1,700. Even with $300 in discretionary spending she has $2,000 left for savings and other costs. Nathan's rent alone is $2,400 — $1,800 more than Brianna's combined housing and transportation. His small-item discipline can't offset that gap. Fixed costs determine the floor; discretionary spending is the fine-tuning layer.",
+        "incorrect": "Nathan earns $200 more/month but spends $700 more/month on rent alone ($2,400 vs. Brianna's housing share). That's a $500/month structural disadvantage that his minor income edge can't close. Brianna's 'frivolous' $300 in dining is irrelevant compared to the housing gap. The lesson: get fixed costs right first, then manage discretionary spending — not the other way around."
+      },
+      "hint": "Compare their largest fixed costs before looking at anything else.",
+      "retry_variants": [
+        {
+          "prompt": "Why does the 'big rocks first' principle prioritize housing over subscription costs?",
+          "options": [
+            "Housing is more emotionally important than other expenses",
+            "A $200 monthly housing savings is the same as eliminating 20 $10 subscriptions — but much easier to achieve once",
+            "Subscriptions are always optional, while housing is always a need",
+            "Banks treat housing expenses differently from other spending"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which person has the most financially optimized budget structure?",
+          "options": [
+            "Alex: $1,800 rent, no subscriptions, $600 groceries, drives 45 minutes to work",
+            "Jordan: $1,100 rent near transit, $80 transit pass, $60 in streaming/apps, $400 groceries",
+            "Casey: $2,200 rent, cuts every non-essential purchase, earns $5,500/month",
+            "Taylor: $1,600 rent, $400 car payment, eliminates all dining out"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "learn-5",
+      "type": "learn",
+      "heading": "Spending Categories: The 50/30/20 Framework",
+      "body": "The 50/30/20 rule is a starting framework for how to allocate your take-home pay: 50% to needs (housing, food, utilities, transportation, minimum debt payments), 30% to wants (dining, entertainment, subscriptions, travel, shopping), and 20% to financial goals (emergency fund, savings, investing, extra debt payments). This ratio isn't a rigid rule — it's a diagnostic. If you're spending 70% on needs, your cost of living may be too high for your income and you need to reduce fixed costs or increase income, not cut subscriptions. If you're spending 5% on financial goals, no amount of budgeting discipline on the wants side will build real wealth. The 50/30/20 split is most useful as a check: run your actual spending through it and see where you're out of proportion. Most people who've never done this discover their needs percentage is higher than they thought, their wants are roughly right, and their financial goals are lower than they intended. That's the gap that compounding eventually makes extremely costly."
+    },
+    {
+      "id": "s12",
+      "type": "matching",
+      "prompt": "Match each expense to its 50/30/20 category.",
+      "pairs": [
+        { "left": "Monthly rent", "right": "Needs (50%)" },
+        { "left": "Netflix subscription", "right": "Wants (30%)" },
+        { "left": "Monthly Roth IRA contribution", "right": "Financial goals (20%)" },
+        { "left": "Grocery bill", "right": "Needs (50%)" },
+        { "left": "Weekend dining out", "right": "Wants (30%)" },
+        { "left": "Extra payment on student loan", "right": "Financial goals (20%)" }
+      ],
+      "feedback": {
+        "correct": "Correct. Needs are essentials you must pay to function. Wants are chosen for enjoyment or convenience. Financial goals are proactive wealth-building moves — savings, investments, and debt reduction beyond minimums.",
+        "incorrect": "The key distinction: needs are things your life breaks down without (rent, groceries). Wants are things you choose for enjoyment (Netflix, restaurants). Financial goals are decisions that build your future (retirement contributions, extra debt payments)."
+      }
+    },
+    {
+      "id": "s13",
+      "type": "numeric_input",
+      "prompt": "Tomás takes home $3,200/month. Under the 50/30/20 rule, how many dollars should he target for financial goals (savings, investing, extra debt repayment) each month?",
+      "correct_answer": 640,
+      "tolerance": 5,
+      "unit": "dollars",
+      "feedback": {
+        "correct": "Correct. 20% of $3,200 = $640/month for financial goals. At that rate, he'd direct $7,680/year toward savings and investing — a pace that compounds meaningfully over time.",
+        "incorrect": "$3,200 × 0.20 = $640/month for financial goals. This is 20% of take-home — the 'financial goals' bucket in the 50/30/20 rule. The purpose of naming this number explicitly is that most people never calculate it: they save 'what's left,' which is whatever lifestyle creep doesn't absorb."
+      },
+      "hint": "Financial goals = 20% of take-home. Multiply $3,200 by 0.20.",
+      "retry_variants": [
+        {
+          "type": "numeric_input",
+          "prompt": "Under 50/30/20, how much of a $2,800/month take-home should go to needs (50%)?",
+          "correct_answer": 1400,
+          "tolerance": 5,
+          "unit": "dollars"
+        },
+        {
+          "type": "numeric_input",
+          "prompt": "Someone earns $4,500/month take-home. They currently save $225/month. How many more dollars per month would they need to save to hit the 50/30/20 target for financial goals?",
+          "correct_answer": 675,
+          "tolerance": 10,
+          "unit": "dollars"
+        }
+      ]
+    },
+    {
+      "id": "s14",
+      "type": "multiple_choice",
+      "prompt": "Zoe earns $3,600/month take-home. Her actual spending: $2,100 on needs (58%), $1,050 on wants (29%), $450 on financial goals (12.5%). She asks you: 'My wants are fine — should I cut more subscriptions to hit 20% savings?' What should you tell her?",
+      "options": [
+        "Yes — her wants are 1% under target, so subscriptions are the right place to look",
+        "No — her needs are 8% over the 50% target. Cutting subscriptions won't close a gap driven by fixed costs. She needs to address housing or transportation first.",
+        "Yes — financial goals are below target, so all discretionary spending should be reduced",
+        "No — 12.5% savings is close enough to 20% that no action is needed"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Correct. Her wants are already under budget. The problem is needs at 58% — 8 percentage points over the 50% target. That's $288/month in excess fixed costs. Cutting subscriptions from the wants bucket won't fix a structural needs problem. She needs to reduce housing, transportation, or other fixed costs — or increase her income.",
+        "incorrect": "Zoe's wants are already in range (29% vs. 30% target). The diagnostic number is needs at 58% — 8% over target. $3,600 × 8% = $288/month in excess needs. Subscription cuts from her wants budget can't close a fixed-cost gap that large. The 50/30/20 framework is most useful when you look at which bucket is out of proportion — and in Zoe's case, it's clearly needs, not wants."
+      },
+      "hint": "Which of the three buckets is furthest from its target? Start there.",
+      "retry_variants": [
+        {
+          "prompt": "If someone's needs are consuming 65% of their take-home, what does the 50/30/20 framework suggest they should prioritize?",
+          "options": [
+            "Eliminate all wants spending until needs fall to 50%",
+            "Reduce fixed costs or increase income — their cost structure is too high for their income level",
+            "Increase financial goal contributions to offset the imbalance",
+            "The 50/30/20 rule doesn't apply when needs exceed 50%"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which insight does the 50/30/20 framework provide that a simple monthly budget does not?",
+          "options": [
+            "The exact dollar amount to spend in each category",
+            "A proportional check that reveals whether your cost structure is fundamentally aligned with your income",
+            "A list of which expenses to eliminate first",
+            "The correct savings interest rate to target"
+          ],
+          "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "final_eval",
+      "type": "final_eval",
+      "heading": "Final Evaluation",
+      "questions": [
+        {
+          "id": "fe1",
+          "type": "multiple_choice",
+          "prompt": "Eliana works from home three days per week and needs reliable internet for video calls with clients. She's considering canceling her $55/month plan to save money. How should she categorize home internet in her budget?",
+          "options": [
+            "A want — internet is not a basic survival need",
+            "A need — it's directly required for her income-generating work",
+            "A want — she could use her phone's hotspot instead",
+            "A need only if her employer provides a stipend for it"
+          ],
+          "correct_answer": 1,
+          "feedback": {
+            "correct": "Correct. The category follows function, not abstract classification. Internet that is directly required for client-facing work functions as a need — cutting it would damage her income.",
+            "incorrect": "Needs are defined by whether your life or livelihood breaks down without them — not by whether the expense is universally essential. Eliana's internet is required for her client work, which makes it a functional need in her specific situation."
+          }
+        },
+        {
+          "id": "fe2",
+          "type": "multiple_choice",
+          "prompt": "After getting a $1,500 bonus, Kai tells himself: 'I've been so disciplined all year — I deserve to spend this on a weekend trip.' He books the trip the same evening. Which behavioral pattern is most responsible for the decision?",
+          "options": [
+            "Present bias — he's choosing immediate reward over future savings",
+            "Lifestyle creep — his spending baseline is rising with the bonus",
+            "Rationalization — he constructed a justification after the desire to spend existed",
+            "Social comparison — he's matching behavior he's observed in peers"
+          ],
+          "correct_answer": 2,
+          "feedback": {
+            "correct": "Correct. The 'I deserve it' framing is the classic rationalization pattern — it's a story constructed after the desire, not a reason that caused the desire. Recognizing the pattern doesn't mean the spending is wrong; it means the decision deserves to be made consciously rather than driven by a feeling-as-justification loop.",
+            "incorrect": "The tell is the 'I deserve it' phrasing. That's a justification built after the spending impulse already exists — which is the definition of rationalization. Present bias would look like 'I want this now rather than later.' Social comparison would involve a reference to someone else's behavior. Lifestyle creep happens over time, not in a single decision."
+          }
+        },
+        {
+          "id": "fe3",
+          "type": "numeric_input",
+          "prompt": "Devon earned $2,600/month and saved $260/month (10%). After a raise, he earns $3,400/month. Two months later, he reviews his spending and is saving $306/month. How much of his $800 raise did lifestyle creep absorb?",
+          "correct_answer": 754,
+          "tolerance": 10,
+          "unit": "dollars",
+          "feedback": {
+            "correct": "Correct. His savings increased by $46/month ($306 − $260). His income increased by $800/month. $800 − $46 = $754 absorbed by lifestyle expansion. His savings rate is still 9% — essentially unchanged. The raise improved his life but not his financial trajectory.",
+            "incorrect": "Raise: $3,400 − $2,600 = $800. Savings increase: $306 − $260 = $46. Lifestyle creep absorbed: $800 − $46 = $754. Despite an $800/month raise, only $46 more is reaching savings — 5.75% of the raise. The other 94% silently expanded his spending baseline."
+          }
+        },
+        {
+          "id": "fe4",
+          "type": "numeric_input",
+          "prompt": "Fatima buys a $6 coffee and a $10 sandwich 5 days per week, 48 weeks per year. She could make both at home for a combined $2.50/day. How much would she save annually by switching?",
+          "correct_answer": 3240,
+          "tolerance": 50,
+          "unit": "dollars",
+          "feedback": {
+            "correct": "Correct. Daily cost difference: ($6 + $10) − $2.50 = $13.50. Days per year: 5 × 48 = 240. Savings: $13.50 × 240 = $3,240/year. Whether that trade-off is worth it is a personal decision — but knowing the annual number makes it a genuine choice rather than an unconscious habit.",
+            "incorrect": "Daily cost: $6 + $10 = $16. Home cost: $2.50. Difference: $13.50/day. Days: 5 × 48 = 240/year. Annual savings: $13.50 × 240 = $3,240. The point isn't to eliminate the habit — it's to know the real annual cost before deciding whether it's worth it."
+          }
+        },
+        {
+          "id": "fe5",
+          "type": "multiple_choice",
+          "prompt": "Victor earns $4,200/month take-home. His spending: needs $2,400 (57%), wants $1,200 (29%), savings $600 (14%). He wants to increase savings to 20%. His advisor suggests he look at his needs first before cutting any wants. Why is this the right call?",
+          "options": [
+            "Because wants spending is too low to cut further at 29%",
+            "Because his needs are 7% over the 50% target — that gap ($294/month) is larger than what eliminating all wants could achieve at 29%",
+            "Because the 50/30/20 rule requires addressing needs before wants",
+            "Because savings rate only improves when fixed costs are reduced, not when wants are reduced"
+          ],
+          "correct_answer": 1,
+          "feedback": {
+            "correct": "Correct. Needs at 57% means $4,200 × 7% = $294/month in excess fixed costs. To reach 20% savings, Victor needs $840/month — he's currently at $600, a $240 gap. The excess needs are directly blocking the savings target. Cutting wants that are already in range won't solve a fixed-cost structural problem.",
+            "incorrect": "Victor's wants are at 29% — already within the 30% target. The over-allocation is in needs (57% vs. 50% target). $4,200 × 7% = $294/month excess in needs. His savings gap ($840 − $600 = $240) is directly caused by fixed costs that are too high, not by wants that are too high. The 50/30/20 framework's diagnostic value is identifying which bucket is off — and here it's clearly needs."
+          }
+        },
+        {
+          "id": "fe6",
+          "type": "multiple_choice",
+          "prompt": "Mia earns $3,000/month. Her spending: rent $1,350, utilities $150, groceries $300, transit $80, phone $45 (needs total: $1,925 = 64%). Dining and entertainment: $500 (17%). Savings: $575 (19%). She asks: 'Should I cut dining to hit 20% savings?' What is the correct analysis?",
+          "options": [
+            "Yes — dining at 17% is high and should be reduced to close the savings gap",
+            "No — her savings are already close to 20% and her wants are under 30%. The structural issue is needs at 64%, which requires a housing or cost-of-living fix, not a dining cut.",
+            "Yes — any wants spending above 15% should be eliminated when savings are below 20%",
+            "No — her savings rate is fine and no changes are needed"
+          ],
+          "correct_answer": 1,
+          "feedback": {
+            "correct": "Correct. Mia's savings are $575/month (19%) — she's $15 from the 20% target on the savings side. But her needs are 64% — 14 points above target. Cutting dining from $500 to $440 would get her to $640 in savings and hit the target numerically, but it doesn't address why 64% of her income is going to needs. That's the real structural problem. She should focus on reducing rent or other fixed costs.",
+            "incorrect": "Mia is $15/month from the 20% savings target — cutting dining slightly would technically work on paper. But the real signal is needs at 64% vs. a 50% target. That's 14 points over — driven by $1,350 rent on a $3,000 take-home (45% on rent alone). Cutting dining treats the symptom; addressing rent treats the cause. The 50/30/20 framework reveals that her cost structure is the primary problem."
+          }
+        }
+      ]
+    }
+  ]
 }

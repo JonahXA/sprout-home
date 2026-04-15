@@ -9,7 +9,7 @@
       "lessons": [
         { "id": "lesson-mf-001", "title": "How Your Paycheck Works",       "duration_minutes": 25, "locked": false },
         { "id": "lesson-mf-002", "title": "Banking & Where Your Money Lives", "duration_minutes": 20, "locked": false },
-        { "id": "lesson-mf-003", "title": "Spending & Financial Behavior",  "duration_minutes": 20, "locked": true  },
+        { "id": "lesson-mf-003", "title": "Spending & Financial Behavior",  "duration_minutes": 20, "locked": false },
         { "id": "lesson-mf-004", "title": "Setting Financial Goals",        "duration_minutes": 18, "locked": true  }
       ]
     },
