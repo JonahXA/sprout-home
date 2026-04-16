@@ -12,6 +12,7 @@ import VisualEditAgent from "@/components/shared/VisualEditAgent";
 import NavigationTracker from "@/components/shared/NavigationTracker";
 import PageNotFound from "@/components/shared/PageNotFound";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
+import RoleSelectModal from "@/components/shared/RoleSelectModal";
 
 import { pagesConfig } from "../config/pages.config";
 import { createPageUrl } from "@/config/routes";
@@ -44,6 +45,8 @@ function AuthGate() {
  // Unauthenticated users will see the Home page (Dashboard)
  // Individual pages handle their own auth checks if needed
  return (
+ <>
+ <RoleSelectModal />
  <Routes>
  {/* Default route goes to main page (Dashboard/Home) */}
  <Route path="/" element={<Navigate to={createPageUrl(mainPageKey)} replace />} />
@@ -63,6 +66,7 @@ function AuthGate() {
 
  <Route path="*" element={<PageNotFound />} />
  </Routes>
+ </>
  );
 }
 

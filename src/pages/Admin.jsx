@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
  Users, TrendingUp, BookOpen, Trophy, Search, Shield,
- Mail, Zap, School, Brain, CheckCircle
+ Mail, Zap, School, Brain, CheckCircle, Activity
 } from "lucide-react";
 import { format } from "date-fns";
 import {
@@ -18,6 +18,11 @@ import {
  listSchools,
  listAllAIDayProgress,
 } from "@/services/auth";
+import { getTodayDAU } from "@/services/analytics";
+import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
+
+const ADMIN_EMAIL = "sproutnow.net@gmail.com";
+const isAdmin = (u) => u?.email === ADMIN_EMAIL || u?.role === "admin";
 
 export default function Admin() {
  const navigate = useNavigate();
@@ -29,7 +34,7 @@ export default function Admin() {
  const checkAuth = async () => {
  try {
  const currentUser = await getCurrentUser();
- if (currentUser.role !== "admin") {
+ if (!isAdmin(currentUser)) {
  navigate(createPageUrl("Dashboard"));
  return;
  }
@@ -44,7 +49,7 @@ export default function Admin() {
  const { data: allUsers = [] } = useQuery({
  queryKey: ["admin-allUsers"],
  queryFn: listAllUsers,
- enabled: !!user && user.role === "admin",
+ enabled: !!user && isAdmin(user),
  });
 
  const { data: schools = [] } = useQuery({
@@ -56,26 +61,34 @@ export default function Admin() {
  const { data: allProgress = [] } = useQuery({
  queryKey: ["admin-allProgress"],
  queryFn: listAllUserProgress,
- enabled: !!user && user.role === "admin",
+ enabled: !!user && isAdmin(user),
  });
 
  const { data: allBadges = [] } = useQuery({
  queryKey: ["admin-allBadges"],
  queryFn: listAllUserBadges,
- enabled: !!user && user.role === "admin",
+ enabled: !!user && isAdmin(user),
  });
 
  const { data: allAIDayProgress = [] } = useQuery({
  queryKey: ["admin-aiDayProgress"],
  queryFn: listAllAIDayProgress,
- enabled: !!user && user.role === "admin",
+ enabled: !!user && isAdmin(user),
  });
 
- if (!user || user.role !== "admin") return null;
+ const { data: todayDAU = 0 } = useQuery({
+ queryKey: ["admin-todayDAU"],
+ queryFn: getTodayDAU,
+ enabled: !!user && isAdmin(user),
+ refetchInterval: 60_000,
+ });
+
+ if (!user || !isAdmin(user)) return null;
 
  const filteredUsers = allUsers.filter((u) =>
  u.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
  u.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+ u.phone?.toLowerCase().includes(searchQuery.toLowerCase()) ||
  u.school_id?.toLowerCase().includes(searchQuery.toLowerCase())
  );
 
@@ -109,7 +122,7 @@ export default function Admin() {
  </div>
 
  {/* Stats Grid */}
- <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+ <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
  <Card className="border-none shadow-lg bg-[#1B2B5E] text-white">
  <CardContent className="p-6">
  <Users className="w-8 h-8 mb-2" />
@@ -145,11 +158,18 @@ export default function Admin() {
  <p className="text-sm opacity-90">Avg XP / User</p>
  </CardContent>
  </Card>
+ <Card className="border-none shadow-lg bg-[#0891B2] text-white">
+ <CardContent className="p-6">
+ <Activity className="w-8 h-8 mb-2" />
+ <p className="text-3xl font-bold">{todayDAU}</p>
+ <p className="text-sm opacity-90">Active Today</p>
+ </CardContent>
+ </Card>
  </div>
 
  {/* Tabs */}
  <div className="flex gap-2 border-b border-gray-200">
- {["users", "ai-course", "schools"].map((tab) => (
+ {["users", "ai-course", "schools", "analytics"].map((tab) => (
  <button
  key={tab}
  onClick={() => setActiveTab(tab)}
@@ -159,7 +179,9 @@ export default function Admin() {
  : "border-transparent text-gray-500 hover:text-gray-800"
  }`}
  >
- {tab === "ai-course" ? "AI Course" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+ {tab === "ai-course" ? "AI Course"
+ : tab === "analytics" ? "Analytics"
+ : tab.charAt(0).toUpperCase() + tab.slice(1)}
  </button>
  ))}
  </div>
@@ -196,6 +218,7 @@ export default function Admin() {
  <tr className="border-b-2 border-gray-200">
  <th className="text-left py-4 px-4 font-semibold text-gray-700">User</th>
  <th className="text-left py-4 px-4 font-semibold text-gray-700">Email</th>
+ <th className="text-left py-4 px-4 font-semibold text-gray-700">Phone</th>
  <th className="text-left py-4 px-4 font-semibold text-gray-700">School</th>
  <th className="text-left py-4 px-4 font-semibold text-gray-700">Grade</th>
  <th className="text-left py-4 px-4 font-semibold text-gray-700">Level</th>
@@ -231,6 +254,9 @@ export default function Admin() {
  <Mail className="w-4 h-4" />
  <span className="text-sm">{u.email}</span>
  </div>
+ </td>
+ <td className="py-4 px-4">
+ <span className="text-sm text-gray-700">{u.phone || <span className="text-gray-400">-</span>}</span>
  </td>
  <td className="py-4 px-4">
  <div className="flex items-center gap-2">
@@ -345,6 +371,13 @@ export default function Admin() {
  </div>
  </CardContent>
  </Card>
+ )}
+
+ {/* Analytics Tab */}
+ {activeTab === "analytics" && (
+ <div>
+ <AnalyticsCharts />
+ </div>
  )}
 
  {/* Schools Tab */}

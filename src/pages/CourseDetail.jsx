@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/config/routes";
 import {
- ArrowLeft, Play, CheckCircle, Lock, Clock, Zap, BookOpen, Award, TrendingUp, Calculator,
+ ArrowLeft, Play, CheckCircle, Clock, Zap, BookOpen, Award, TrendingUp, Calculator,
 } from "lucide-react";
 
 const C = {
@@ -264,48 +264,36 @@ export default function CourseDetail() {
  (p) => String(p.lesson_id) === String(lesson.id) && p.completed
  );
 
- const isProgressiveCourse =
- course?.name === "Money Management Essentials" ||
- course?.name === "Smart Savings Strategies";
-
- const isLocked =
- isProgressiveCourse &&
- index > 0 &&
- !userProgress.find((p) => String(p.lesson_id) === String(lessons[index - 1]?.id) && p.completed) &&
- !isCompleted;
-
  return (
  <div
  key={lesson.id}
- onClick={() => !isLocked && navigate(createPageUrl(`Lesson?id=${lesson.id}`))}
+ onClick={() => navigate(createPageUrl(`Lesson?id=${lesson.id}`))}
  style={{
  display:"flex", alignItems:"center", justifyContent:"space-between", padding:"14px 16px",
  borderRadius:12, transition:"all 0.15s",
- background:isLocked ? C.bgSoft : C.bg,
- border:`1px solid ${isLocked ? C.border : "transparent"}`,
- opacity:isLocked ? 0.6 : 1,
- cursor:isLocked ? "not-allowed" : "pointer",
+ background:C.bg,
+ border:"1px solid transparent",
+ opacity:1,
+ cursor:"pointer",
  }}
- onMouseEnter={e => { if(!isLocked) { e.currentTarget.style.background = C.accentSoft; e.currentTarget.style.borderColor = C.accent; } }}
- onMouseLeave={e => { e.currentTarget.style.background = isLocked ? C.bgSoft : C.bg; e.currentTarget.style.borderColor = isLocked ? C.border : "transparent"; }}
+ onMouseEnter={e => { e.currentTarget.style.background = C.accentSoft; e.currentTarget.style.borderColor = C.accent; }}
+ onMouseLeave={e => { e.currentTarget.style.background = C.bg; e.currentTarget.style.borderColor = "transparent"; }}
  >
  <div style={{ display:"flex", alignItems:"center", gap:16 }}>
  <div style={{
  width:44, height:44, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0,
- background:isCompleted ? C.green : isLocked ? C.bgMid : C.navy,
+ background:isCompleted ? C.green : C.navy,
  }}>
- {isCompleted ? <CheckCircle size={22} color="#fff" /> : isLocked ? <Lock size={20} color={C.textMuted} /> : <span style={{ color:"#fff", fontWeight:800, fontSize:15 }}>{index + 1}</span>}
+ {isCompleted ? <CheckCircle size={22} color="#fff" /> : <span style={{ color:"#fff", fontWeight:800, fontSize:15 }}>{index + 1}</span>}
  </div>
  <div>
  <div style={{ fontWeight:700, color:C.text, fontSize:14, marginBottom:4 }}>{lesson.title}</div>
  <div style={{ display:"flex", alignItems:"center", gap:12, fontSize:12, color:C.textMuted }}>
  <span style={{ display:"flex", alignItems:"center", gap:4 }}><Clock size={11} />{lesson.duration_minutes} min</span>
- <span style={{ display:"flex", alignItems:"center", gap:4 }}>{lesson.duration_minutes} min</span>
  </div>
  </div>
  </div>
  {isCompleted && <span style={{ fontSize:11, fontWeight:700, color:C.green, background:C.greenSoft, padding:"3px 10px", borderRadius:999 }}>Completed</span>}
- {isLocked && <span style={{ fontSize:11, fontWeight:600, color:C.textMuted, background:C.bgMid, padding:"3px 10px", borderRadius:999, border:`1px solid ${C.border}` }}>Locked</span>}
  </div>
  );
  })}

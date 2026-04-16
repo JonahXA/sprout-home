@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, School, GraduationCap, LogOut, Edit, Check, Shield, ExternalLink } from "lucide-react";
+import { Mail, Phone, School, GraduationCap, LogOut, Edit, Check, Shield, ExternalLink, RefreshCw } from "lucide-react";
+import { useUserRole } from "@/components/shared/RoleSelectModal";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 
@@ -21,6 +22,7 @@ const capitalizeName = (name) =>
 export default function Account() {
  const navigate = useNavigate();
  const { user, loginUser, logout } = useAuth();
+ const { role: appRole, resetRole } = useUserRole();
 
  const [editing, setEditing] = useState(false);
  const [formData, setFormData] = useState({
@@ -223,6 +225,25 @@ export default function Account() {
  <p className="text-3xl font-bold text-orange-600">{user.longest_streak || 0} days</p>
  </div>
  </div>
+ </CardContent>
+ </Card>
+
+ {/* App Role */}
+ <Card className="border-none shadow-lg bg-white/80 backdrop-blur-sm">
+ <CardContent className="p-6 flex items-center justify-between gap-4">
+ <div>
+ <p className="font-semibold text-gray-900 text-sm">App Role</p>
+ <p className="text-gray-500 text-xs mt-0.5 capitalize">
+ Currently set to: <strong>{appRole || "not set"}</strong>
+ </p>
+ </div>
+ <Button
+ onClick={resetRole}
+ variant="outline"
+ className="h-10 border-gray-200 text-gray-600 hover:bg-gray-50 shrink-0"
+ >
+ <RefreshCw className="w-4 h-4 mr-2" />Reset Role
+ </Button>
  </CardContent>
  </Card>
 

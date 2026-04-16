@@ -173,8 +173,7 @@ export default function Learn() {
 
  const handleCourseClick = (course) => {
  if (course._v2) {
-   if (course.locked) return;
-   navigate(createPageUrl(`Lesson?id=${course.id}`));
+     navigate(createPageUrl(`Lesson?id=${course.id}`));
    return;
  }
  if (!user) { navigate(createPageUrl("Login")); return; }
@@ -240,7 +239,7 @@ export default function Learn() {
      {nicheCourses.map((course) => {
        const Icon = course._v2 ? (course._icon || Briefcase) : (categoryIcons[course.category] || Target);
        const progress = course._v2 ? 0 : getCourseProgress(course.id);
-       const isLocked = !!course.locked;
+       const isLocked = false;
        return (
        <div
          key={course.id}
