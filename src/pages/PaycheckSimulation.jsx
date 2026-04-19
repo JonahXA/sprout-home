@@ -106,14 +106,6 @@ export default function PaycheckSimulation() {
  navigate(createPageUrl("CourseDetail") + `?id=${COURSE_ID}`);
  };
 
- if (!user) {
- return (
- <div className="flex items-center justify-center min-h-screen">
- <div className="w-12 h-12 border-4 border-[#2D9B6F] border-t-transparent rounded-full animate-spin"></div>
- </div>
- );
- }
-
  const C = { navy:"#1B2B5E", navyMid:"#141E43", navyGlow:"rgba(27,43,94,0.12)", border:"#E5E7EB", borderMid:"#D1D5DB", bg:"#FFFFFF", text:"#0F172A", textSub:"#475569" };
 
  return (
@@ -135,7 +127,7 @@ export default function PaycheckSimulation() {
  <p style={{ fontSize:14, color:C.textSub, margin:"0 0 32px", fontWeight:500, lineHeight:1.6 }}>Interactive paycheck breakdown</p>
 
  <LessonComponent
- userName={user.full_name || "Student"}
+ userName={user?.full_name || "Student"}
  onComplete={handleComplete}
  />
  </div>

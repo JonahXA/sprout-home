@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createPageUrl } from "@/config/routes";
 import { Calculator, TrendingUp, Briefcase, Users, Home, GraduationCap, Wallet, Award } from "lucide-react";
 import InterestCalculator from "@/features/finance/InterestCalculator";
 import PaperTradingSimulator from "@/features/finance/PaperTradingSimulator";
@@ -9,8 +7,6 @@ import ScenarioBudgetSimulation from "@/features/finance/ScenarioBudgetSimulatio
 import NewGraduateBudgetSimulation from "@/features/finance/NewGraduateBudgetSimulation";
 import CollegeStudentBudget from "@/features/finance/CollegeStudentBudget";
 
-const safeParse = (raw, fallback) => { try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; } };
-const getLocalUser = () => safeParse(localStorage.getItem("sprout_user"), null);
 
 const C = {
  navy:"#1B2B5E", navyMid:"#141E43",
@@ -29,7 +25,6 @@ const NICHES = {
 const NICHE_ORDER = ["Finance", "AI & Technology", "Entrepreneurship", "Critical Thinking"];
 
 export default function Simulations() {
- const navigate = useNavigate();
  const [activeSimulation, setActiveSimulation] = useState(null);
 
  const simulations = [

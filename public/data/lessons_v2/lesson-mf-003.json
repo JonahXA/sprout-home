@@ -132,37 +132,37 @@
     {
       "id": "s4",
       "type": "multiple_choice",
-      "prompt": "Daniel's budget has $80 left at the end of each month. His coworker just bought a $950 phone and shows it off at lunch. That evening Daniel orders the same model on his credit card, telling himself he'll pay it off 'over a couple months.' Which pattern is primarily driving his decision?",
+      "prompt": "Daniel's phone is two years old and has been dropping calls. He's been meaning to replace it for a month. At lunch, his coworker shows off a new $950 phone. That evening Daniel orders the exact same model — $950 on his credit card — telling himself it was 'about time anyway.' What's the most accurate diagnosis?",
       "options": [
-        "Present bias — he's prioritizing the reward now over future financial health",
-        "Social comparison — he's spending to match a social standard he's observed",
-        "Rationalization — the installment plan makes him believe it's responsible",
-        "All three equally"
+        "The purchase is fully justified — he has a legitimate need for a new phone",
+        "The underlying need is real, but social comparison drove the timing and the $950 price point — a $250 phone would have met the actual need",
+        "Rationalization — his phone still works, so 'dropping calls' is just an excuse",
+        "Present bias — he wanted the reward now instead of planning a replacement properly"
       ],
       "correct_answer": 1,
       "feedback": {
-        "correct": "Correct. The trigger was the coworker's purchase, not a pre-existing need for a phone. Social comparison created the desire; the installment story (rationalization) gave him permission. But the root cause was the social signal. Recognizing the trigger is what lets you pause before acting on it.",
-        "incorrect": "The trigger matters for diagnosis. Daniel didn't think about a new phone until his coworker showed one off at lunch. The decision was driven by wanting what someone else has — that's social comparison. The 'I'll pay it off in a couple months' story is rationalization that comes after the social trigger, not before. Both are present, but social comparison is what started the chain."
+        "correct": "Correct. This is where real-life spending gets messy — Daniel genuinely needs a phone. But the need being real doesn't explain the $950. A working replacement costs $150–$300. What pushed him to $950 was watching his coworker that afternoon. Social comparison layered onto a real need and inflated it 3–4×. He now believes the purchase was rational — which is exactly what makes this pattern hard to catch.",
+        "incorrect": "The tricky part: Daniel's need is real, so calling it pure rationalization gets the diagnosis wrong. But the real need doesn't justify the $950. A functional replacement would cost $150–$300. The social trigger — seeing his coworker's phone — determined the model. Needs and social comparison aren't mutually exclusive. The useful question isn't 'did I need this?' It's 'did I need this version at this price?'"
       },
-      "hint": "What happened right before Daniel had the urge to buy?",
+      "hint": "Separate two questions: did he need a phone? And did he need a $950 phone?",
       "retry_variants": [
         {
-          "prompt": "Which of the following is the clearest example of social comparison spending?",
+          "prompt": "How does social comparison most often appear in real spending decisions?",
           "options": [
-            "Buying concert tickets because you've been saving up for months",
-            "Upgrading your car because your new neighborhood has mostly luxury vehicles",
-            "Splurging on a restaurant because you had a stressful week",
-            "Buying a tool you need for a home repair project"
+            "The person had no underlying need before seeing someone else's purchase",
+            "It layers on top of a real need and inflates what someone spends beyond what the need requires",
+            "It only applies to luxury categories like cars and designer clothing",
+            "It's easy to identify because the person feels guilty about it afterward"
           ],
           "correct_answer": 1
         },
         {
-          "prompt": "Tara tells herself 'I've been so responsible lately — I deserve this $300 spa day.' Which behavioral pattern does this describe?",
+          "prompt": "Tara's work shoes are worn through. She sees a colleague wearing $280 designer shoes and buys the same pair — a $60 pair would have been fine for the job. Which pattern is most at work?",
           "options": [
-            "Present bias",
-            "Social comparison",
-            "Rationalization",
-            "Analysis paralysis"
+            "Present bias — she wants new shoes now rather than planning ahead",
+            "Rationalization — she told herself the expensive pair has better quality",
+            "Social comparison — she inflated a real need by $220 based on a social signal",
+            "Lifestyle creep — she regularly upgrades clothing after each paycheck"
           ],
           "correct_answer": 2
         }
@@ -204,6 +204,45 @@
             "Making a $500 car repair you knew was coming"
           ],
           "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s5b",
+      "type": "multiple_choice",
+      "prompt": "Four people describe their spending. Which pattern is most likely to go unnoticed for months — meaning the person genuinely doesn't see it as a financial problem while it's happening?",
+      "options": [
+        "Buying a $600 item on impulse and feeling immediate regret",
+        "Going out for an expensive dinner twice a month, fully aware each time it's a treat",
+        "Gradually spending more across many small categories after a raise, because each one feels normal at the new income level",
+        "Booking concert tickets months in advance and tracking them in a spreadsheet"
+      ],
+      "correct_answer": 2,
+      "feedback": {
+        "correct": "Right. Option C is the most dangerous precisely because nothing in it feels wrong. Each small upward shift is locally justified — 'I can afford this now.' There's no moment of regret, no obvious splurge to audit, no single decision to point to. It only becomes visible when you compare savings totals over time. The other three all have at least one moment of self-awareness built in.",
+        "incorrect": "The key word is 'unnoticed.' Options A and B both include a moment of awareness — buyer's remorse or conscious acknowledgment that something is a treat. Option D is planned. Option C is the pattern that feels like nothing: each category is reasonable, each spend has a local justification. There's no transaction that flags itself as the problem. That's what makes it so persistent — and what the lifestyle creep section is about."
+      },
+      "hint": "Which pattern has no single moment where the person thinks 'I probably shouldn't be doing this'?",
+      "retry_variants": [
+        {
+          "prompt": "A friend says: 'I don't overspend — I only buy things I genuinely need.' Which behavioral pattern is most likely invisible to her?",
+          "options": [
+            "Impulse buying — she'd feel the immediate regret",
+            "Present bias — she'd sense the tension between now and later",
+            "Lifestyle creep — each purchase individually feels justified at her current income, so the pattern escapes her self-assessment",
+            "Social comparison — she'd recognize when she's reacting to someone else's purchase"
+          ],
+          "correct_answer": 2
+        },
+        {
+          "prompt": "Why is lifestyle creep harder to self-diagnose than impulse buying?",
+          "options": [
+            "Lifestyle creep involves larger amounts, which are harder to track",
+            "Impulse buying is rare, while lifestyle creep is frequent",
+            "Impulse buying has a recognizable moment of decision; lifestyle creep is a slow shift with no single moment of choice",
+            "Lifestyle creep only affects high-income earners who have more to spend"
+          ],
+          "correct_answer": 2
         }
       ]
     },
@@ -317,6 +356,45 @@
             "Spend the raise fully for one month to 'test' what you actually need"
           ],
           "correct_answer": 1
+        }
+      ]
+    },
+    {
+      "id": "s8b",
+      "type": "multiple_choice",
+      "prompt": "Maya's budget says she'll save $300 this month. She tracks her October spending: Monday coffee cart $12, Tuesday lunch out $18, Thursday delivery fee $9, weekend impulse buy $22 — the same rough pattern every week. She ends October with $0 saved. What best explains the gap between plan and outcome?",
+      "options": [
+        "Her $300 savings goal was unrealistic for her income level",
+        "She lacks discipline and needs to set a lower target she can actually hit",
+        "Small untracked purchases (~$61/week × 4 ≈ $244/month) consumed her savings buffer — no single transaction felt large enough to reconsider or flag",
+        "She should switch to cash so each purchase feels more concrete"
+      ],
+      "correct_answer": 2,
+      "feedback": {
+        "correct": "Right. $12 + $18 + $9 + $22 = $61/week × 4 weeks ≈ $244 — nearly her entire $300 savings target, erased by purchases that each felt completely reasonable. Present bias made every transaction fine in the moment. The small-spending blindspot meant none of them triggered a pause. Lifestyle creep normalized the pattern over time. None of it felt like overspending. The $0 savings is the combined outcome of many individually-justified decisions.",
+        "incorrect": "The math: $61/week × 4 ≈ $244/month. Her goal was $300. She didn't fail because the goal was wrong or her willpower was low. She failed because her spending operated below the awareness threshold — no single purchase caused the problem. This is what makes behavioral patterns more dangerous than one-time big purchases: the damage accumulates from decisions that never felt like decisions."
+      },
+      "hint": "Add up her weekly small purchases × 4, then compare that number to her $300 savings goal.",
+      "retry_variants": [
+        {
+          "prompt": "Sam intends to save $200/month. He spends $8 here, $15 there, $12 on a delivery fee, $6 on an in-app purchase — consistently, throughout the month. He ends with $20 saved. What happened?",
+          "options": [
+            "His income is too low for a $200/month savings goal",
+            "Small frequent purchases aggregated to ~$180/month without any single transaction feeling like the reason",
+            "He needs to cancel subscriptions before he can save consistently",
+            "His savings goal should have been $50/month from the start"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "Which statement best captures why good financial intentions often don't produce actual savings?",
+          "options": [
+            "People don't genuinely care about their financial future",
+            "Budgets are too complicated for most people to follow correctly",
+            "Spending decisions in the moment are shaped by psychology — small choices compound into outcomes that no single choice caused",
+            "People would save more naturally if they earned more"
+          ],
+          "correct_answer": 2
         }
       ]
     },
@@ -441,20 +519,42 @@
     },
     {
       "id": "s12",
-      "type": "matching",
-      "prompt": "Match each expense to its 50/30/20 category.",
-      "pairs": [
-        { "left": "Monthly rent", "right": "Needs (50%)" },
-        { "left": "Netflix subscription", "right": "Wants (30%)" },
-        { "left": "Monthly Roth IRA contribution", "right": "Financial goals (20%)" },
-        { "left": "Grocery bill", "right": "Needs (50%)" },
-        { "left": "Weekend dining out", "right": "Wants (30%)" },
-        { "left": "Extra payment on student loan", "right": "Financial goals (20%)" }
+      "type": "multiple_choice",
+      "prompt": "Priya runs her 50/30/20 for the first time. She earns $3,000/month and finds: needs 44%, wants 41%, financial goals 15%. She's surprised, but responds quickly: 'I'll cancel my gym membership ($80/month) and one streaming service ($15/month). That should fix it.' What's wrong with her plan?",
+      "options": [
+        "Nothing — canceling $95/month in wants is a reasonable and sufficient first step",
+        "Her needs are already under 50%, so she should be cutting there instead of wants",
+        "Her wants are 11% over target — that's $330/month at her income. Her $95/month cut closes less than a third of the gap, and she'll still be well short of 20% savings",
+        "The 50/30/20 rule doesn't apply when needs are already under 50%"
       ],
+      "correct_answer": 2,
       "feedback": {
-        "correct": "Correct. Needs are essentials you must pay to function. Wants are chosen for enjoyment or convenience. Financial goals are proactive wealth-building moves — savings, investments, and debt reduction beyond minimums.",
-        "incorrect": "The key distinction: needs are things your life breaks down without (rent, groceries). Wants are things you choose for enjoyment (Netflix, restaurants). Financial goals are decisions that build your future (retirement contributions, extra debt payments)."
-      }
+        "correct": "Correct. Wants are 41% vs. a 30% target — 11 points over. At $3,000/month, that's $330/month excess. Priya's cuts total $95. After the cuts she'll be saving about $545/month (18.2%) — closer but still short. She picked the two most visible, easiest things to cut without checking whether they were enough. This is a common pattern: making a small change that feels like action without doing the math to confirm it actually closes the gap.",
+        "incorrect": "The math: wants at 41% vs. 30% target = 11 percentage points over. At $3,000/month: 11% × $3,000 = $330/month excess in wants. Priya's gym + streaming = $95/month. $95 is 29% of the $330 problem. After the cuts, she saves $545/month = 18.2% — an improvement, but she's still missing her 20% target. The issue isn't which bucket she's looking at. It's that she stopped calculating after she found two cuts that felt manageable."
+      },
+      "hint": "Calculate her total want-spending gap in dollars first, then check whether $95/month actually closes it.",
+      "retry_variants": [
+        {
+          "prompt": "Someone earns $2,500/month. Their 50/30/20 shows: needs 46%, wants 38%, financial goals 16%. They plan to cancel $40/month in subscriptions to hit 20% savings. Is this sufficient?",
+          "options": [
+            "Yes — any reduction in wants moves savings in the right direction",
+            "No — wants are 8% over target ($200/month gap). $40/month covers only 20% of the problem",
+            "Yes — needs are under 50% so there's no structural issue",
+            "No — they should reduce needs first since those are closest to the 50% threshold"
+          ],
+          "correct_answer": 1
+        },
+        {
+          "prompt": "What is the most common mistake people make when first applying the 50/30/20 framework?",
+          "options": [
+            "Categorizing too many expenses as needs instead of wants",
+            "Cutting small visible expenses without checking whether the total reduction is large enough to close the gap",
+            "Setting a savings target that's too ambitious for their income",
+            "Ignoring the wants category and focusing only on needs and savings"
+          ],
+          "correct_answer": 1
+        }
+      ]
     },
     {
       "id": "s13",
