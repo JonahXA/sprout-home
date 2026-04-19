@@ -44,11 +44,7 @@ export default function BudgetSimulation() {
 
  useEffect(() => {
  const currentUser = getLocalUser();
- if (!currentUser) {
- navigate(createPageUrl("Login"));
- return;
- }
- setUser(currentUser);
+ if (currentUser) setUser(currentUser);
  trackSimulationStart("budget-simulation", "Budget Simulation").catch(() => {});
  }, [navigate]);
 

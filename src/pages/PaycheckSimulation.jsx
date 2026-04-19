@@ -53,11 +53,7 @@ export default function PaycheckSimulation() {
 
  useEffect(() => {
  const currentUser = getUser();
- if (!currentUser) {
- navigate(createPageUrl("Login"));
- return;
- }
- setUserState(currentUser);
+ if (currentUser) setUserState(currentUser);
  trackSimulationStart("paycheck-simulation", "Paycheck Simulation").catch(() => {});
  }, [navigate]);
 

@@ -913,10 +913,8 @@ export default function Lesson() {
 
   useEffect(() => {
     const currentUser = getLocalUser();
-    if (!currentUser) { navigate(createPageUrl("Login")); return; }
-    setUser(currentUser);
-    if (!currentUser.onboarding_completed) navigate(createPageUrl("SchoolSelection"));
-  }, [navigate]);
+    if (currentUser) setUser(currentUser);
+  }, []);
 
   const { completedChallenge, clearCompletedChallenge } = useChallengeCheck(user);
 
