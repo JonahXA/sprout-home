@@ -47,13 +47,10 @@ export default function PaperTrading() {
  const [chartData, setChartData] = useState([]);
  const [loading, setLoading] = useState(false);
 
- // Load user (local)
+ // Load user (local) — guests get demo mode (portfolio not saved)
  useEffect(() => {
  const currentUser = getLocalUser();
- if (!currentUser) {
- navigate(createPageUrl("Login"));
- return;
- }
+ if (!currentUser) { setUser(null); return; }
 
  // Initialize paper trading account if doesn't exist
  const hasAccount =
@@ -72,7 +69,7 @@ export default function PaperTrading() {
  }
 
  setUser(currentUser);
- }, [navigate]);
+ }, []);
 
  // Fetch stock data when symbol changes
  useEffect(() => {

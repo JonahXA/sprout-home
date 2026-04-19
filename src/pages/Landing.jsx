@@ -5,10 +5,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/config/routes";
 import {
- Sprout, ArrowRight, BookOpen, TrendingUp, Shield,
+ ArrowRight, BookOpen, TrendingUp, Shield,
  Zap, Star, BarChart2, Target, CheckCircle, Calculator,
  DollarSign, PiggyBank, CreditCard, Brain,
 } from "lucide-react";
+import logoImg from "../assets/logo.png";
 
 // ─── Color tokens ─────────────────────────────────────────────
 const navy = "#1B2B5E";
@@ -169,9 +170,9 @@ function Nav({ scrolled, navigate }) {
  >
  <div className="ln-grid">
  {/* Logo — left */}
- <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
- <span style={{ fontSize: 18, fontWeight: 800, color: navy, letterSpacing: "-0.3px" }}>Sprout</span>
- <Sprout size={22} color={navy} strokeWidth={2.2} />
+ <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+ <span style={{ fontSize: 32, fontWeight: 900, color: navy, letterSpacing: "-1.2px" }}>Sprout</span>
+ <img src={logoImg} alt="Sprout" style={{ width: 56, height: 56, objectFit: "contain" }} />
  </div>
 
  {/* Pill links — centered */}
@@ -220,8 +221,8 @@ function Hero({ navigate }) {
  {/* Logo mark in hero */}
  <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
- <span style={{ fontSize: 34, fontWeight: 900, color: navy, letterSpacing: "-0.5px", lineHeight: 1 }}>Sprout</span>
- <Sprout size={40} color={navy} strokeWidth={1.9} />
+ <span style={{ fontSize: 34, fontWeight: 900, color: navy, letterSpacing: "-1.2px", lineHeight: 1 }}>Sprout</span>
+ <img src={logoImg} alt="Sprout" style={{ width: 64, height: 64, objectFit: "contain" }} />
  </div>
  </div>
 
@@ -456,8 +457,8 @@ function CTA({ navigate }) {
  <section style={{ padding: "88px 24px", background: "#f8f9fa", borderTop: "1px solid #e5e7eb" }}>
  <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
  <div style={{ margin: "0 auto 20px", display: "flex", justifyContent: "center", alignItems: "center", gap: 12 }}>
- <span style={{ fontSize: 28, fontWeight: 900, color: navy, letterSpacing: "-0.4px" }}>Sprout</span>
- <Sprout size={36} color={navy} strokeWidth={1.9} />
+ <span style={{ fontSize: 28, fontWeight: 900, color: navy, letterSpacing: "-1.2px" }}>Sprout</span>
+ <img src={logoImg} alt="Sprout" style={{ width: 52, height: 52, objectFit: "contain" }} />
  </div>
  <h2 style={{ fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, color: "#111827", margin: "0 0 18px", letterSpacing: "-0.5px" }}>
  Your financial future starts today.
@@ -529,8 +530,8 @@ function Footer() {
  <footer style={{ background: "#f8f9fa", borderTop: "1px solid #e5e7eb", padding: "32px 24px" }}>
  <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
  <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
- <span style={{ color: navy, fontWeight: 800, fontSize: 15 }}>Sprout</span>
- <Sprout size={18} color={navy} strokeWidth={2.2} />
+ <span style={{ color: navy, fontWeight: 900, fontSize: 15, letterSpacing: "-0.5px" }}>Sprout</span>
+ <img src={logoImg} alt="Sprout" style={{ width: 32, height: 32, objectFit: "contain" }} />
  </div>
  <p style={{ color: "#9ca3af", fontSize: 13, margin: 0 }}>
  © {new Date().getFullYear()} Sprout. Built to grow your financial knowledge.

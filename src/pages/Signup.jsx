@@ -11,6 +11,8 @@ import logoImg from "../assets/logo.png";
 import { supabase } from "@/services/supabase";
 import { getCurrentUser } from "@/services/auth";
 import { useAuth } from "@/context/AuthContext";
+import { getGuestId, clearGuestSession } from "@/services/guestSession";
+import { mergeGuestToUser } from "@/services/guestTracking";
 
 const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
 
@@ -54,10 +56,29 @@ export default function Signup() {
         return;
       }
 
-      // If email confirmation is disabled, the user is signed in immediately
-      if (data.session) {
-        const profile = await getCurrentUser();
-        loginUser(profile);
+      // Supabase silently returns identities:[] when the email is already registered
+      // (happens when email confirmation is enabled — no error is thrown)
+      if (data.user && (!data.user.identities || data.user.identities.length === 0)) {
+        toast.error("An account with that email already exists. Try logging in.");
+        return;
+      }
+
+      // Email confirmation is enabled — no session yet; ask them to confirm first
+      if (!data.session) {
+        toast.success("Account created! Check your email to confirm your address, then log in.");
+        navigate(createPageUrl("Login"));
+        return;
+      }
+
+      // Confirmation disabled — session exists, log them in immediately
+      const profile = await getCurrentUser();
+      loginUser(profile);
+
+      // Merge any guest activity into the new user account
+      const guestId = getGuestId();
+      if (guestId) {
+        await mergeGuestToUser(guestId, profile.id).catch(() => {});
+        clearGuestSession();
       }
 
       toast.success("Account created!");

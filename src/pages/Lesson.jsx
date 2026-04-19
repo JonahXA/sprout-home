@@ -21,6 +21,7 @@ import LevelUpModal from "@/components/shared/LevelUpModal";
 import ChallengeCompleteModal from "@/components/shared/ChallengeCompleteModal";
 import { useChallengeCheck } from "@/hooks/useChallengeCheck";
 import { trackEvent } from "@/services/activity";
+import { trackGuestEvent, saveGuestLessonProgress } from "@/services/guestTracking";
 import StepLesson from "@/components/lessons/StepLesson";
 
 // ─── Color tokens (unchanged from before) ──────────────────────
@@ -900,6 +901,7 @@ export default function Lesson() {
   const [score,        setScore]        = useState(0);
   const [showLevelUp,  setShowLevelUp]  = useState(false);
   const [newLevel,     setNewLevel]     = useState(null);
+  const [showGuestCTA, setShowGuestCTA] = useState(false);
   // Tracks which check/simulation/misconception/reflection sections have been
   // "passed" so Continue is only enabled after interaction
   const [passedSections, setPassedSections] = useState(new Set());
@@ -913,9 +915,8 @@ export default function Lesson() {
 
   useEffect(() => {
     const currentUser = getLocalUser();
-    if (!currentUser) { navigate(createPageUrl("Login")); return; }
-    setUser(currentUser);
-    if (!currentUser.onboarding_completed) navigate(createPageUrl("SchoolSelection"));
+    setUser(currentUser); // null = guest, allowed
+    if (currentUser && !currentUser.onboarding_completed) navigate(createPageUrl("SchoolSelection"));
   }, [navigate]);
 
   const { completedChallenge, clearCompletedChallenge } = useChallengeCheck(user);
@@ -978,7 +979,17 @@ export default function Lesson() {
 
   const completeMutation = useMutation({
     mutationFn: async ({ quizScore }) => {
-      if (!user?.email) throw new Error("Missing user");
+      // Guest path — track to Supabase but skip user-specific writes
+      if (!user?.email) {
+        await trackGuestEvent("lesson_completed", {
+          lesson_id: lessonId,
+          course_id: lesson?.course_id,
+          metadata: { quiz_score: quizScore, lesson_title: lesson?.title },
+        });
+        await saveGuestLessonProgress(lessonId, lesson?.course_id, quizScore);
+        return;
+      }
+      // Authenticated path
       if (!lesson?.course_id) throw new Error("Missing lesson/course");
       if (!lessonId) throw new Error("Missing lessonId");
       const now = new Date().toISOString();
@@ -1004,6 +1015,7 @@ export default function Lesson() {
       }
     },
     onSuccess: () => {
+      if (!user?.email) { setShowGuestCTA(true); return; }
       refetchProgress();
       queryClient.invalidateQueries({ queryKey: ["userProgress"] });
       queryClient.invalidateQueries({ queryKey: ["allUserProgress"] });
@@ -1046,7 +1058,7 @@ export default function Lesson() {
     const idx = allLessons.findIndex((l) => String(l.id) === String(lessonId));
     if (idx === -1) { navigate(createPageUrl("Learn")); return; }
     if (idx === allLessons.length - 1) { navigate(createPageUrl(`FinalExam?courseId=${lesson.course_id}`)); return; }
-    if (!progress?.completed) { toast.error("Complete this lesson first!"); return; }
+    if (user && !progress?.completed) { toast.error("Complete this lesson first!"); return; }
     const next = allLessons[idx + 1];
     navigate(createPageUrl(`Lesson?id=${next.id}`));
     setSectionIndex(0);
@@ -1483,9 +1495,23 @@ export default function Lesson() {
                     <h3 style={{ fontSize:32, fontWeight:900, margin:"0 0 8px" }}>{score === 100 ? "Perfect!" : "Try again"}</h3>
                     <p style={{ fontSize:56, fontWeight:900, margin:"0 0 20px" }}>{score}%</p>
                     {score === 100 ? (
-                      <button onClick={handleNext} style={{ padding:"14px 36px", borderRadius:999, background:"#fff", color:C.navy, border:"none", fontWeight:800, fontSize:16, cursor:"pointer" }}>
-                        Next <ArrowRight size={16} style={{ display:"inline", marginLeft:6 }} />
-                      </button>
+                      user ? (
+                        <button onClick={handleNext} style={{ padding:"14px 36px", borderRadius:999, background:"#fff", color:C.navy, border:"none", fontWeight:800, fontSize:16, cursor:"pointer" }}>
+                          Next <ArrowRight size={16} style={{ display:"inline", marginLeft:6 }} />
+                        </button>
+                      ) : (
+                        <div>
+                          <p style={{ fontSize:14, opacity:0.85, marginBottom:14, lineHeight:1.5 }}>Create a free account to save your progress and track your learning journey.</p>
+                          <div style={{ display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap" }}>
+                            <button onClick={() => navigate(createPageUrl("Signup"))} style={{ padding:"12px 24px", borderRadius:999, background:"#fff", color:C.navy, border:"none", fontWeight:800, fontSize:15, cursor:"pointer" }}>
+                              Create Account
+                            </button>
+                            <button onClick={handleNext} style={{ padding:"12px 24px", borderRadius:999, background:"transparent", color:"#fff", border:"1.5px solid rgba(255,255,255,0.5)", fontWeight:600, fontSize:14, cursor:"pointer" }}>
+                              Keep Exploring
+                            </button>
+                          </div>
+                        </div>
+                      )
                     ) : (
                       <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
                         <button

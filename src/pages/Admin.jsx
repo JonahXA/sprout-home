@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
  Users, TrendingUp, BookOpen, Trophy, Search, Shield,
- Mail, Zap, School, Brain, CheckCircle, Activity
+ Mail, Zap, School, Brain, CheckCircle, Activity, UserCheck
 } from "lucide-react";
 import { format } from "date-fns";
 import {
@@ -18,7 +18,7 @@ import {
  listSchools,
  listAllAIDayProgress,
 } from "@/services/auth";
-import { getTodayDAU } from "@/services/analytics";
+import { getTodayDAU, getGuestSessionCount } from "@/services/analytics";
 import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
 
 const ADMIN_EMAIL = "sproutnow.net@gmail.com";
@@ -83,6 +83,12 @@ export default function Admin() {
  refetchInterval: 60_000,
  });
 
+ const { data: guestSessions = 0 } = useQuery({
+ queryKey: ["admin-guestSessions"],
+ queryFn: () => getGuestSessionCount(30),
+ enabled: !!user && isAdmin(user),
+ });
+
  if (!user || !isAdmin(user)) return null;
 
  const filteredUsers = allUsers.filter((u) =>
@@ -122,7 +128,7 @@ export default function Admin() {
  </div>
 
  {/* Stats Grid */}
- <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+ <div className="grid grid-cols-2 lg:grid-cols-7 gap-4">
  <Card className="border-none shadow-lg bg-[#1B2B5E] text-white">
  <CardContent className="p-6">
  <Users className="w-8 h-8 mb-2" />
@@ -163,6 +169,13 @@ export default function Admin() {
  <Activity className="w-8 h-8 mb-2" />
  <p className="text-3xl font-bold">{todayDAU}</p>
  <p className="text-sm opacity-90">Active Today</p>
+ </CardContent>
+ </Card>
+ <Card className="border-none shadow-lg bg-[#059669] text-white">
+ <CardContent className="p-6">
+ <UserCheck className="w-8 h-8 mb-2" />
+ <p className="text-3xl font-bold">{guestSessions}</p>
+ <p className="text-sm opacity-90">Guest Sessions (30d)</p>
  </CardContent>
  </Card>
  </div>

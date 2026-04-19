@@ -49,10 +49,8 @@ export default function FinalExam() {
  const courseId = urlParams.get("courseId");
 
  useEffect(() => {
- const currentUser = getLocalUser();
- if (!currentUser) { navigate(createPageUrl("Login")); return; }
- setUser(currentUser);
- }, [navigate]);
+ setUser(getLocalUser()); // null = guest, allowed
+ }, []);
 
  const { data: course } = useQuery({
  queryKey: ["course", courseId],

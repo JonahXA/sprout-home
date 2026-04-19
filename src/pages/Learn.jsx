@@ -176,7 +176,6 @@ export default function Learn() {
      navigate(createPageUrl(`Lesson?id=${course.id}`));
    return;
  }
- if (!user) { navigate(createPageUrl("Login")); return; }
  if (course.name?.includes("AI Literacy")) {
    navigate(createPageUrl("AILiteracy"));
  } else {

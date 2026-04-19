@@ -99,8 +99,6 @@ export default function Simulations() {
 
  const handleLaunch = (sim, e) => {
  e.stopPropagation();
- const user = getLocalUser();
- if (!user) { navigate(createPageUrl("Login")); return; }
  setActiveSimulation(sim);
  };
 

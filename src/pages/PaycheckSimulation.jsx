@@ -53,13 +53,11 @@ export default function PaycheckSimulation() {
 
  useEffect(() => {
  const currentUser = getUser();
- if (!currentUser) {
- navigate(createPageUrl("Login"));
- return;
- }
- setUserState(currentUser);
+ setUserState(currentUser); // null = guest, allowed
+ if (currentUser) {
  trackSimulationStart("paycheck-simulation", "Paycheck Simulation").catch(() => {});
- }, [navigate]);
+ }
+ }, []);
 
  const lessonNum = useMemo(() => parseInt(lessonNumber, 10) || 1, [lessonNumber]);
  const LessonComponent = lessonComponents[lessonNum] || PaycheckLesson1;

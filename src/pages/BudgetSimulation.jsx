@@ -44,13 +44,11 @@ export default function BudgetSimulation() {
 
  useEffect(() => {
  const currentUser = getLocalUser();
- if (!currentUser) {
- navigate(createPageUrl("Login"));
- return;
- }
- setUser(currentUser);
+ setUser(currentUser); // null = guest, allowed
+ if (currentUser) {
  trackSimulationStart("budget-simulation", "Budget Simulation").catch(() => {});
- }, [navigate]);
+ }
+ }, []);
 
  const lessonNum = parseInt(lessonNumber, 10) || 0;
 
@@ -66,7 +64,7 @@ export default function BudgetSimulation() {
  )
  .sort((a, b) => (a.order || 0) - (b.order || 0));
  },
- enabled: !!user
+ enabled: true
  });
 
  const { data: progress = [] } = useQuery({

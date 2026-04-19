@@ -2,15 +2,22 @@ import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/config/routes";
 import { GraduationCap, BookOpen } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 
-const STORAGE_KEY = "userRole";
+// sessionStorage key — controls popup visibility per browser session.
+// Cleared automatically when the tab/browser closes; survives page refresh.
+const SESSION_KEY = "rolePopupShown";
+
+// localStorage key — persists the actual role choice for Account Settings display.
+const ROLE_KEY = "userRole";
 
 // Hook — use this anywhere you need to read or reset the role
 export function useUserRole() {
-  const [role, setRole] = useState(() => localStorage.getItem(STORAGE_KEY));
+  const [role, setRole] = useState(() => localStorage.getItem(ROLE_KEY));
 
   const resetRole = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(ROLE_KEY);
+    sessionStorage.removeItem(SESSION_KEY); // allow popup to re-appear next visit
     setRole(null);
   }, []);
 
@@ -32,20 +39,23 @@ const C = {
 
 export default function RoleSelectModal() {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(() => !localStorage.getItem(STORAGE_KEY));
+
+  // Show the popup if it has NOT been shown yet this browser session
+  const [visible, setVisible] = useState(
+    () => !sessionStorage.getItem(SESSION_KEY)
+  );
   const [selecting, setSelecting] = useState(null);
 
   if (!visible) return null;
 
   const handleSelect = (role) => {
     setSelecting(role);
-    localStorage.setItem(STORAGE_KEY, role);
+    // Mark popup as shown for this session (survives refresh, not new tab)
+    sessionStorage.setItem(SESSION_KEY, "true");
+    // Persist the actual role for Account Settings display
+    localStorage.setItem(ROLE_KEY, role);
     setVisible(false);
-    if (role === "teacher") {
-      navigate(createPageUrl("Landing"));
-    } else {
-      navigate(createPageUrl("Dashboard"));
-    }
+    navigate(role === "teacher" ? createPageUrl("Landing") : createPageUrl("Dashboard"));
   };
 
   return (
@@ -71,7 +81,7 @@ export default function RoleSelectModal() {
           overflow: "hidden",
         }}
       >
-        {/* Header */}
+        {/* Header — matches dashboard branding */}
         <div
           style={{
             background: C.navy,
@@ -81,35 +91,53 @@ export default function RoleSelectModal() {
         >
           <div
             style={{
-              width: 56,
-              height: 56,
-              borderRadius: "50%",
-              background: "rgba(255,255,255,0.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              margin: "0 auto 14px",
+              gap: 0,
+              marginBottom: 14,
             }}
           >
-            <BookOpen size={28} color="#fff" />
+            <span
+              style={{
+                fontSize: 28,
+                fontWeight: 900,
+                color: "#fff",
+                letterSpacing: "-1.2px",
+              }}
+            >
+              Sprout
+            </span>
+            <img
+              src={logoImg}
+              alt="Sprout"
+              style={{ width: 52, height: 52, objectFit: "contain" }}
+            />
           </div>
           <h2
             style={{
               color: "#fff",
-              fontSize: 22,
-              fontWeight: 800,
+              fontSize: 20,
+              fontWeight: 700,
               margin: "0 0 6px",
             }}
           >
             Welcome to Sprout
           </h2>
           <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 14, margin: 0 }}>
-            How are you using Sprout today?
+            Are you a Learner or a Teacher?
           </p>
         </div>
 
         {/* Options */}
-        <div style={{ padding: "28px 32px 32px", display: "flex", flexDirection: "column", gap: 14 }}>
+        <div
+          style={{
+            padding: "28px 32px 32px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 14,
+          }}
+        >
           <RoleButton
             icon={<BookOpen size={26} color={C.navy} />}
             label="I'm a Learner"
@@ -173,7 +201,7 @@ function RoleButton({ icon, label, description, onClick, loading, accent, accent
           width: 52,
           height: 52,
           borderRadius: 12,
-          background: hovered ? "#fff" : "#fff",
+          background: "#fff",
           border: `1px solid ${hovered ? accent : "#E5E7EB"}`,
           display: "flex",
           alignItems: "center",
@@ -185,10 +213,14 @@ function RoleButton({ icon, label, description, onClick, loading, accent, accent
         {icon}
       </div>
       <div>
-        <div style={{ fontWeight: 700, fontSize: 15, color: "#0F172A", marginBottom: 3 }}>
+        <div
+          style={{ fontWeight: 700, fontSize: 15, color: "#0F172A", marginBottom: 3 }}
+        >
           {label}
         </div>
-        <div style={{ fontSize: 13, color: "#64748B", lineHeight: 1.4 }}>{description}</div>
+        <div style={{ fontSize: 13, color: "#64748B", lineHeight: 1.4 }}>
+          {description}
+        </div>
       </div>
     </button>
   );

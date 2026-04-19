@@ -77,10 +77,8 @@ export default function CourseDetail() {
  }, []);
 
  useEffect(() => {
- const currentUser = getLocalUser();
- if (!currentUser) { navigate(createPageUrl("Login")); return; }
- setUser(currentUser);
- }, [navigate]);
+ setUser(getLocalUser()); // null = guest, allowed
+ }, []);
 
  if (!courseId) {
  return (
