@@ -780,7 +780,7 @@ function VocabularyPanel({ vocabulary }) {
 // SimulationEmbed — lazy-loads a named component (new section-based path).
 // The legacy path (getSimulationForLesson) is no longer needed for new lessons
 // since the section declares component + scenario_id directly.
-function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
+function SimulationEmbed({ component: componentName, scenarioId, onComplete, lessonId }) {
   const [Comp, setComp] = useState(null);
   const [launched, setLaunched] = useState(false);
 
@@ -794,6 +794,11 @@ function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
         else if (componentName === "CreditCardStatement") m = await import("@/features/finance/CreditCardStatement");
         else if (componentName === "PaycheckStatement") m = await import("@/features/finance/PaycheckStatement");
         else if (componentName === "PromptImprovementSimulation") m = await import("@/features/ai-literacy/PromptImprovementSimulation");
+        else if (componentName === "PaystubReveal")        m = await import("@/features/finance/PaystubReveal");
+        else if (componentName === "DeductionSorter")      m = await import("@/features/finance/DeductionSorter");
+        else if (componentName === "ProgressiveTaxSlider") m = await import("@/features/finance/ProgressiveTaxSlider");
+        else if (componentName === "BracketMathViz")       m = await import("@/features/finance/BracketMathViz");
+        else if (componentName === "PaystubBuilder")       m = await import("@/features/finance/PaystubBuilder");
         if (m) setComp(() => m.default);
       } catch (e) {
         console.error("SimulationEmbed: failed to load", componentName, e);
@@ -829,9 +834,9 @@ function SimulationEmbed({ component: componentName, scenarioId, onComplete }) {
   }
 
   if (scenarioId !== null && scenarioId !== undefined) {
-    return <Comp scenarioId={scenarioId} onComplete={onComplete} />;
+    return <Comp scenarioId={scenarioId} onComplete={onComplete} lessonId={lessonId} />;
   }
-  return <Comp onComplete={onComplete} />;
+  return <Comp onComplete={onComplete} lessonId={lessonId} />;
 }
 
 // ─── Main section renderer ──────────────────────────────────────
@@ -859,6 +864,7 @@ function renderSection(section, { onContinue, lesson, misconceptions }) {
           component={section.component}
           scenarioId={section.scenario_id ?? null}
           onComplete={onContinue}
+          lessonId={lesson?.id}
         />
       );
 
