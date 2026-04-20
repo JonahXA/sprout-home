@@ -2,570 +2,165 @@
   "id": "lesson-mf-001",
   "title": "How Your Paycheck Works",
   "module": "module-mf",
-  "duration_minutes": 22,
+  "course_id": "module-mf",
+  "order": 1,
+  "duration_minutes": 10,
+  "xp_reward": 100,
   "locked": false,
-  "steps": [
+
+  "objectives": [
+    { "id": "obj-1", "text": "Distinguish gross pay from net pay" },
+    { "id": "obj-2", "text": "Identify which deductions are mandatory vs optional" },
+    { "id": "obj-3", "text": "Explain why a raise into a higher bracket never reduces take-home pay" },
+    { "id": "obj-4", "text": "Calculate net pay from a gross figure and deduction rates" },
+    { "id": "obj-5", "text": "Budget from take-home rather than gross salary" }
+  ],
+
+  "vocabulary": [
+    { "term": "Gross Pay",   "definition": "The full amount earned before any taxes or deductions." },
+    { "term": "Net Pay",     "definition": "What actually hits your bank account \u2014 gross minus every deduction." },
+    { "term": "FICA",        "definition": "A mandatory 7.65% payroll deduction: 6.2% Social Security + 1.45% Medicare." },
+    { "term": "Progressive Tax", "definition": "A tax system where higher earners pay a higher percentage on the income in each bracket." },
+    { "term": "Marginal Rate",   "definition": "The tax rate that applies only to the next dollar earned \u2014 not to your whole salary." }
+  ],
+
+  "misconceptions": [
     {
-      "id": "learn-1",
-      "type": "learn",
-      "heading": "What is Gross Pay?",
-      "body": "Gross pay is the total amount your employer pays you before any taxes or deductions are removed — it's the figure on your job offer and your employment contract. For someone earning $52,000 paid bi-weekly, that's $52,000 ÷ 26 = $2,000 per paycheck in gross pay. Understanding this distinction matters immediately: many new workers spend based on their salary number and end up with far less than expected when their first paycheck arrives."
+      "id": "mc-bracket-myth",
+      "myth":    "A raise that pushes me into a higher tax bracket means I'll take home less money.",
+      "reality": "Only the dollars above the bracket threshold are taxed at the higher rate. A raise always increases take-home pay \u2014 never decreases it."
     },
     {
-      "id": "s1",
-      "type": "multiple_choice",
-      "prompt": "You negotiated a $52,000 salary. Your first paycheck shows $1,538. What happened to the rest?",
-      "options": ["The employer made an error", "Taxes and deductions were removed", "The salary is paid quarterly", "Your bank took a fee"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Exactly. Taxes and deductions are taken out before you ever see the money.",
-        "incorrect": "Assuming an employer error is a natural first reaction — but nothing went wrong. Taxes and mandatory deductions are automatically removed before the deposit is made. What you negotiated and what you receive are always different numbers."
-      },
-      "hint": "Think about what governments and employers take out of every paycheck automatically.",
-      "retry_variants": [
-        {
-          "prompt": "A friend earns $800/week but only receives $596. The missing $204 most likely went to:",
-          "options": ["A savings account they set up", "Taxes and paycheck deductions", "A fee from their employer", "Their health insurance company only"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "Someone accepts a job paying $3,000/month but their first deposit is $2,190. What explains the gap?",
-          "options": ["Direct deposit takes 2–3 days to clear", "Taxes and deductions reduced the amount", "The employer underpaid them", "They were paid for only part of the month"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "s2",
-      "type": "multiple_choice",
-      "prompt": "Marcus works 40 hours at $18/hr this week. His paycheck shows $518.40 deposited. What do we call the $720 he actually earned?",
-      "options": ["Net pay — what he received", "Gross pay — the total before deductions", "Taxable income — what gets taxed only", "Take-home pay — his real earnings"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Right. Gross pay is the full amount earned before any taxes or deductions.",
-        "incorrect": "Options A and D both describe what Marcus received — but net pay and take-home pay are the same thing. The $720 he earned before anything was taken out is gross pay. The $518.40 deposited is net pay."
-      },
-      "hint": "Gross = what you earn. Net = what you keep.",
-      "retry_variants": [
-        {
-          "prompt": "A job offer says $48,000/year. After taxes, your actual take-home is about $34,000. Which figure is your gross pay?",
-          "options": ["$34,000 — that's what you receive", "$48,000 — the pre-deduction total", "Neither — gross is calculated differently", "$41,000 — the average of the two"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "After deductions, Jana receives $1,100 per paycheck. She earned $1,450 before anything was taken out. What is her gross pay?",
-          "options": ["$1,100", "$350 (the difference)", "$1,450", "$1,275 (the average)"],
-          "correct_answer": 2
-        }
-      ]
-    },
-    {
-      "id": "s3",
-      "type": "numeric_input",
-      "prompt": "Maya earns $800 this week. Deductions total $160. What is her net pay?",
-      "unit": "$",
-      "correct_answer": "640",
-      "tolerance": 0.5,
-      "feedback": {
-        "correct": "Correct! $800 − $160 = $640 take-home.",
-        "incorrect": "If your answer was higher than $640, you may have added the deductions instead of subtracting them. Deductions always reduce your pay. Net pay = Gross − Deductions = $800 − $160 = $640."
-      },
-      "hint": "Net pay = Gross pay − Total deductions.",
-      "retry_variants": [
-        {
-          "prompt": "Jordan earns $950 this week. Deductions total $190. What is Jordan's net pay?",
-          "unit": "$",
-          "correct_answer": "760",
-          "tolerance": 0.5
-        },
-        {
-          "prompt": "Sam's gross pay is $1,200. After $288 in deductions, what does Sam take home?",
-          "unit": "$",
-          "correct_answer": "912",
-          "tolerance": 0.5
-        }
-      ]
-    },
-    {
-      "id": "learn-2",
-      "type": "learn",
-      "heading": "How Taxes Reduce Your Pay",
-      "body": "The government automatically withholds income tax from your paycheck before you ever touch it — your employer is legally required to send it directly to the IRS and your state tax authority. Most workers owe both federal and state income tax, though nine states (including Texas and Florida) collect no state income tax at all. Federal tax is progressive: the more you earn, the higher the percentage you pay — a $30,000 earner might be in the 12% bracket, while a $200,000 earner pays 22–24% on their top dollars. The exact amount withheld depends on your income level and your W-4 form, which is why paychecks can surprise first-time workers."
-    },
-    {
-      "id": "s4",
-      "type": "multiple_choice",
-      "prompt": "Your first paycheck shows three deductions: federal income tax, a 401(k) contribution, and health insurance. Your coworker opted out of both the 401(k) and health insurance. Which deduction will you both definitely share?",
-      "options": ["401(k) — the government requires all workers to contribute", "Health insurance — employers must provide coverage by law", "Federal income tax — the government withholds it automatically, no opt-out", "None — all deductions can be waived with the right paperwork"],
-      "correct_answer": 2,
-      "feedback": {
-        "correct": "Federal income tax is the only mandatory one of the three. The 401(k) and health insurance are voluntary — your coworker proved it by opting out of both.",
-        "incorrect": "Your coworker opted out of the 401(k) and health insurance — those are voluntary choices. Federal income tax cannot be skipped; it's withheld automatically by law regardless of any other elections."
-      },
-      "hint": "Mandatory means no one can opt out — not with any form or paperwork.",
-      "retry_variants": [
-        {
-          "prompt": "Which deduction do ALL U.S. employees have automatically taken from their paycheck?",
-          "options": ["401(k) contribution", "Health insurance premium", "Federal income tax", "Union dues"],
-          "correct_answer": 2
-        },
-        {
-          "prompt": "Your new hire paperwork gives you options: enroll in the company 401(k), choose a health plan, or skip both. One paycheck deduction appears regardless of what you choose. Which one?",
-          "options": ["Health insurance — required for all full-time employees", "The 401(k) minimum — employers must match contributions", "Federal income tax — withheld automatically by law", "FICA only — income tax doesn't apply at entry-level salaries"],
-          "correct_answer": 2
-        }
-      ]
-    },
-    {
-      "id": "s5",
-      "type": "multiple_choice",
-      "prompt": "Sam earns $32,000/year and pays 12% federal tax. Priya earns $180,000 and pays 24% on her higher income. What describes the U.S. federal income tax system?",
-      "options": ["Flat tax — everyone pays the same rate", "Progressive — higher earners pay a higher percentage", "Regressive — lower earners pay a higher percentage", "Voluntary — you choose your rate"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Correct. Progressive means the rate rises with income — Sam pays 12%, Priya pays 24%.",
-        "incorrect": "A flat tax would mean everyone pays the same percentage — but that's not how U.S. federal income tax works. Sam's 12% and Priya's 24% are different rates, and that gap is intentional. The system is called progressive because the rate progresses upward as income rises."
-      },
-      "hint": "Think about what 'progressive' means — the rate scales upward with earnings.",
-      "retry_variants": [
-        {
-          "prompt": "Someone's income jumps from $40,000 to $90,000. Under progressive taxation, what happens to their federal tax rate?",
-          "options": ["It stays the same — rates never change mid-year", "It increases as they enter higher tax brackets", "It decreases because they contribute more to the economy", "It only changes if they itemize deductions"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "Which person likely pays the highest percentage of their income in federal taxes?",
-          "options": ["A part-time worker earning $18,000/year", "A teacher earning $52,000/year", "A doctor earning $280,000/year", "All three pay the same rate"],
-          "correct_answer": 2
-        }
-      ]
-    },
-    {
-      "id": "s6",
-      "type": "multiple_choice",
-      "prompt": "Kim just moved from Texas (no state income tax) to California (state income tax) for a new job. What change should she expect on her paycheck?",
-      "options": ["Her federal tax rate will increase", "A state income tax line will appear as a new deduction", "Her FICA deductions will stop", "Her gross pay will automatically decrease"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Correct. California withholds state income tax — a deduction that didn't exist when Kim was in Texas.",
-        "incorrect": "State income tax isn't set by the federal government — each state makes its own rules. Texas opted for no state income tax; California has one. Kim's federal deductions and FICA stay exactly the same after the move. What changes is the addition of a California state tax line that never appeared on her Texas paychecks."
-      },
-      "hint": "Some states don't have income tax at all — others do.",
-      "retry_variants": [
-        {
-          "prompt": "Alex lives in Florida (no state income tax). His friend in Oregon has a state tax line on his stub. What explains the difference?",
-          "options": ["Alex has higher federal deductions that replace state tax", "Each state decides whether to collect state income tax", "Federal tax covers state expenses in Florida", "FICA is higher in Oregon to compensate"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "A paycheck from Washington State (no income tax) and one from New York will differ because:",
-          "options": ["FICA rates vary by state", "New York withholds state income tax; Washington does not", "Federal tax is higher in high-cost states", "Employers in New York pay more into Medicare"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "s15",
-      "type": "multiple_choice",
-      "prompt": "Your salary is $40,000 and you're in the 12% federal tax bracket. You get a $2,000 raise — and your manager warns you it might push part of your income into the 22% bracket. Should you be worried the raise could leave you with less take-home pay than before?",
-      "options": ["Yes — if any income reaches the 22% bracket, your whole salary gets taxed at that rate", "No — only the dollars above the bracket threshold are taxed at 22%; the raise always increases your take-home", "Yes — crossing a bracket line triggers a penalty on your full annual income", "No — income tax brackets are irrelevant once you have a W-4 on file"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Your manager's concern is a common misconception. Tax brackets are marginal — only the dollars above each threshold get taxed at the higher rate. Your first $40,000 stays in the 12% bracket regardless. A raise always means more take-home pay, never less.",
-        "incorrect": "This is one of the most common misconceptions about how tax brackets work. Brackets are marginal, not total. If you earn $42,000 and the 22% bracket starts at $41,775, only the $225 above that line is taxed at 22% — your other $41,775 stays at the lower rate. A raise always puts more money in your pocket, even when it crosses a bracket line."
-      },
-      "hint": "Think about what 'progressive' means: each bracket only applies to the income within that range — not to everything below it.",
-      "retry_variants": [
-        {
-          "prompt": "Someone says, 'I turned down a bonus because it would push me into a higher tax bracket and I'd lose money.' Is this reasoning correct?",
-          "options": ["Yes — higher brackets apply to your total income, so a bonus can backfire", "No — only the income above each bracket line is taxed at the higher rate; you always come out ahead", "Yes — this is exactly why high earners avoid raises late in the year", "No — tax brackets only apply to income over $100,000"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "Maya earns $41,000. A $1,500 bonus pushes her to $42,500, crossing into the next tax bracket at $41,775. What happens to the tax rate on her original $41,000?",
-          "options": ["It gets recalculated at the higher rate along with everything else", "Nothing — her first $41,775 stays taxed at the lower rate; only the $725 above the threshold moves to the higher rate", "She owes a bracket-crossing penalty on the full amount", "Her employer must withhold the bonus separately at a 0% rate"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "learn-3",
-      "type": "learn",
-      "heading": "FICA: Social Security & Medicare",
-      "body": "FICA (Federal Insurance Contributions Act) is a mandatory 7.65% deduction split between two programs: Social Security, which takes 6.2%, and Medicare, which takes 1.45%. Social Security funds your monthly retirement income when you stop working, plus disability benefits if you're ever unable to work — Medicare funds your healthcare coverage once you turn 65. Unlike income tax, FICA is the same flat percentage for every worker at every income level — no brackets, no opt-out, no exceptions. Every paycheck you earn is contributing to benefits you'll be eligible to claim decades from now."
-    },
-    {
-      "id": "s7",
-      "type": "multiple_choice",
-      "prompt": "You've paid 7.65% FICA on every paycheck throughout your career. When you retire at 67, what do those decades of contributions give you access to?",
-      "options": ["A lump sum reimbursement of all the FICA you paid in", "Monthly retirement income through Social Security and healthcare coverage through Medicare", "Medicaid coverage and state pension payments", "The right to stop paying FICA during your final working years"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Exactly. Social Security provides monthly income so you can retire without a paycheck. Medicare covers your healthcare costs. Both are funded by the FICA you paid throughout your career.",
-        "incorrect": "If you chose Medicaid — an easy mix-up. Medicare and Medicaid sound similar but are different programs: Medicare is funded by your FICA and covers Americans 65+; Medicaid is a separate program for low-income households. FICA builds your access to Social Security income and Medicare coverage, not Medicaid."
-      },
-      "hint": "Think about what happens to that money long-term — not just where it goes right now.",
-      "retry_variants": [
-        {
-          "prompt": "You see two FICA lines on your stub: one for retirement benefits, one for senior healthcare. What are they?",
-          "options": ["Medicaid and Medicare", "Social Security and Medicare", "401(k) and Health Insurance", "Federal Tax and State Tax"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "FICA supports Americans who are older or disabled. Which two programs?",
-          "options": ["Unemployment and food assistance", "Social Security and Medicare", "Veterans benefits and Medicaid", "College aid and disability grants"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "s8",
-      "type": "numeric_input",
-      "prompt": "Social Security takes 6.2% of gross pay. You earn $500. How much is deducted?",
-      "unit": "$",
-      "correct_answer": "31",
-      "tolerance": 0.05,
-      "feedback": {
-        "correct": "Right! $500 × 6.2% = $31.00.",
-        "incorrect": "Social Security is always a fixed percentage of gross pay — convert the rate to a decimal and multiply directly. If you guessed or used a different base: $500 × 0.062 = $31.00. Always apply the percentage to gross pay, not to any post-deduction figure."
-      },
-      "hint": "Multiply gross pay by 0.062.",
-      "retry_variants": [
-        {
-          "prompt": "Social Security takes 6.2%. You earn $800. How much is your Social Security deduction?",
-          "unit": "$",
-          "correct_answer": "49.60",
-          "tolerance": 0.05
-        },
-        {
-          "prompt": "Your gross paycheck is $1,000. Social Security is 6.2%. How much goes to Social Security?",
-          "unit": "$",
-          "correct_answer": "62",
-          "tolerance": 0.05
-        }
-      ]
-    },
-    {
-      "id": "s9",
-      "type": "numeric_input",
-      "prompt": "FICA takes 7.65% of your gross pay — 6.2% for Social Security plus 1.45% for Medicare. Your paycheck shows $800 gross. How much is deducted for FICA in total?",
-      "unit": "$",
-      "correct_answer": "61.20",
-      "tolerance": 0.05,
-      "feedback": {
-        "correct": "Right! $800 × 0.0765 = $61.20 — that's Social Security ($49.60) + Medicare ($11.60) combined.",
-        "incorrect": "If you calculated only Social Security (6.2%) or only Medicare (1.45%) separately, remember FICA is both programs combined. 6.2% + 1.45% = 7.65%. Apply the full combined rate to gross: $800 × 0.0765 = $61.20."
-      },
-      "hint": "FICA = Social Security (6.2%) + Medicare (1.45%) = 7.65% total. Multiply gross by 0.0765.",
-      "retry_variants": [
-        {
-          "prompt": "Your gross pay is $600. FICA is 7.65% combined. What is your total FICA deduction?",
-          "unit": "$",
-          "correct_answer": "45.90",
-          "tolerance": 0.05
-        },
-        {
-          "prompt": "Your pay stub shows: Social Security deducted $74.40, Medicare deducted $17.40. What is your total FICA deduction?",
-          "unit": "$",
-          "correct_answer": "91.80",
-          "tolerance": 0.05
-        }
-      ]
-    },
-    {
-      "id": "learn-4",
-      "type": "learn",
-      "heading": "Net Pay & Budgeting",
-      "body": "Net pay is the amount deposited into your bank account after all taxes and deductions are removed — it's the only number that reflects what you can actually spend, save, or use to pay bills. Budgeting from your gross salary instead of net pay is a common and costly mistake: a $45,000 salary might only deliver around $2,700/month to your bank account, not the $3,750/month the offer letter implies. Pre-tax deductions — like 401(k) contributions or employer health insurance — are subtracted before taxes are calculated, which lowers your taxable income and reduces what you owe. This means a $100 pre-tax 401(k) contribution actually costs you less than $100 in take-home pay, because the tax savings offset part of it."
-    },
-    {
-      "id": "s11",
-      "type": "multiple_choice",
-      "prompt": "You earn $1,000 gross. You contribute $100 to a pre-tax 401(k). Assuming a 20% income tax rate, how much income tax do you owe?",
-      "options": ["$200 — 20% of $1,000", "$180 — 20% of $900 (gross minus 401k)", "$100 — equal to your 401(k) contribution", "$80 — 20% of $400"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Exactly. The $100 401(k) is deducted first, so taxable income is $900. Tax = 20% × $900 = $180 — you save $20 vs. no contribution.",
-        "incorrect": "If you chose $200, you applied the tax rate to the full $1,000 — but that ignores what 'pre-tax' means. The $100 401(k) is removed before the government calculates what you owe. Taxable income = $1,000 − $100 = $900. Tax = 20% × $900 = $180."
-      },
-      "hint": "Pre-tax deductions come out before income tax is calculated.",
-      "retry_variants": [
-        {
-          "prompt": "Alex's gross pay is $1,200. He contributes $150 to a pre-tax health plan. What is his taxable income?",
-          "options": ["$1,200", "$1,050", "$1,150", "$900"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "Without any pre-tax deductions, you'd owe $240 in income taxes (24% of $1,000). You add a $200 pre-tax 401(k). How much do you now owe in income taxes?",
-          "options": ["$240", "$192", "$200", "$48"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "s12",
-      "type": "numeric_input",
-      "prompt": "Alex earns $15/hr and works 40 hours. Total deductions are 28%. What is Alex's net pay?",
-      "unit": "$",
-      "correct_answer": "432",
-      "tolerance": 0.5,
-      "feedback": {
-        "correct": "Correct! Gross = $600. Net = $600 × 0.72 = $432.",
-        "incorrect": "A common error is applying the deduction rate to the wrong number. Step 1: find gross pay first — $15 × 40 hours = $600. Step 2: deduct 28% from gross — $600 × (1 − 0.28) = $432. The deduction rate always applies to gross pay, not to the hourly rate alone."
-      },
-      "hint": "Step 1: hours × rate = gross. Step 2: multiply by (1 − deduction rate).",
-      "retry_variants": [
-        {
-          "prompt": "Jamie earns $20/hr and works 35 hours. Deductions are 25%. What is Jamie's net pay?",
-          "unit": "$",
-          "correct_answer": "525",
-          "tolerance": 0.5
-        },
-        {
-          "prompt": "Taylor earns $12/hr, works 40 hours, and has 30% in deductions. What is Taylor's net pay?",
-          "unit": "$",
-          "correct_answer": "336",
-          "tolerance": 0.5
-        }
-      ]
-    },
-    {
-      "id": "s13",
-      "type": "multiple_choice",
-      "prompt": "Jordan gets a $50,000/year job offer and signs a $1,450/month apartment lease based on that number. Casey gets the same offer but waits for her first paycheck before apartment hunting. Who made the smarter financial move?",
-      "options": ["Jordan — securing housing quickly prevents losing a good apartment", "Casey — a $50,000 salary typically nets only $2,700–$3,000/month, making $1,450 rent potentially unaffordable", "Jordan — at $50,000, take-home is close enough to gross to plan from", "Neither — both should negotiate a higher salary before committing to anything"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Casey's instinct was right. After taxes and deductions, $50,000 gross typically yields around $2,700–$3,000/month net. A $1,450 lease would consume over half of Jordan's actual take-home — a genuinely risky position.",
-        "incorrect": "Jordan is in a risky spot. $50,000 gross becomes roughly $2,700–$3,000/month after taxes and deductions. A $1,450 lease on that net income leaves very little room for anything else. Always budget from take-home, not the offer number."
-      },
-      "hint": "Calculate what $50,000 actually delivers per month after taxes. Then see if $1,450 feels comfortable.",
-      "retry_variants": [
-        {
-          "prompt": "You earn $60,000/year. Which number is most useful for planning monthly expenses?",
-          "options": ["$60,000 ÷ 12 = $5,000/month gross", "Your estimated monthly net pay (~$3,600–$3,900)", "$60,000 total annual salary", "The number before your last raise"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "You and your coworker earn identical $58,000 salaries, but she takes home $290 more per month than you. You're in the same state. What most likely explains the difference?",
-          "options": ["She is working undisclosed overtime hours", "She has elected fewer pre-tax deductions, so more of her gross reaches her paycheck", "Your employer is over-withholding — you should file a complaint", "This is not possible — same salary always means the same take-home"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "s16",
-      "type": "multiple_choice",
-      "prompt": "Devon and Maya both earn $50,000/year at the same company in the same state. Devon contributes $300/month to a pre-tax 401(k); Maya contributes nothing. Devon's monthly take-home is lower. Is Devon actually worse off financially?",
-      "options": ["Yes — lower take-home always means you have less money overall", "No — Devon pays less income tax (smaller taxable income) and his $300 is growing in a retirement account, not lost", "Yes — pre-tax deductions are a net loss because they reduce your paycheck permanently", "No — Devon and Maya must have identical finances since they earn the same salary"],
-      "correct_answer": 1,
-      "feedback": {
-        "correct": "Right. Devon's take-home is slightly lower — but his taxable income is $300 smaller each month, so he owes less in income tax. The take-home drop is actually less than $300 because the tax savings offset part of it. And the $300 isn't gone — it's accumulating in a retirement account.",
-        "incorrect": "Devon's situation is stronger than the lower take-home suggests. His pre-tax 401(k) reduces his taxable income, lowering his income tax bill — so the take-home reduction is smaller than $300. And that $300 goes to a retirement account, not the government. Same salary, but Devon is building long-term wealth while Maya is not."
-      },
-      "hint": "Where does Devon's $300 actually go — and what happens to his income taxes because of it?",
-      "retry_variants": [
-        {
-          "prompt": "Two coworkers earn the same $3,000 gross paycheck. One contributes $200 to a pre-tax health plan; the other does not. Why would they have different take-home amounts AND different income tax bills?",
-          "options": ["Employers charge extra fees for health plan participants", "The pre-tax contribution reduces taxable income — lowering both the income tax owed and the take-home, but in different amounts", "Net pay differences always come from FICA, not income tax", "They cannot have different tax bills on the same gross pay"],
-          "correct_answer": 1
-        },
-        {
-          "prompt": "After learning about pre-tax deductions, a student says: 'So they're basically free — the tax savings cancel out the cost entirely.' What's wrong with this reasoning?",
-          "options": ["Nothing — pre-tax deductions are entirely free because of tax savings", "It overstates the benefit: pre-tax deductions lower your tax bill but still reduce take-home pay — just by less than if you paid post-tax", "Pre-tax deductions don't reduce income taxes at all", "The student is correct that FICA is the only real deduction cost"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "s14",
-      "type": "matching",
-      "prompt": "Match each deduction to what it funds.",
-      "pairs": [
-        { "term": "Social Security", "match": "Retirement & disability benefits" },
-        { "term": "Medicare", "match": "Healthcare for seniors 65+" },
-        { "term": "Federal Income Tax", "match": "Military, roads, public services" },
-        { "term": "State Income Tax", "match": "Local schools and infrastructure" }
-      ],
-      "feedback": {
-        "correct": "Perfect. Each deduction funds a specific program or level of government.",
-        "incorrect": "Medicare and Medicaid are often confused — only Medicare appears on your pay stub and is funded by FICA. Also: federal tax funds national programs (military, agencies, interstate roads); state tax funds local services (schools, state infrastructure). Each line is earmarked for a specific purpose."
-      },
-      "hint": "Think: retirees, senior healthcare, national services, local services.",
-      "retry_variants": [
-        {
-          "type": "multiple_choice",
-          "prompt": "Which deduction funds retirement income for Americans when they stop working?",
-          "options": ["Medicare", "Federal Income Tax", "Social Security", "State Income Tax"],
-          "correct_answer": 2
-        },
-        {
-          "type": "multiple_choice",
-          "prompt": "Which deduction pays for healthcare for Americans who are 65 or older?",
-          "options": ["Social Security", "Medicare", "State Income Tax", "Federal Income Tax"],
-          "correct_answer": 1
-        }
-      ]
-    },
-    {
-      "id": "learn-5",
-      "type": "learn",
-      "heading": "Reading a Real Pay Stub",
-      "body": "A pay stub is a detailed record of each paycheck: it shows your gross pay at the top, then lists every deduction line by line — federal tax, state tax, Social Security, Medicare, and any voluntary benefits like a 401(k) or health insurance. To find your net pay, add up all the deduction amounts and subtract from gross — the math should always match what was deposited. It's worth reviewing every pay stub, not just the first: employers make payroll errors, rates can change at the start of a new year, and benefit elections can shift. Knowing how to read your own stub is how you catch a mistake before it costs you money."
-    },
-    {
-      "id": "s10",
-      "type": "paycheck_read",
-      "prompt": "Read Jordan's pay stub. What is Jordan's net pay?",
-      "paycheck": {
-        "name": "Jordan Martinez",
-        "period": "Oct 1–15, 2024",
-        "gross_pay": 1200,
-        "deductions": [
-          { "label": "Federal Income Tax", "amount": 84.00 },
-          { "label": "State Income Tax", "amount": 42.00 },
-          { "label": "Social Security (6.2%)", "amount": 74.40 },
-          { "label": "Medicare (1.45%)", "amount": 17.40 }
-        ]
-      },
-      "unit": "$",
-      "correct_answer": "982.20",
-      "tolerance": 0.05,
-      "feedback": {
-        "correct": "Yes! $1,200 − $217.80 in deductions = $982.20.",
-        "incorrect": "Add all deductions first, then subtract from gross. $84 + $42 + $74.40 + $17.40 = $217.80. Then $1,200 − $217.80 = $982.20. If your answer was off, check that you included all four deduction lines."
-      },
-      "hint": "Add up all deductions first, then subtract the total from gross pay.",
-      "retry_variants": [
-        {
-          "type": "numeric_input",
-          "prompt": "Sam's gross pay is $900. Deductions: Federal $63, State $31.50, Social Security $55.80, Medicare $13.05. What is Sam's net pay?",
-          "unit": "$",
-          "correct_answer": "736.65",
-          "tolerance": 0.5
-        },
-        {
-          "type": "numeric_input",
-          "prompt": "Gross pay: $1,500. Deductions: $105 federal, $52.50 state, $93 SS, $21.75 Medicare. What is net pay?",
-          "unit": "$",
-          "correct_answer": "1227.75",
-          "tolerance": 0.5
-        }
-      ]
+      "id": "mc-budget-from-gross",
+      "myth":    "My $52,000 salary means I can spend $4,333 a month.",
+      "reality": "After taxes and FICA, take-home is closer to $3,200/month. Budgeting from gross is one of the most common \u2014 and costliest \u2014 first-paycheck mistakes."
     }
   ],
-  "final_evaluation": [
+
+  "sections": [
     {
-      "id": "fe1",
-      "type": "numeric_input",
-      "question": "You earn $1,000 gross. Federal tax: 10%, state tax: 4%, FICA: 7.65%. What is your net pay?",
-      "unit": "$",
-      "correct_answer": "783.50",
-      "tolerance": 1.0,
-      "feedback": {
-        "correct": "Correct! $1,000 − $100 − $40 − $76.50 = $783.50.",
-        "incorrect": "Calculate each deduction separately before subtracting. Federal: $1,000 × 10% = $100. State: $1,000 × 4% = $40. FICA: $1,000 × 7.65% = $76.50. Total deductions: $216.50. Net = $1,000 − $216.50 = $783.50."
-      },
-      "retry_variants": [
-        {
-          "prompt": "You earn $800 gross. Federal tax: 10%, state tax: 4%, FICA: 7.65%. What is your net pay?",
-          "unit": "$",
-          "correct_answer": "626.80",
-          "tolerance": 1.0
-        }
-      ]
+      "section_id": "s1-hook",
+      "type": "hook",
+      "content": "## A text from Jordan\n\n> I just got my first paycheck!!\n>\n> Something's wrong \u2014 it says **$1,538** but my salary is **$52,000**.\n>\n> Can you help me figure out what happened?\n\nJordan just started her first full-time job. We're going to help her figure out where the missing money went \u2014 by building her paystub line by line."
     },
+
     {
-      "id": "fe2",
-      "type": "multiple_choice",
-      "question": "Rashida just retired. She receives a monthly Social Security check and uses Medicare for her doctor visits. Which payroll deduction she paid throughout her career funded both of these benefits?",
-      "options": ["Federal income tax", "State income tax", "FICA", "Her employer's health plan"],
-      "correct_answer": 2,
-      "feedback": {
-        "correct": "Correct. FICA — the 7.65% deduction split between Social Security and Medicare — is what funded both benefits Rashida now uses.",
-        "incorrect": "Federal and state income taxes go to general government budgets — not to retirement or healthcare programs. FICA is the deduction specifically earmarked for Social Security (Rashida's monthly check) and Medicare (her healthcare coverage). Neither federal nor state income tax has anything to do with either benefit."
-      },
-      "retry_variants": [
-        {
-          "prompt": "A coworker says 'FICA and federal income tax are basically the same — both are mandatory government deductions.' What's the key difference?",
-          "options": ["They are the same — both go to the general government budget", "FICA funds specific programs (Social Security and Medicare); income tax goes to general government spending", "Federal income tax is optional with the right W-4 form; FICA is not", "FICA only applies to salaried workers, not hourly workers"],
-          "correct_answer": 1
-        }
-      ]
+      "section_id": "s2-predict",
+      "type": "check",
+      "check_type": "multiple_choice",
+      "question": "Before we unpack the paystub \u2014 what's your best guess for where most of the missing $462 went?",
+      "options": [
+        "Taxes",
+        "Bank or employer fees",
+        "Automatic savings",
+        "An error she needs to fix"
+      ],
+      "correct_answer": 0,
+      "explanation": "Most of it is taxes \u2014 federal income, state income, Social Security, and Medicare. There might also be a benefit Jordan signed up for. We'll unpack each one next."
     },
+
     {
-      "id": "fe3",
-      "type": "multiple_choice",
-      "question": "Your gross pay is $1,000. You contribute $150 to a pre-tax 401(k). With a 20% income tax rate, how much income tax do you owe?",
-      "options": ["$200 — 20% of $1,000", "$170 — 20% of $850", "$150 — equal to your 401(k) contribution", "$30 — the tax you avoided"],
+      "section_id": "s3-reveal-paystub",
+      "type": "simulation",
+      "component": "PaystubReveal",
+      "scenario_id": "jordan-first-paycheck"
+    },
+
+    {
+      "section_id": "s4-check-gross",
+      "type": "check",
+      "check_type": "multiple_choice",
+      "question": "Looking at Jordan's paystub: which number is her gross pay?",
+      "options": [
+        "$1,627 \u2014 the amount deposited",
+        "$2,000 \u2014 the total before anything is removed"
+      ],
       "correct_answer": 1,
-      "feedback": {
-        "correct": "$150 comes out before taxes, so taxable income = $1,000 − $150 = $850. Tax = 20% × $850 = $170.",
-        "incorrect": "If you chose $200, you applied the tax rate to the full gross — but pre-tax means the $150 exits before the government calculates your tax. Taxable income = $1,000 − $150 = $850. Tax = 20% × $850 = $170, not $200."
-      },
-      "retry_variants": [
-        {
-          "prompt": "Gross pay: $1,500. Pre-tax health plan: $200. Tax rate: 25%. What is the taxable income after the pre-tax deduction?",
-          "options": ["$1,500", "$1,300", "$1,250", "$1,100"],
-          "correct_answer": 1
-        }
-      ]
+      "explanation": "Gross is the top line \u2014 before deductions. Net is what hits the bank."
     },
+
     {
-      "id": "fe4",
-      "type": "multiple_choice",
-      "question": "Maria earns $800/week and takes home $576. What percentage is being deducted?",
-      "options": ["20%", "24%", "28%", "32%"],
-      "correct_answer": 2,
-      "feedback": {
-        "correct": "Right! $224 deducted ÷ $800 = 28%.",
-        "incorrect": "Find the deduction amount first, then divide by gross — not by take-home. $800 − $576 = $224 deducted. $224 ÷ $800 = 0.28 = 28%. Dividing by take-home instead of gross would give a different and incorrect percentage."
-      },
-      "retry_variants": [
-        {
-          "prompt": "Chris earns $500/week and takes home $375. What percentage is being deducted?",
-          "options": ["20%", "25%", "30%", "35%"],
-          "correct_answer": 1
-        }
-      ]
+      "section_id": "s5-sort-deductions",
+      "type": "simulation",
+      "component": "DeductionSorter",
+      "scenario_id": "mandatory-vs-optional"
     },
+
     {
-      "id": "fe5",
-      "type": "numeric_input",
-      "question": "Pay stub: Gross $600 | Federal Tax −$42 | State Tax −$21 | Social Security −$37.20 | Medicare −$8.70. What is the net pay?",
-      "unit": "$",
-      "correct_answer": "491.10",
-      "tolerance": 0.5,
-      "feedback": {
-        "correct": "Correct! $42 + $21 + $37.20 + $8.70 = $108.90 in deductions. $600 − $108.90 = $491.10.",
-        "incorrect": "Sum every deduction line before subtracting — don't skip any. $42 + $21 + $37.20 + $8.70 = $108.90 total. $600 − $108.90 = $491.10. If your answer was too high, you likely left out one of the four deduction lines."
-      },
-      "retry_variants": [
-        {
-          "prompt": "Gross $750 | Federal Tax −$52.50 | State Tax −$26.25 | Social Security −$46.50 | Medicare −$10.88. What is net pay?",
-          "unit": "$",
-          "correct_answer": "613.87",
-          "tolerance": 0.5
-        }
-      ]
+      "section_id": "s6-slider-progressive",
+      "type": "simulation",
+      "component": "ProgressiveTaxSlider",
+      "scenario_id": "us-federal-2024-single"
     },
+
     {
-      "id": "fe6",
-      "type": "multiple_choice",
-      "question": "You got a job paying $42,000/year. You estimate your take-home will be about 72% of gross. Roughly how much will you have to budget each month?",
-      "options": ["$3,500/month — full salary ÷ 12", "$2,520/month — net annual ÷ 12", "$2,100/month — 60% of gross ÷ 12", "$4,200/month — with overtime assumed"],
+      "section_id": "s7-bracket-myth-misconception",
+      "type": "misconception",
+      "misconception_ref": "mc-bracket-myth"
+    },
+
+    {
+      "section_id": "s8-bracket-math",
+      "type": "simulation",
+      "component": "BracketMathViz",
+      "scenario_id": "jordan-raise-40k-to-42k"
+    },
+
+    {
+      "section_id": "s9-paystub-builder",
+      "type": "simulation",
+      "component": "PaystubBuilder",
+      "scenario_id": "jordan-build-full-paystub"
+    },
+
+    {
+      "section_id": "s10-transfer",
+      "type": "check",
+      "check_type": "multiple_choice",
+      "setup": "**Unrelated scenario \u2014 new person.**\n\nYour friend Maya just got a $45,000 offer in California and signed a lease for **$1,600/month**. She's pumped.",
+      "question": "Is Maya okay?",
+      "options": [
+        "She's fine \u2014 $45K/12 = $3,750/month, so rent is under half",
+        "She's in trouble \u2014 her take-home is closer to $2,700/month, so $1,600 eats almost 60% of it",
+        "She's fine as long as she doesn't have a car payment",
+        "Impossible to say without knowing her credit score"
+      ],
       "correct_answer": 1,
-      "feedback": {
-        "correct": "$42,000 × 0.72 = $30,240 net/year. $30,240 ÷ 12 = $2,520/month. Always budget from net — not gross.",
-        "incorrect": "If you chose $3,500, you divided gross salary by 12 — but that's the number before taxes. After deductions you keep roughly 72%: $42,000 × 0.72 = $30,240/year, or $2,520/month. The gap between $3,500 and $2,520 is $980 per month — a meaningful difference when planning rent."
-      },
-      "retry_variants": [
-        {
-          "prompt": "Someone earns $36,000/year and takes home 75% after deductions. What is their estimated monthly net pay?",
-          "options": ["$3,000 — gross ÷ 12", "$2,250 — net ÷ 12", "$1,800 — half of gross ÷ 12", "$2,700 — 90% of gross ÷ 12"],
-          "correct_answer": 1
-        }
-      ]
+      "explanation": "Maya budgeted from gross ($3,750/month). But take-home on $45K is closer to $2,700. That $1,050/month gap is the exact mistake this lesson is about."
+    },
+
+    {
+      "section_id": "s11-reflection",
+      "type": "reflection",
+      "prompt": "In one sentence, how would you explain the gap between Jordan's $52,000 salary and her $1,538 paycheck?"
+    }
+  ],
+
+  "exit_ticket": [
+    {
+      "question": "You earn $1,000 gross. Federal tax takes 10%, state takes 4%, FICA takes 7.65%. What's your net pay?",
+      "options": ["$783.50", "$893.50", "$826.50", "$716.50"],
+      "correct_answer": 0
+    },
+    {
+      "question": "A coworker turned down a bonus because 'it would push me into a higher tax bracket and I'd lose money.' What's wrong with that reasoning?",
+      "options": [
+        "Nothing \u2014 bonuses really can backfire",
+        "Only the dollars above the bracket threshold get taxed higher; the rest stays at the lower rate, so a bonus always increases take-home",
+        "Bonuses are taxed at a special 0% rate",
+        "The coworker is right only if they earn over $100K"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "You get a $48,000 job offer and expect to keep about 72% after deductions. Roughly how much should you budget for each month?",
+      "options": [
+        "$4,000 \u2014 gross \u00f7 12",
+        "$2,880 \u2014 net \u00f7 12",
+        "$2,400 \u2014 60% of gross \u00f7 12",
+        "$3,600 \u2014 90% of gross \u00f7 12"
+      ],
+      "correct_answer": 1
     }
   ]
 }

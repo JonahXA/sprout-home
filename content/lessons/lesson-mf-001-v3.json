@@ -48,7 +48,7 @@
       "section_id": "s2-predict",
       "type": "check",
       "check_type": "multiple_choice",
-      "question": "Before we dig in \u2014 where do you think the missing $462 went? (Quick gut check, no wrong answer.)",
+      "question": "Before we unpack the paystub \u2014 what's your best guess for where most of the missing $462 went?",
       "options": [
         "Taxes",
         "Bank or employer fees",
@@ -56,7 +56,7 @@
         "An error she needs to fix"
       ],
       "correct_answer": 0,
-      "explanation": "Your instinct was probably taxes \u2014 and that's most of it. But the full answer is more interesting: it's actually three different taxes, plus FICA, plus possibly a benefit she signed up for. Let's build the paystub together."
+      "explanation": "Most of it is taxes \u2014 federal income, state income, Social Security, and Medicare. There might also be a benefit Jordan signed up for. We'll unpack each one next."
     },
 
     {
