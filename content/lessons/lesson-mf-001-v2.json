@@ -1,0 +1,330 @@
+{
+  "id": "lesson-mf-001",
+  "version": 2,
+  "title": "How Your Paycheck Works",
+  "module": "module-mf",
+  "estimated_minutes": { "min": 8, "target": 9, "max": 11 },
+  "locked": false,
+  "narrative": {
+    "protagonist": {
+      "name": "Jordan",
+      "context": "Just started her first full-time job out of high school at $52,000/year"
+    },
+    "hook_question": "Why did Jordan's first paycheck say $1,538 instead of $2,000?"
+  },
+  "learning_objectives": [
+    "Distinguish gross pay from net pay",
+    "Identify which paycheck deductions are mandatory vs optional",
+    "Explain why federal tax is progressive",
+    "Correctly apply marginal tax bracket reasoning",
+    "Calculate net pay from a gross figure and a set of deduction rates",
+    "Budget from net pay rather than gross salary"
+  ],
+  "standards": {
+    "jumpstart": ["Income & Careers 1b", "Income & Careers 2a"],
+    "note": "Replace with verified Jump$tart standard IDs before pilot."
+  },
+  "steps": [
+    {
+      "id": "s1-hook",
+      "type": "scenario_hook",
+      "persona": "jordan",
+      "message": {
+        "format": "text_from_jordan",
+        "body": "I just got my first paycheck!! Something's wrong \u2014 it says $1,538 but my salary is $52,000. Can you help me figure out what happened?"
+      },
+      "cta": "Help Jordan"
+    },
+    {
+      "id": "s2-predict",
+      "type": "predict",
+      "prompt": "Before we dig in \u2014 where do you think the missing $462 went?",
+      "subtitle": "No wrong answer. Just your best guess.",
+      "options": [
+        { "id": "taxes", "label": "Taxes" },
+        { "id": "fees", "label": "Bank or employer fees" },
+        { "id": "savings", "label": "Automatic savings" },
+        { "id": "error", "label": "An error she needs to fix" }
+      ],
+      "callback_at_step": "s10-reflection",
+      "callback_phrasing": "You guessed {label}. Here's how close that was:"
+    },
+    {
+      "id": "s3-reveal-paystub",
+      "type": "reveal_sequence",
+      "heading": "Let's unpack Jordan's paystub",
+      "instruction": "Tap each line to reveal what it is.",
+      "artifact_template": "paystub",
+      "subject_name": "Jordan Martinez",
+      "period": "First paycheck \u2014 bi-weekly",
+      "items": [
+        {
+          "id": "gross",
+          "label": "Gross Pay",
+          "value": 2000.00,
+          "kind": "total",
+          "caption": "What Jordan's contract says she earns every two weeks \u2014 before anything is taken out."
+        },
+        {
+          "id": "fed",
+          "label": "Federal Income Tax",
+          "value": -160.00,
+          "kind": "deduction",
+          "caption": "Goes to the IRS. Pays for national programs \u2014 military, roads, agencies."
+        },
+        {
+          "id": "state",
+          "label": "State Income Tax",
+          "value": -60.00,
+          "kind": "deduction",
+          "caption": "Jordan lives in Michigan. Nine states don't have this \u2014 Texas and Florida, for example."
+        },
+        {
+          "id": "ss",
+          "label": "Social Security",
+          "value": -124.00,
+          "kind": "deduction",
+          "caption": "6.2% of gross. Funds retirement income Jordan will collect when she's older."
+        },
+        {
+          "id": "medicare",
+          "label": "Medicare",
+          "value": -29.00,
+          "kind": "deduction",
+          "caption": "1.45% of gross. Funds healthcare coverage at age 65+."
+        },
+        {
+          "id": "net",
+          "label": "Net Pay",
+          "value": 1627.00,
+          "kind": "total",
+          "caption": "What actually hits Jordan's bank account. (Her real check was $1,538 \u2014 she has one more deduction we'll uncover later.)",
+          "animate_in": true
+        }
+      ],
+      "completion_prompt": "So the missing money went to taxes and deductions. Let's make sure that sticks."
+    },
+    {
+      "id": "s4-check",
+      "type": "multiple_choice",
+      "prompt": "Looking at Jordan's paystub: which number is her gross pay?",
+      "options": ["$1,627 \u2014 the amount deposited", "$2,000 \u2014 the total before anything is removed"],
+      "correct_answer": 1,
+      "compact": true,
+      "feedback": {
+        "correct": "Right. Gross is the top line \u2014 before deductions.",
+        "incorrect": "$1,627 is what hit the bank. Gross is the number *before* anything is taken out \u2014 the $2,000 at the top of the stub."
+      }
+    },
+    {
+      "id": "s5-sort-mandatory",
+      "type": "drag_categorize",
+      "prompt": "Which of these come out of every paycheck \u2014 and which only if Jordan chooses them?",
+      "chips": [
+        { "id": "fed",       "label": "Federal Income Tax",   "correct_bucket": "mandatory" },
+        { "id": "ss",        "label": "Social Security",      "correct_bucket": "mandatory" },
+        { "id": "medicare",  "label": "Medicare",             "correct_bucket": "mandatory" },
+        { "id": "401k",      "label": "401(k) contribution",  "correct_bucket": "optional"  },
+        { "id": "health",    "label": "Health Insurance",     "correct_bucket": "optional"  },
+        { "id": "union",     "label": "Union Dues",           "correct_bucket": "optional"  }
+      ],
+      "buckets": [
+        { "id": "mandatory", "label": "Every paycheck, no choice" },
+        { "id": "optional",  "label": "Only if Jordan signs up" }
+      ],
+      "chip_feedback": {
+        "fed":      { "wrong": "Federal tax is withheld by law \u2014 no opt-out." },
+        "ss":       { "wrong": "Social Security (6.2%) is part of FICA \u2014 mandatory." },
+        "medicare": { "wrong": "Medicare (1.45%) is part of FICA \u2014 mandatory." },
+        "401k":     { "wrong": "401(k) is a retirement plan Jordan chooses to join." },
+        "health":   { "wrong": "Health insurance is an elected benefit \u2014 she can decline." },
+        "union":    { "wrong": "Union dues only apply if she's in a union role." }
+      },
+      "completion_feedback": "The mandatory column is basically 'the government.' The optional column is Jordan's choices \u2014 most of which are good ideas, but still choices."
+    },
+    {
+      "id": "s6-slider-progressive",
+      "type": "slider_explore",
+      "prompt": "Drag the slider to see what percent of income the federal government takes at different salary levels.",
+      "slider": {
+        "label": "Annual salary",
+        "min": 20000,
+        "max": 220000,
+        "step": 1000,
+        "default": 52000,
+        "format": "$%d",
+        "snap_markers": [25000, 52000, 95000, 180000]
+      },
+      "visualization": "progressive_tax_bar",
+      "data_function": "us_federal_effective_rate_2024",
+      "live_readout": "At {salary}, the effective federal rate is about {rate}%.",
+      "question": "What pattern are you seeing as salary goes up?",
+      "options": [
+        "Everyone pays the same percent (flat)",
+        "Higher earners pay a higher percent (progressive)",
+        "Higher earners pay a lower percent (regressive)",
+        "The rate is random"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. The U.S. federal system is progressive \u2014 the rate climbs with income.",
+        "incorrect": "Watch the bar as you drag from $25K to $180K. The rate keeps rising \u2014 that's what 'progressive' means."
+      }
+    },
+    {
+      "id": "s7-bracket-math",
+      "type": "bracket_math",
+      "setup": {
+        "persona": "jordan",
+        "message": "My manager said I can get a $2,000 raise but warned me it might push me into a higher tax bracket and I'd take home less money overall. Should I turn it down??"
+      },
+      "pre_question": {
+        "prompt": "Quick gut check \u2014 is Jordan right to worry?",
+        "options": [
+          "Yes \u2014 crossing into a higher bracket means the whole salary gets taxed higher",
+          "No \u2014 only the dollars above the bracket line get taxed higher; the raise always helps"
+        ],
+        "correct_answer": 1
+      },
+      "visualization": {
+        "type": "stacked_bracket_bars",
+        "before": { "salary": 40000, "label": "Jordan now: $40,000" },
+        "after":  { "salary": 42000, "label": "Jordan with raise: $42,000" },
+        "brackets_2024_single": [
+          { "upto": 11600,  "rate": 0.10 },
+          { "upto": 47150,  "rate": 0.12 },
+          { "upto": 100525, "rate": 0.22 },
+          { "upto": 191950, "rate": 0.24 }
+        ],
+        "animate": "sweep_bracket_lines",
+        "highlight_delta": true,
+        "show_running_totals": true,
+        "readout_lines": [
+          "Before: Jordan owes about ${before_tax} in federal tax.",
+          "After: Jordan owes about ${after_tax} in federal tax.",
+          "The extra $2,000 is taxed at {marginal_rate}% \u2014 not her whole salary.",
+          "Take-home goes UP by about ${takehome_delta}."
+        ]
+      },
+      "post_reveal_question": {
+        "prompt": "So what should you tell Jordan?",
+        "options": [
+          "Turn down the raise \u2014 she'll actually lose money",
+          "Take the raise \u2014 she'll keep most of it, and only the new dollars hit the higher rate",
+          "Take the raise only if she also increases her 401(k)",
+          "It depends on which state she lives in"
+        ],
+        "correct_answer": 1,
+        "feedback": {
+          "correct": "Exactly. A raise can never reduce her take-home \u2014 that's a myth the bracket system causes people to believe.",
+          "incorrect": "Check the readout again: her take-home went UP, not down. A higher bracket only applies to the dollars above the line."
+        }
+      }
+    },
+    {
+      "id": "s8-build-paystub",
+      "type": "build_artifact",
+      "artifact": "paystub",
+      "intro": "Time to build Jordan's real paystub. Use the rates on the right to fill in each deduction.",
+      "subject": {
+        "name": "Jordan Martinez",
+        "period": "Pay period: first bi-weekly",
+        "gross": 2000.00
+      },
+      "rates_panel": [
+        { "label": "Federal Income Tax", "rate": 0.08,    "id": "fed"      },
+        { "label": "State Income Tax",   "rate": 0.03,    "id": "state"    },
+        { "label": "Social Security",    "rate": 0.062,   "id": "ss"       },
+        { "label": "Medicare",           "rate": 0.0145,  "id": "medicare" },
+        { "label": "Health Insurance (flat)", "flat": 48.10, "id": "health" }
+      ],
+      "fields": [
+        { "id": "fed",      "kind": "numeric", "expected": 160.00,  "tolerance": 0.50, "hint_on_wrong": "Federal is 8% of gross. Try $2,000 \u00d7 0.08." },
+        { "id": "state",    "kind": "numeric", "expected": 60.00,   "tolerance": 0.50, "hint_on_wrong": "State is 3% of gross. $2,000 \u00d7 0.03." },
+        { "id": "ss",       "kind": "numeric", "expected": 124.00,  "tolerance": 0.50, "hint_on_wrong": "Social Security is 6.2%. $2,000 \u00d7 0.062." },
+        { "id": "medicare", "kind": "numeric", "expected": 29.00,   "tolerance": 0.50, "hint_on_wrong": "Medicare is 1.45%. $2,000 \u00d7 0.0145." },
+        { "id": "health",   "kind": "numeric", "expected": 48.10,   "tolerance": 0.10, "hint_on_wrong": "Health insurance is a flat $48.10 \u2014 not a percentage." },
+        { "id": "net_pay",  "kind": "computed", "expected_formula": "gross - fed - state - ss - medicare - health", "expected": 1578.90, "tolerance": 1.00,
+          "hint_on_wrong": "Net = Gross minus every deduction. Add them up and subtract from $2,000." }
+      ],
+      "running_totals": {
+        "show": true,
+        "line_above_net": "Total deductions so far"
+      },
+      "on_complete": {
+        "message": "This is Jordan's actual paystub. The real number \u2014 $1,578.90 \u2014 matches what she told us at the start, once you include the health insurance she'd signed up for.",
+        "highlight_net": true
+      }
+    },
+    {
+      "id": "s9-transfer-maya",
+      "type": "transfer_scenario",
+      "persona": "maya",
+      "message": "Okay, unrelated \u2014 my friend Maya just got a $45,000 offer in California and signed a lease for $1,600/month. She's pumped. Is she okay?",
+      "prompt": "Run the math on what $45,000 actually delivers per month. Is $1,600 rent sustainable?",
+      "estimated_net_monthly": 2700,
+      "options": [
+        "She's fine \u2014 $45K/12 = $3,750/month, so rent is under half",
+        "She's in trouble \u2014 her take-home is closer to $2,700/month, so $1,600 eats almost 60% of it",
+        "She's fine as long as she doesn't have a car payment",
+        "Impossible to say without knowing her credit score"
+      ],
+      "correct_answer": 1,
+      "feedback": {
+        "correct": "Right. $45K gross \u2248 $2,700 net per month. $1,600 rent on that is a tight, risky position \u2014 and she committed before checking.",
+        "incorrect": "She budgeted from gross ($3,750/month). But take-home on $45K is closer to $2,700. That $1,050/month gap is the exact mistake this lesson is about."
+      }
+    },
+    {
+      "id": "s10-reflection",
+      "type": "reflection",
+      "callback_to": "s2-predict",
+      "callback_phrasing": "At the start, you guessed the missing money went to {predicted_label}. {accuracy_line}",
+      "prompt": "In one sentence, how would you explain the gap to Jordan?",
+      "mode": "phrase_pick",
+      "phrase_bank": [
+        "Your salary is what you earn; your paycheck is what's left after mandatory deductions.",
+        "The government takes taxes and FICA before the money ever reaches your account.",
+        "Budget from the number that shows up in your bank \u2014 not the number on your offer letter.",
+        "About 20\u201325% of your gross pay goes to taxes and Social Security every paycheck."
+      ],
+      "allow_custom": true,
+      "no_grading": true,
+      "completion_message": "Nicely done. Next time someone gets a raise or a job offer, you'll know which number actually matters."
+    }
+  ],
+  "final_evaluation": {
+    "mode": "performance_task",
+    "task_id": "paystub_builder_jordan",
+    "task_description": "The build_artifact step (s8) doubles as the performance task. A correctly completed paystub with all 6 fields within tolerance = lesson passed. Teacher dashboard shows per-field correctness.",
+    "passing_criteria": {
+      "required_correct": 5,
+      "total_fields": 6,
+      "must_include_field": "net_pay"
+    },
+    "skip_quiz": true,
+    "rationale": "Classic end-of-lesson quizzes duplicate what the performance task already measures. Building a correct paystub is the evidence of learning."
+  },
+  "teacher_layer": {
+    "lesson_plan_url": "/teacher/lessons/lesson-mf-001/plan",
+    "discussion_prompts": [
+      "Jordan budgeted $1,500/month in rent based on her $52,000 salary. What should she do now?",
+      "Nine states have no state income tax. Is that good or bad for residents? What's the tradeoff?",
+      "FICA is a flat 7.65% for everyone regardless of income (up to a cap). Is that fair? Why or why not?"
+    ],
+    "exit_ticket": "Write one sentence explaining the difference between gross and net pay to a younger sibling.",
+    "standards_map": ["Jump$tart: Income & Careers 1b, 2a"],
+    "class_report_fields": ["completion", "paystub_fields_correct", "time_on_task", "bracket_myth_first_try"]
+  },
+  "accessibility": {
+    "wcag_target": "AA",
+    "requirements": [
+      "All drag-drop interactions have keyboard equivalents (Tab to select, Space to pick up, Arrow to move, Enter to drop).",
+      "Every color-coded state (correct/incorrect, mandatory/optional) also uses an icon or label.",
+      "Slider exposes aria-valuenow, aria-valuemin, aria-valuemax and a live-region readout.",
+      "Animations respect prefers-reduced-motion.",
+      "Minimum contrast 4.5:1 for body text, 3:1 for large text.",
+      "All interactive elements reachable by keyboard in logical order."
+    ]
+  }
+}
