@@ -1,0 +1,166 @@
+{
+  "id": "lesson-mf-001",
+  "title": "How Your Paycheck Works",
+  "module": "module-mf",
+  "course_id": "module-mf",
+  "order": 1,
+  "duration_minutes": 10,
+  "xp_reward": 100,
+  "locked": false,
+
+  "objectives": [
+    { "id": "obj-1", "text": "Distinguish gross pay from net pay" },
+    { "id": "obj-2", "text": "Identify which deductions are mandatory vs optional" },
+    { "id": "obj-3", "text": "Explain why a raise into a higher bracket never reduces take-home pay" },
+    { "id": "obj-4", "text": "Calculate net pay from a gross figure and deduction rates" },
+    { "id": "obj-5", "text": "Budget from take-home rather than gross salary" }
+  ],
+
+  "vocabulary": [
+    { "term": "Gross Pay",   "definition": "The full amount earned before any taxes or deductions." },
+    { "term": "Net Pay",     "definition": "What actually hits your bank account \u2014 gross minus every deduction." },
+    { "term": "FICA",        "definition": "A mandatory 7.65% payroll deduction: 6.2% Social Security + 1.45% Medicare." },
+    { "term": "Progressive Tax", "definition": "A tax system where higher earners pay a higher percentage on the income in each bracket." },
+    { "term": "Marginal Rate",   "definition": "The tax rate that applies only to the next dollar earned \u2014 not to your whole salary." }
+  ],
+
+  "misconceptions": [
+    {
+      "id": "mc-bracket-myth",
+      "myth":    "A raise that pushes me into a higher tax bracket means I'll take home less money.",
+      "reality": "Only the dollars above the bracket threshold are taxed at the higher rate. A raise always increases take-home pay \u2014 never decreases it."
+    },
+    {
+      "id": "mc-budget-from-gross",
+      "myth":    "My $52,000 salary means I can spend $4,333 a month.",
+      "reality": "After taxes and FICA, take-home is closer to $3,200/month. Budgeting from gross is one of the most common \u2014 and costliest \u2014 first-paycheck mistakes."
+    }
+  ],
+
+  "sections": [
+    {
+      "section_id": "s1-hook",
+      "type": "hook",
+      "content": "## A text from Jordan\n\n> I just got my first paycheck!!\n>\n> Something's wrong \u2014 it says **$1,538** but my salary is **$52,000**.\n>\n> Can you help me figure out what happened?\n\nJordan just started her first full-time job. We're going to help her figure out where the missing money went \u2014 by building her paystub line by line."
+    },
+
+    {
+      "section_id": "s2-predict",
+      "type": "check",
+      "check_type": "multiple_choice",
+      "question": "Before we dig in \u2014 where do you think the missing $462 went? (Quick gut check, no wrong answer.)",
+      "options": [
+        "Taxes",
+        "Bank or employer fees",
+        "Automatic savings",
+        "An error she needs to fix"
+      ],
+      "correct_answer": 0,
+      "explanation": "Your instinct was probably taxes \u2014 and that's most of it. But the full answer is more interesting: it's actually three different taxes, plus FICA, plus possibly a benefit she signed up for. Let's build the paystub together."
+    },
+
+    {
+      "section_id": "s3-reveal-paystub",
+      "type": "simulation",
+      "component": "PaystubReveal",
+      "scenario_id": "jordan-first-paycheck"
+    },
+
+    {
+      "section_id": "s4-check-gross",
+      "type": "check",
+      "check_type": "multiple_choice",
+      "question": "Looking at Jordan's paystub: which number is her gross pay?",
+      "options": [
+        "$1,627 \u2014 the amount deposited",
+        "$2,000 \u2014 the total before anything is removed"
+      ],
+      "correct_answer": 1,
+      "explanation": "Gross is the top line \u2014 before deductions. Net is what hits the bank."
+    },
+
+    {
+      "section_id": "s5-sort-deductions",
+      "type": "simulation",
+      "component": "DeductionSorter",
+      "scenario_id": "mandatory-vs-optional"
+    },
+
+    {
+      "section_id": "s6-slider-progressive",
+      "type": "simulation",
+      "component": "ProgressiveTaxSlider",
+      "scenario_id": "us-federal-2024-single"
+    },
+
+    {
+      "section_id": "s7-bracket-myth-misconception",
+      "type": "misconception",
+      "misconception_ref": "mc-bracket-myth"
+    },
+
+    {
+      "section_id": "s8-bracket-math",
+      "type": "simulation",
+      "component": "BracketMathViz",
+      "scenario_id": "jordan-raise-40k-to-42k"
+    },
+
+    {
+      "section_id": "s9-paystub-builder",
+      "type": "simulation",
+      "component": "PaystubBuilder",
+      "scenario_id": "jordan-build-full-paystub"
+    },
+
+    {
+      "section_id": "s10-transfer",
+      "type": "check",
+      "check_type": "multiple_choice",
+      "setup": "**Unrelated scenario \u2014 new person.**\n\nYour friend Maya just got a $45,000 offer in California and signed a lease for **$1,600/month**. She's pumped.",
+      "question": "Is Maya okay?",
+      "options": [
+        "She's fine \u2014 $45K/12 = $3,750/month, so rent is under half",
+        "She's in trouble \u2014 her take-home is closer to $2,700/month, so $1,600 eats almost 60% of it",
+        "She's fine as long as she doesn't have a car payment",
+        "Impossible to say without knowing her credit score"
+      ],
+      "correct_answer": 1,
+      "explanation": "Maya budgeted from gross ($3,750/month). But take-home on $45K is closer to $2,700. That $1,050/month gap is the exact mistake this lesson is about."
+    },
+
+    {
+      "section_id": "s11-reflection",
+      "type": "reflection",
+      "prompt": "In one sentence, how would you explain the gap between Jordan's $52,000 salary and her $1,538 paycheck?"
+    }
+  ],
+
+  "exit_ticket": [
+    {
+      "question": "You earn $1,000 gross. Federal tax takes 10%, state takes 4%, FICA takes 7.65%. What's your net pay?",
+      "options": ["$783.50", "$893.50", "$826.50", "$716.50"],
+      "correct_answer": 0
+    },
+    {
+      "question": "A coworker turned down a bonus because 'it would push me into a higher tax bracket and I'd lose money.' What's wrong with that reasoning?",
+      "options": [
+        "Nothing \u2014 bonuses really can backfire",
+        "Only the dollars above the bracket threshold get taxed higher; the rest stays at the lower rate, so a bonus always increases take-home",
+        "Bonuses are taxed at a special 0% rate",
+        "The coworker is right only if they earn over $100K"
+      ],
+      "correct_answer": 1
+    },
+    {
+      "question": "You get a $48,000 job offer and expect to keep about 72% after deductions. Roughly how much should you budget for each month?",
+      "options": [
+        "$4,000 \u2014 gross \u00f7 12",
+        "$2,880 \u2014 net \u00f7 12",
+        "$2,400 \u2014 60% of gross \u00f7 12",
+        "$3,600 \u2014 90% of gross \u00f7 12"
+      ],
+      "correct_answer": 1
+    }
+  ]
+}
