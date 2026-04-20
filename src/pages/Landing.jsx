@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/config/routes";
 import {
  ArrowRight, BookOpen, TrendingUp, Shield,
- Zap, Star, BarChart2, Target, CheckCircle, Calculator,
- DollarSign, PiggyBank, CreditCard, Brain,
+ Zap, BarChart2, Target, CheckCircle, Calculator,
+ DollarSign, PiggyBank, CreditCard, Brain, Building2, Award, Layers,
 } from "lucide-react";
 import logoImg from "../assets/logo.png";
 
@@ -91,12 +91,6 @@ const HOW_IT_WORKS = [
  { step: "02", title: "Choose a course", desc: "Start with budgeting basics or jump straight to investing — your call." },
  { step: "03", title: "Learn by doing", desc: "Answer questions, run simulations, and earn certificates as you progress." },
  { step: "04", title: "Build real skills", desc: "Apply what you learn. Track your progress. Grow your financial confidence." },
-];
-
-const QUOTES = [
- { text: "I finally understand how my paycheck works. I learned more in one afternoon than in a full semester of economics.", name: "Marcus T.", role: "High school senior" },
- { text: "The budget simulator felt like a game. I did not realize I was learning until I was three lessons deep.", name: "Priya K.", role: "College freshman" },
- { text: "Finally a platform that teaches personal finance without making it boring. I recommend it to everyone.", name: "Jordan L.", role: "Community college student" },
 ];
 
 // ─── Sub-sections ─────────────────────────────────────────────
@@ -306,7 +300,7 @@ function Courses({ navigate }) {
  <div style={{ textAlign: "center", marginBottom: 52 }}>
  <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: navy, marginBottom: 10 }}>What you will learn</p>
  <h2 style={{ fontSize: "clamp(28px,4vw,44px)", fontWeight: 800, color: "#111827", margin: 0, letterSpacing: "-0.5px" }}>
- Real courses. Real financial skills.
+ Bite-sized lessons. Real world skills.
  </h2>
  </div>
  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: 16 }}>
@@ -333,7 +327,7 @@ function Courses({ navigate }) {
  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
  <span style={{ fontSize: 13, color: "#9ca3af" }}>{c.lessons} lessons</span>
  <div style={{ display: "flex", alignItems: "center", gap: 5, color: navy, fontSize: 13, fontWeight: 600 }}>
- Start course <ArrowRight size={13} />
+ Start learning <ArrowRight size={13} />
  </div>
  </div>
  </div>
@@ -419,33 +413,51 @@ function HowItWorks() {
  );
 }
 
-function SocialProof() {
+const PARTNERSHIP_BULLETS = [
+ { icon: Building2, title: "Industry-Focused Modules", desc: "Real-world curriculum built with companies to reflect how finance actually works in your career." },
+ { icon: Layers, title: "Structured Learning Paths", desc: "Courses, simulations, and assessments combined into cohesive multi-part learning experiences." },
+ { icon: Award, title: "Shareable Certificates", desc: "Complete a module to earn a verifiable certificate you can share with employers and schools." },
+];
+
+function Partnerships({ navigate }) {
  return (
  <section style={{ padding: "88px 24px", background: "white" }}>
  <div style={{ maxWidth: 1100, margin: "0 auto" }}>
- <div style={{ textAlign: "center", marginBottom: 48 }}>
- <div style={{ display: "flex", justifyContent: "center", gap: 3, marginBottom: 14 }}>
- {[...Array(5)].map((_,i) => <Star key={i} size={17} color="#f59e0b" fill="#f59e0b" />)}
- </div>
- <h2 style={{ fontSize: "clamp(24px,3.5vw,38px)", fontWeight: 800, color: "#111827", margin: 0, letterSpacing: "-0.5px" }}>
- Students love Sprout
+ <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }} className="sprout-two-col">
+ <div>
+ <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: navy, marginBottom: 10 }}>What's coming</p>
+ <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 800, color: "#111827", margin: "0 0 16px", letterSpacing: "-0.5px" }}>
+ Bigger learning experiences, built with partners.
  </h2>
+ <p style={{ fontSize: 15, color: "#6b7280", lineHeight: 1.7, margin: "0 0 28px" }}>
+ We're partnering with leading companies and educational organizations to build larger learning modules and industry-focused experiences — combining courses, simulations, and real-world challenges into structured paths.
+ </p>
+ <button
+ onClick={() => navigate(createPageUrl("Modules"))}
+ style={{ display: "inline-flex", alignItems: "center", gap: 8, background: navy, color: "white", fontWeight: 700, fontSize: 15, padding: "12px 24px", borderRadius: 999, border: "none", cursor: "pointer", boxShadow: `0 2px 8px ${navyShadow}` }}
+ onMouseOver={e => { e.currentTarget.style.background = navyMid; }}
+ onMouseOut={e => { e.currentTarget.style.background = navy; }}
+ >
+ Explore Upcoming Modules <ArrowRight size={16} />
+ </button>
+ <p style={{ fontSize: 12, color: "#9ca3af", marginTop: 12 }}>Modules combine courses, simulations, and certificates into one structured path.</p>
  </div>
- <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 16 }}>
- {QUOTES.map(q => (
- <div key={q.name} style={{ background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 16, padding: 24 }}>
- <p style={{ color: "#374151", lineHeight: 1.7, marginBottom: 18, marginTop: 0, fontSize: 15 }}>"{q.text}"</p>
- <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
- <div style={{ width: 34, height: 34, background: navy, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700, fontSize: 13 }}>
- {q.name[0]}
+ <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+ {PARTNERSHIP_BULLETS.map(b => {
+ const Icon = b.icon;
+ return (
+ <div key={b.title} style={{ display: "flex", gap: 16, alignItems: "flex-start", background: "#f8f9fa", border: "1px solid #e5e7eb", borderRadius: 14, padding: 20 }}>
+ <div style={{ flexShrink: 0, width: 44, height: 44, background: accentSoft, border: `1px solid ${accentBorder}`, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
+ <Icon size={20} color={navy} />
  </div>
  <div>
- <p style={{ color: "#111827", fontWeight: 600, fontSize: 14, margin: 0 }}>{q.name}</p>
- <p style={{ color: "#9ca3af", fontSize: 12, margin: 0 }}>{q.role}</p>
+ <h3 style={{ fontSize: 15, fontWeight: 700, color: "#111827", margin: "0 0 4px" }}>{b.title}</h3>
+ <p style={{ fontSize: 13, color: "#6b7280", margin: 0, lineHeight: 1.6 }}>{b.desc}</p>
  </div>
  </div>
+ );
+ })}
  </div>
- ))}
  </div>
  </div>
  </section>
@@ -576,7 +588,7 @@ export default function Landing() {
  <SimulationsSection navigate={navigate} />
  <HowItWorks />
  <WhatYouGet />
- <SocialProof />
+ <Partnerships navigate={navigate} />
  <CTA navigate={navigate} />
  <Footer />
  </div>
